@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>故 omiki之墓</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 網頁整體：深鐵灰色放射狀漸層背景 */
+        body {
+            background: radial-gradient(circle at 50% 45%, #383b3e 0%, #1a1c1e 70%, #0d0e0f 100%);
+            color: #b5b5b5; 
+            font-family: "Noto Serif TC", "Apple LiMin", "SimSun", "Times New Roman", serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 40px;
+            cursor: pointer; /* 讓使用者知道這個頁面可以點擊互動 */
+        }
+
+        /* 左右兩側收尖灰色裝飾線 */
+        .side-line {
+            position: fixed;
+            top: 5vh;      
+            bottom: 5vh;   
+            width: 3px;
+            background: linear-gradient(to bottom, transparent 0%, #4f5255 15%, #5a5d60 50%, #4f5255 85%, transparent 100%);
+            box-shadow: -1px 0 1px rgba(0,0,0,0.5), 1px 0 1px rgba(255,255,255,0.05);
+            z-index: 1;
+            pointer-events: none; /* 讓裝飾線不影響點擊偵測 */
+        }
+        .line-left { left: 3vw; }
+        .line-right { right: 3vw; }
+
+        /* 滿版大氣佈局網格：分為左、中、right三大區塊 */
+        .grave-layout {
+            width: 100%;
+            max-width: 1200px; /* 拉寬容器，充分利用螢幕左右空間 */
+            display: grid;
+            grid-template-columns: 1fr 300px 1fr; /* 左右對稱大空間，中央保留石碑本體 */
+            gap: 40px;
+            align-items: center;
+            z-index: 2;
+            animation: textAppear 1.5s ease-in-out;
+            pointer-events: none; /* 允許點擊事件穿透到 body */
+        }
+
+        /* 確保內容內的所有文字與區塊依然能保持穿透，不干擾點擊 */
+        .grave-layout * {
+            pointer-events: none;
+        }
+
+        /* ================= 中央核心：石碑本體 ================= */
+        .center-tombstone {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 石碑相框 */
+        .engraved-frame {
+            width: 185px;
+            height: 235px;
+            margin-bottom: 25px;
+            background: #121212;
+            padding: 8px;
+            box-shadow: 
+                inset 4px 4px 10px rgba(0, 0, 0, 0.9), 
+                inset -4px -4px 8px rgba(0, 0, 0, 0.7),
+                1px 1px 1px rgba(255, 255, 255, 0.08);
+            border: 1px solid #1f1f1f;
+            position: relative;
+        }
+
+        /* 黑白遺照遮罩層 */
+        .photo-mask {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border: 1px solid #050505;
+        }
+        .photo-mask::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.85) 100%);
+            pointer-events: none;
+            mix-blend-mode: multiply;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(140%) brightness(85%);
+            opacity: 0.85;
+            display: block;
+        }
+
+        /* 喪葬黑絲帶 */
+        .black-ribbon {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 45px;
+            height: 18px;
+            background: #000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            z-index: 3;
+        }
+        .black-ribbon::before, .black-ribbon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+        .black-ribbon::before {
+            left: -12px;
+            border-width: 0 12px 18px 0;
+            border-color: transparent #000 transparent transparent;
+        }
+        .black-ribbon::after {
+            right: -12px;
+            border-width: 18px 12px 0 0;
+            border-color: #000 transparent transparent transparent;
+        }
+
+        /* 中央主姓名（正宗台式紅漆刻字） */
+        .grave-main-name {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            font-size: clamp(42px, 5vw, 54px);
+            color: #bd2626; /* 暗紅漆色 */
+            font-weight: 900;
+            letter-spacing: 8px;
+            text-shadow: 
+                -2px -2px 2px rgba(0, 0, 0, 0.9), 
+                1px 1px 1px rgba(255, 255, 255, 0.15);
+        }
+
+        /* 直排文字共通設定 */
+        .vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            text-shadow: -1px -1px 1px rgba(0,0,0,0.8);
+        }
+
+        /* ================= 右側空地：時間與事蹟對聯 ================= */
+        .right-space {
+            display: flex;
+            flex-direction: row; /* 由右至左排過去 */
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 30px; /* 直排字串之間的間距 */
+        }
+
+        .date-text {
+            font-size: clamp(15px, 1.8vw, 18px);
+            color: #8c8c8c;
+            letter-spacing: 5px;
+            padding-top: 20px;
+        }
+
+        .couplet-right {
+            font-size: clamp(16px, 2vw, 20px);
+            color: #6a6e71; /* 稍深的石刻字色 */
+            letter-spacing: 6px;
+            padding-top: 60px; /* 做出高低錯落感 */
+            border-left: 1px dotted rgba(255,255,255,0.03);
+            padding-left: 15px;
+        }
+
+        /* ================= 左側空地：幹部名冊與世子孫 ================= */
+        .left-space {
+            display: flex;
+            flex-direction: row-reverse; /* 傳統由右至左閱讀 */
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 25px;
+        }
+
+        .descendants-main {
+            font-size: clamp(14px, 1.6vw, 17px);
+            color: #8c8c8c;
+            letter-spacing: 4px;
+            padding-top: 40px;
+        }
+
+        .descendants-title {
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        .couplet-left {
+            font-size: clamp(16px, 2vw, 20px);
+            color: #6a6e71;
+            letter-spacing: 6px;
+            padding-top: 60px;
+            border-right: 1px dotted rgba(255,255,255,0.03);
+            padding-right: 15px;
+        }
+
+        /* ================= 底部：全體默哀 ================= */
+        .global-footer {
+            position: absolute;
+            bottom: 4vh;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .silence-notice {
+            font-size: 14px;
+            color: #b49429;
+            font-weight: bold;
+            letter-spacing: 4px;
+            text-shadow: -1px -1px 1px #000;
+        }
+
+        /* ================= 點擊獻花動態樣式 ================= */
+        .flower {
+            position: absolute;
+            font-size: clamp(24px, 4vw, 38px); /* 略微調大最大尺寸 */
+            user-select: none;
+            z-index: 5;
+            transform-origin: center;
+            /* 透過 CSS 變數實作隨機的大放異彩縮放與旋轉效果 */
+            animation: flowerFadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.65)) grayscale(5%);
+        }
+
+        @keyframes flowerFadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.2) rotate(var(--rand-rot-start));
+            }
+            to {
+                opacity: 0.95;
+                transform: translate(-50%, -50%) scale(var(--rand-scale)) rotate(var(--rand-rot-end));
+            }
+        }
+
+        @keyframes textAppear {
+            from { opacity: 0; transform: scale(0.98); filter: blur(3px); }
+            to { opacity: 1; transform: scale(1); filter: blur(0); }
+        }
+
+        /* 平板與手機板自適應 */
+        @media (max-width: 850px) {
+            body { padding-bottom: 80px; }
+            .grave-layout {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                justify-items: center;
+            }
+            .left-space, .right-space {
+                flex-direction: row;
+                justify-content: center;
+                gap: 20px;
+            }
+            .couplet-left, .couplet-right {
+                border: none;
+                padding: 0;
+                padding-top: 0;
+            }
+            .date-text, .descendants-main { padding-top: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="side-line line-left"></div>
+    <div class="side-line line-right"></div>
+
+    <div class="grave-layout">
+        
+        <div class="left-space">
+            <div class="vertical-text couplet-left">襲擊各服一舉之力收編眾生</div>
+            
+            <div class="vertical-text descendants-main">
+                <div class="descendants-title">列祖列宗</div>
+                首都媽媽 牢魏 水藍色洋蔥 胎裡
+            </div>
+            
+            <div class="vertical-text descendants-main" style="padding-top: 80px;">
+                暨嬌生慣養全體世子孫仝立
+            </div>
+        </div>
+
+        <div class="center-tombstone">
+            <div class="engraved-frame">
+                <div class="black-ribbon"></div>
+                <div class="photo-mask">
+                    <img class="avatar" src="https://cdn.discordapp.com/avatars/839381498351190036/3ea0f92ec08c0cc642cd90df9aee3634.png" alt="omiki">
+                </div>
+            </div>
+            <h1 class="grave-main-name">故 菜菜之墓</h1>
+        </div>
+
+        <div class="right-space">
+            <div class="vertical-text date-text">
+                民 國 一 一 五 年 五 月 十 六 日 子 時 壽 終
+            </div>
+            
+            <div class="vertical-text couplet-right">手握小男娘之衣服</div>
+        </div>
+
+    </div>
+
+    <div class="global-footer">
+        <div class="silence-notice">
+            【 全體成員 默哀 2 分鐘 · 願 omiki 安息 】
+        </div>
+    </div>
+
+    <script>
+        // 準備多種適合致敬、追思風格的花朵樣式
+        const flowerStyles = ['🥀','❤️‍🩹','🎆','🥵'];
+
+        document.body.addEventListener('click', function(e) {
+            // 創建花朵元素
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            
+            // 【隨機花色】從陣列中隨機抽選一個樣式
+            const randomFlower = flowerStyles[Math.floor(Math.random() * flowerStyles.length)];
+            flower.innerText = randomFlower;
+
+            // 【隨機旋轉與縮放】增加錯落有致的真實感
+            const startRot = Math.floor(Math.random() * 60) - 30;  // 起始抖動弧度
+            const endRot = Math.floor(Math.random() * 360);        // 最終落地角度
+            const randScale = (Math.random() * 0.5 + 0.75).toFixed(2); // 縮放比例控制在 0.75倍 ~ 1.25倍 之間
+
+            // 將變數安全傳遞至 CSS 中運算
+            flower.style.setProperty('--rand-rot-start', startRot + 'deg');
+            flower.style.setProperty('--rand-rot-end', endRot + 'deg');
+            flower.style.setProperty('--rand-scale', randScale);
+
+            // 抓取精確的滑鼠點擊位置
+            flower.style.left = e.pageX + 'px';
+            flower.style.top = e.pageY + 'px';
+
+            // 渲染至頁面上
+            document.body.appendChild(flower);
+        });
+    </script>
+
+</body>
+</html>
