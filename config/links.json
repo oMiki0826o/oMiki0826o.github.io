@@ -13,7 +13,7 @@
     { "label": "Projects", "url": "/pages/projects.html", "icon": "fa-solid fa-code" },
     { "label": "Articles", "url": "/pages/articles.html", "icon": "fa-solid fa-pen-nib" },
     { "label": "Timeline", "url": "/pages/timeline.html", "icon": "fa-solid fa-timeline" },
-    { "label": "上香", "url": "#", "icon": "fa-solid fa-fire" }
+    { "label": "上香", "url": "/pages/ripmiki.html", "icon": "fa-solid fa-fire" }
   ],
   "nav": [
     { "label": "首頁", "url": "/index.html" },
