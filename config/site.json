@@ -23,10 +23,10 @@
   "signature": "Building something interesting every day.",
 
   // 頭像圖片網址，會同時用在 Hero 大頭貼與導覽列左側小頭像
-  "avatar": "https://placehold.co/240x240/FFE6F0/8a6a8f?text=Miki",
+  "avatar": "https://cdn.discordapp.com/avatars/839381498351190036/3ea0f92ec08c0cc642cd90df9aee3634.png?size=2048&quality=lossless",
 
   // 瀏覽器分頁圖示（favicon）的圖片網址
-  "favicon": "https://placehold.co/64x64/FFE6F0/8a6a8f?text=M",
+  "favicon": "https://cdn.discordapp.com/avatars/839381498351190036/3ea0f92ec08c0cc642cd90df9aee3634.png?size=2048&quality=lossless",
 
   // 首頁第一張大卡片（鎮樓圖）使用的圖片網址，想換圖只要改這個網址
   "featuredImage": "https://placehold.co/1920x1080/FBEFFF/8a6a8f?text=Featured+Artwork",
