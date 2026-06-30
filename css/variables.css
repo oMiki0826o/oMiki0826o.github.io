@@ -4,6 +4,8 @@ css/variables.css
 Modification():
 
 - Added 色彩、字體、間距、陰影等設計 Token
+- Changed 配色由深色玻璃風格改為淺色棉花糖漸層，並以流螢的暖金光暈
+  作為點綴色，呼應「夜晚草地上的螢火蟲」意象
 
 Description:
 
@@ -12,17 +14,29 @@ Description:
 */
 
 :root {
-  /* ── Color: 深夜紫黑底 + 櫻花粉點綴 ─────────────────── */
-  --color-bg: #120c22;
-  --color-bg-soft: #1a1330;
-  --color-card: rgba(255, 255, 255, 0.045);
-  --color-card-border: rgba(255, 255, 255, 0.09);
-  --color-accent: #f3c6d8;
-  --color-accent-strong: #ffb3d1;
-  --color-violet: #8b6fd1;
-  --color-text: #f3eef9;
-  --color-text-muted: #b6acce;
-  --color-text-faint: #7c7396;
+  /* ── Color: 棉花糖漸層底（奶霜白 → 粉霧 → 薰衣草藍）──────── */
+  /* 漸層三段色，實際漸層在 layout.css 的 body 背景中組合使用 */
+  --color-bg-cream: #fff7f0;
+  --color-bg-pink: #fdeaf6;
+  --color-bg-lavender: #eaf1ff;
+
+  /* 卡片與導覽列使用的白色玻璃感，淺色背景上用「白霧」呈現浮起感 */
+  --color-card: rgba(255, 255, 255, 0.62);
+  --color-card-border: rgba(255, 255, 255, 0.85);
+  /* 用於時間軸等「需要被看見」的分隔線，白色在淺色底幾乎隱形，故另外定義 */
+  --color-divider: rgba(74, 59, 85, 0.16);
+
+  /* 流螢暖金光暈：作為主要強調色，對應夜晚草地中飛舞的螢火蟲 */
+  --color-accent: #ffb199;
+  --color-accent-strong: #ff9472;
+  --color-firefly-glow: #ffd27a;
+  /* 第二強調色：薰衣草紫，用於技能條漸層、標籤底色 */
+  --color-violet: #b9a6e0;
+
+  /* 文字色：淺色底需要較深的文字才能維持對比，選用帶暖意的深梅紫 */
+  --color-text: #4a3b55;
+  --color-text-muted: #8a7a96;
+  --color-text-faint: #ab9cb8;
 
   /* ── Typography: 圓潤手寫展示字 + 中文內文字 + 數據等寬字 ── */
   --font-display: 'Klee One', 'Noto Sans TC', sans-serif;
@@ -39,10 +53,12 @@ Description:
   /* ── Radius / Shadow ─────────────────────────────────── */
   --radius-md: 18px;
   --radius-lg: 28px;
-  --shadow-card: 0 20px 60px -25px rgba(0, 0, 0, 0.6);
+  /* 淺色背景的卡片陰影要柔和許多，避免出現深色背景常見的重黑色陰影 */
+  --shadow-card: 0 20px 50px -28px rgba(154, 120, 150, 0.45);
   --blur-glass: blur(18px);
 
   /* ── Layout ──────────────────────────────────────────── */
   --max-width: 720px;
   --nav-height: 64px;
 }
+

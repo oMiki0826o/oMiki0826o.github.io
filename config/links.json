@@ -1,6 +1,25 @@
+// config/links.json
+//
+// Modification():
+// - Added 逐欄位中文註解
+//
+// Description:
+// 三組連結資料：social（聯絡方式 icon 列）、quickLinks（Hero 下方
+// 的水平按鈕）、nav（最上方導覽列的跳轉連結）。
+
 {
+  // 聯絡方式 icon 列，顯示在 Hero 區、播放器下方
   "social": [
-    { "type": "github", "label": "GitHub", "url": "https://github.com/omiki0826o", "icon": "fa-brands fa-github" },
+    {
+      // 內部識別用的類型代號，目前未在畫面上使用，方便日後擴充判斷
+      "type": "github",
+      // 滑鼠移過去或螢幕閱讀器會讀到的文字
+      "label": "GitHub",
+      // 點擊後跳轉的網址
+      "url": "https://github.com/omiki0826o",
+      // Font Awesome 圖示 class，可以到 fontawesome.com 查詢其他圖示
+      "icon": "fa-brands fa-github"
+    },
     { "type": "discord", "label": "Discord", "url": "https://discord.gg/", "icon": "fa-brands fa-discord" },
     { "type": "mail", "label": "Mail", "url": "mailto:example@example.com", "icon": "fa-solid fa-envelope" },
     { "type": "instagram", "label": "Instagram", "url": "https://instagram.com/", "icon": "fa-brands fa-instagram" },
@@ -8,15 +27,31 @@
     { "type": "steam", "label": "Steam", "url": "https://steamcommunity.com/", "icon": "fa-brands fa-steam" },
     { "type": "youtube", "label": "YouTube", "url": "https://youtube.com/", "icon": "fa-brands fa-youtube" }
   ],
+
+  // Hero 區下方的水平快速連結按鈕（藥丸狀按鈕）
   "quickLinks": [
-    { "label": "About Me", "url": "/pages/about.html", "icon": "fa-solid fa-user" },
+    {
+      // 按鈕上顯示的文字
+      "label": "About Me",
+      // 點擊後跳轉的網址，子頁面請用「/pages/xxx.html」開頭的絕對路徑
+      "url": "/pages/about.html",
+      // 按鈕文字前方的小圖示
+      "icon": "fa-solid fa-user"
+    },
     { "label": "Projects", "url": "/pages/projects.html", "icon": "fa-solid fa-code" },
     { "label": "Articles", "url": "/pages/articles.html", "icon": "fa-solid fa-pen-nib" },
     { "label": "Timeline", "url": "/pages/timeline.html", "icon": "fa-solid fa-timeline" },
-    { "label": "上香", "url": "/pages/ripmiki.html", "icon": "fa-solid fa-fire" }
+    { "label": "上香", "url": "#", "icon": "fa-solid fa-fire" }
   ],
+
+  // 最上方導覽列的跳轉連結，會依序由左到右排列
   "nav": [
-    { "label": "首頁", "url": "/index.html" },
+    {
+      // 顯示文字
+      "label": "首頁",
+      // 跳轉網址
+      "url": "/index.html"
+    },
     { "label": "關於", "url": "/pages/about.html" },
     { "label": "歷程", "url": "/pages/timeline.html" },
     { "label": "專案", "url": "/pages/projects.html" },

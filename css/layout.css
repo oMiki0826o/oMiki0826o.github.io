@@ -4,6 +4,8 @@ css/layout.css
 Modification():
 
 - Added 全站版面結構（容器、Grid、區塊間距）
+- Changed body 背景改為棉花糖三色漸層
+- Changed .card-grid 由多欄網格改為單欄、向下堆疊（仿 lit.link）
 
 Description:
 
@@ -11,7 +13,14 @@ Description:
 */
 
 body {
-  background: var(--color-bg);
+  /* 棉花糖漸層背景：奶霜白 → 粉霧 → 薰衣草藍，固定不隨捲動移動 */
+  background: linear-gradient(
+    160deg,
+    var(--color-bg-cream) 0%,
+    var(--color-bg-pink) 48%,
+    var(--color-bg-lavender) 100%
+  );
+  background-attachment: fixed;
   color: var(--color-text);
   font-family: var(--font-body);
 }
@@ -105,11 +114,11 @@ body {
   margin-bottom: var(--space-sm);
 }
 
-/* ── Card Grid（專案 / 文章）────────────────────────────── */
+/* ── Card List（專案 / 文章：仿 lit.link，單欄一張一張向下排列）── */
 .card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
 }
 
 /* ── Timeline ───────────────────────────────────────────── */
@@ -119,7 +128,7 @@ body {
   gap: var(--space-md);
   position: relative;
   padding-left: var(--space-md);
-  border-left: 1px solid var(--color-card-border);
+  border-left: 1px solid var(--color-divider);
 }
 
 /* ── Footer ─────────────────────────────────────────────── */

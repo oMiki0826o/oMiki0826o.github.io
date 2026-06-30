@@ -19,7 +19,7 @@ Description:
 
 ::selection {
   background: var(--color-accent);
-  color: var(--color-bg);
+  color: var(--color-text);
 }
 
 :focus-visible {

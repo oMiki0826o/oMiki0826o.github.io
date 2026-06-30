@@ -1,23 +1,42 @@
+// config/projects.json
+//
+// Modification():
+// - Added 逐欄位中文註解
+//
+// Description:
+// 專案清單。陣列中每個物件會在 projects.html／首頁預覽區
+// 各自渲染成一張「滿版圖卡」，由上到下依序排列（類似 lit.link
+// 的連結卡片）。新增專案只要在陣列最後新增一個物件即可。
+
 [
   {
+    // 卡片標題
     "title": "Firefly Bot",
+
+    // 卡片內文，簡短描述這個專案在做什麼
     "description": "多功能 Discord Bot，整合音樂、管理與 AI 對話功能。",
+
+    // 技術標籤，會以小標籤顯示在敘述下方
     "tags": ["Python", "Discord.py", "OpenAI"],
-    "cover": "https://placehold.co/600x400/1a1530/f3c6d8?text=Firefly+Bot",
+
+    // 卡片頂部大圖網址，建議使用 16:9 左右比例的圖片效果最好
+    "cover": "https://placehold.co/960x540/FBEFFF/8a6a8f?text=Firefly+Bot",
+
+    // 點擊整張卡片要跳轉的網址
     "url": "https://github.com/omiki0826o"
   },
   {
     "title": "Asteryx Game",
     "description": "以 Web 技術打造的小型互動遊戲實驗專案。",
     "tags": ["JavaScript", "Canvas"],
-    "cover": "https://placehold.co/600x400/1a1530/f3c6d8?text=Asteryx",
+    "cover": "https://placehold.co/960x540/FBEFFF/8a6a8f?text=Asteryx",
     "url": "https://github.com/omiki0826o"
   },
   {
     "title": "Miki Website",
     "description": "目前正在瀏覽的個人網站，JSON 驅動、可快速擴充。",
     "tags": ["HTML", "CSS", "JavaScript"],
-    "cover": "https://placehold.co/600x400/1a1530/f3c6d8?text=This+Site",
+    "cover": "https://placehold.co/960x540/FBEFFF/8a6a8f?text=This+Site",
     "url": "https://github.com/omiki0826o"
   }
 ]

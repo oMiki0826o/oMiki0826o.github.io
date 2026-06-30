@@ -4,11 +4,12 @@ css/animation.css
 Modification():
 
 - Added 捲動淡入動畫、自訂愛心游標、背景螢火蟲粒子樣式
+- Changed 螢火蟲場景由深夜背景改為淺色棉花糖天空，光點改用暖金配色
 
 Description:
 
-集中管理視覺動效，呼應「Firefly Bot」意象，於深夜背景中加入
-緩慢飄浮的螢火光點，並以可愛的愛心游標取代瀏覽器預設游標，
+集中管理視覺動效，呼應「Firefly Bot」意象，於淺色棉花糖漸層背景中
+加入緩慢飄浮的暖金螢火光點，並以可愛的愛心游標取代瀏覽器預設游標，
 作為本站的識別性元素（Signature）。
 */
 
@@ -24,22 +25,28 @@ Description:
   transform: translateY(0);
 }
 
-/* ── 背景螢火蟲粒子 ─────────────────────────────────────── */
+/* ── 背景螢火蟲粒子（淺色棉花糖天空中的暖金流螢）──────────── */
 .firefly-field {
   position: fixed;
   inset: 0;
   z-index: -1;
   overflow: hidden;
-  background: radial-gradient(circle at 20% 10%, #1d1638 0%, var(--color-bg) 60%);
+  /* 在棉花糖漸層之上疊一層極淡的光暈，模擬黃昏天光 */
+  background: radial-gradient(
+    circle at 18% 8%,
+    rgba(255, 210, 122, 0.18) 0%,
+    rgba(255, 210, 122, 0) 55%
+  );
 }
 
 .firefly {
   position: absolute;
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background: var(--color-accent);
-  box-shadow: 0 0 8px 2px rgba(243, 198, 216, 0.7);
+  /* 流螢本體用暖金色，光暈疊加一層橘粉色，淺色背景下更立體 */
+  background: var(--color-firefly-glow);
+  box-shadow: 0 0 10px 3px rgba(255, 148, 114, 0.55);
   opacity: 0;
   animation: firefly-drift linear infinite;
 }
@@ -95,7 +102,7 @@ Description:
   width: 100%;
   height: 100%;
   fill: var(--color-accent);
-  filter: drop-shadow(0 0 6px rgba(243, 198, 216, 0.7));
+  filter: drop-shadow(0 0 6px rgba(255, 148, 114, 0.7));
 }
 
 .cursor-dot.is-active {

@@ -1,5 +1,29 @@
+// config/timeline.json
+//
+// Modification():
+// - Added 逐欄位中文註解
+//
+// Description:
+// 完整的成長歷程節點，timeline.html 會顯示「全部」節點；
+// 首頁的「歷程」卡片只會挑出 highlight 為 true 的節點，
+// 且最多只顯示前 3 筆（由 js/render.js 的 renderTimelinePreview 控制）。
+// 陣列順序建議由新到舊排列。
+
 [
-  { "year": "2026", "title": "Firefly Bot 2.0", "description": "重構 Bot 架構，加入 AI 對話與模組化指令系統。", "highlight": true },
+  {
+    // 年份，顯示在節點最上方的小字
+    "year": "2026",
+
+    // 節點標題
+    "title": "Firefly Bot 2.0",
+
+    // 節點說明文字
+    "description": "重構 Bot 架構，加入 AI 對話與模組化指令系統。",
+
+    // 是否為「重點節點」：true 會同時出現在首頁歷程預覽區，
+    // false 則只會出現在 timeline.html 完整版
+    "highlight": true
+  },
   { "year": "2025", "title": "開始開發 Discord Bot", "description": "第一次接觸 discord.py，開發出第一個能上線的 Bot。", "highlight": true },
   { "year": "2024", "title": "開始學 Python", "description": "從基礎語法開始自學 Python，寫了第一支小程式。", "highlight": true },
   { "year": "2023", "title": "第一次接觸程式", "description": "在課堂上第一次接觸到程式設計，對寫程式產生興趣。", "highlight": false }

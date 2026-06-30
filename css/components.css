@@ -4,11 +4,13 @@ css/components.css
 Modification():
 
 - Added 玻璃擬態卡片、導覽列、播放器、按鈕等元件樣式
+- Changed 配色由深色底改為淺色棉花糖漸層 + 流螢暖色點綴
+- Changed 專案／文章卡片（mini-card）改為仿 lit.link 的滿版單欄圖卡
 
 Description:
 
 定義各個可重複使用的 UI 元件外觀，呼應整體 Apple × Reimu 的
-玻璃擬態（Glassmorphism）風格，深色底配合柔粉色點綴。
+玻璃擬態（Glassmorphism）風格，淺色棉花糖底配合流螢暖色點綴。
 */
 
 /* ── Glass 基底（共用毛玻璃質感）────────────────────────── */
@@ -52,7 +54,7 @@ Description:
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--color-accent);
-  box-shadow: 0 0 0 6px rgba(243, 198, 216, 0.08);
+  box-shadow: 0 0 0 6px rgba(255, 148, 114, 0.08);
 }
 
 .hero__name {
@@ -98,7 +100,7 @@ Description:
   background: linear-gradient(
     to right,
     var(--color-accent) var(--progress, 0%),
-    rgba(255, 255, 255, 0.12) var(--progress, 0%)
+    rgba(74, 59, 85, 0.14) var(--progress, 0%)
   );
   cursor: pointer;
 }
@@ -109,7 +111,7 @@ Description:
   height: 12px;
   border-radius: 50%;
   background: var(--color-accent);
-  box-shadow: 0 0 8px rgba(243, 198, 216, 0.6);
+  box-shadow: 0 0 8px rgba(255, 148, 114, 0.6);
 }
 
 .player__time {
@@ -158,7 +160,7 @@ Description:
   width: 100%;
   height: 3px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(74, 59, 85, 0.16);
 }
 
 .player__volume input::-webkit-slider-thumb {
@@ -184,7 +186,7 @@ Description:
 
 .icon-btn:hover {
   color: var(--color-accent);
-  background: rgba(243, 198, 216, 0.08);
+  background: rgba(255, 148, 114, 0.08);
   transform: translateY(-3px);
 }
 
@@ -203,7 +205,7 @@ Description:
 }
 
 .pill:hover {
-  color: var(--color-bg);
+  color: #fff7f0;
   background: var(--color-accent);
   border-color: var(--color-accent);
   transform: translateY(-2px);
@@ -233,7 +235,7 @@ Description:
   font-size: 0.7rem;
   padding: 0.3rem 0.7rem;
   border-radius: 999px;
-  background: rgba(18, 12, 34, 0.55);
+  background: rgba(255, 255, 255, 0.72);
   color: var(--color-text-muted);
   backdrop-filter: var(--blur-glass);
 }
@@ -282,33 +284,38 @@ Description:
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
   color: var(--color-violet);
-  background: rgba(139, 111, 209, 0.14);
+  background: rgba(185, 166, 224, 0.18);
 }
 
-/* ── Mini Cards（Projects / Articles Grid）────────────────── */
+/* ── Mini Cards（Projects / Articles：仿 lit.link 滿版圖卡）──── */
 .mini-card {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mini-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 60px -28px rgba(154, 120, 150, 0.55);
 }
 
 .mini-card img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
 }
 
 .mini-card__body {
-  padding: var(--space-sm);
+  padding: var(--space-md);
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  flex: 1;
+  gap: 0.5rem;
 }
 
 .mini-card__title {
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1.25rem;
 }
 
 .mini-card__meta {
@@ -338,7 +345,7 @@ Description:
   height: 9px;
   border-radius: 50%;
   background: var(--color-accent);
-  box-shadow: 0 0 0 4px rgba(243, 198, 216, 0.12);
+  box-shadow: 0 0 0 4px rgba(255, 148, 114, 0.12);
 }
 
 .timeline-item__year {
@@ -374,7 +381,7 @@ Description:
 .skill-bar__track {
   height: 6px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(74, 59, 85, 0.1);
   overflow: hidden;
 }
 

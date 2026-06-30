@@ -1,8 +1,25 @@
+// config/music.json
+//
+// Modification():
+// - Added 逐欄位中文註解
+//
+// Description:
+// 播放器的播放清單。陣列中每個物件是一首歌，js/player.js 會依序
+// 播放，播完最後一首會自動跳回第一首。新增歌曲只要在陣列中
+// 複製貼上一個新物件即可，不需要改任何程式碼。
+
 [
   {
+    // 歌曲名稱，顯示在播放器標題上
     "title": "Towards the Horizon",
+
+    // 演出者／作曲者名稱，顯示在歌曲名稱右側的小字
     "artist": "Alexander Nakarada",
-    "cover": "https://placehold.co/200x200/1a1530/f3c6d8?text=%E2%99%AA",
+
+    // 封面圖網址（目前介面沒有顯示封面，先保留欄位方便未來擴充用）
+    "cover": "https://placehold.co/200x200/FFE6F0/8a6a8f?text=%E2%99%AA",
+
+    // 音檔網址，建議放可直接被瀏覽器播放的 mp3／m4a 連結
     "audio": "https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3"
   }
 ]
