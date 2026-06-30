@@ -11,14 +11,14 @@
     "url": "https://example.com"
   },
   "about": {
-    "greeting": "Hi, I'm Miki 👋",
-    "description": "目前是一位高中生，主要開發 Discord Bot、Minecraft 模組與小工具，也喜歡碰 Python、AI 與網站開發。喜歡把日常的小麻煩變成自動化的小程式，享受從零打造一個作品的過程。",
+    "greeting": "Hi, I'm Miki",
+    "description": "oiiaio",
     "tags": ["Discord Bot", "Minecraft", "Python", "Web Dev", "AI"],
     "readMoreUrl": "/pages/about.html",
     "fullBio": [
-      "目前是一位高中生，平常的時間幾乎都花在寫程式跟摸索新東西上。",
-      "主要開發方向是 Discord Bot 與 Minecraft 相關的小工具，偶爾也會碰 AI 應用與網站開發，喜歡把日常生活中覺得麻煩的事情，寫成一支自動化的小程式。",
-      "比起做完一個很完整的大型專案，我更享受從零到一的過程——想清楚問題、動手實作、看著它真的能跑起來的那個瞬間。"
+      "oiiaio",
+      "oiiaio",
+      "oiiaio"
     ]
   },
   "stats": {
