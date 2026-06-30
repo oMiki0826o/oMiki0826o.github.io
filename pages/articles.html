@@ -1,0 +1,58 @@
+<!--
+pages/articles.html
+
+Modification():
+
+- Added 文章頁：完整文章卡片網格
+
+Description:
+
+讀取 config/articles.json 並以卡片網格呈現，新增文章只需
+在 JSON 陣列中新增一筆物件。
+-->
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Articles | Miki</title>
+  <meta name="description" content="Miki 撰寫的文章與筆記總覽。">
+  <link rel="icon" href="https://placehold.co/64x64/1a1530/f3c6d8?text=M">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Noto+Sans+TC:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div class="firefly-field" data-firefly-field aria-hidden="true"></div>
+
+  <nav class="site-nav glass" data-site-nav>
+    <div class="site-nav__inner">
+      <a href="/index.html" class="site-nav__brand" data-nav-brand aria-label="回到首頁"></a>
+      <div class="site-nav__links" data-nav-links></div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top:calc(var(--nav-height) + var(--space-xl));padding-bottom:var(--space-xl)">
+    <a class="back-link" href="/index.html"><i class="fa-solid fa-arrow-left"></i> 回到首頁</a>
+    <h1 class="hero__name" style="font-size:1.8rem;margin-bottom:var(--space-md)" data-reveal>Articles</h1>
+    <div class="card-grid" data-article-grid></div>
+  </main>
+
+  <footer class="site-footer container">
+    <p class="site-footer__quote" data-quote></p>
+    <div data-footer></div>
+  </footer>
+
+  <script src="/js/loader.js"></script>
+  <script src="/js/render.js"></script>
+  <script src="/js/player.js"></script>
+  <script src="/js/animation.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

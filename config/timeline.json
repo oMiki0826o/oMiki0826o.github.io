@@ -1,0 +1,6 @@
+[
+  { "year": "2026", "title": "Firefly Bot 2.0", "description": "重構 Bot 架構，加入 AI 對話與模組化指令系統。", "highlight": true },
+  { "year": "2025", "title": "開始開發 Discord Bot", "description": "第一次接觸 discord.py，開發出第一個能上線的 Bot。", "highlight": true },
+  { "year": "2024", "title": "開始學 Python", "description": "從基礎語法開始自學 Python，寫了第一支小程式。", "highlight": true },
+  { "year": "2023", "title": "第一次接觸程式", "description": "在課堂上第一次接觸到程式設計，對寫程式產生興趣。", "highlight": false }
+]

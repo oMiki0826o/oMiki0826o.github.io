@@ -1,0 +1,48 @@
+/*
+css/variables.css
+
+Modification():
+
+- Added 色彩、字體、間距、陰影等設計 Token
+
+Description:
+
+定義全站共用的 CSS 變數，作為視覺設計的單一事實來源。
+調整品牌色彩或字體時，只需修改此檔案。
+*/
+
+:root {
+  /* ── Color: 深夜紫黑底 + 櫻花粉點綴 ─────────────────── */
+  --color-bg: #120c22;
+  --color-bg-soft: #1a1330;
+  --color-card: rgba(255, 255, 255, 0.045);
+  --color-card-border: rgba(255, 255, 255, 0.09);
+  --color-accent: #f3c6d8;
+  --color-accent-strong: #ffb3d1;
+  --color-violet: #8b6fd1;
+  --color-text: #f3eef9;
+  --color-text-muted: #b6acce;
+  --color-text-faint: #7c7396;
+
+  /* ── Typography: 圓潤手寫展示字 + 中文內文字 + 數據等寬字 ── */
+  --font-display: 'Klee One', 'Noto Sans TC', sans-serif;
+  --font-body: 'Noto Sans TC', 'Mulish', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+
+  /* ── Spacing ─────────────────────────────────────────── */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.75rem;
+  --space-lg: 3rem;
+  --space-xl: 5rem;
+
+  /* ── Radius / Shadow ─────────────────────────────────── */
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --shadow-card: 0 20px 60px -25px rgba(0, 0, 0, 0.6);
+  --blur-glass: blur(18px);
+
+  /* ── Layout ──────────────────────────────────────────── */
+  --max-width: 720px;
+  --nav-height: 64px;
+}

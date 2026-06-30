@@ -1,45 +1,136 @@
+<!--
+index.html
+
+Modification():
+
+- Added 首頁完整結構：導覽列、Hero、播放器、社群、卡片堆疊、Footer
+
+Description:
+
+Miki 的個人介紹首頁。內容全數由 config/*.json 透過 main.js 動態載入，
+本檔案僅負責提供容器與語意結構，調整文字、圖片、清單請改 JSON。
+-->
 <!DOCTYPE html>
 <html lang="zh-TW">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miki's Website</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <title>Miki | Student ‧ Python Developer</title>
+  <meta name="description" content="Miki 的個人網站，分享專案、文章與成長歷程。">
+
+  <!-- ── Open Graph ─────────────────────────────────────── -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Miki">
+  <meta property="og:description" content="Miki 的個人網站，分享專案、文章與成長歷程。">
+  <meta property="og:url" content="https://omiki0826o.github.io/">
+  <meta property="og:image" content="https://placehold.co/1200x630/1a1530/f3c6d8?text=Miki">
+
+  <link rel="icon" href="https://placehold.co/64x64/1a1530/f3c6d8?text=M">
+
+  <!-- ── Fonts ──────────────────────────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Noto+Sans+TC:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
 <body>
 
-<div class="bg"></div>
+  <div class="firefly-field" data-firefly-field aria-hidden="true"></div>
 
-<main class="center">
+  <!-- ── Navigation ─────────────────────────────────────── -->
+  <nav class="site-nav glass" data-site-nav>
+    <div class="site-nav__inner">
+      <a href="/index.html" class="site-nav__brand" data-nav-brand aria-label="回到首頁"></a>
+      <div class="site-nav__links" data-nav-links></div>
+    </div>
+  </nav>
 
-    <div class="card">
+  <!-- ── Hero ───────────────────────────────────────────── -->
+  <header class="hero container">
+    <img class="hero__avatar" data-hero-avatar src="https://placehold.co/240x240/1a1530/f3c6d8?text=Miki" alt="頭像" data-reveal>
+    <h1 class="hero__name" data-hero-name data-reveal>Miki</h1>
+    <p class="hero__subtitle" data-hero-subtitle data-reveal></p>
+    <p class="hero__signature" data-hero-signature data-reveal></p>
 
-        <img class="avatar"
-            src="https://cdn.discordapp.com/avatars/839381498351190036/3ea0f92ec08c0cc642cd90df9aee3634.png"
-            alt="Miki">
-
-        <h1>Miki</h1>
-
-        <p class="tag">怪人</p>
-
-        <p class="bio">
-            早安，這裡是 Miki o/&lt;<br>
-            歡迎來到我的世界
-        </p>
-
-        <a class="btn" href="ripmiki.html">
-            上香
-        </a>
-
+    <!-- ── Music Player ───────────────────────────────── -->
+    <div class="player" data-player data-reveal>
+      <p class="player__title">
+        <span data-player-title>讀取中…</span>
+        <span class="player__artist" data-player-artist></span>
+      </p>
+      <input class="player__progress" data-player-progress type="range" min="0" max="100" value="0" aria-label="播放進度">
+      <div class="player__time">
+        <span data-player-current>00:00</span>
+        <span data-player-duration>00:00</span>
+      </div>
+      <div class="player__controls">
+        <button data-player-prev aria-label="上一首"><i class="fa-solid fa-backward-step"></i></button>
+        <button class="player__play" data-player-play aria-label="播放／暫停"><i class="fa-solid fa-circle-play"></i></button>
+        <button data-player-next aria-label="下一首"><i class="fa-solid fa-forward-step"></i></button>
+        <div class="player__volume">
+          <i class="fa-solid fa-volume-low"></i>
+          <input data-player-volume type="range" min="0" max="100" value="70" aria-label="音量">
+        </div>
+      </div>
     </div>
 
-</main>
+    <!-- ── Social Icons ───────────────────────────────── -->
+    <div class="social-row" data-social-row data-reveal></div>
 
-<footer>
-    <p>2026 Miki</p>
-</footer>
+    <!-- ── Quick Links ────────────────────────────────── -->
+    <div class="quick-links" data-quick-links data-reveal></div>
+  </header>
 
+  <!-- ── Card Stack ─────────────────────────────────────── -->
+  <main class="container card-stack">
+
+    <div class="glass card card--featured" data-featured-card data-reveal></div>
+
+    <section class="glass card" data-about-preview data-reveal></section>
+
+    <section data-reveal>
+      <div class="section-heading">
+        <h2 class="hero__name" style="font-size:1.4rem">Projects</h2>
+        <a class="card__link" href="/pages/projects.html">View All <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="card-grid" data-project-grid></div>
+    </section>
+
+    <section data-reveal>
+      <div class="section-heading">
+        <h2 class="hero__name" style="font-size:1.4rem">Articles</h2>
+        <a class="card__link" href="/pages/articles.html">View All <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="card-grid" data-article-grid></div>
+    </section>
+
+    <section class="glass card" data-reveal>
+      <div class="section-heading">
+        <h2 class="hero__name" style="font-size:1.4rem">歷程</h2>
+      </div>
+      <ul class="timeline-list" data-timeline-preview></ul>
+      <a class="card__link" href="/pages/timeline.html" style="margin-top:1rem;display:inline-flex">
+        View Full Timeline <i class="fa-solid fa-arrow-right"></i>
+      </a>
+        <a class="btn" href="ripmiki.html">
+        上香<!DOCTYPE html>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────────── -->
+  <footer class="site-footer container">
+    <p class="site-footer__quote" data-quote></p>
+    <div data-footer></div>
+  </footer>
+
+  <script src="/js/loader.js"></script>
+  <script src="/js/render.js"></script>
+  <script src="/js/player.js"></script>
+  <script src="/js/animation.js"></script>
+  <script src="/js/main.js"></script>
 </body>
 </html>

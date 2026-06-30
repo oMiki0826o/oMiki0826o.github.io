@@ -1,0 +1,160 @@
+/*
+css/layout.css
+
+Modification():
+
+- Added 全站版面結構（容器、Grid、區塊間距）
+
+Description:
+
+定義頁面整體骨架與各區塊的排版方式，不涉及元件外觀細節。
+*/
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-sm);
+}
+
+/* ── Navigation ─────────────────────────────────────────── */
+.site-nav {
+  position: fixed;
+  top: var(--space-sm);
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 50;
+  width: min(92%, 560px);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.site-nav.is-hidden {
+  transform: translate(-50%, -140%);
+  opacity: 0;
+}
+
+.site-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: 0.55rem 1rem;
+}
+
+.site-nav__links {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ── Hero ───────────────────────────────────────────────── */
+.hero {
+  padding-top: calc(var(--nav-height) + var(--space-xl));
+  padding-bottom: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-sm);
+}
+
+/* ── Music Player ───────────────────────────────────────── */
+.player {
+  width: 100%;
+  max-width: 420px;
+  margin-inline: auto;
+}
+
+/* ── Social Icons ───────────────────────────────────────── */
+.social-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-block: var(--space-sm);
+}
+
+/* ── Quick Links ────────────────────────────────────────── */
+.quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-bottom: var(--space-xl);
+}
+
+/* ── Card Stack（首頁主要內容區）───────────────────────── */
+.card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding-bottom: var(--space-xl);
+}
+
+.section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
+/* ── Card Grid（專案 / 文章）────────────────────────────── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-sm);
+}
+
+/* ── Timeline ───────────────────────────────────────────── */
+.timeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  position: relative;
+  padding-left: var(--space-md);
+  border-left: 1px solid var(--color-card-border);
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+.site-footer {
+  text-align: center;
+  padding-block: var(--space-lg);
+  color: var(--color-text-faint);
+  font-size: 0.85rem;
+}
+
+.site-footer__quote {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--color-accent);
+  margin-bottom: var(--space-md);
+}
+
+.site-footer__stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-block: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .site-nav__links {
+    gap: var(--space-sm);
+    font-size: 0.85rem;
+  }
+
+  .hero {
+    padding-top: calc(var(--nav-height) + var(--space-lg));
+  }
+}

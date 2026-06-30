@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Firefly Bot",
+    "description": "多功能 Discord Bot，整合音樂、管理與 AI 對話功能。",
+    "tags": ["Python", "Discord.py", "OpenAI"],
+    "cover": "https://placehold.co/600x400/1a1530/f3c6d8?text=Firefly+Bot",
+    "url": "https://github.com/omiki0826o"
+  },
+  {
+    "title": "Asteryx Game",
+    "description": "以 Web 技術打造的小型互動遊戲實驗專案。",
+    "tags": ["JavaScript", "Canvas"],
+    "cover": "https://placehold.co/600x400/1a1530/f3c6d8?text=Asteryx",
+    "url": "https://github.com/omiki0826o"
+  },
+  {
+    "title": "Miki Website",
+    "description": "目前正在瀏覽的個人網站，JSON 驅動、可快速擴充。",
+    "tags": ["HTML", "CSS", "JavaScript"],
+    "cover": "https://placehold.co/600x400/1a1530/f3c6d8?text=This+Site",
+    "url": "https://github.com/omiki0826o"
+  }
+]

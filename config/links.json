@@ -1,0 +1,25 @@
+{
+  "social": [
+    { "type": "github", "label": "GitHub", "url": "https://github.com/omiki0826o", "icon": "fa-brands fa-github" },
+    { "type": "discord", "label": "Discord", "url": "https://discord.gg/", "icon": "fa-brands fa-discord" },
+    { "type": "mail", "label": "Mail", "url": "mailto:example@example.com", "icon": "fa-solid fa-envelope" },
+    { "type": "instagram", "label": "Instagram", "url": "https://instagram.com/", "icon": "fa-brands fa-instagram" },
+    { "type": "threads", "label": "Threads", "url": "https://threads.net/", "icon": "fa-brands fa-threads" },
+    { "type": "steam", "label": "Steam", "url": "https://steamcommunity.com/", "icon": "fa-brands fa-steam" },
+    { "type": "youtube", "label": "YouTube", "url": "https://youtube.com/", "icon": "fa-brands fa-youtube" }
+  ],
+  "quickLinks": [
+    { "label": "About Me", "url": "/pages/about.html", "icon": "fa-solid fa-user" },
+    { "label": "Projects", "url": "/pages/projects.html", "icon": "fa-solid fa-code" },
+    { "label": "Articles", "url": "/pages/articles.html", "icon": "fa-solid fa-pen-nib" },
+    { "label": "Timeline", "url": "/pages/timeline.html", "icon": "fa-solid fa-timeline" },
+    { "label": "上香", "url": "#", "icon": "fa-solid fa-fire" }
+  ],
+  "nav": [
+    { "label": "首頁", "url": "/index.html" },
+    { "label": "關於", "url": "/pages/about.html" },
+    { "label": "歷程", "url": "/pages/timeline.html" },
+    { "label": "專案", "url": "/pages/projects.html" },
+    { "label": "文章", "url": "/pages/articles.html" }
+  ]
+}

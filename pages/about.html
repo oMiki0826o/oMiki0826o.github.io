@@ -1,0 +1,63 @@
+<!--
+pages/about.html
+
+Modification():
+
+- Added 關於頁：完整自介段落、興趣標籤、技能條
+
+Description:
+
+首頁「About」卡片的延伸頁面，內容同樣來自 config/site.json
+與 config/skills.json，新增或調整內容皆只需編輯 JSON。
+-->
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>關於 Miki</title>
+  <meta name="description" content="Miki 的完整自我介紹與技能列表。">
+  <link rel="icon" href="https://placehold.co/64x64/1a1530/f3c6d8?text=M">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Noto+Sans+TC:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div class="firefly-field" data-firefly-field aria-hidden="true"></div>
+
+  <nav class="site-nav glass" data-site-nav>
+    <div class="site-nav__inner">
+      <a href="/index.html" class="site-nav__brand" data-nav-brand aria-label="回到首頁"></a>
+      <div class="site-nav__links" data-nav-links></div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top:calc(var(--nav-height) + var(--space-xl));padding-bottom:var(--space-xl)">
+    <a class="back-link" href="/index.html"><i class="fa-solid fa-arrow-left"></i> 回到首頁</a>
+
+    <section class="glass card" data-about-full data-reveal></section>
+
+    <section class="glass card" data-reveal style="margin-top:var(--space-lg)">
+      <h2 class="card__title" style="font-size:1.3rem">Skills</h2>
+      <div data-skills></div>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    <p class="site-footer__quote" data-quote></p>
+    <div data-footer></div>
+  </footer>
+
+  <script src="/js/loader.js"></script>
+  <script src="/js/render.js"></script>
+  <script src="/js/player.js"></script>
+  <script src="/js/animation.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

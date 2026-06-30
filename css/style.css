@@ -1,0 +1,28 @@
+/*
+css/style.css
+
+Modification():
+
+- Added 樣式總入口，匯入 reset / variables / layout / components / animation
+
+Description:
+
+唯一需要被 HTML 引入的樣式表，負責統一載入順序，
+確保變數先於版面與元件被解析。
+*/
+
+@import url('reset.css');
+@import url('variables.css');
+@import url('layout.css');
+@import url('components.css');
+@import url('animation.css');
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}

@@ -1,0 +1,401 @@
+/*
+css/components.css
+
+Modification():
+
+- Added 玻璃擬態卡片、導覽列、播放器、按鈕等元件樣式
+
+Description:
+
+定義各個可重複使用的 UI 元件外觀，呼應整體 Apple × Reimu 的
+玻璃擬態（Glassmorphism）風格，深色底配合柔粉色點綴。
+*/
+
+/* ── Glass 基底（共用毛玻璃質感）────────────────────────── */
+.glass {
+  background: var(--color-card);
+  border: 1px solid var(--color-card-border);
+  backdrop-filter: var(--blur-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+/* ── Navigation ─────────────────────────────────────────── */
+.site-nav__inner {
+  border-radius: 999px;
+}
+
+.site-nav__brand img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid var(--color-accent);
+}
+
+.site-nav__links a {
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+  transition: color 0.25s ease;
+}
+
+.site-nav__links a:hover,
+.site-nav__links a:focus-visible {
+  color: var(--color-accent);
+}
+
+/* ── Avatar / Hero ──────────────────────────────────────── */
+.hero__avatar {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 0 0 6px rgba(243, 198, 216, 0.08);
+}
+
+.hero__name {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 2.8rem);
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+}
+
+.hero__subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+.hero__signature {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--color-accent);
+  max-width: 420px;
+}
+
+/* ── Music Player（無外框設計，僅標題 + 進度條）───────────── */
+.player__title {
+  font-size: 0.95rem;
+  color: var(--color-text);
+  margin-bottom: 0.4rem;
+  text-align: center;
+}
+
+.player__artist {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--color-text-faint);
+  font-weight: 400;
+}
+
+.player__progress {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--color-accent) var(--progress, 0%),
+    rgba(255, 255, 255, 0.12) var(--progress, 0%)
+  );
+  cursor: pointer;
+}
+
+.player__progress::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px rgba(243, 198, 216, 0.6);
+}
+
+.player__time {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-text-faint);
+  margin-top: 0.3rem;
+}
+
+.player__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-xs);
+}
+
+.player__controls button {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.player__controls button:hover {
+  color: var(--color-accent);
+  transform: scale(1.1);
+}
+
+.player__play {
+  font-size: 1.4rem !important;
+  color: var(--color-accent) !important;
+}
+
+.player__volume {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  width: 90px;
+}
+
+.player__volume input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.player__volume input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+}
+
+/* ── Social Icon Buttons ────────────────────────────────── */
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--color-text-muted);
+  font-size: 1.05rem;
+  transition: color 0.25s ease, transform 0.25s ease, background 0.25s ease;
+}
+
+.icon-btn:hover {
+  color: var(--color-accent);
+  background: rgba(243, 198, 216, 0.08);
+  transform: translateY(-3px);
+}
+
+/* ── Pill Buttons（Quick Links）───────────────────────────── */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  background: var(--color-card);
+  border: 1px solid var(--color-card-border);
+  transition: color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.pill:hover {
+  color: var(--color-bg);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+/* ── Cards ──────────────────────────────────────────────── */
+.card {
+  padding: var(--space-md);
+}
+
+.card--featured {
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.card--featured img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.card--featured__credit {
+  position: absolute;
+  right: var(--space-sm);
+  bottom: var(--space-sm);
+  font-size: 0.7rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(18, 12, 34, 0.55);
+  color: var(--color-text-muted);
+  backdrop-filter: var(--blur-glass);
+}
+
+.card--featured__credit a {
+  color: var(--color-accent);
+}
+
+.card__title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin-bottom: 0.6rem;
+}
+
+.card__text {
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+  margin-bottom: var(--space-sm);
+}
+
+.card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--color-accent);
+}
+
+.card__link i {
+  transition: transform 0.25s ease;
+}
+
+.card__link:hover i {
+  transform: translateX(3px);
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: var(--space-sm);
+}
+
+.tag {
+  font-size: 0.72rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  color: var(--color-violet);
+  background: rgba(139, 111, 209, 0.14);
+}
+
+/* ── Mini Cards（Projects / Articles Grid）────────────────── */
+.mini-card {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.mini-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.mini-card__body {
+  padding: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.mini-card__title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+.mini-card__meta {
+  font-size: 0.74rem;
+  color: var(--color-text-faint);
+  font-family: var(--font-mono);
+}
+
+.mini-card__desc {
+  font-size: 0.84rem;
+  color: var(--color-text-muted);
+  flex: 1;
+}
+
+/* ── Timeline ───────────────────────────────────────────── */
+.timeline-item {
+  position: relative;
+  padding-left: var(--space-sm);
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--space-md) - 4.5px);
+  top: 0.35rem;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(243, 198, 216, 0.12);
+}
+
+.timeline-item__year {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-accent);
+}
+
+.timeline-item__title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  margin-bottom: 0.2rem;
+}
+
+.timeline-item__desc {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+/* ── Skills（用於 about.html）───────────────────────────── */
+.skill-bar {
+  margin-bottom: var(--space-sm);
+}
+
+.skill-bar__label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+  color: var(--color-text-muted);
+}
+
+.skill-bar__track {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.skill-bar__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-violet), var(--color-accent));
+  width: 0%;
+  transition: width 1.1s ease;
+}
+
+/* ── Back Link（子頁返回首頁）───────────────────────────── */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-md);
+}
+
+.back-link:hover {
+  color: var(--color-accent);
+}
