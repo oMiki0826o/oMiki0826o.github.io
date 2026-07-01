@@ -3,12 +3,12 @@ pages/projects.html
 
 Modification():
 
-- Added 專案頁：完整專案卡片網格
+- Changed favicon 由佔位圖改為真實頭像 CDN 連結
 
 Description:
 
-讀取 config/projects.json 並以卡片網格呈現，新增專案只需
-在 JSON 陣列中新增一筆物件。
+讀取 config/projects.json 並以緊湊 mini-card 網格呈現，
+新增專案只需在 JSON 陣列新增一筆物件，無需修改此 HTML。
 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -18,7 +18,7 @@ Description:
 
   <title>Projects | Miki</title>
   <meta name="description" content="Miki 開發過的專案總覽。">
-  <link rel="icon" href="https://placehold.co/64x64/FFE6F0/8a6a8f?text=M">
+  <link rel="icon" href="https://cdn.discordapp.com/avatars/839381498351190036/3ea0f92ec08c0cc642cd90df9aee3634.png?size=2048&quality=lossless">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,6 +41,7 @@ Description:
   <main class="container" style="padding-top:calc(var(--nav-height) + var(--space-xl));padding-bottom:var(--space-xl)">
     <a class="back-link" href="/index.html"><i class="fa-solid fa-arrow-left"></i> 回到首頁</a>
     <h1 class="hero__name" style="font-size:1.8rem;margin-bottom:var(--space-md)" data-reveal>Projects</h1>
+    <!-- [data-project-grid] 觸發 projects.json 載入並渲染 mini-card -->
     <div class="card-grid" data-project-grid></div>
   </main>
 

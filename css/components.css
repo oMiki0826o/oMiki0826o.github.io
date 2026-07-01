@@ -3,14 +3,22 @@ css/components.css
 
 Modification():
 
-- Added 玻璃擬態卡片、導覽列、播放器、按鈕等元件樣式
-- Changed 配色由深色底改為淺色棉花糖漸層 + 流螢暖色點綴
-- Changed 專案／文章卡片（mini-card）改為仿 lit.link 的滿版單欄圖卡
+- Changed 配色由螢火蟲暖橘改為流螢（Firefly）橘紅主題
+- Changed mini-card（專案／文章卡）由「16:9 滿版大圖卡」
+         改為「小縮圖 + 文字」的水平緊湊卡片，
+         使卡片高度與 About 卡片近似，整體頁面更清爽
+- Fixed  移除 cursor:none 相關 CSS，改由 animation.css 統一管理游標
+- Removed skill-bar 相關樣式（首頁不再顯示技能條）
 
 Description:
 
-定義各個可重複使用的 UI 元件外觀，呼應整體 Apple × Reimu 的
-玻璃擬態（Glassmorphism）風格，淺色棉花糖底配合流螢暖色點綴。
+定義各個可重複使用的 UI 元件外觀，呼應整體
+玻璃擬態（Glassmorphism）風格搭配流螢棉花糖配色。
+
+mini-card 設計說明：
+  原本「16:9 封面圖在上方、文字在下方」的版式太高，
+  改為「左側 72×72 縮圖（選填）+ 右側標題/說明/連結」的水平版式，
+  高度從約 280px 壓縮到約 90px，更符合 lit.link 的簡潔列表風格。
 */
 
 /* ── Glass 基底（共用毛玻璃質感）────────────────────────── */
@@ -54,7 +62,8 @@ Description:
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--color-accent);
-  box-shadow: 0 0 0 6px rgba(255, 148, 114, 0.08);
+  /* 流螢橘紅光暈 */
+  box-shadow: 0 0 0 6px rgba(232, 100, 60, 0.09);
 }
 
 .hero__name {
@@ -76,7 +85,7 @@ Description:
   max-width: 420px;
 }
 
-/* ── Music Player（無外框設計，僅標題 + 進度條）───────────── */
+/* ── Music Player ───────────────────────────────────────── */
 .player__title {
   font-size: 0.95rem;
   color: var(--color-text);
@@ -97,10 +106,11 @@ Description:
   width: 100%;
   height: 4px;
   border-radius: 999px;
+  /* 進度填滿部分用流螢橘紅，未播放部分用淡棕底色 */
   background: linear-gradient(
     to right,
     var(--color-accent) var(--progress, 0%),
-    rgba(74, 59, 85, 0.14) var(--progress, 0%)
+    rgba(100, 60, 40, 0.14) var(--progress, 0%)
   );
   cursor: pointer;
 }
@@ -111,7 +121,7 @@ Description:
   height: 12px;
   border-radius: 50%;
   background: var(--color-accent);
-  box-shadow: 0 0 8px rgba(255, 148, 114, 0.6);
+  box-shadow: 0 0 8px rgba(232, 100, 60, 0.55);
 }
 
 .player__time {
@@ -160,7 +170,7 @@ Description:
   width: 100%;
   height: 3px;
   border-radius: 999px;
-  background: rgba(74, 59, 85, 0.16);
+  background: rgba(100, 60, 40, 0.16);
 }
 
 .player__volume input::-webkit-slider-thumb {
@@ -186,7 +196,7 @@ Description:
 
 .icon-btn:hover {
   color: var(--color-accent);
-  background: rgba(255, 148, 114, 0.08);
+  background: rgba(232, 100, 60, 0.09);
   transform: translateY(-3px);
 }
 
@@ -201,21 +211,23 @@ Description:
   color: var(--color-text-muted);
   background: var(--color-card);
   border: 1px solid var(--color-card-border);
-  transition: color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  transition: color 0.25s ease, border-color 0.25s ease,
+              background 0.25s ease, transform 0.25s ease;
 }
 
 .pill:hover {
-  color: #fff7f0;
+  color: #fff8f5;
   background: var(--color-accent);
   border-color: var(--color-accent);
   transform: translateY(-2px);
 }
 
-/* ── Cards ──────────────────────────────────────────────── */
+/* ── Cards（通用卡片外觀）──────────────────────────────── */
 .card {
   padding: var(--space-md);
 }
 
+/* 鎮樓圖大卡 */
 .card--featured {
   padding: 0;
   overflow: hidden;
@@ -253,6 +265,9 @@ Description:
 .card__text {
   color: var(--color-text-muted);
   font-size: 0.92rem;
+  line-height: 1.75;
+  /* 保留換行，讓多段 \n 能正確折行 */
+  white-space: pre-line;
   margin-bottom: var(--space-sm);
 }
 
@@ -284,58 +299,95 @@ Description:
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
   color: var(--color-violet);
-  background: rgba(185, 166, 224, 0.18);
+  background: rgba(196, 154, 180, 0.18);
 }
 
-/* ── Mini Cards（Projects / Articles：仿 lit.link 滿版圖卡）──── */
+/* ── Mini Cards（Projects／Articles）──────────────────────
+   設計改動說明：
+   原本「16:9 封面圖 + 大量空間」改為水平緊湊卡片：
+   - 左側 72×72 小縮圖（若無封面圖則隱藏，文字區塊自動填滿）
+   - 右側 標題 → Meta → 描述 → View 連結，垂直排列
+   - 整體高度約 90-100px，與 About 卡片的行距比例接近
+──────────────────────────────────────────────────────────── */
 .mini-card {
-  overflow: hidden;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  /* 使用 card 的 padding，而非上下各一個大塊空間 */
+  padding: var(--space-sm) var(--space-md);
+  overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* 取消原本 flex-direction:column 時的 img 全寬樣式 */
 }
 
 .mini-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 26px 60px -28px rgba(154, 120, 150, 0.55);
+  transform: translateY(-3px);
+  box-shadow: 0 22px 52px -28px rgba(180, 80, 40, 0.45);
 }
 
-.mini-card img {
-  width: 100%;
-  aspect-ratio: 16 / 9;
+/* 縮圖：固定 72×72，圓角，在沒有圖片時設 display:none（由 JS 控制） */
+.mini-card__thumb {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-md);
   object-fit: cover;
+  border: 1px solid var(--color-card-border);
 }
 
+/* 右側文字區塊：垂直排列，flex:1 填滿剩餘寬度 */
 .mini-card__body {
-  padding: var(--space-md);
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
+  flex: 1;
+  min-width: 0; /* 防止長文字撐破 flex 容器 */
 }
 
+/* 標題：比 About 卡片的 card__title 略小，保持視覺層次 */
 .mini-card__title {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.05rem;
+  /* 超長標題截斷，避免破版 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
+/* Meta：日期或技術標籤，等寬小字 */
 .mini-card__meta {
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   color: var(--color-text-faint);
   font-family: var(--font-mono);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
+/* 描述：最多顯示 2 行，超出用省略號 */
 .mini-card__desc {
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   color: var(--color-text-muted);
-  flex: 1;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* ── Timeline ───────────────────────────────────────────── */
+.timeline-list {
+  padding-left: var(--space-md);
+  border-left: 1px solid var(--color-divider);
+}
+
 .timeline-item {
   position: relative;
   padding-left: var(--space-sm);
 }
 
+/* 時間軸節點圓點，用流螢橘紅 */
 .timeline-item::before {
   content: '';
   position: absolute;
@@ -345,7 +397,7 @@ Description:
   height: 9px;
   border-radius: 50%;
   background: var(--color-accent);
-  box-shadow: 0 0 0 4px rgba(255, 148, 114, 0.12);
+  box-shadow: 0 0 0 4px rgba(232, 100, 60, 0.12);
 }
 
 .timeline-item__year {
@@ -365,7 +417,7 @@ Description:
   color: var(--color-text-muted);
 }
 
-/* ── Skills（用於 about.html）───────────────────────────── */
+/* ── Skills（僅 about.html 使用，首頁已移除）──────────── */
 .skill-bar {
   margin-bottom: var(--space-sm);
 }
@@ -381,7 +433,7 @@ Description:
 .skill-bar__track {
   height: 6px;
   border-radius: 999px;
-  background: rgba(74, 59, 85, 0.1);
+  background: rgba(100, 60, 40, 0.1);
   overflow: hidden;
 }
 

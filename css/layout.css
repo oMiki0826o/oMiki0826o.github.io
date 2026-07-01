@@ -3,17 +3,19 @@ css/layout.css
 
 Modification():
 
-- Added 全站版面結構（容器、Grid、區塊間距）
-- Changed body 背景改為棉花糖三色漸層
-- Changed .card-grid 由多欄網格改為單欄、向下堆疊（仿 lit.link）
+- Changed card-grid 間距由 space-md (1.75rem) 縮小為 space-sm (1rem)，
+  配合 mini-card 改為緊湊橫式版式後的視覺節奏
+- Changed timeline-list 只保留骨架排版（display/gap），
+  padding-left 與 border-left 視覺細節移至 components.css
 
 Description:
 
 定義頁面整體骨架與各區塊的排版方式，不涉及元件外觀細節。
+背景漸層從 variables.css 的三個色彩變數組合，調整配色只需改 variables.css。
 */
 
 body {
-  /* 棉花糖漸層背景：奶霜白 → 粉霧 → 薰衣草藍，固定不隨捲動移動 */
+  /* 流螢棉花糖漸層：奶油白 → 蜜桃粉 → 暖玫瑰，fixed 讓捲動時背景不動 */
   background: linear-gradient(
     160deg,
     var(--color-bg-cream) 0%,
@@ -114,11 +116,12 @@ body {
   margin-bottom: var(--space-sm);
 }
 
-/* ── Card List（專案 / 文章：仿 lit.link，單欄一張一張向下排列）── */
+/* ── Card Grid（專案 / 文章列表）──────────────────────── */
 .card-grid {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  /* 由 1.75rem 縮小為 1rem，配合 mini-card 緊湊橫式排版後的視覺節奏 */
+  gap: var(--space-sm);
 }
 
 /* ── Timeline ───────────────────────────────────────────── */
@@ -127,8 +130,7 @@ body {
   flex-direction: column;
   gap: var(--space-md);
   position: relative;
-  padding-left: var(--space-md);
-  border-left: 1px solid var(--color-divider);
+  /* padding-left 與左側線條由 components.css 的 .timeline-list 補充 */
 }
 
 /* ── Footer ─────────────────────────────────────────────── */
@@ -146,6 +148,7 @@ body {
   margin-bottom: var(--space-md);
 }
 
+/* busuanzi 統計數字的排版容器 */
 .site-footer__stats {
   display: flex;
   justify-content: center;
@@ -165,5 +168,11 @@ body {
 
   .hero {
     padding-top: calc(var(--nav-height) + var(--space-lg));
+  }
+
+  /* 手機上 mini-card 縮圖再縮小一點避免擠壓文字 */
+  .mini-card__thumb {
+    width: 56px;
+    height: 56px;
   }
 }

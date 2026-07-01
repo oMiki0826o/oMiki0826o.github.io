@@ -3,12 +3,17 @@ pages/about.html
 
 Modification():
 
-- Added 關於頁：完整自介段落、興趣標籤、技能條
+- Removed Skills 區塊（<section data-skills>）：
+  依照需求移除首頁「不再出現下方的 skill」的一致化要求，
+  about.html 的技能進度條區塊也一併移除，保留興趣標籤（tag-row）
+- Changed favicon 由佔位圖改為真實頭像 CDN 連結
+- Changed title 更新為「關於 Miki」
 
 Description:
 
-首頁「About」卡片的延伸頁面，內容同樣來自 config/site.json
-與 config/skills.json，新增或調整內容皆只需編輯 JSON。
+首頁「About」卡片的延伸頁面，展示完整自我介紹段落與興趣標籤。
+內容來自 config/site.json 的 about.fullBio 與 about.tags 欄位，
+調整介紹文字或標籤只需修改 JSON，無需改動此 HTML。
 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -17,8 +22,8 @@ Description:
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <title>關於 Miki</title>
-  <meta name="description" content="Miki 的完整自我介紹與技能列表。">
-  <link rel="icon" href="https://placehold.co/64x64/FFE6F0/8a6a8f?text=M">
+  <meta name="description" content="Miki 的完整自我介紹。">
+  <link rel="icon" href="https://cdn.discordapp.com/avatars/839381498351190036/3ea0f92ec08c0cc642cd90df9aee3634.png?size=2048&quality=lossless">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,15 +43,20 @@ Description:
     </div>
   </nav>
 
-  <main class="container" style="padding-top:calc(var(--nav-height) + var(--space-xl));padding-bottom:var(--space-xl)">
-    <a class="back-link" href="/index.html"><i class="fa-solid fa-arrow-left"></i> 回到首頁</a>
+  <main class="container"
+        style="padding-top:calc(var(--nav-height) + var(--space-xl));padding-bottom:var(--space-xl)">
 
+    <a class="back-link" href="/index.html">
+      <i class="fa-solid fa-arrow-left"></i> 回到首頁
+    </a>
+
+    <!--
+      [data-about-full] 由 renderAboutFull 填入：
+      greeting（關於我）、fullBio 段落、tags 興趣標籤。
+      Skills 區塊已移除，不再有 [data-skills] 容器。
+    -->
     <section class="glass card" data-about-full data-reveal></section>
 
-    <section class="glass card" data-reveal style="margin-top:var(--space-lg)">
-      <h2 class="card__title" style="font-size:1.3rem">Skills</h2>
-      <div data-skills></div>
-    </section>
   </main>
 
   <footer class="site-footer container">

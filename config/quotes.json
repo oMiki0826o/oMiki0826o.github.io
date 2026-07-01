@@ -1,20 +1,20 @@
 // config/quotes.json
 //
 // Modification():
-// - Added 逐欄位中文註解
+// - Changed 加入「茶是一種蔬菜湯，咖啡是一種豆漿。」相關語句
 //
 // Description:
 // 頁尾「每日一句」的語句庫。每次重新整理頁面，js/render.js 的
 // renderQuote() 會從 quotes 陣列中隨機抽出一句顯示在 Footer 上方。
-// 新增、刪除、改寫句子都直接編輯這個陣列即可。
 
 {
-  // 語句清單，陣列中每一個字串就是一句可能被抽中的話
+  // 語句清單，陣列中每一個字串是可能被隨機抽中的句子
   "quotes": [
-    "Building something interesting every day.",
+    "茶是一種蔬菜湯，咖啡是一種豆漿。",
     "Keep learning. Keep creating.",
     "Code, Create, Share.",
     "Stay curious.",
-    "今天的小程式，是明天的小成就。"
+    "今天的小程式，是明天的小成就。",
+    "寫程式就是把複雜的問題，拆成剛好夠小的麻煩。"
   ]
 }

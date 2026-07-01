@@ -3,17 +3,21 @@ css/animation.css
 
 Modification():
 
-- Added 捲動淡入動畫、自訂愛心游標、背景螢火蟲粒子樣式
-- Changed 螢火蟲場景由深夜背景改為淺色棉花糖天空，光點改用暖金配色
+- Changed 自訂游標由 SVG 愛心元素改為 CSS cursor URL 圖片方式
+- Fixed  解決鼠標停在按鈕邊緣瘋狂閃動的 Bug：
+         原本在 CSS 設定 cursor:none 再用 JS 補上自訂元素，
+         在按鈕邊緣進入/離開時會因為 cursor:none 狀態切換而閃動；
+         改用 CSS cursor:url() 讓瀏覽器原生渲染游標，完全消除閃動。
+- Added  游標光暈粒子拖尾效果（.cursor-trail），取代原本的愛心主游標
 
 Description:
 
-集中管理視覺動效，呼應「Firefly Bot」意象，於淺色棉花糖漸層背景中
-加入緩慢飄浮的暖金螢火光點，並以可愛的愛心游標取代瀏覽器預設游標，
-作為本站的識別性元素（Signature）。
+集中管理視覺動效：捲動淡入動畫、游標拖尾、背景螢火蟲粒子。
+游標圖片直接用 CSS cursor: url() 設定，無需 JS 控制主游標位置，
+因此不再需要 cursor:none + JS 元素的方案，從根本消除閃動問題。
 */
 
-/* ── Scroll Reveal（取代 AOS，純 CSS + JS 切換 class）───────── */
+/* ── Scroll Reveal（純 CSS + JS class 切換，取代 AOS 函式庫）── */
 [data-reveal] {
   opacity: 0;
   transform: translateY(24px);
@@ -25,17 +29,52 @@ Description:
   transform: translateY(0);
 }
 
-/* ── 背景螢火蟲粒子（淺色棉花糖天空中的暖金流螢）──────────── */
+/* ── 自訂游標：使用 CSS cursor URL，不再使用 cursor:none ─────── */
+/*
+  用 CSS 原生 cursor: url() 設定游標圖片，
+  所有元素統一繼承 html 上設定的游標，不會因 cursor:none 切換而閃動。
+  hotspot 設為 (0, 0)（圖片左上角），避免因不知圖片尺寸而設錯。
+*/
+@media (pointer: fine) {
+  html {
+    cursor: url('https://upload-os-bbs.hoyolab.com/upload/2024/06/19/d4702c1b4bd1cf573db80b66d8c187a2_8759798806922987889.png') 0 0, auto;
+  }
+
+  /* 在互動元素上套用 pointer 語義的同一張圖，讓繼承連貫 */
+  a,
+  button,
+  input,
+  label,
+  [role="button"],
+  .pill,
+  .icon-btn {
+    cursor: url('https://upload-os-bbs.hoyolab.com/upload/2024/06/19/d4702c1b4bd1cf573db80b66d8c187a2_8759798806922987889.png') 0 0, pointer;
+  }
+}
+
+/* ── 游標光點拖尾（js/animation.js 動態建立的小圓點）────────── */
+.cursor-trail {
+  position: fixed;
+  pointer-events: none; /* 穿透，不干擾點擊 */
+  z-index: 9997;
+  border-radius: 50%;
+  /* 大小與顏色由 JS 在 style 屬性上動態設定 */
+  transform: translate(-50%, -50%);
+  transition: opacity 0.45s ease;
+  will-change: left, top, opacity;
+}
+
+/* ── 背景螢火蟲粒子（流螢橘金色，在棉花糖底上飄浮）──────────── */
 .firefly-field {
   position: fixed;
   inset: 0;
   z-index: -1;
   overflow: hidden;
-  /* 在棉花糖漸層之上疊一層極淡的光暈，模擬黃昏天光 */
+  /* 左上角暖金光暈，模擬晨光透過窗戶的感覺 */
   background: radial-gradient(
-    circle at 18% 8%,
-    rgba(255, 210, 122, 0.18) 0%,
-    rgba(255, 210, 122, 0) 55%
+    circle at 15% 10%,
+    rgba(245, 160, 122, 0.15) 0%,
+    rgba(245, 160, 122, 0) 60%
   );
 }
 
@@ -44,9 +83,9 @@ Description:
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  /* 流螢本體用暖金色，光暈疊加一層橘粉色，淺色背景下更立體 */
+  /* 流螢本體用橘金，光暈疊橘紅，在淺色棉花糖背景上更立體 */
   background: var(--color-firefly-glow);
-  box-shadow: 0 0 10px 3px rgba(255, 148, 114, 0.55);
+  box-shadow: 0 0 10px 3px rgba(232, 100, 60, 0.45);
   opacity: 0;
   animation: firefly-drift linear infinite;
 }
@@ -57,69 +96,59 @@ Description:
     opacity: 0;
   }
   10% {
-    opacity: 0.85;
+    opacity: 0.75;
   }
   50% {
-    transform: translate(var(--drift-x, 40px), -120px);
+    transform: translate(var(--drift-x, 40px), -110px);
   }
   90% {
-    opacity: 0.6;
+    opacity: 0.5;
   }
   100% {
-    transform: translate(0, -240px);
+    transform: translate(0, -220px);
     opacity: 0;
   }
 }
 
-/* ── 自訂游標（愛心拖曳光點）────────────────────────────── */
-@media (pointer: fine) {
-  body {
-    cursor: none;
-  }
-
-  a,
-  button,
-  input,
-  .pill,
-  .icon-btn {
-    cursor: none;
-  }
-}
-
-.cursor-dot {
+/* ── Autoplay 提示横幅（打開頁面自動播放被瀏覽器擋住時顯示）─── */
+.autoplay-hint {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 16px;
-  height: 16px;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+  bottom: var(--space-sm);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  padding: 0.55rem 1.2rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--color-card-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  box-shadow: var(--shadow-card);
+  white-space: nowrap;
+  /* 進場動畫 */
+  animation: hint-in 0.4s ease forwards;
 }
 
-.cursor-dot svg {
-  width: 100%;
-  height: 100%;
-  fill: var(--color-accent);
-  filter: drop-shadow(0 0 6px rgba(255, 148, 114, 0.7));
+.autoplay-hint i {
+  color: var(--color-accent);
+  margin-right: 0.35rem;
 }
 
-.cursor-dot.is-active {
-  width: 22px;
-  height: 22px;
+@keyframes hint-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
-.cursor-trail {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  pointer-events: none;
-  z-index: 9998;
-  opacity: 0.5;
-  transform: translate(-50%, -50%);
+.autoplay-hint.is-hiding {
+  opacity: 0;
+  transform: translateX(-50%) translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }

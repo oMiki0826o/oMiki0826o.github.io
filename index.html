@@ -3,12 +3,16 @@ index.html
 
 Modification():
 
-- Added 首頁完整結構：導覽列、Hero、播放器、社群、卡片堆疊、Footer
+- Changed title 由「Miki | Student ‧ Python Developer」
+        改為「Miki | Student」（動態標題由 main.js 的 applySiteMeta 最終設定）
+- Changed favicon 由佔位圖改為真實頭像 CDN 連結，避免首次載入前顯示佔位圖
+- Changed OG image 由 placehold.co 改為真實鎮樓圖
+- Changed meta description 更新為正確的自介摘要
 
 Description:
 
-Miki 的個人介紹首頁。內容全數由 config/*.json 透過 main.js 動態載入，
-本檔案僅負責提供容器與語意結構，調整文字、圖片、清單請改 JSON。
+Miki 的個人介紹首頁。所有顯示內容皆由 config/*.json 透過 main.js 動態載入，
+本檔案只提供語意結構與容器，調整文字、圖片、清單只需編輯對應的 JSON。
 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -16,17 +20,18 @@ Miki 的個人介紹首頁。內容全數由 config/*.json 透過 main.js 動態
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Miki | Student ‧ Python Developer</title>
+  <title>Miki | Student</title>
   <meta name="description" content="Miki 的個人網站，分享專案、文章與成長歷程。">
 
   <!-- ── Open Graph ─────────────────────────────────────── -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Miki">
-  <meta property="og:description" content="Miki 的個人網站，分享專案、文章與成長歷程。">
-  <meta property="og:url" content="https://omiki0826o.github.io/">
-  <meta property="og:image" content="https://placehold.co/1200x630/FBEFFF/8a6a8f?text=Miki">
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="Miki">
+  <meta property="og:description" content="Hi, I'm Miki — 高中生、喜歡把日常小麻煩變成自動化小程式。">
+  <meta property="og:url"         content="https://omiki0826o.github.io/">
+  <meta property="og:image"       content="https://pbs.twimg.com/media/GQgH_VIbQAAViAh?format=jpg&name=large">
 
-  <link rel="icon" href="https://placehold.co/64x64/FFE6F0/8a6a8f?text=M">
+  <!-- favicon 設為真實頭像，main.js 載入後會再次更新，確保兩階段都正確 -->
+  <link rel="icon" href="https://cdn.discordapp.com/avatars/839381498351190036/3ea0f92ec08c0cc642cd90df9aee3634.png?size=2048&quality=lossless">
 
   <!-- ── Fonts ──────────────────────────────────────────── -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,81 +43,120 @@ Miki 的個人介紹首頁。內容全數由 config/*.json 透過 main.js 動態
 </head>
 <body>
 
+  <!-- 螢火蟲粒子背景層（aria-hidden 讓螢幕閱讀器跳過純裝飾內容） -->
   <div class="firefly-field" data-firefly-field aria-hidden="true"></div>
 
   <!-- ── Navigation ─────────────────────────────────────── -->
   <nav class="site-nav glass" data-site-nav>
     <div class="site-nav__inner">
+      <!-- 品牌頭像由 renderNav 動態填入 img 標籤 -->
       <a href="/index.html" class="site-nav__brand" data-nav-brand aria-label="回到首頁"></a>
+      <!-- 導覽連結由 links.json nav 陣列渲染 -->
       <div class="site-nav__links" data-nav-links></div>
     </div>
   </nav>
 
   <!-- ── Hero ───────────────────────────────────────────── -->
   <header class="hero container">
-    <img class="hero__avatar" data-hero-avatar src="https://placehold.co/240x240/FFE6F0/8a6a8f?text=Miki" alt="頭像" data-reveal>
-    <h1 class="hero__name" data-hero-name data-reveal>Miki</h1>
-    <p class="hero__subtitle" data-hero-subtitle data-reveal></p>
-    <p class="hero__signature" data-hero-signature data-reveal></p>
+
+    <!-- src 會被 applySiteMeta 更新為 site.json 的 avatar -->
+    <img class="hero__avatar"
+         data-hero-avatar
+         src="https://cdn.discordapp.com/avatars/839381498351190036/3ea0f92ec08c0cc642cd90df9aee3634.png?size=2048&quality=lossless"
+         alt="Miki 頭像"
+         data-reveal>
+
+    <!-- 以下文字皆由 renderHeroText 填入 -->
+    <h1 class="hero__name"      data-hero-name      data-reveal>Miki</h1>
+    <p  class="hero__subtitle"  data-hero-subtitle  data-reveal></p>
+    <p  class="hero__signature" data-hero-signature data-reveal></p>
 
     <!-- ── Music Player ───────────────────────────────── -->
+    <!--
+      [data-player] 讓 main.js 的 bootstrapOptionalSections 偵測到此頁面
+      需要音樂播放器，觸發 music.json 載入與 MusicPlayer 初始化。
+      YouTube 播放器的隱藏 iframe 由 player.js 動態建立在 body 底部。
+    -->
     <div class="player" data-player data-reveal>
       <p class="player__title">
         <span data-player-title>讀取中…</span>
         <span class="player__artist" data-player-artist></span>
       </p>
-      <input class="player__progress" data-player-progress type="range" min="0" max="100" value="0" aria-label="播放進度">
+      <input class="player__progress" data-player-progress
+             type="range" min="0" max="100" value="0"
+             aria-label="播放進度">
       <div class="player__time">
         <span data-player-current>00:00</span>
         <span data-player-duration>00:00</span>
       </div>
       <div class="player__controls">
-        <button data-player-prev aria-label="上一首"><i class="fa-solid fa-backward-step"></i></button>
-        <button class="player__play" data-player-play aria-label="播放／暫停"><i class="fa-solid fa-circle-play"></i></button>
-        <button data-player-next aria-label="下一首"><i class="fa-solid fa-forward-step"></i></button>
+        <button data-player-prev aria-label="上一首">
+          <i class="fa-solid fa-backward-step"></i>
+        </button>
+        <button class="player__play" data-player-play aria-label="播放／暫停">
+          <i class="fa-solid fa-circle-play"></i>
+        </button>
+        <button data-player-next aria-label="下一首">
+          <i class="fa-solid fa-forward-step"></i>
+        </button>
         <div class="player__volume">
           <i class="fa-solid fa-volume-low"></i>
+          <!-- value="70" 對應 YouTube API 的初始音量 70% -->
           <input data-player-volume type="range" min="0" max="100" value="70" aria-label="音量">
         </div>
       </div>
     </div>
 
     <!-- ── Social Icons ───────────────────────────────── -->
+    <!-- 由 renderSocial 根據 links.json social 陣列動態填入 -->
     <div class="social-row" data-social-row data-reveal></div>
 
     <!-- ── Quick Links ────────────────────────────────── -->
+    <!-- 由 renderQuickLinks 根據 links.json quickLinks 陣列動態填入 -->
     <div class="quick-links" data-quick-links data-reveal></div>
+
   </header>
 
   <!-- ── Card Stack ─────────────────────────────────────── -->
   <main class="container card-stack">
 
+    <!-- 鎮樓圖：由 renderFeaturedCard 填入 img 與版權標示 -->
     <div class="glass card card--featured" data-featured-card data-reveal></div>
 
+    <!-- About 預覽：由 renderAboutPreview 填入（不含技能標籤） -->
     <section class="glass card" data-about-preview data-reveal></section>
 
+    <!-- 專案預覽：首頁只顯示 projects.json 中排在最前面的幾筆 -->
     <section data-reveal>
       <div class="section-heading">
         <h2 class="hero__name" style="font-size:1.4rem">Projects</h2>
-        <a class="card__link" href="/pages/projects.html">View All <i class="fa-solid fa-arrow-right"></i></a>
+        <a class="card__link" href="/pages/projects.html">
+          View All <i class="fa-solid fa-arrow-right"></i>
+        </a>
       </div>
+      <!-- [data-project-grid] 觸發 bootstrapOptionalSections 載入 projects.json -->
       <div class="card-grid" data-project-grid></div>
     </section>
 
+    <!-- 文章預覽 -->
     <section data-reveal>
       <div class="section-heading">
         <h2 class="hero__name" style="font-size:1.4rem">Articles</h2>
-        <a class="card__link" href="/pages/articles.html">View All <i class="fa-solid fa-arrow-right"></i></a>
+        <a class="card__link" href="/pages/articles.html">
+          View All <i class="fa-solid fa-arrow-right"></i>
+        </a>
       </div>
       <div class="card-grid" data-article-grid></div>
     </section>
 
+    <!-- 時間軸預覽：只顯示 highlight:true 的項目，最多 3 筆 -->
     <section class="glass card" data-reveal>
       <div class="section-heading">
         <h2 class="hero__name" style="font-size:1.4rem">歷程</h2>
       </div>
       <ul class="timeline-list" data-timeline-preview></ul>
-      <a class="card__link" href="/pages/timeline.html" style="margin-top:1rem;display:inline-flex">
+      <a class="card__link" href="/pages/timeline.html"
+         style="margin-top:1rem;display:inline-flex">
         View Full Timeline <i class="fa-solid fa-arrow-right"></i>
       </a>
     </section>
@@ -120,11 +164,23 @@ Miki 的個人介紹首頁。內容全數由 config/*.json 透過 main.js 動態
   </main>
 
   <!-- ── Footer ─────────────────────────────────────────── -->
+  <!--
+    [data-quote] 由 renderQuote 填入隨機語句；
+    [data-footer] 由 renderFooter 填入版權資訊與 busuanzi 統計。
+  -->
   <footer class="site-footer container">
     <p class="site-footer__quote" data-quote></p>
     <div data-footer></div>
   </footer>
 
+  <!--
+    腳本載入順序說明：
+    1. loader.js  — fetchJSON / stripJSONComments 工具
+    2. render.js  — 所有渲染函式
+    3. player.js  — MusicPlayer 類別（依賴 render.js 無關）
+    4. animation.js — init* 動效函式
+    5. main.js    — DOMContentLoaded 後呼叫上述所有函式
+  -->
   <script src="/js/loader.js"></script>
   <script src="/js/render.js"></script>
   <script src="/js/player.js"></script>

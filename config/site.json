@@ -1,89 +1,92 @@
 // config/site.json
 //
 // Modification():
-// - Added 逐欄位中文註解，方便日後快速找到要改的位置
+// - Changed subtitle 改為「‧ Student」
+// - Changed signature 改為「茶是一種蔬菜湯，咖啡是一種豆漿。」
+// - Changed featuredImage 更換為指定的 Twitter 圖片連結
+// - Changed about.description 更換自介文字，移除技能標籤
+// - Changed about.greeting 改為「關於我」
 //
 // Description:
 // 網站最核心的基本資料：姓名／簽名／頭像／鎮樓圖／自介／頁尾統計。
 // 本檔案採用 JSONC（含註解的 JSON），由 js/loader.js 的
-// stripJSONComments() 在讀取時自動移除註解後再解析，瀏覽器端不會
-// 看到任何註解內容。
+// stripJSONComments() 在讀取時自動移除註解後再解析。
 //
-// 撰寫規則：本檔案只使用「整行開頭為 //」的整行註解，
-// 不要在資料行的「後面」加註解，避免跟網址中的 // 混淆。
+// 撰寫規則：只使用「整行開頭為 //」的整行註解，
+// 不要在資料行的「後面」加 // 註解，避免與網址中的 // 混淆。
 
 {
-  // 顯示在 Hero 大頭區、導覽列頭像 alt 文字、瀏覽器分頁標題的名字
+  // 顯示在 Hero 大頭區、導覽列 alt 文字、瀏覽器分頁標題的名字
   "name": "Miki",
 
   // Hero 區名字下方的副標題，簡短描述身分
-  "subtitle": "Student ‧ Python Developer ‧ Bot Maker",
+  // 只保留「‧ Student」，移除其他職稱
+  "subtitle": "‧ Student",
 
-  // 簽名／留言板文字，顯示在副標題下方，想換成今日心情或公告都可以直接改這裡
-  "signature": "Building something interesting every day.",
+  // 簽名文字，顯示在副標題下方（可改成今日心情或公告）
+  "signature": "茶是一種蔬菜湯，咖啡是一種豆漿。",
 
-  // 頭像圖片網址，會同時用在 Hero 大頭貼與導覽列左側小頭像
+  // 頭像圖片網址，同時用在 Hero 大頭貼與導覽列左側小頭像
   "avatar": "https://cdn.discordapp.com/avatars/839381498351190036/3ea0f92ec08c0cc642cd90df9aee3634.png?size=2048&quality=lossless",
 
   // 瀏覽器分頁圖示（favicon）的圖片網址
   "favicon": "https://cdn.discordapp.com/avatars/839381498351190036/3ea0f92ec08c0cc642cd90df9aee3634.png?size=2048&quality=lossless",
 
-  // 首頁第一張大卡片（鎮樓圖）使用的圖片網址，想換圖只要改這個網址
-  "featuredImage": "https://placehold.co/1920x1080/FBEFFF/8a6a8f?text=Featured+Artwork",
+  // 首頁第一張大卡片（鎮樓圖）的圖片網址，換圖只需改此網址
+  "featuredImage": "https://pbs.twimg.com/media/GQgH_VIbQAAViAh?format=jpg&name=large",
 
-  // 鎮樓圖右下角的來源標示小標籤，不需要的話可以把整個 featuredCredit
-  // 物件刪掉，或將 label/name/url 留空字串
+  // 鎮樓圖右下角的來源標示，不需要可把整個物件刪掉或留空
   "featuredCredit": {
-    // 標籤文字，例如「Artwork」「Photo by」
+    // 標籤文字，例如「Artwork」「Source」
     "label": "Artwork",
     // 來源作者或網站名稱
-    "name": "Source Name",
-    // 點擊後要跳轉的網址
-    "url": "https://example.com"
+    "name": "Twitter",
+    // 點擊後跳轉的網址
+    "url": "https://twitter.com"
   },
 
-  // 自我介紹相關內容，首頁摘要卡片與 about.html 完整頁都會用到
+  // 自我介紹相關內容，首頁摘要卡片與 about.html 完整頁都會讀取
   "about": {
-    // about 卡片最上方的招呼語
-    "greeting": "Hi, I'm Miki 👋",
+    // About 卡片最上方的招呼語
+    "greeting": "關於我",
 
-    // 首頁摘要卡片用的「短版」自介，建議 2-3 句話
-    "description": "目前是一位高中生，主要開發 Discord Bot、Minecraft 模組與小工具，也喜歡碰 Python、AI 與網站開發。喜歡把日常的小麻煩變成自動化的小程式，享受從零打造一個作品的過程。",
+    // 首頁 About 卡片的短版自介（3-5 句），技能標籤不再顯示
+    "description": "Hi, I'm Miki\n目前是一位高中牲，主要喜歡把日常的小麻煩變成自動化的小程式，享受從零打造一個作品的過程。",
 
-    // 興趣／專長標籤，會以小圓角標籤的形式顯示在自介下方
-    "tags": ["Discord Bot", "Minecraft", "Python", "Web Dev", "AI"],
+    // 技能標籤（目前僅保留給 about.html 完整頁使用，首頁不再顯示）
+    "tags": ["Discord Bot", "Python", "Web Dev", "AI"],
 
-    // 首頁摘要卡片右下角「Read More →」按鈕要連去的頁面
+    // 首頁 About 卡片右下角「Read More →」的目標頁面
     "readMoreUrl": "/pages/about.html",
 
-    // about.html 完整版自介，陣列中「每一個字串」會各自變成一個段落（<p>）
-    // 想要分段、增加或刪除段落，直接增減陣列中的字串即可
+    // about.html 完整版自介，陣列中每個字串各自變成一段 <p>
     "fullBio": [
-      "目前是一位高中生，平常的時間幾乎都花在寫程式跟摸索新東西上。",
-      "主要開發方向是 Discord Bot 與 Minecraft 相關的小工具，偶爾也會碰 AI 應用與網站開發，喜歡把日常生活中覺得麻煩的事情，寫成一支自動化的小程式。",
+      "Hi, I'm Miki",
+      "目前是一位高中牲，主要喜歡把日常的小麻煩變成自動化的小程式，享受從零打造一個作品的過程。",
+      "平常的時間幾乎都花在寫程式跟摸索新東西上，主要開發方向是 Discord Bot 與各種小工具。",
       "比起做完一個很完整的大型專案，我更享受從零到一的過程——想清楚問題、動手實作、看著它真的能跑起來的那個瞬間。"
     ]
   },
 
-  // 頁尾下方的小統計數字，純展示用，目前是手動填寫的數字
+  // 頁尾統計數字（留作 busuanzi 無法讀取時的最終備用值）
   "stats": {
-    // 總瀏覽量
-    "views": 2054,
-    // 總訪客量
-    "visitors": 1467,
+    // 總瀏覽量備用值，實際數字由 busuanzi 自動填入
+    "views": 0,
+    // 總訪客量備用值，實際數字由 busuanzi 自動填入
+    "visitors": 0,
     // 最後更新日期，格式建議維持 YYYY-MM-DD
     "lastUpdated": "2026-06-30"
   },
 
-  // 頁尾最下方的版權／技術資訊區塊
+  // 頁尾版權與技術資訊區塊
   "footer": {
     // 版權年份區間，會顯示成「2020-2026 Miki」
     "year": "2020-2026",
     // 顯示在年份後面的名字
     "owner": "Miki",
-    // 使用的技術清單，陣列中每個字串會以「 / 」串接顯示
+    // 使用的技術清單，以「 / 」串接
     "poweredBy": ["HTML", "CSS", "JavaScript"],
-    // 託管平台說明文字
+    // 託管平台說明
     "hosting": "Hosted on GitHub Pages"
   }
 }

@@ -3,24 +3,35 @@
  *
  * Modification():
  *
- * - Added 全站初始化邏輯：載入 JSON、渲染各區塊、啟動互動動效
+ * - Changed initCustomCursor() 改為 initCursorTrail()，
+ *   對應 animation.js 中移除舊游標方案後的新函式名稱
+ * - Changed applySiteMeta：瀏覽器分頁標題中移除 subtitle 的前置「‧ 」
+ *   裝飾符（如「‧ Student」→ 標題顯示「Miki | Student」）
+ * - Removed bootstrapOptionalSections 中的 [data-skills] 分支，
+ *   about.html 已移除 Skills 區塊，對應的偵測邏輯也一併刪除
  *
  * Description:
  *
- * 單一入口腳本，於 index.html 與 pages/*.html 共用。透過偵測頁面中
- * 是否存在對應的 data-* 容器，決定要載入並渲染哪些區塊，
- * 新增頁面時無需修改本檔案。
+ * 全站共用的初始化腳本，於 index.html 與 pages/*.html 均有載入。
+ * 透過偵測頁面中是否存在對應的 data-* 容器，動態決定要載入哪些 JSON
+ * 並執行哪些渲染函式，新增頁面時無需修改本檔案。
  */
 
 const CONFIG_BASE = '/config';
 
 document.addEventListener('DOMContentLoaded', () => {
   initFireflyField();
-  initCustomCursor();
+  initCursorTrail();  // 改為新方案：游標圖片由 CSS 管理，JS 只做拖尾粒子
   initNavAutoHide();
   bootstrap();
 });
 
+// ── 全站初始化 ────────────────────────────────────────────
+/**
+ * 並行載入所有頁面共用的 JSON 資料，渲染各區塊後啟動捲動動畫。
+ * 在此之後才呼叫 initScrollReveal，確保所有 [data-reveal] 節點
+ * 都已插入 DOM，觀察器不會漏掉尚未渲染的元素。
+ */
 async function bootstrap() {
   const [site, links, quotes] = await Promise.all([
     fetchJSON(`${CONFIG_BASE}/site.json`),
@@ -30,11 +41,11 @@ async function bootstrap() {
 
   if (site) {
     applySiteMeta(site);
+    renderHeroText(site);
     renderFeaturedCard(site);
     renderAboutPreview(site);
     renderAboutFull(site);
     renderFooter(site);
-    renderHeroText(site);
   }
 
   if (links) {
@@ -43,20 +54,22 @@ async function bootstrap() {
     renderQuickLinks(links.quickLinks);
   }
 
-  if (quotes) {
-    renderQuote(quotes);
-  }
+  if (quotes) renderQuote(quotes);
 
   await bootstrapOptionalSections();
 
-  // 等所有區塊渲染完成、data-reveal 節點都已存在 DOM 後才啟動觀察器。
+  // 所有動態內容已注入 DOM，再啟動 IntersectionObserver
   initScrollReveal();
 }
 
-/** 載入並渲染只在特定頁面才存在的區塊，避免不必要的請求。 */
+/**
+ * 載入只在特定頁面存在的區塊。
+ * 先以 querySelector 確認容器存在再發請求，避免不必要的網路流量。
+ */
 async function bootstrapOptionalSections() {
   const tasks = [];
 
+  // 音樂播放器（只在 index.html 有 [data-player]）
   if (document.querySelector('[data-player]')) {
     tasks.push(
       fetchJSON(`${CONFIG_BASE}/music.json`).then((playlist) => {
@@ -67,6 +80,7 @@ async function bootstrapOptionalSections() {
     );
   }
 
+  // 專案卡片格（首頁預覽 + projects.html 完整頁共用同一個選擇器）
   if (document.querySelector('[data-project-grid]')) {
     tasks.push(
       fetchJSON(`${CONFIG_BASE}/projects.json`).then((data) => {
@@ -75,6 +89,7 @@ async function bootstrapOptionalSections() {
     );
   }
 
+  // 文章卡片格
   if (document.querySelector('[data-article-grid]')) {
     tasks.push(
       fetchJSON(`${CONFIG_BASE}/articles.json`).then((data) => {
@@ -83,7 +98,11 @@ async function bootstrapOptionalSections() {
     );
   }
 
-  if (document.querySelector('[data-timeline-preview]') || document.querySelector('[data-timeline-full]')) {
+  // 時間軸（首頁預覽 + timeline.html 完整頁）
+  if (
+    document.querySelector('[data-timeline-preview]') ||
+    document.querySelector('[data-timeline-full]')
+  ) {
     tasks.push(
       fetchJSON(`${CONFIG_BASE}/timeline.json`).then((data) => {
         renderTimelinePreview(data);
@@ -92,34 +111,38 @@ async function bootstrapOptionalSections() {
     );
   }
 
-  if (document.querySelector('[data-skills]')) {
-    tasks.push(fetchJSON(`${CONFIG_BASE}/skills.json`).then(renderSkills));
-  }
-
   await Promise.all(tasks);
 }
 
-/** 套用網站標題、Favicon 等全站 meta 資訊。 */
+// ── Meta 資訊 ─────────────────────────────────────────────
+/**
+ * 設定瀏覽器分頁標題、Favicon 與 Hero 頭像。
+ *
+ * subtitle 前置的「‧ 」是 Hero 區域的視覺裝飾符，
+ * 在瀏覽器分頁標題中不適合出現，因此這裡以正規表達式移除。
+ * 例：「‧ Student」→ 標題顯示「Miki | Student」。
+ */
 function applySiteMeta(site) {
-  document.title = `${site.name} | ${site.subtitle}`;
+  const cleanSubtitle = (site.subtitle ?? '').replace(/^[‧·\s]+/, '').trim();
+  document.title = `${site.name} | ${cleanSubtitle}`;
 
   const favicon = document.querySelector('link[rel="icon"]');
   if (favicon && site.favicon) favicon.href = site.favicon;
 
-  const avatarEls = document.querySelectorAll('[data-hero-avatar]');
-  avatarEls.forEach((el) => {
+  document.querySelectorAll('[data-hero-avatar]').forEach((el) => {
     el.src = site.avatar;
     el.alt = `${site.name} 頭像`;
   });
 }
 
-/** 渲染 Hero 區塊中的姓名、副標與簽名/留言板文字。 */
+// ── Hero 文字 ─────────────────────────────────────────────
+/** 填入 Hero 區的姓名、副標與簽名文字。 */
 function renderHeroText(site) {
-  const nameEl = document.querySelector('[data-hero-name]');
-  const subtitleEl = document.querySelector('[data-hero-subtitle]');
+  const nameEl      = document.querySelector('[data-hero-name]');
+  const subtitleEl  = document.querySelector('[data-hero-subtitle]');
   const signatureEl = document.querySelector('[data-hero-signature]');
 
-  if (nameEl) nameEl.textContent = site.name;
-  if (subtitleEl) subtitleEl.textContent = site.subtitle;
+  if (nameEl)      nameEl.textContent      = site.name;
+  if (subtitleEl)  subtitleEl.textContent  = site.subtitle;
   if (signatureEl) signatureEl.textContent = site.signature;
 }

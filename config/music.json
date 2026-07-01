@@ -1,25 +1,31 @@
 // config/music.json
 //
 // Modification():
-// - Added 逐欄位中文註解
+// - Changed 音源改為 YouTube 串流（youtubeId 欄位），移除本地 audio 路徑
+// - Added youtubeId 欄位，值為 YouTube 影片 ID（watch?v= 後面那段）
 //
 // Description:
-// 播放器的播放清單。陣列中每個物件是一首歌，js/player.js 會依序
-// 播放，播完最後一首會自動跳回第一首。新增歌曲只要在陣列中
-// 複製貼上一個新物件即可，不需要改任何程式碼。
+// 播放器的播放清單。陣列中每個物件是一首歌。
+// type 欄位若為 "youtube"，js/player.js 會使用 YouTube IFrame API
+// 播放對應的影片（純音訊模式，影片畫面隱藏）。
+// 新增歌曲只要在陣列中複製一個新物件並填入對應的 youtubeId 即可。
 
 [
   {
-    // 歌曲名稱，顯示在播放器標題上
-    "title": "Towards the Horizon",
+    // 播放器類型：必須是 "youtube" 才會走 YouTube IFrame API 路徑
+    "type": "youtube",
 
-    // 演出者／作曲者名稱，顯示在歌曲名稱右側的小字
-    "artist": "Alexander Nakarada",
+    // YouTube 影片 ID，取自 URL watch?v=XXXXX 中的 XXXXX
+    // 對應網址：https://www.youtube.com/watch?v=a-eHtP43yKU
+    "youtubeId": "a-eHtP43yKU",
 
-    // 封面圖網址（目前介面沒有顯示封面，先保留欄位方便未來擴充用）
-    "cover": "https://placehold.co/200x200/FFE6F0/8a6a8f?text=%E2%99%AA",
+    // 歌曲名稱，顯示在播放器標題
+    "title": "神のまにまに",
 
-    // 音檔網址，建議放可直接被瀏覽器播放的 mp3／m4a 連結
-    "audio": "https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3"
+    // 演出者名稱，顯示在歌曲名稱下方的小字
+    "artist": "feat.ミク&リン&GUMI",
+
+    // 封面圖網址（目前播放器介面不顯示封面，保留欄位供未來擴充）
+    "cover": ""
   }
 ]
