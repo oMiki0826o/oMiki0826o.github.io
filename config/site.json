@@ -1,65 +1,25 @@
-// config/site.json
-//
-// Modification():
-// - Changed subtitle 改為「‧ Student」
-// - Changed signature 改為「茶是一種蔬菜湯，咖啡是一種豆漿。」
-// - Changed featuredImage 更換為指定的 Twitter 圖片連結
-// - Changed about.description 更換自介文字，移除技能標籤
-// - Changed about.greeting 改為「關於我」
-//
-// Description:
-// 網站最核心的基本資料：姓名／簽名／頭像／鎮樓圖／自介／頁尾統計。
-// 本檔案採用 JSONC（含註解的 JSON），由 js/loader.js 的
-// stripJSONComments() 在讀取時自動移除註解後再解析。
-//
-// 撰寫規則：只使用「整行開頭為 //」的整行註解，
-// 不要在資料行的「後面」加 // 註解，避免與網址中的 // 混淆。
-
 {
-  // 顯示在 Hero 大頭區、導覽列 alt 文字、瀏覽器分頁標題的名字
   "name": "Miki",
-
-  // Hero 區名字下方的副標題，簡短描述身分
-  // 只保留「‧ Student」，移除其他職稱
-  "subtitle": "‧ Student",
-
-  // 簽名文字，顯示在副標題下方（可改成今日心情或公告）
-  "signature": "茶是一種蔬菜湯，咖啡是一種豆漿。",
-
-  // 頭像圖片網址，同時用在 Hero 大頭貼與導覽列左側小頭像
+  "subtitle": "Student",
+  "signature": "欲買桂花同載酒，終不似，少年遊。",
   "avatar": "https://cdn.discordapp.com/avatars/839381498351190036/3ea0f92ec08c0cc642cd90df9aee3634.png?size=2048&quality=lossless",
-
-  // 瀏覽器分頁圖示（favicon）的圖片網址
   "favicon": "https://cdn.discordapp.com/avatars/839381498351190036/3ea0f92ec08c0cc642cd90df9aee3634.png?size=2048&quality=lossless",
-
-  // 首頁第一張大卡片（鎮樓圖）的圖片網址，換圖只需改此網址
   "featuredImage": "https://pbs.twimg.com/media/GQgH_VIbQAAViAh?format=jpg&name=large",
-
-  // 鎮樓圖右下角的來源標示，不需要可把整個物件刪掉或留空
   "featuredCredit": {
-    // 標籤文字，例如「Artwork」「Source」
-    "label": "Artwork",
-    // 來源作者或網站名稱
+    "label": "鎮樓圖",
     "name": "Twitter",
-    // 點擊後跳轉的網址
     "url": "https://twitter.com"
   },
-
-  // 自我介紹相關內容，首頁摘要卡片與 about.html 完整頁都會讀取
   "about": {
-    // About 卡片最上方的招呼語
     "greeting": "關於我",
-
-    // 首頁 About 卡片的短版自介（3-5 句），技能標籤不再顯示
     "description": "Hi, I'm Miki\n目前是一位高中牲，主要喜歡把日常的小麻煩變成自動化的小程式，享受從零打造一個作品的過程。",
-
-    // 技能標籤（目前僅保留給 about.html 完整頁使用，首頁不再顯示）
-    "tags": ["Discord Bot", "Python", "Web Dev", "AI"],
-
-    // 首頁 About 卡片右下角「Read More →」的目標頁面
+    "tags": [
+      "Discord Bot",
+      "Python",
+      "Web Dev",
+      "AI"
+    ],
     "readMoreUrl": "/pages/about.html",
-
-    // about.html 完整版自介，陣列中每個字串各自變成一段 <p>
     "fullBio": [
       "Hi, I'm Miki",
       "目前是一位高中牲，主要喜歡把日常的小麻煩變成自動化的小程式，享受從零打造一個作品的過程。",
@@ -67,26 +27,19 @@
       "比起做完一個很完整的大型專案，我更享受從零到一的過程——想清楚問題、動手實作、看著它真的能跑起來的那個瞬間。"
     ]
   },
-
-  // 頁尾統計數字（留作 busuanzi 無法讀取時的最終備用值）
   "stats": {
-    // 總瀏覽量備用值，實際數字由 busuanzi 自動填入
     "views": 0,
-    // 總訪客量備用值，實際數字由 busuanzi 自動填入
     "visitors": 0,
-    // 最後更新日期，格式建議維持 YYYY-MM-DD
     "lastUpdated": "2026-06-30"
   },
-
-  // 頁尾版權與技術資訊區塊
   "footer": {
-    // 版權年份區間，會顯示成「2020-2026 Miki」
     "year": "2020-2026",
-    // 顯示在年份後面的名字
     "owner": "Miki",
-    // 使用的技術清單，以「 / 」串接
-    "poweredBy": ["HTML", "CSS", "JavaScript"],
-    // 託管平台說明
+    "poweredBy": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
     "hosting": "Hosted on GitHub Pages"
   }
 }

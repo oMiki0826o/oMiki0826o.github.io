@@ -3,25 +3,26 @@ css/animation.css
 
 Modification():
 
-- Changed 自訂游標由 SVG 愛心元素改為 CSS cursor URL 圖片方式
-- Fixed  解決鼠標停在按鈕邊緣瘋狂閃動的 Bug：
-         原本在 CSS 設定 cursor:none 再用 JS 補上自訂元素，
-         在按鈕邊緣進入/離開時會因為 cursor:none 狀態切換而閃動；
-         改用 CSS cursor:url() 讓瀏覽器原生渲染游標，完全消除閃動。
-- Added  游標光暈粒子拖尾效果（.cursor-trail），取代原本的愛心主游標
+- Removed cursor-trail：不再有拖尾效果，游標改為純圖片方案
+- Removed autoplay-hint：自動播放已關閉，提示橫幅不再需要
+- Changed 游標由 animation.css 的 cursor:url() 設定基底，
+          js/animation.js 的 initCustomCursor 在載入後
+          以 canvas 縮圖轉 data URL 覆蓋，確保跨瀏覽器相容
+- Changed 螢火蟲粒子顏色由橘紅改為螢光青綠（髮尾螢光色）
 
 Description:
 
-集中管理視覺動效：捲動淡入動畫、游標拖尾、背景螢火蟲粒子。
-游標圖片直接用 CSS cursor: url() 設定，無需 JS 控制主游標位置，
-因此不再需要 cursor:none + JS 元素的方案，從根本消除閃動問題。
+集中管理視覺動效 CSS。
+游標採用雙保險方案：CSS 先設外部 URL（直接生效），
+JS 非同步縮圖後再以 data URL 注入 <style> 覆蓋，
+兩者都不會造成游標閃爍（無 cursor:none 切換問題）。
 */
 
-/* ── Scroll Reveal（純 CSS + JS class 切換，取代 AOS 函式庫）── */
+/* ── 捲動淡入 ────────────────────────────────────────── */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(22px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
 }
 
 [data-reveal].is-visible {
@@ -29,18 +30,18 @@ Description:
   transform: translateY(0);
 }
 
-/* ── 自訂游標：使用 CSS cursor URL，不再使用 cursor:none ─────── */
+/* ── 自訂游標（CSS 基底層）──────────────────────────── */
 /*
-  用 CSS 原生 cursor: url() 設定游標圖片，
-  所有元素統一繼承 html 上設定的游標，不會因 cursor:none 切換而閃動。
-  hotspot 設為 (0, 0)（圖片左上角），避免因不知圖片尺寸而設錯。
+  只在有精確指標裝置（滑鼠）時啟用。
+  若 JS 的 canvas 縮圖成功，會以 id="cursor-override" 的 <style>
+  注入更高優先度的 data URL 版本覆蓋這裡的外部 URL。
+  hotspot 設為 (0,0)，讓游標尖端對準圖片左上角。
 */
 @media (pointer: fine) {
   html {
     cursor: url('https://upload-os-bbs.hoyolab.com/upload/2024/06/19/d4702c1b4bd1cf573db80b66d8c187a2_8759798806922987889.png') 0 0, auto;
   }
 
-  /* 在互動元素上套用 pointer 語義的同一張圖，讓繼承連貫 */
   a,
   button,
   input,
@@ -52,30 +53,12 @@ Description:
   }
 }
 
-/* ── 游標光點拖尾（js/animation.js 動態建立的小圓點）────────── */
-.cursor-trail {
-  position: fixed;
-  pointer-events: none; /* 穿透，不干擾點擊 */
-  z-index: 9997;
-  border-radius: 50%;
-  /* 大小與顏色由 JS 在 style 屬性上動態設定 */
-  transform: translate(-50%, -50%);
-  transition: opacity 0.45s ease;
-  will-change: left, top, opacity;
-}
-
-/* ── 背景螢火蟲粒子（流螢橘金色，在棉花糖底上飄浮）──────────── */
+/* ── 螢火蟲粒子 ─────────────────────────────────────── */
 .firefly-field {
   position: fixed;
   inset: 0;
   z-index: -1;
   overflow: hidden;
-  /* 左上角暖金光暈，模擬晨光透過窗戶的感覺 */
-  background: radial-gradient(
-    circle at 15% 10%,
-    rgba(245, 160, 122, 0.15) 0%,
-    rgba(245, 160, 122, 0) 60%
-  );
 }
 
 .firefly {
@@ -83,72 +66,17 @@ Description:
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  /* 流螢本體用橘金，光暈疊橘紅，在淺色棉花糖背景上更立體 */
-  background: var(--color-firefly-glow);
-  box-shadow: 0 0 10px 3px rgba(232, 100, 60, 0.45);
+  /* 螢光青綠：對應流螢髮尾的螢火蟲能量色 */
+  background: var(--color-glow);
+  box-shadow: 0 0 10px 3px rgba(69, 232, 158, 0.40);
   opacity: 0;
   animation: firefly-drift linear infinite;
 }
 
 @keyframes firefly-drift {
-  0% {
-    transform: translate(0, 0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.75;
-  }
-  50% {
-    transform: translate(var(--drift-x, 40px), -110px);
-  }
-  90% {
-    opacity: 0.5;
-  }
-  100% {
-    transform: translate(0, -220px);
-    opacity: 0;
-  }
-}
-
-/* ── Autoplay 提示横幅（打開頁面自動播放被瀏覽器擋住時顯示）─── */
-.autoplay-hint {
-  position: fixed;
-  bottom: var(--space-sm);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 200;
-  padding: 0.55rem 1.2rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid var(--color-card-border);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  font-size: 0.85rem;
-  color: var(--color-text-muted);
-  box-shadow: var(--shadow-card);
-  white-space: nowrap;
-  /* 進場動畫 */
-  animation: hint-in 0.4s ease forwards;
-}
-
-.autoplay-hint i {
-  color: var(--color-accent);
-  margin-right: 0.35rem;
-}
-
-@keyframes hint-in {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-}
-
-.autoplay-hint.is-hiding {
-  opacity: 0;
-  transform: translateX(-50%) translateY(8px);
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  0%   { transform: translate(0, 0); opacity: 0; }
+  10%  { opacity: 0.70; }
+  50%  { transform: translate(var(--drift-x, 40px), -110px); }
+  90%  { opacity: 0.45; }
+  100% { transform: translate(0, -210px); opacity: 0; }
 }

@@ -3,54 +3,52 @@ css/variables.css
 
 Modification():
 
-- Changed 配色主題由原本的螢火蟲暖橘改為崩鐵流螢（Firefly）配色
-  以蜜桃奶油白作為背景漸層，流螢標誌性的暖橘紅作為強調色
+- Changed 整套配色依照流螢「少女型態」設計語意重新制定：
+  背景：洋裝純白 × 髮絲灰銀漸層（冷調清透底）
+  主強調色：領巾亮橘（全身唯一暖點，#f07832）
+  螢光色：螢光髮尾青綠（#45e89e，粒子特效與 glow）
+  結構色：外衣深藍（#2c3e6a，分隔線、邊框）
+  文字色：飾品深咖延伸的深炭色（#1a1e2e）
 
 Description:
 
-定義全站共用的 CSS 變數，作為視覺設計的單一事實來源。
-調整品牌色彩或字體時，只需修改此檔案，其他所有樣式表會自動跟進。
-
-流螢（Firefly）配色說明：
-  - 背景：奶油白 → 蜜桃粉 → 暖玫瑰，模擬流螢服裝的暖色底調
-  - 強調色：#e8643c（流螢 SAM 機甲上的標誌性暖橘紅火焰色）
-  - 發光色：#f5a07a（橘金色光暈，對應流螢的火焰能量）
-  - 次要色：#c49ab4（霧玫瑰紫，對應服裝細節的柔和色彩）
+全站 CSS 自訂屬性的唯一事實來源。
+調整色彩、字型、間距時只需修改此檔，其他樣式表自動跟進。
 */
 
 :root {
-  /* ── Color: 流螢漸層底（奶油白 → 蜜桃粉 → 暖玫瑰）───────── */
-  /* 漸層三段色，實際組合在 layout.css 的 body 背景定義 */
-  --color-bg-cream: #fff8f5;
-  --color-bg-pink: #ffeae0;
-  --color-bg-lavender: #ffd9d0;
+  /* ── 背景：洋裝純白 → 髮絲灰銀（冷調清透） ─────────── */
+  --color-bg-a: #f0f2fa;
+  --color-bg-b: #e2e5f0;
+  --color-bg-c: #d6dae8;
 
-  /* 卡片與導覽列使用的白色玻璃感，淺色背景上用「白霧」呈現浮起感 */
-  --color-card: rgba(255, 255, 255, 0.65);
-  --color-card-border: rgba(255, 255, 255, 0.88);
-  /* 用於時間軸等需要可見的分隔線，在淺色底上稍帶暖意 */
-  --color-divider: rgba(100, 60, 40, 0.13);
+  /* 卡片：帶藍調的白霧玻璃，讓卡片在冷灰底上浮起 */
+  --color-card:        rgba(248, 249, 255, 0.62);
+  --color-card-border: rgba(255, 255, 255, 0.90);
 
-  /* 流螢強調色：SAM 機甲的標誌性橘紅火焰色，對比度高且具識別性 */
-  --color-accent: #e8643c;
-  --color-accent-strong: #c44428;
-  /* 發光色：橘金，用於螢火蟲光點和 Glow 效果 */
-  --color-firefly-glow: #f5a07a;
-  /* 次要強調色：霧玫瑰紫，用於技能條漸層、標籤底色等 */
-  --color-violet: #c49ab4;
+  /* 分隔線：外衣深藍淡化後的低飽和藍灰 */
+  --color-divider: rgba(44, 62, 106, 0.12);
 
-  /* 文字色：淺色底需要較深的文字維持對比，選用帶暖意的深棕 */
-  --color-text: #3a1e14;
-  --color-text-muted: #7a4a38;
-  --color-text-faint: #ad7a68;
+  /* ── 強調色：領巾亮橘（全身唯一暖色，點睛用）──────── */
+  --color-accent:        #f07832;
+  --color-accent-strong: #c95f15;
+
+  /* 螢光色：髮尾螢光青綠（粒子光點、Glow 用途） */
+  --color-glow: #45e89e;
+
+  /* 結構深色：外衣深藍 / 飾品深咖（文字色基礎） */
+  --color-steel-blue: #2c3e6a;
+  --color-deep-brown:  #3d2a1a;
+
+  /* ── 文字色：從外衣深藍出發的深炭藍 ────────────────── */
+  --color-text:       #1a1e2e;
+  --color-text-muted: #44506e;
+  --color-text-faint: #8088a8;
 
   /* ── Typography ──────────────────────────────────────── */
-  /* 展示字：圓潤手寫感，呼應 Miki 的個人風格 */
   --font-display: 'Klee One', 'Noto Sans TC', sans-serif;
-  /* 內文字：閱讀舒適的中文字型 */
-  --font-body: 'Noto Sans TC', 'Mulish', sans-serif;
-  /* 等寬字：用於時間、統計數字等需要對齊的資料 */
-  --font-mono: 'Space Mono', monospace;
+  --font-body:    'Noto Sans TC', 'Mulish', sans-serif;
+  --font-mono:    'Space Mono', monospace;
 
   /* ── Spacing ─────────────────────────────────────────── */
   --space-xs: 0.5rem;
@@ -59,14 +57,15 @@ Description:
   --space-lg: 3rem;
   --space-xl: 5rem;
 
-  /* ── Radius / Shadow ─────────────────────────────────── */
+  /* ── Shape / Shadow ──────────────────────────────────── */
   --radius-md: 18px;
   --radius-lg: 28px;
-  /* 淺色背景的卡片陰影要柔和，避免出現深色主題常見的重黑色陰影 */
-  --shadow-card: 0 20px 50px -28px rgba(180, 100, 70, 0.35);
-  --blur-glass: blur(18px);
+
+  /* 冷調陰影：外衣深藍低透明度，比暖橘更符合整體氣質 */
+  --shadow-card: 0 20px 50px -28px rgba(44, 62, 106, 0.22);
+  --blur-glass:  blur(18px);
 
   /* ── Layout ──────────────────────────────────────────── */
-  --max-width: 720px;
+  --max-width:  720px;
   --nav-height: 64px;
 }

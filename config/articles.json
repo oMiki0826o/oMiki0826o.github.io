@@ -1,27 +1,9 @@
-// config/articles.json
-//
-// Modification():
-// - Added 逐欄位中文註解
-//
-// Description:
-// 文章清單。結構與 projects.json 相同邏輯，一樣會渲染成
-// 由上到下排列的滿版圖卡。新增文章只要在陣列最後新增一個物件。
-
 [
   {
-    // 卡片標題
-    "title": "關於我",
-
-    // 卡片頂部大圖網址
+    "title": "簡單的了解我~",
     "cover": "https://placehold.co/960x540/FBEFFF/8a6a8f?text=About+Me",
-
-    // 發布日期，會顯示在標題下方，格式建議維持 YYYY-MM-DD
     "date": "2025-07-25",
-
-    // 文章摘要，顯示在卡片內文區塊
     "excerpt": "關於我的基本介紹與興趣分享。",
-
-    // 點擊整張卡片要跳轉的網址（外部部落格文章連結或站內頁面皆可）
     "url": "#"
   },
   {

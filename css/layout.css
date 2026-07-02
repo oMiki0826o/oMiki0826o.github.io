@@ -3,24 +3,21 @@ css/layout.css
 
 Modification():
 
-- Changed card-grid 間距由 space-md (1.75rem) 縮小為 space-sm (1rem)，
-  配合 mini-card 改為緊湊橫式版式後的視覺節奏
-- Changed timeline-list 只保留骨架排版（display/gap），
-  padding-left 與 border-left 視覺細節移至 components.css
+- Changed 背景漸層改用流螢少女型態三色（洋裝白 → 灰銀 → 帶藍灰）
+- Changed card-grid gap 由 1.75rem 縮為 1rem，配合緊湊 mini-card
+- Changed timeline-list gap 由 1.75rem 縮為 0.55rem，讓歷程更扁平
 
 Description:
 
-定義頁面整體骨架與各區塊的排版方式，不涉及元件外觀細節。
-背景漸層從 variables.css 的三個色彩變數組合，調整配色只需改 variables.css。
+定義頁面整體骨架與各區塊排版，不涉及元件外觀細節。
 */
 
 body {
-  /* 流螢棉花糖漸層：奶油白 → 蜜桃粉 → 暖玫瑰，fixed 讓捲動時背景不動 */
   background: linear-gradient(
-    160deg,
-    var(--color-bg-cream) 0%,
-    var(--color-bg-pink) 48%,
-    var(--color-bg-lavender) 100%
+    155deg,
+    var(--color-bg-a) 0%,
+    var(--color-bg-b) 50%,
+    var(--color-bg-c) 100%
   );
   background-attachment: fixed;
   color: var(--color-text);
@@ -34,7 +31,7 @@ body {
   padding-inline: var(--space-sm);
 }
 
-/* ── Navigation ─────────────────────────────────────────── */
+/* ── Navigation ──────────────────────────────────────── */
 .site-nav {
   position: fixed;
   top: var(--space-sm);
@@ -65,7 +62,7 @@ body {
   justify-content: center;
 }
 
-/* ── Hero ───────────────────────────────────────────────── */
+/* ── Hero ────────────────────────────────────────────── */
 .hero {
   padding-top: calc(var(--nav-height) + var(--space-xl));
   padding-bottom: var(--space-lg);
@@ -76,14 +73,14 @@ body {
   gap: var(--space-sm);
 }
 
-/* ── Music Player ───────────────────────────────────────── */
+/* ── Player ──────────────────────────────────────────── */
 .player {
   width: 100%;
   max-width: 420px;
   margin-inline: auto;
 }
 
-/* ── Social Icons ───────────────────────────────────────── */
+/* ── Social ──────────────────────────────────────────── */
 .social-row {
   display: flex;
   flex-wrap: wrap;
@@ -92,7 +89,7 @@ body {
   margin-block: var(--space-sm);
 }
 
-/* ── Quick Links ────────────────────────────────────────── */
+/* ── Quick Links ──────────────────────────────────────── */
 .quick-links {
   display: flex;
   flex-wrap: wrap;
@@ -101,7 +98,7 @@ body {
   margin-bottom: var(--space-xl);
 }
 
-/* ── Card Stack（首頁主要內容區）───────────────────────── */
+/* ── Card Stack ───────────────────────────────────────── */
 .card-stack {
   display: flex;
   flex-direction: column;
@@ -116,24 +113,22 @@ body {
   margin-bottom: var(--space-sm);
 }
 
-/* ── Card Grid（專案 / 文章列表）──────────────────────── */
+/* ── Card Grid ───────────────────────────────────────── */
 .card-grid {
   display: flex;
   flex-direction: column;
-  /* 由 1.75rem 縮小為 1rem，配合 mini-card 緊湊橫式排版後的視覺節奏 */
   gap: var(--space-sm);
 }
 
-/* ── Timeline ───────────────────────────────────────────── */
+/* ── Timeline ────────────────────────────────────────── */
 .timeline-list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: 0.55rem;
   position: relative;
-  /* padding-left 與左側線條由 components.css 的 .timeline-list 補充 */
 }
 
-/* ── Footer ─────────────────────────────────────────────── */
+/* ── Footer ──────────────────────────────────────────── */
 .site-footer {
   text-align: center;
   padding-block: var(--space-lg);
@@ -143,12 +138,11 @@ body {
 
 .site-footer__quote {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: var(--color-accent);
   margin-bottom: var(--space-md);
 }
 
-/* busuanzi 統計數字的排版容器 */
 .site-footer__stats {
   display: flex;
   justify-content: center;
@@ -159,7 +153,7 @@ body {
   font-size: 0.8rem;
 }
 
-/* ── Responsive ─────────────────────────────────────────── */
+/* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 480px) {
   .site-nav__links {
     gap: var(--space-sm);
@@ -170,7 +164,6 @@ body {
     padding-top: calc(var(--nav-height) + var(--space-lg));
   }
 
-  /* 手機上 mini-card 縮圖再縮小一點避免擠壓文字 */
   .mini-card__thumb {
     width: 56px;
     height: 56px;

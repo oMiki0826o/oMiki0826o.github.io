@@ -1,93 +1,79 @@
-/**
- * js/animation.js
- *
- * Modification():
- *
- * - Removed initCustomCursor（SVG 愛心主游標 + cursor:none 方案）
- *           游標圖片已改由 animation.css 的 cursor:url() 原生設定，
- *           不再需要 JS 元素模擬
- * - Added   initCursorTrail：橘紅色拖尾光點效果，以多個 .cursor-trail
- *           元素依階梯延遲跟隨游標，製造如流星尾跡的視覺效果
- * - Changed initFireflyField 光點數量由 22 降至 20，顏色改為流螢橘紅配色
- *
- * Description:
- *
- * 集中管理全站視覺動效。所有公開函式（init*）均為冪等，
- * 重複呼叫不會疊加副作用，可安全地在每個頁面各呼叫一次。
- *
- * 游標方案設計說明（為何移除 cursor:none + JS 元素）：
- *   原方案在 CSS 對所有互動元素設 cursor:none，再用 JS 建立一個 SVG
- *   心形元素跟著滑鼠移動。問題出在「停在按鈕邊緣」這個瞬間：瀏覽器
- *   會在 cursor:none（body）與 cursor:pointer（button）之間快速切換，
- *   導致游標圖示瘋狂閃爍。新方案直接用 CSS cursor:url() 設定圖片，
- *   讓瀏覽器原生處理游標，JS 只負責拖尾粒子效果，閃動問題從根本消除。
- */
+/*
+js/animation.js
 
-// ── 游標拖尾光點 ─────────────────────────────────────────
-/**
- * 建立一組橘紅色漸縮光點跟隨游標，製造流星尾跡效果。
- * 僅在有精確指標裝置（滑鼠）時啟用，觸控裝置不啟動。
- *
- * 實作原理：
- *   建立 TRAIL_COUNT 個 .cursor-trail div，每個都記錄自己的位置。
- *   第 0 個直接對齊滑鼠座標，第 i 個以 lerp 插值追蹤第 i-1 個，
- *   lerp factor 越小延遲越明顯，製造出拖曳消逝的尾跡感。
- */
-function initCursorTrail() {
+Modification():
+
+- Added   initCustomCursor：以 canvas 將外部圖片縮圖至 32px，
+          轉為 data URL 後注入 <style> 覆蓋 animation.css 的 url() 基底，
+          解決瀏覽器對大尺寸外部游標圖片的限制
+- Removed initCursorTrail：依需求移除拖尾效果
+- Changed initFireflyField 粒子顏色改為螢光青綠（--color-glow）
+
+Description:
+
+集中管理全站視覺動效，所有 init* 函式均為冪等，可安全地在每頁重複呼叫。
+
+游標方案說明（雙層設計）：
+  第一層：animation.css 設定外部 URL，部分瀏覽器直接生效。
+  第二層：JS 非同步載入圖片，以 canvas 縮圖到 32px（符合瀏覽器游標尺寸限制），
+          若取得 data URL 成功則注入 <style> 覆蓋第一層。
+  兩層均不修改 cursor:none，因此不存在游標閃爍問題。
+*/
+
+const CURSOR_URL = 'https://upload-os-bbs.hoyolab.com/upload/2024/06/19/d4702c1b4bd1cf573db80b66d8c187a2_8759798806922987889.png';
+
+// ── 自訂游標 ─────────────────────────────────────────────
+/*
+  流程：
+  1. 建立 Image，請求外部 PNG（crossOrigin='anonymous' 請求 CORS 標頭）
+  2. 載入後在 32×32 canvas 上縮圖
+  3. 嘗試 toDataURL()；若 canvas 被 CORS 汙染則捨棄（保留 CSS 基底層）
+  4. 成功則注入 <style id="cursor-override"> 覆蓋 animation.css 的 url()
+*/
+function initCustomCursor() {
   if (!window.matchMedia('(pointer: fine)').matches) return;
 
-  const TRAIL_COUNT = 7; // 光點數量，數字越大尾跡越長（對應記憶體用量也越高）
-  const trails      = [];
+  const SIZE = 32;
+  const img  = new Image();
+  img.crossOrigin = 'anonymous';
 
-  for (let i = 0; i < TRAIL_COUNT; i++) {
-    const el = document.createElement('div');
-    el.className = 'cursor-trail';
-    // 越靠後的光點越小、越透明，製造漸淡消逝感
-    const size    = Math.max(3, 10 - i * 1.1);
-    const opacity = Math.max(0.06, 0.55 - i * 0.07);
-    el.style.width      = `${size}px`;
-    el.style.height     = `${size}px`;
-    el.style.background = `rgba(232, 100, 60, ${opacity})`;
-    document.body.appendChild(el);
-    trails.push({ el, x: 0, y: 0 });
-  }
+  img.onload = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width  = SIZE;
+    canvas.height = SIZE;
+    canvas.getContext('2d').drawImage(img, 0, 0, SIZE, SIZE);
 
-  let mouseX = 0;
-  let mouseY = 0;
-
-  // pointermove 比 mousemove 更廣泛地支援觸控板精確移動
-  window.addEventListener('pointermove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
-
-  function tick() {
-    // 第一個光點直接貼齊滑鼠
-    trails[0].x = mouseX;
-    trails[0].y = mouseY;
-
-    // 後續光點用線性插值（lerp）追蹤前一個，製造延遲拖曳感
-    for (let i = 1; i < trails.length; i++) {
-      trails[i].x += (trails[i - 1].x - trails[i].x) * 0.28;
-      trails[i].y += (trails[i - 1].y - trails[i].y) * 0.28;
+    let dataUrl;
+    try {
+      dataUrl = canvas.toDataURL('image/png');
+    } catch {
+      // CORS 未允許，保留 animation.css 的 url() 基底即可
+      return;
     }
 
-    trails.forEach((t) => {
-      t.el.style.left = `${t.x}px`;
-      t.el.style.top  = `${t.y}px`;
-    });
+    // id 防止重複注入（SPA 導覽時可能重複呼叫）
+    if (document.getElementById('cursor-override')) return;
 
-    requestAnimationFrame(tick);
-  }
-  tick();
+    const style = document.createElement('style');
+    style.id = 'cursor-override';
+    style.textContent = `
+      @media (pointer: fine) {
+        html {
+          cursor: url('${dataUrl}') 0 0, auto !important;
+        }
+        a, button, input, label,
+        [role="button"], .pill, .icon-btn {
+          cursor: url('${dataUrl}') 0 0, pointer !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  };
+
+  img.src = CURSOR_URL;
 }
 
-// ── 捲動淡入進場動畫 ─────────────────────────────────────
-/**
- * 使用 IntersectionObserver 監聽帶有 [data-reveal] 屬性的元素，
- * 進入視窗後加上 .is-visible 觸發 CSS transition 淡入效果。
- * 每個元素只觸發一次後即停止觀察，節省效能。
- */
+// ── 捲動淡入 ─────────────────────────────────────────────
 function initScrollReveal() {
   const targets = document.querySelectorAll('[data-reveal]');
   if (!targets.length) return;
@@ -97,46 +83,37 @@ function initScrollReveal() {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target); // 觸發一次後停止觀察，節省效能
+        observer.unobserve(entry.target);
       });
     },
-    { threshold: 0.12 } // 元素進入視窗 12% 時觸發，稍早顯示讓體驗更流暢
+    { threshold: 0.10 }
   );
 
   targets.forEach((el) => observer.observe(el));
 }
 
 // ── 導覽列自動隱藏 ───────────────────────────────────────
-/**
- * 向下捲動時對 [data-site-nav] 元素加上 .is-hidden class，
- * 向上捲動時移除，讓使用者隨時能回頭使用導覽列。
- * 80px 的啟動閾值避免頁面頂部的輕微抖動誤觸發。
- */
 function initNavAutoHide() {
   const nav = document.querySelector('[data-site-nav]');
   if (!nav) return;
 
-  let lastScrollY = window.scrollY;
-
+  let lastY = window.scrollY;
   window.addEventListener(
     'scroll',
     () => {
-      const y           = window.scrollY;
-      const scrollingDown = y > lastScrollY && y > 80;
-      nav.classList.toggle('is-hidden', scrollingDown);
-      lastScrollY = y;
+      const y = window.scrollY;
+      nav.classList.toggle('is-hidden', y > lastY && y > 80);
+      lastY = y;
     },
-    { passive: true } // passive:true 讓瀏覽器可以提前優化捲動效能
+    { passive: true }
   );
 }
 
-// ── 背景螢火蟲粒子 ──────────────────────────────────────
-/**
- * 在 [data-firefly-field] 容器中動態生成緩慢向上飄浮的光點。
- * 每個光點的位置、偏移量、動畫時長皆隨機，避免同步閃爍。
- *
- * @param {number} count 生成的粒子數量（預設 20）
- */
+// ── 螢火蟲粒子 ───────────────────────────────────────────
+/*
+  生成緩慢上飄的螢光青綠光點（對應流螢髮尾螢光色）。
+  各粒子的位置、偏移量、動畫時長隨機化，避免同步閃爍。
+*/
 function initFireflyField(count = 20) {
   const field = document.querySelector('[data-firefly-field]');
   if (!field) return;
@@ -146,9 +123,7 @@ function initFireflyField(count = 20) {
     dot.className = 'firefly';
     dot.style.left   = `${Math.random() * 100}%`;
     dot.style.bottom = `${Math.random() * 40}%`;
-    // X 軸漂移量正負各半，讓粒子往左右兩側飄散而不是都往同一方向
     dot.style.setProperty('--drift-x', `${Math.random() * 80 - 40}px`);
-    // 時長與延遲隨機化，避免所有粒子同步閃爍看起來像 loading 動畫
     dot.style.animationDuration = `${9 + Math.random() * 10}s`;
     dot.style.animationDelay   = `${Math.random() * 12}s`;
     field.appendChild(dot);

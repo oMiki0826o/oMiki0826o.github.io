@@ -3,25 +3,19 @@ css/components.css
 
 Modification():
 
-- Changed 配色由螢火蟲暖橘改為流螢（Firefly）橘紅主題
-- Changed mini-card（專案／文章卡）由「16:9 滿版大圖卡」
-         改為「小縮圖 + 文字」的水平緊湊卡片，
-         使卡片高度與 About 卡片近似，整體頁面更清爽
-- Fixed  移除 cursor:none 相關 CSS，改由 animation.css 統一管理游標
-- Removed skill-bar 相關樣式（首頁不再顯示技能條）
+- Changed 配色全面更新為流螢少女型態：橘紅強調、螢光青綠輔助、外衣深藍結構色
+- Changed card--featured 新增 padding，讓玻璃底色在圖片四周可見，
+          形成「玻璃相框」效果；內部 img 加對應的內縮圓角
+- Changed timeline 字級與內距壓縮，讓歷程列表更扁更緊湊
+- Removed cursor:none 與游標相關舊樣式（已移至 animation.css 統一管理）
+- Removed skill-bar 相關樣式（about.html 已移除 Skills 區塊）
 
 Description:
 
-定義各個可重複使用的 UI 元件外觀，呼應整體
-玻璃擬態（Glassmorphism）風格搭配流螢棉花糖配色。
-
-mini-card 設計說明：
-  原本「16:9 封面圖在上方、文字在下方」的版式太高，
-  改為「左側 72×72 縮圖（選填）+ 右側標題/說明/連結」的水平版式，
-  高度從約 280px 壓縮到約 90px，更符合 lit.link 的簡潔列表風格。
+可重複使用 UI 元件的外觀定義，實作流螢少女型態的玻璃擬態風格。
 */
 
-/* ── Glass 基底（共用毛玻璃質感）────────────────────────── */
+/* ── 玻璃質感基底 ────────────────────────────────────── */
 .glass {
   background: var(--color-card);
   border: 1px solid var(--color-card-border);
@@ -31,7 +25,7 @@ mini-card 設計說明：
   box-shadow: var(--shadow-card);
 }
 
-/* ── Navigation ─────────────────────────────────────────── */
+/* ── 導覽列 ──────────────────────────────────────────── */
 .site-nav__inner {
   border-radius: 999px;
 }
@@ -55,15 +49,14 @@ mini-card 設計說明：
   color: var(--color-accent);
 }
 
-/* ── Avatar / Hero ──────────────────────────────────────── */
+/* ── Hero ────────────────────────────────────────────── */
 .hero__avatar {
   width: 112px;
   height: 112px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--color-accent);
-  /* 流螢橘紅光暈 */
-  box-shadow: 0 0 0 6px rgba(232, 100, 60, 0.09);
+  box-shadow: 0 0 0 6px rgba(240, 120, 50, 0.10);
 }
 
 .hero__name {
@@ -85,7 +78,7 @@ mini-card 設計說明：
   max-width: 420px;
 }
 
-/* ── Music Player ───────────────────────────────────────── */
+/* ── 音樂播放器 ───────────────────────────────────────── */
 .player__title {
   font-size: 0.95rem;
   color: var(--color-text);
@@ -106,11 +99,10 @@ mini-card 設計說明：
   width: 100%;
   height: 4px;
   border-radius: 999px;
-  /* 進度填滿部分用流螢橘紅，未播放部分用淡棕底色 */
   background: linear-gradient(
     to right,
     var(--color-accent) var(--progress, 0%),
-    rgba(100, 60, 40, 0.14) var(--progress, 0%)
+    var(--color-divider) var(--progress, 0%)
   );
   cursor: pointer;
 }
@@ -121,7 +113,7 @@ mini-card 設計說明：
   height: 12px;
   border-radius: 50%;
   background: var(--color-accent);
-  box-shadow: 0 0 8px rgba(232, 100, 60, 0.55);
+  box-shadow: 0 0 8px rgba(240, 120, 50, 0.55);
 }
 
 .player__time {
@@ -170,7 +162,7 @@ mini-card 設計說明：
   width: 100%;
   height: 3px;
   border-radius: 999px;
-  background: rgba(100, 60, 40, 0.16);
+  background: rgba(44, 62, 106, 0.16);
 }
 
 .player__volume input::-webkit-slider-thumb {
@@ -181,7 +173,7 @@ mini-card 設計說明：
   background: var(--color-text-muted);
 }
 
-/* ── Social Icon Buttons ────────────────────────────────── */
+/* ── 社群圖示按鈕 ─────────────────────────────────────── */
 .icon-btn {
   width: 40px;
   height: 40px;
@@ -196,11 +188,11 @@ mini-card 設計說明：
 
 .icon-btn:hover {
   color: var(--color-accent);
-  background: rgba(232, 100, 60, 0.09);
+  background: rgba(240, 120, 50, 0.09);
   transform: translateY(-3px);
 }
 
-/* ── Pill Buttons（Quick Links）───────────────────────────── */
+/* ── 膠囊快速連結 ─────────────────────────────────────── */
 .pill {
   display: inline-flex;
   align-items: center;
@@ -216,20 +208,23 @@ mini-card 設計說明：
 }
 
 .pill:hover {
-  color: #fff8f5;
+  color: var(--color-bg-a);
   background: var(--color-accent);
   border-color: var(--color-accent);
   transform: translateY(-2px);
 }
 
-/* ── Cards（通用卡片外觀）──────────────────────────────── */
+/* ── 卡片通用 ────────────────────────────────────────── */
 .card {
   padding: var(--space-md);
 }
 
-/* 鎮樓圖大卡 */
+/* ── 鎮樓圖大卡（玻璃相框效果）─────────────────────────
+   padding 讓玻璃底色在圖片四周可見形成相框，
+   img 使用稍小的 border-radius 讓圖片緊貼相框內側。
+────────────────────────────────────────────────────── */
 .card--featured {
-  padding: 0;
+  padding: var(--space-xs);
   overflow: hidden;
   position: relative;
 }
@@ -238,35 +233,39 @@ mini-card 設計說明：
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
+  border-radius: calc(var(--radius-lg) - 6px);
+  display: block;
 }
 
 .card--featured__credit {
   position: absolute;
-  right: var(--space-sm);
-  bottom: var(--space-sm);
+  right: calc(var(--space-xs) + 0.5rem);
+  bottom: calc(var(--space-xs) + 0.5rem);
   font-size: 0.7rem;
-  padding: 0.3rem 0.7rem;
+  padding: 0.25rem 0.6rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(248, 249, 255, 0.72);
   color: var(--color-text-muted);
-  backdrop-filter: var(--blur-glass);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .card--featured__credit a {
   color: var(--color-accent);
 }
 
+/* ── 卡片通用文字 ─────────────────────────────────────── */
 .card__title {
   font-family: var(--font-display);
   font-size: 1.3rem;
   margin-bottom: 0.6rem;
+  color: var(--color-text);
 }
 
 .card__text {
   color: var(--color-text-muted);
   font-size: 0.92rem;
   line-height: 1.75;
-  /* 保留換行，讓多段 \n 能正確折行 */
   white-space: pre-line;
   margin-bottom: var(--space-sm);
 }
@@ -287,6 +286,7 @@ mini-card 設計說明：
   transform: translateX(3px);
 }
 
+/* ── 標籤列 ──────────────────────────────────────────── */
 .tag-row {
   display: flex;
   flex-wrap: wrap;
@@ -298,35 +298,28 @@ mini-card 設計說明：
   font-size: 0.72rem;
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
-  color: var(--color-violet);
-  background: rgba(196, 154, 180, 0.18);
+  color: var(--color-steel-blue);
+  background: rgba(44, 62, 106, 0.10);
 }
 
-/* ── Mini Cards（Projects／Articles）──────────────────────
-   設計改動說明：
-   原本「16:9 封面圖 + 大量空間」改為水平緊湊卡片：
-   - 左側 72×72 小縮圖（若無封面圖則隱藏，文字區塊自動填滿）
-   - 右側 標題 → Meta → 描述 → View 連結，垂直排列
-   - 整體高度約 90-100px，與 About 卡片的行距比例接近
-──────────────────────────────────────────────────────────── */
+/* ── 緊湊橫式卡片（專案 / 文章）────────────────────────
+   左側 72×72 縮圖（無封面時省略）+ 右側文字，
+   整體高度約 90px，與 About 卡片行距比例相近。
+────────────────────────────────────────────────────── */
 .mini-card {
   display: flex;
-  flex-direction: row;
   align-items: flex-start;
   gap: var(--space-sm);
-  /* 使用 card 的 padding，而非上下各一個大塊空間 */
   padding: var(--space-sm) var(--space-md);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  /* 取消原本 flex-direction:column 時的 img 全寬樣式 */
 }
 
 .mini-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 22px 52px -28px rgba(180, 80, 40, 0.45);
+  box-shadow: 0 22px 52px -28px rgba(44, 62, 106, 0.32);
 }
 
-/* 縮圖：固定 72×72，圓角，在沒有圖片時設 display:none（由 JS 控制） */
 .mini-card__thumb {
   flex-shrink: 0;
   width: 72px;
@@ -336,26 +329,23 @@ mini-card 設計說明：
   border: 1px solid var(--color-card-border);
 }
 
-/* 右側文字區塊：垂直排列，flex:1 填滿剩餘寬度 */
 .mini-card__body {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.22rem;
   flex: 1;
-  min-width: 0; /* 防止長文字撐破 flex 容器 */
+  min-width: 0;
 }
 
-/* 標題：比 About 卡片的 card__title 略小，保持視覺層次 */
 .mini-card__title {
   font-family: var(--font-display);
   font-size: 1.05rem;
-  /* 超長標題截斷，避免破版 */
+  color: var(--color-text);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-/* Meta：日期或技術標籤，等寬小字 */
 .mini-card__meta {
   font-size: 0.72rem;
   color: var(--color-text-faint);
@@ -365,7 +355,6 @@ mini-card 設計說明：
   white-space: nowrap;
 }
 
-/* 描述：最多顯示 2 行，超出用省略號 */
 .mini-card__desc {
   font-size: 0.82rem;
   color: var(--color-text-muted);
@@ -376,76 +365,53 @@ mini-card 設計說明：
   overflow: hidden;
 }
 
-/* ── Timeline ───────────────────────────────────────────── */
+/* ── 時間軸（緊湊版）────────────────────────────────────
+   gap 與字級都縮小，讓歷程列表整體更扁平。
+────────────────────────────────────────────────────── */
 .timeline-list {
   padding-left: var(--space-md);
-  border-left: 1px solid var(--color-divider);
+  border-left: 1.5px solid var(--color-divider);
 }
 
 .timeline-item {
   position: relative;
-  padding-left: var(--space-sm);
+  padding-left: 0.85rem;
 }
 
-/* 時間軸節點圓點，用流螢橘紅 */
 .timeline-item::before {
   content: '';
   position: absolute;
-  left: calc(-1 * var(--space-md) - 4.5px);
-  top: 0.35rem;
-  width: 9px;
-  height: 9px;
+  left: calc(-1 * var(--space-md) - 4px);
+  top: 0.32rem;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--color-accent);
-  box-shadow: 0 0 0 4px rgba(232, 100, 60, 0.12);
+  box-shadow: 0 0 0 3px rgba(240, 120, 50, 0.14);
 }
 
 .timeline-item__year {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   color: var(--color-accent);
+  line-height: 1.2;
 }
 
 .timeline-item__title {
   font-family: var(--font-display);
-  font-size: 1.05rem;
-  margin-bottom: 0.2rem;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  margin-bottom: 0.08rem;
+  line-height: 1.3;
 }
 
 .timeline-item__desc {
-  font-size: 0.85rem;
+  font-size: 0.80rem;
   color: var(--color-text-muted);
+  line-height: 1.5;
 }
 
-/* ── Skills（僅 about.html 使用，首頁已移除）──────────── */
-.skill-bar {
-  margin-bottom: var(--space-sm);
-}
-
-.skill-bar__label {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.85rem;
-  margin-bottom: 0.3rem;
-  color: var(--color-text-muted);
-}
-
-.skill-bar__track {
-  height: 6px;
-  border-radius: 999px;
-  background: rgba(100, 60, 40, 0.1);
-  overflow: hidden;
-}
-
-.skill-bar__fill {
-  height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--color-violet), var(--color-accent));
-  width: 0%;
-  transition: width 1.1s ease;
-}
-
-/* ── Back Link（子頁返回首頁）───────────────────────────── */
+/* ── 返回連結（子頁面）────────────────────────────────── */
 .back-link {
   display: inline-flex;
   align-items: center;
