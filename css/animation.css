@@ -3,22 +3,21 @@ css/animation.css
 
 Modification():
 
-- Removed cursor-trail：不再有拖尾效果，游標改為純圖片方案
-- Removed autoplay-hint：自動播放已關閉，提示橫幅不再需要
-- Changed 游標由 animation.css 的 cursor:url() 設定基底，
-          js/animation.js 的 initCustomCursor 在載入後
-          以 canvas 縮圖轉 data URL 覆蓋，確保跨瀏覽器相容
-- Changed 螢火蟲粒子顏色由橘紅改為螢光青綠（髮尾螢光色）
+- Changed 游標網址不再於此檔重複貼上，改為引用 variables.css 集中定義的
+        --cursor-default／--cursor-pointer（DRY，未來換圖只需改一處）
+- Changed 螢火蟲粒子的陰影色由寫死的 rgba(69, 232, 158, ...) 改為引用
+        --color-glow-rgb，與新的淺色配色（薄荷青）保持一致
+- Kept   雙保險游標機制：CSS 先設外部 URL（立即生效），
+        js/animation.js 的 initCustomCursor 待圖片載入後以 canvas 縮圖
+        再覆蓋一次，兩者共用同一組 CSS 變數，不會出現規則互相打架、
+        游標在按鈕邊緣反覆閃動的問題
 
 Description:
 
-集中管理視覺動效 CSS。
-游標採用雙保險方案：CSS 先設外部 URL（直接生效），
-JS 非同步縮圖後再以 data URL 注入 <style> 覆蓋，
-兩者都不會造成游標閃爍（無 cursor:none 切換問題）。
+集中管理視覺動效 CSS：捲動淡入、自訂游標、螢火蟲粒子背景。
 */
 
-/* ── 捲動淡入 ────────────────────────────────────────── */
+/* ── 捲動淡入 ──────────────────────────────────────────── */
 [data-reveal] {
   opacity: 0;
   transform: translateY(22px);
@@ -30,16 +29,16 @@ JS 非同步縮圖後再以 data URL 注入 <style> 覆蓋，
   transform: translateY(0);
 }
 
-/* ── 自訂游標（CSS 基底層）──────────────────────────── */
-/*
-  只在有精確指標裝置（滑鼠）時啟用。
-  若 JS 的 canvas 縮圖成功，會以 id="cursor-override" 的 <style>
-  注入更高優先度的 data URL 版本覆蓋這裡的外部 URL。
-  hotspot 設為 (0,0)，讓游標尖端對準圖片左上角。
-*/
+/* ── 自訂游標（CSS 基底層）─────────────────────────────────
+   只在有精確指標裝置（滑鼠）時啟用，觸控裝置不受影響。
+   兩個狀態（預設／可互動）共用 variables.css 定義的網址，
+   若日後 JS 的 canvas 縮圖成功，會用同名 CSS 變數覆蓋，
+   因此「規則來源」永遠只有一份，不會有兩處定義互相搶優先度
+   而造成游標在元素邊緣快速切換、看起來像閃動的問題。
+──────────────────────────────────────────────────────── */
 @media (pointer: fine) {
   html {
-    cursor: url('https://upload-os-bbs.hoyolab.com/upload/2024/06/19/d4702c1b4bd1cf573db80b66d8c187a2_8759798806922987889.png') 0 0, auto;
+    cursor: var(--cursor-default);
   }
 
   a,
@@ -49,11 +48,11 @@ JS 非同步縮圖後再以 data URL 注入 <style> 覆蓋，
   [role="button"],
   .pill,
   .icon-btn {
-    cursor: url('https://upload-os-bbs.hoyolab.com/upload/2024/06/19/d4702c1b4bd1cf573db80b66d8c187a2_8759798806922987889.png') 0 0, pointer;
+    cursor: var(--cursor-pointer);
   }
 }
 
-/* ── 螢火蟲粒子 ─────────────────────────────────────── */
+/* ── 螢火蟲粒子 ────────────────────────────────────────── */
 .firefly-field {
   position: fixed;
   inset: 0;
@@ -66,9 +65,9 @@ JS 非同步縮圖後再以 data URL 注入 <style> 覆蓋，
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  /* 螢光青綠：對應流螢髮尾的螢火蟲能量色 */
+  /* 薄荷青：對應流螢裙擺／髮尾的淺色螢光能量色 */
   background: var(--color-glow);
-  box-shadow: 0 0 10px 3px rgba(69, 232, 158, 0.40);
+  box-shadow: 0 0 10px 3px rgba(var(--color-glow-rgb), 0.40);
   opacity: 0;
   animation: firefly-drift linear infinite;
 }

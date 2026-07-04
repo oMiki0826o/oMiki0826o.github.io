@@ -3,9 +3,10 @@ js/main.js
 
 Modification():
 
+- Changed applySiteMeta：分頁標題改讀取 site.siteTitle（網站品牌名稱）
+        而非組合 name + subtitle，與 Hero 顯示用的個人名稱脫鉤
 - Changed initCursorTrail() 改回 initCustomCursor()，
           對應 animation.js 的 canvas 縮圖游標方案
-- Changed applySiteMeta：分頁標題移除 subtitle 前置的 ‧ 裝飾符
 
 Description:
 
@@ -96,13 +97,13 @@ async function bootstrapOptionalSections() {
 
 // ── Meta ──────────────────────────────────────────────────
 /*
-  subtitle 前置的「‧ 」是 Hero 視覺裝飾符，
-  在瀏覽器分頁標題中不適合出現，以正規表達式移除。
-  例：「‧ Student」→ 標題「Miki | Student」。
+  siteTitle 是「網站品牌名稱」（分頁標題／OG site_name 用），
+  name 則是「個人名稱」（Hero 大字、頁尾署名用），兩者刻意分開：
+  若共用同一個欄位，改網站名稱時 Hero 也會被迫顯示「Miki's web」，
+  但 Hero 想呈現的是人名本身，不是網站品牌。
 */
 function applySiteMeta(site) {
-  const cleanSubtitle = (site.subtitle ?? '').replace(/^[‧·\s]+/, '').trim();
-  document.title = `${site.name} | ${cleanSubtitle}`;
+  document.title = site.siteTitle ?? site.name ?? '';
 
   const favicon = document.querySelector('link[rel="icon"]');
   if (favicon && site.favicon) favicon.href = site.favicon;

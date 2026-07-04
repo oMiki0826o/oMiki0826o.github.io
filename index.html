@@ -3,10 +3,12 @@ index.html
 
 Modification():
 
-- Changed title 由「Miki | Student ‧ Python Developer」
-         改為「Miki | Student」（動態標題由 main.js 的 applySiteMeta 最終設定）
+- Changed 網站品牌名稱改為「Miki's web」：靜態 <title>、新增的
+        og:site_name、新增的 twitter:* 標籤皆同步更新；og:title
+        維持「Miki」（頁面主體人名），與網站品牌名稱分開表達
+- Added   twitter:card 系列標籤，讓 X／Discord 等平台優先讀取，
+        產生的分享預覽卡與既有 og:image 一致
 - Changed favicon 由佔位圖改為真實頭像 CDN 連結，避免首次載入前顯示佔位圖
-- Changed OG image 由 placehold.co 改為真實鎮樓圖
 - Changed meta description 更新為正確的自介摘要
 
 Description:
@@ -20,15 +22,26 @@ Miki 的個人介紹首頁。所有顯示內容皆由 config/*.json 透過 main.
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Miki's Website</title>
+  <!-- 靜態初始標題與 JS 動態設定的值（main.js applySiteMeta）保持一致，
+       避免 JS 尚未執行完成前分頁標題與正式版本不同步 -->
+  <title>Miki's web</title>
   <meta name="description" content="Miki 的個人網站！">
 
-  <!-- ── Open Graph ─────────────────────────────────────── -->
+  <!-- ── Open Graph ─────────────────────────────────────────
+       og:site_name＝網站品牌（Miki's web），og:title＝這個頁面／
+       這個人的名稱（Miki），兩者語意不同，不合併成同一個值 -->
   <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="Miki's web">
   <meta property="og:title"       content="Miki">
   <meta property="og:description" content="Hi, I'm Miki. Welcome to my personal website！">
   <meta property="og:url"         content="https://omiki0826o.github.io/">
   <meta property="og:image"       content="https://pbs.twimg.com/media/GQgH_VIbQAAViAh?format=jpg&name=large">
+
+  <!-- ── Twitter Card：X／Discord 等平台優先讀取這組標籤產生預覽卡 ── -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Miki">
+  <meta name="twitter:description" content="Hi, I'm Miki. Welcome to my personal website！">
+  <meta name="twitter:image"       content="https://pbs.twimg.com/media/GQgH_VIbQAAViAh?format=jpg&name=large">
 
   <!-- favicon 設為真實頭像，main.js 載入後會再次更新，確保兩階段都正確 -->
   <link rel="icon" href="https://cdn.discordapp.com/avatars/839381498351190036/3ea0f92ec08c0cc642cd90df9aee3634.png?size=2048&quality=lossless">

@@ -3,6 +3,11 @@
  *
  * Modification():
  *
+ * - Changed renderFeaturedCard：輸出結構新增 .card--featured__frame／
+ *   __sheen 兩層，對應 components.css 的水晶玻璃描邊與反光掃過效果
+ * - Added   updateLastUpdatedFromRepo：向 GitHub API 查詢真實最後
+ *   commit 時間，取代原本寫死在 site.json 的日期字串；renderFooter
+ *   會先用 fallback 日期完成首次渲染，取得真實日期後才覆寫該欄位
  * - Changed renderAboutPreview：移除 tag-row（技能標籤列），
  *   首頁 About 卡片現在只顯示問候語、描述文字與 Read More 連結
  * - Changed renderMiniCard：由「16:9 封面大圖 + 文字」改為
@@ -94,8 +99,14 @@ function renderFeaturedCard(site) {
   const el = document.querySelector('[data-featured-card]');
   if (!el || !site) return;
   const credit = site.featuredCredit;
+
+  // __frame 承載稜鏡描邊漸層，__sheen 是捲動進場時掃過一次的反光層，
+  // 兩者搭配 components.css 的 .card--featured 規則做出水晶玻璃質感。
   el.innerHTML =
-    `<img src="${escapeHTML(site.featuredImage)}" alt="鎮樓圖" loading="lazy">` +
+    `<div class="card--featured__frame">
+       <img src="${escapeHTML(site.featuredImage)}" alt="鎮樓圖" loading="lazy">
+       <div class="card--featured__sheen" aria-hidden="true"></div>
+     </div>` +
     (credit
       ? `<div class="card--featured__credit">${escapeHTML(credit.label)}：
            <a href="${escapeHTML(credit.url)}" target="_blank" rel="noopener">
@@ -267,7 +278,9 @@ function renderFooter(site) {
   if (!el || !site?.footer) return;
 
   const { year, owner, poweredBy, hosting } = site.footer;
-  const lastUpdated = site.stats?.lastUpdated ?? '—';
+  // site.json 裡的 stats.lastUpdated 只作為「查無網路時」的備援顯示值；
+  // 真正的日期由下方 updateLastUpdatedFromRepo() 向 GitHub 取得後覆寫。
+  const fallbackUpdated = site.stats?.lastUpdated ?? '—';
 
   el.innerHTML = `
     <p>${escapeHTML(year)} ${escapeHTML(owner)}</p>
@@ -284,7 +297,7 @@ function renderFooter(site) {
       </span>
       <span>
         <i class="fa-regular fa-calendar-days"></i>
-        ${escapeHTML(lastUpdated)}
+        <span data-last-updated>${escapeHTML(fallbackUpdated)}</span>
       </span>
     </div>`;
 
@@ -296,5 +309,33 @@ function renderFooter(site) {
     s.src   = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
     s.async = true;
     document.body.appendChild(s);
+  }
+
+  if (site.repo) {
+    updateLastUpdatedFromRepo(site.repo, el.querySelector('[data-last-updated]'));
+  }
+}
+
+/**
+ * 向 GitHub 公開 REST API 查詢 repo 最新一次 commit 的時間，
+ * 取代 site.json 裡手動維護、容易過期的 stats.lastUpdated 字串。
+ *
+ * 失敗時（離線、未具名請求的 API 額度用盡等）刻意吞掉錯誤並保留
+ * fallback 日期，因為「最後更新時間顯示不夠即時」不該讓整個頁尾壞掉。
+ *
+ * @param {string} repo  "擁有者/儲存庫名稱"，來自 site.json 的 repo 欄位
+ * @param {HTMLElement|null} targetEl  要覆寫文字的 <span data-last-updated>
+ */
+async function updateLastUpdatedFromRepo(repo, targetEl) {
+  if (!targetEl) return;
+  try {
+    const res = await fetch(`https://api.github.com/repos/${repo}/commits?per_page=1`);
+    if (!res.ok) return;
+    const [latestCommit] = await res.json();
+    const isoDate = latestCommit?.commit?.committer?.date;
+    if (!isoDate) return;
+    targetEl.textContent = isoDate.slice(0, 10); // "YYYY-MM-DDTHH:mm:ssZ" → "YYYY-MM-DD"
+  } catch {
+    // 網路異常或 API 額度用盡：保留頁尾已顯示的 fallback 日期即可
   }
 }

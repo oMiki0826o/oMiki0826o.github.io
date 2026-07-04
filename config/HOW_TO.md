@@ -10,17 +10,23 @@ GitHub Pages 自動重新部署，重新整理頁面即可看到更新。
 
 控制：名稱、副標、簽名、頭像、鎮樓圖、自介、頁尾版權。
 
-### 更換顯示名稱與副標
+### 更換網站品牌名稱、顯示名稱與副標
 
 ```json
 {
   "name": "Miki",
+  "siteTitle": "Miki's web",
   "subtitle": "‧ Student"
 }
 ```
 
-`name` 同時作用於 Hero 標題與瀏覽器分頁（顯示為 `Miki | Student`）。
-副標前置的 `‧` 是視覺裝飾符，會在分頁標題中自動移除。
+`name` 是「人」的名稱，用在 Hero 大標題、頁尾署名等會出現「我是誰」的地方。
+`siteTitle` 是「網站」的品牌名稱，用在瀏覽器分頁標題與社群分享卡片的
+`og:site_name`。兩者刻意分開：只想換網站的招牌文字（例如改名叫
+`Miki's web`）時改 `siteTitle` 就好，不會連帶讓 Hero 也顯示成
+「Miki's web」這種不像人名的字樣。
+
+副標前置的 `‧` 是視覺裝飾符，只出現在 Hero，不會混進分頁標題。
 
 ### 更換頭像
 
@@ -72,6 +78,7 @@ GitHub Pages 自動重新部署，重新整理頁面即可看到更新。
 
 ```json
 {
+  "repo": "oMiki0826o/oMiki0826o.github.io",
   "stats": {
     "lastUpdated": "2026-06-30"
   },
@@ -85,32 +92,53 @@ GitHub Pages 自動重新部署，重新整理頁面即可看到更新。
 ```
 
 瀏覽量與訪客數由 busuanzi 服務自動填入，無需手動設定。
-`lastUpdated` 為靜態顯示的最後更新日期。
+
+`lastUpdated` 現在只是「查不到真實資料時」的備援顯示值：頁面載入後
+會拿 `repo`（格式為 `擁有者/儲存庫名稱`）向 GitHub 公開 API 查詢這個
+倉庫最新一次 commit 的時間，成功的話會直接覆蓋成真實日期；只有離線
+或 GitHub API 額度用盡時才會維持顯示 `lastUpdated` 這個手動填的值。
+換過儲存庫名稱、或想拿掉 `repo` 只用手動日期，都直接改這兩個欄位即可，
+不需要動到任何 JS。
 
 ---
 
 ## music.json — 音樂播放清單
 
-控制：播放器的曲目清單（支援多首，可手動切換上下首）。
+控制：音樂播放器要播什麼。支援兩種模式，依資料形狀自動判斷，
+不需要另外設定「模式開關」。
 
-### 新增一首 YouTube 曲目
+### 模式一：單一 YouTube 播放清單（目前站上使用的模式）
 
 ```json
 [
   {
     "type": "youtube",
     "youtubeId": "a-eHtP43yKU",
-    "title": "鐵道繁星",
-    "artist": "崩壞：星穹鐵道 OST",
-    "cover": ""
+    "playlistId": "PLfxP_gTTvP3LCPFEeQ2vYqgYWJWhVumzN",
+    "title": "Now Playing",
+    "artist": "",
+    "cover": "https://i.ytimg.com/vi/a-eHtP43yKU/hqdefault.jpg"
   }
 ]
 ```
 
-`youtubeId` 取自 YouTube 網址 `?v=` 後的部分：
-`https://youtu.be/MDcPpQHAEro?si=2Y_TzpBFzYTeJVtn` → `"youtubeId": "a-eHtP43yKU"`
+只要第一筆資料帶有 `playlistId`，播放器就會直接掛載這份真實的 YouTube
+播放清單：上一首／下一首呼叫的是 YouTube 自己的清單導覽，一首播完會
+自動接播下一首，不需要在這份 JSON 裡逐首列出清單內容。
 
-### 新增第二首
+`title` / `artist` 只在「YouTube 資料還沒讀到」的瞬間短暫顯示，正常
+情況下播放器會用 `getVideoData()` 直接讀取當下真正播放的那首歌的
+標題與頻道名稱並覆蓋這兩個欄位，所以不需要手動維護成清單裡每首歌
+的正確歌名——也維護不來，畢竟這份 JSON 並不知道清單裡實際有哪些歌。
+
+`cover` 用 `https://i.ytimg.com/vi/{youtubeId}/hqdefault.jpg` 這個
+固定格式就能拿到該影片的縮圖，不需要另外找圖或上傳。
+
+`youtubeId` 與 `playlistId` 都能從播放清單網址直接複製：
+`https://www.youtube.com/watch?v=a-eHtP43yKU&list=PLfxP_gTTvP3LCPFEeQ2vYqgYWJWhVumzN`
+→ `youtubeId` 是 `?v=` 後面那段，`playlistId` 是 `&list=` 後面那段。
+
+### 模式二：手動列出多首單曲（沒有 playlistId 時的舊行為）
 
 ```json
 [
@@ -129,7 +157,10 @@ GitHub Pages 自動重新部署，重新整理頁面即可看到更新。
 ]
 ```
 
-陣列順序即播放順序，曲目播完後需手動按下一首，不會自動循環。
+不帶 `playlistId` 時，播放器會退回「在這份陣列裡循環」的行為：
+陣列順序即播放順序，上一首／下一首在陣列內前後移動，播到最後一首
+再按下一首會回到第一首。這種模式下 `title`／`artist` 就是實際顯示的
+歌名，需要自行填寫正確。
 
 ---
 

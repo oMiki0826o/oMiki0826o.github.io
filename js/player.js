@@ -3,14 +3,26 @@ js/player.js
 
 Modification():
 
-- Changed autoplay 由開啟改為關閉（playerVars.autoplay: 0）
-- Removed _showAutoplayHint：自動播放停用後此功能不再需要
-- Removed onReady 中的 playVideo() 呼叫
-- Kept    _startProgressTimer、updatePlayIcon 等其餘功能不變
+- Added   播放清單模式（usePlaylistNav）：當 music.json 的資料帶有
+        playlistId 時，改用 YouTube 原生播放清單機制掛載（playerVars
+        的 listType/list），上一首／下一首呼叫 previousVideo()/
+        nextVideo()，單曲結束由 YouTube 自動接播下一首。
+        沒有 playlistId 時則完全維持原本「在 music.json 本地陣列裡
+        循環播放」的行為，兩種資料型態都相容，未來想切回手動歌單
+        也不需要改程式碼。
+- Added   _updateTrackInfo 改為優先呼叫 getVideoData() 向播放器本身
+        取得目前這首歌「真正」的標題與頻道名稱；播放清單模式下
+        music.json 不可能預先知道清單裡有哪些歌、順序為何，只有
+        播放器自己知道目前播的是哪首。getVideoData() 尚未回傳資料
+        時（例如剛切換瞬間）才退回 music.json 的靜態文字。
+- Kept    autoplay 維持關閉（playerVars.autoplay: 0）：多數瀏覽器的
+        自動播放政策會直接封鎖「有聲音」的自動播放，強行開啟只會在
+        主控台噴錯誤且實際上仍播不出來，因此保留由使用者主動按下
+        播放鍵的設計。
 
 Description:
 
-YouTube IFrame API 播放器，讀取 config/music.json 的播放清單。
+YouTube IFrame API 播放器，讀取 config/music.json 的播放清單設定。
 頁面載入後播放器靜默就緒，使用者主動點擊播放按鈕才開始播放。
 
 DOM 掛載點（由 index.html 提供）：
@@ -34,6 +46,10 @@ class MusicPlayer {
     this.ytPlayer      = null;
     this.isReady       = false;
     this.progressTimer = null;
+
+    // 第一筆資料帶 playlistId 就視為「真正的 YouTube 播放清單」，
+    // 導覽交給 YouTube 自己處理；否則維持在本地陣列裡循環的舊行為。
+    this.usePlaylistNav = Boolean(playlist[0]?.playlistId);
 
     this.titleEl    = root.querySelector('[data-player-title]');
     this.artistEl   = root.querySelector('[data-player-artist]');
@@ -63,6 +79,9 @@ class MusicPlayer {
       document.head.appendChild(s);
     }
 
+    // YouTube 的 API 只會呼叫「全域唯一」的 onYouTubeIframeAPIReady，
+    // 這裡保留前一個已註冊的 callback 再串接，避免蓋掉其他程式碼
+    // （目前站內只有一個播放器實例，但保留此寫法利於未來擴充）。
     const prev = window.onYouTubeIframeAPIReady;
     window.onYouTubeIframeAPIReady = () => {
       if (typeof prev === 'function') prev();
@@ -80,22 +99,35 @@ class MusicPlayer {
     document.body.appendChild(container);
 
     const track = this.playlist[this.index];
-    this.ytPlayer = new YT.Player('yt-hidden-player', {
-      videoId: track.youtubeId,
-      playerVars: {
-        autoplay:       0,  // 關閉自動播放，等待使用者主動按播放
-        controls:       0,
-        disablekb:      1,
-        iv_load_policy: 3,
-        modestbranding: 1,
-        playsinline:    1,
-        rel:            0,
-      },
+    const playerVars = {
+      autoplay:       0,  // 關閉自動播放，等待使用者主動按播放
+      controls:       0,
+      disablekb:      1,
+      iv_load_policy: 3,
+      modestbranding: 1,
+      playsinline:    1,
+      rel:            0,
+    };
+
+    const config = {
+      playerVars,
       events: {
         onReady:       (e) => this._onReady(e),
         onStateChange: (e) => this._onStateChange(e),
       },
-    });
+    };
+
+    if (this.usePlaylistNav) {
+      Object.assign(playerVars, {
+        listType: 'playlist',
+        list:     track.playlistId,
+        index:    0,
+      });
+    } else {
+      config.videoId = track.youtubeId;
+    }
+
+    this.ytPlayer = new YT.Player('yt-hidden-player', config);
   }
 
   // ── 播放器事件 ──────────────────────────────────────────
@@ -109,7 +141,15 @@ class MusicPlayer {
   }
 
   _onStateChange(event) {
-    if (event.data === YT.PlayerState.ENDED) this.skip(1);
+    // 非播放清單模式才需要自己處理「播完接下一首」；
+    // 播放清單模式下 YouTube 會依清單順序自動接播。
+    if (!this.usePlaylistNav && event.data === YT.PlayerState.ENDED) {
+      this.skip(1);
+    }
+    // CUED／PLAYING 代表新的一首歌資料已就緒，趁機刷新曲名顯示。
+    if (event.data === YT.PlayerState.PLAYING || event.data === YT.PlayerState.CUED) {
+      this._updateTrackInfo();
+    }
     this.updatePlayIcon();
   }
 
@@ -122,27 +162,42 @@ class MusicPlayer {
   }
 
   skip(direction) {
+    if (!this.isReady) return;
+
+    if (this.usePlaylistNav) {
+      direction > 0 ? this.ytPlayer.nextVideo() : this.ytPlayer.previousVideo();
+      return;
+    }
+
     const total = this.playlist.length;
     this.index  = ((this.index + direction) % total + total) % total;
-    this._loadTrack();
-  }
-
-  _loadTrack() {
-    if (!this.isReady) return;
     this.ytPlayer.loadVideoById(this.playlist[this.index].youtubeId);
     this._updateTrackInfo();
   }
 
   // ── UI 更新 ─────────────────────────────────────────────
+  /**
+   * 更新曲名／演出者顯示。
+   *
+   * 播放清單模式下，清單裡實際有哪些歌、目前播到第幾首都由 YouTube
+   * 端決定，music.json 不可能預先知道，因此優先呼叫 getVideoData()
+   * 向播放器本身取得「目前這首」的真實標題與頻道名稱；只有在資料
+   * 尚未載入完成（title 是空字串）時才退回 music.json 的靜態文字。
+   */
   _updateTrackInfo() {
-    const track = this.playlist[this.index];
-    if (this.titleEl)  this.titleEl.textContent  = track.title  ?? '';
-    if (this.artistEl) this.artistEl.textContent = track.artist ?? '';
+    const fallback = this.playlist[this.index];
+    const live = this.ytPlayer?.getVideoData?.();
+
+    const title  = live?.title  || fallback.title  || '';
+    const artist = live?.author || fallback.artist || '';
+
+    if (this.titleEl)  this.titleEl.textContent  = title;
+    if (this.artistEl) this.artistEl.textContent = artist;
   }
 
   updatePlayIcon() {
     if (!this.playBtn || !this.isReady) return;
-    const icon    = this.playBtn.querySelector('i');
+    const icon = this.playBtn.querySelector('i');
     if (!icon) return;
     const playing = this.ytPlayer?.getPlayerState?.() === YT.PlayerState.PLAYING;
     icon.className = playing ? 'fa-solid fa-circle-pause' : 'fa-solid fa-circle-play';

@@ -3,47 +3,61 @@ css/variables.css
 
 Modification():
 
-- Changed 整套配色依照流螢「少女型態」設計語意重新制定：
-  背景：洋裝純白 × 髮絲灰銀漸層（冷調清透底）
-  主強調色：領巾亮橘（全身唯一暖點，#f07832）
-  螢光色：螢光髮尾青綠（#45e89e，粒子特效與 glow）
-  結構色：外衣深藍（#2c3e6a，分隔線、邊框）
-  文字色：飾品深咖延伸的深炭色（#1a1e2e）
+- Changed 配色來源由「憑印象設定」改為「實際比對流螢角色圖片後重新校正」：
+  背景：洋裝奶霜白 → 淡薄荷綠（圖片中占比最大的淺色區域，比例上維持奶白為主）
+  主強調色：飾品暖金（圖片中占比最小的點綴色，維持「小面積、高存在感」的比例關係）
+  螢光色：裙擺／髮尾薄荷青（圖片中占比中等的次要色）
+  結構／文字色：由既有藍調改為同色系深青炭，避免與新的薄荷主調衝突
+  （深色的護膝、手套等元素因非「淺色」而不納入主視覺配色，僅其色相
+  提供文字色的調性參考）
+- Added  --color-accent-rgb／--color-glow-rgb：以逗號分隔的 RGB 三元組，
+  讓 components.css／animation.css 的 rgba() 陰影可直接引用同一組色值，
+  不必再各自寫死一份十六進位轉出的 RGB 數字（消除重複定義）
+- Added  --cursor-default／--cursor-pointer：仿照 YuYue71.github.io 的
+  cursor 變數化寫法，把游標圖片網址集中定義一次，animation.css 與
+  animation.js 都改為引用這兩個變數，不再各自重複貼上完整網址
+- Changed --color-accent 的明度重新計算至與奶霜背景對比度約 4.9:1
+  （WCAG AA 一般文字標準為 4.5:1），確保作為連結／簽名文字色時仍可閱讀
 
 Description:
 
 全站 CSS 自訂屬性的唯一事實來源。
-調整色彩、字型、間距時只需修改此檔，其他樣式表自動跟進。
+調整色彩、字型、間距、游標圖片時只需修改此檔，其他樣式表自動跟進。
 */
 
 :root {
-  /* ── 背景：洋裝純白 → 髮絲灰銀（冷調清透） ─────────── */
-  --color-bg-a: #f0f2fa;
-  --color-bg-b: #e2e5f0;
-  --color-bg-c: #d6dae8;
+  /* ── 背景：奶霜白 → 淡薄荷 → 灰霧鼠尾草綠（淺色為主，比例上白色最大）── */
+  --color-bg-a: #fbf7ef;
+  --color-bg-b: #edf4ee;
+  --color-bg-c: #dfeae6;
 
-  /* 卡片：帶藍調的白霧玻璃，讓卡片在冷灰底上浮起 */
-  --color-card:        rgba(248, 249, 255, 0.62);
-  --color-card-border: rgba(255, 255, 255, 0.90);
+  /* 卡片：暖白霧玻璃，讓卡片在薄荷底上浮起 */
+  --color-card:        rgba(255, 253, 247, 0.64);
+  --color-card-border: rgba(255, 255, 255, 0.92);
 
-  /* 分隔線：外衣深藍淡化後的低飽和藍灰 */
-  --color-divider: rgba(44, 62, 106, 0.12);
+  /* 分隔線：結構色淡化後的低飽和青灰 */
+  --color-divider: rgba(47, 74, 70, 0.12);
 
-  /* ── 強調色：領巾亮橘（全身唯一暖色，點睛用）──────── */
-  --color-accent:        #f07832;
-  --color-accent-strong: #c95f15;
+  /* ── 強調色：飾品暖金（圖片中占比最小的點綴色，點睛用）──────── */
+  --color-accent:        #8f6428;
+  --color-accent-strong: #6e4c1c;
+  --color-accent-rgb:    143, 100, 40;
 
-  /* 螢光色：髮尾螢光青綠（粒子光點、Glow 用途） */
-  --color-glow: #45e89e;
+  /* 螢光色：裙擺／髮尾薄荷青（粒子光點、Glow 用途，圖片中占比中等） */
+  --color-glow:     #4fb89e;
+  --color-glow-rgb: 79, 184, 158;
 
-  /* 結構深色：外衣深藍 / 飾品深咖（文字色基礎） */
-  --color-steel-blue: #2c3e6a;
-  --color-deep-brown:  #3d2a1a;
+  /* 結構深色：與薄荷主調同色系的深青炭（分隔線、標籤背景） */
+  --color-steel-blue: #2f4a46;
 
-  /* ── 文字色：從外衣深藍出發的深炭藍 ────────────────── */
-  --color-text:       #1a1e2e;
-  --color-text-muted: #44506e;
-  --color-text-faint: #8088a8;
+  /* ── 文字色：深青炭延伸的深色階，確保與淺色背景維持高對比 ──── */
+  --color-text:       #202b29;
+  --color-text-muted: #4c5d59;
+  --color-text-faint: #7c8b86;
+
+  /* ── 自訂游標：集中定義網址，animation.css／animation.js 皆引用此處 ── */
+  --cursor-default: url(https://upload-os-bbs.hoyolab.com/upload/2024/06/19/d4702c1b4bd1cf573db80b66d8c187a2_8759798806922987889.png) 0 0, auto;
+  --cursor-pointer: url(https://upload-os-bbs.hoyolab.com/upload/2024/06/19/d4702c1b4bd1cf573db80b66d8c187a2_8759798806922987889.png) 0 0, pointer;
 
   /* ── Typography ──────────────────────────────────────── */
   --font-display: 'Klee One', 'Noto Sans TC', sans-serif;
@@ -61,8 +75,8 @@ Description:
   --radius-md: 18px;
   --radius-lg: 28px;
 
-  /* 冷調陰影：外衣深藍低透明度，比暖橘更符合整體氣質 */
-  --shadow-card: 0 20px 50px -28px rgba(44, 62, 106, 0.22);
+  /* 冷調陰影：結構色低透明度，與新配色同色系 */
+  --shadow-card: 0 20px 50px -28px rgba(47, 74, 70, 0.20);
   --blur-glass:  blur(18px);
 
   /* ── Layout ──────────────────────────────────────────── */

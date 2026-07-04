@@ -3,19 +3,21 @@ css/components.css
 
 Modification():
 
-- Changed 配色全面更新為流螢少女型態：橘紅強調、螢光青綠輔助、外衣深藍結構色
-- Changed card--featured 新增 padding，讓玻璃底色在圖片四周可見，
-          形成「玻璃相框」效果；內部 img 加對應的內縮圓角
-- Changed timeline 字級與內距壓縮，讓歷程列表更扁更緊湊
-- Removed cursor:none 與游標相關舊樣式（已移至 animation.css 統一管理）
-- Removed skill-bar 相關樣式（about.html 已移除 Skills 區塊）
+- Changed 配色改為淺色系（奶霜白／薄荷綠／暖金），對應流螢角色圖片重新校色
+- Fixed 多處陰影色 rgba(240, 120, 50, ...) / rgba(44, 62, 106, ...) 為寫死數字，
+        與 variables.css 的實際強調色脫鉤；改為引用 --color-accent-rgb／
+        --color-glow-rgb，色彩來源統一，未來只需改一處
+- Added  card--featured 水晶玻璃質感：稜鏡漸層描邊 + 雙色柔光 + 捲動進場時
+        掃過一次的玻璃反光動畫，對應「大圖呈現水晶玻璃質感」需求
+- Changed card--featured 內部結構新增 .card--featured__frame 包裹層，
+        承載描邊漸層與反光圖層，img 本身不再直接套用陰影
 
 Description:
 
-可重複使用 UI 元件的外觀定義，實作流螢少女型態的玻璃擬態風格。
+可重複使用 UI 元件的外觀定義，實作流螢主題的淺色玻璃擬態風格。
 */
 
-/* ── 玻璃質感基底 ────────────────────────────────────── */
+/* ── 玻璃質感基底 ─────────────────────────────────────── */
 .glass {
   background: var(--color-card);
   border: 1px solid var(--color-card-border);
@@ -25,7 +27,7 @@ Description:
   box-shadow: var(--shadow-card);
 }
 
-/* ── 導覽列 ──────────────────────────────────────────── */
+/* ── 導覽列 ────────────────────────────────────────────── */
 .site-nav__inner {
   border-radius: 999px;
 }
@@ -49,14 +51,14 @@ Description:
   color: var(--color-accent);
 }
 
-/* ── Hero ────────────────────────────────────────────── */
+/* ── Hero ──────────────────────────────────────────────── */
 .hero__avatar {
   width: 112px;
   height: 112px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--color-accent);
-  box-shadow: 0 0 0 6px rgba(240, 120, 50, 0.10);
+  box-shadow: 0 0 0 6px rgba(var(--color-accent-rgb), 0.12);
 }
 
 .hero__name {
@@ -78,7 +80,7 @@ Description:
   max-width: 420px;
 }
 
-/* ── 音樂播放器 ───────────────────────────────────────── */
+/* ── 音樂播放器 ────────────────────────────────────────── */
 .player__title {
   font-size: 0.95rem;
   color: var(--color-text);
@@ -113,7 +115,7 @@ Description:
   height: 12px;
   border-radius: 50%;
   background: var(--color-accent);
-  box-shadow: 0 0 8px rgba(240, 120, 50, 0.55);
+  box-shadow: 0 0 8px rgba(var(--color-accent-rgb), 0.55);
 }
 
 .player__time {
@@ -162,7 +164,7 @@ Description:
   width: 100%;
   height: 3px;
   border-radius: 999px;
-  background: rgba(44, 62, 106, 0.16);
+  background: var(--color-divider);
 }
 
 .player__volume input::-webkit-slider-thumb {
@@ -173,7 +175,7 @@ Description:
   background: var(--color-text-muted);
 }
 
-/* ── 社群圖示按鈕 ─────────────────────────────────────── */
+/* ── 社群圖示按鈕 ──────────────────────────────────────── */
 .icon-btn {
   width: 40px;
   height: 40px;
@@ -188,11 +190,11 @@ Description:
 
 .icon-btn:hover {
   color: var(--color-accent);
-  background: rgba(240, 120, 50, 0.09);
+  background: rgba(var(--color-accent-rgb), 0.10);
   transform: translateY(-3px);
 }
 
-/* ── 膠囊快速連結 ─────────────────────────────────────── */
+/* ── 膠囊快速連結 ──────────────────────────────────────── */
 .pill {
   display: inline-flex;
   align-items: center;
@@ -214,27 +216,77 @@ Description:
   transform: translateY(-2px);
 }
 
-/* ── 卡片通用 ────────────────────────────────────────── */
+/* ── 卡片通用 ──────────────────────────────────────────── */
 .card {
   padding: var(--space-md);
 }
 
-/* ── 鎮樓圖大卡（玻璃相框效果）─────────────────────────
-   padding 讓玻璃底色在圖片四周可見形成相框，
-   img 使用稍小的 border-radius 讓圖片緊貼相框內側。
-────────────────────────────────────────────────────── */
+/* ── 鎮樓圖大卡：水晶玻璃質感 ──────────────────────────────
+   三層結構做出「透光＋折射＋反光掃過」的水晶感，而非單純的
+   模糊玻璃平面：
+   1) .card--featured 本身：外層雙色柔光（暖金＋薄荷），
+      模擬光線穿透水晶邊緣後在四周暈染的效果。
+   2) .card--featured__frame：以對角漸層做 1.5px 描邊，
+      模擬切割玻璃邊緣隨角度變色的稜鏡感。
+   3) .card--featured__sheen：疊在圖片上的白色斜向光帶，
+      預設隱藏在畫面外，捲動進場（.is-visible）時掃過一次，
+      模擬光線滑過水晶表面的瞬間反光；不循環播放以免干擾閱讀。
+──────────────────────────────────────────────────────── */
 .card--featured {
   padding: var(--space-xs);
   overflow: hidden;
   position: relative;
+  box-shadow:
+    var(--shadow-card),
+    0 0 60px -24px rgba(var(--color-accent-rgb), 0.35),
+    0 0 90px -30px rgba(var(--color-glow-rgb), 0.30);
 }
 
-.card--featured img {
+.card--featured__frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(var(--radius-lg) - 6px);
+  padding: 1.5px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(var(--color-glow-rgb), 0.55) 32%,
+    rgba(var(--color-accent-rgb), 0.55) 68%,
+    rgba(255, 255, 255, 0.95) 100%
+  );
+}
+
+.card--featured__frame img {
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
-  border-radius: calc(var(--radius-lg) - 6px);
+  border-radius: inherit;
   display: block;
+}
+
+.card--featured__sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.50) 42%,
+    rgba(255, 255, 255, 0.75) 50%,
+    rgba(255, 255, 255, 0.50) 58%,
+    transparent 75%
+  );
+  transform: translateX(-130%);
+}
+
+.card--featured.is-visible .card--featured__sheen {
+  animation: crystal-sheen 1.7s cubic-bezier(0.22, 1, 0.36, 1) 0.35s 1 both;
+}
+
+@keyframes crystal-sheen {
+  from { transform: translateX(-130%); }
+  to   { transform: translateX(130%); }
 }
 
 .card--featured__credit {
@@ -244,7 +296,7 @@ Description:
   font-size: 0.7rem;
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
-  background: rgba(248, 249, 255, 0.72);
+  background: rgba(255, 253, 247, 0.72);
   color: var(--color-text-muted);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -254,7 +306,7 @@ Description:
   color: var(--color-accent);
 }
 
-/* ── 卡片通用文字 ─────────────────────────────────────── */
+/* ── 卡片通用文字 ──────────────────────────────────────── */
 .card__title {
   font-family: var(--font-display);
   font-size: 1.3rem;
@@ -286,7 +338,7 @@ Description:
   transform: translateX(3px);
 }
 
-/* ── 標籤列 ──────────────────────────────────────────── */
+/* ── 標籤列 ────────────────────────────────────────────── */
 .tag-row {
   display: flex;
   flex-wrap: wrap;
@@ -299,13 +351,13 @@ Description:
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
   color: var(--color-steel-blue);
-  background: rgba(44, 62, 106, 0.10);
+  background: rgba(47, 74, 70, 0.10);
 }
 
-/* ── 緊湊橫式卡片（專案 / 文章）────────────────────────
+/* ── 緊湊橫式卡片（專案 / 文章）─────────────────────────────
    左側 72×72 縮圖（無封面時省略）+ 右側文字，
-   整體高度約 90px，與 About 卡片行距比例相近。
-────────────────────────────────────────────────────── */
+   整體高度約 90px，維持扁平比例而非大圖卡。
+──────────────────────────────────────────────────────── */
 .mini-card {
   display: flex;
   align-items: flex-start;
@@ -317,7 +369,7 @@ Description:
 
 .mini-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 22px 52px -28px rgba(44, 62, 106, 0.32);
+  box-shadow: 0 22px 52px -28px rgba(47, 74, 70, 0.30);
 }
 
 .mini-card__thumb {
@@ -365,9 +417,9 @@ Description:
   overflow: hidden;
 }
 
-/* ── 時間軸（緊湊版）────────────────────────────────────
+/* ── 時間軸（緊湊版）───────────────────────────────────────
    gap 與字級都縮小，讓歷程列表整體更扁平。
-────────────────────────────────────────────────────── */
+──────────────────────────────────────────────────────── */
 .timeline-list {
   padding-left: var(--space-md);
   border-left: 1.5px solid var(--color-divider);
@@ -387,7 +439,7 @@ Description:
   height: 7px;
   border-radius: 50%;
   background: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(240, 120, 50, 0.14);
+  box-shadow: 0 0 0 3px rgba(var(--color-accent-rgb), 0.16);
 }
 
 .timeline-item__year {
@@ -411,7 +463,7 @@ Description:
   line-height: 1.5;
 }
 
-/* ── 返回連結（子頁面）────────────────────────────────── */
+/* ── 返回連結（子頁面）────────────────────────────────────── */
 .back-link {
   display: inline-flex;
   align-items: center;
