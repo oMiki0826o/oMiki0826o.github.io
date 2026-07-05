@@ -3,18 +3,24 @@ css/animation.css
 
 Modification():
 
-- Changed 游標網址不再於此檔重複貼上，改為引用 variables.css 集中定義的
-        --cursor-default／--cursor-pointer（DRY，未來換圖只需改一處）
-- Changed 螢火蟲粒子的陰影色由寫死的 rgba(69, 232, 158, ...) 改為引用
-        --color-glow-rgb，與新的淺色配色（薄荷青）保持一致
-- Kept   雙保險游標機制：CSS 先設外部 URL（立即生效），
-        js/animation.js 的 initCustomCursor 待圖片載入後以 canvas 縮圖
-        再覆蓋一次，兩者共用同一組 CSS 變數，不會出現規則互相打架、
-        游標在按鈕邊緣反覆閃動的問題
+- Removed 原生 cursor: url() 相關規則（@media (pointer: fine) 裡的
+        html／a／button 等選擇器）。已證實此素材在多數瀏覽器會
+        因「圖片尺寸超過瀏覽器對原生游標的上限」而被直接忽略，
+        詳細原因見 js/animation.js 開頭的說明。改由 JS 建立的
+        .custom-cursor 疊加層取代，樣式規則見下方新增區塊。
+- Added   .custom-cursor 疊加層樣式：外層只負責定位（JS 用
+        transform 更新座標），內層 __img 只負責大小與「靠近可
+        互動元素時放大＋發光」的回饋，兩層職責分開，避免定位用的
+        transform 與回饋用的 transform 互相覆蓋。
+- Added   html.custom-cursor-active 才隱藏原生游標；這個 class
+        只有在 JS 確認疊加層真的建立成功後才會被加上，JS 若整段
+        失敗，使用者仍會看到瀏覽器預設箭頭，不會兩頭落空。
+- Changed 螢火蟲粒子飽和度提高（--color-glow 由柔霧綠改為飽和度
+        更高的翠綠），強化「螢」的視覺辨識度
 
 Description:
 
-集中管理視覺動效 CSS：捲動淡入、自訂游標、螢火蟲粒子背景。
+集中管理視覺動效 CSS：捲動淡入、自訂游標疊加層、螢火蟲粒子背景。
 */
 
 /* ── 捲動淡入 ──────────────────────────────────────────── */
@@ -29,27 +35,48 @@ Description:
   transform: translateY(0);
 }
 
-/* ── 自訂游標（CSS 基底層）─────────────────────────────────
-   只在有精確指標裝置（滑鼠）時啟用，觸控裝置不受影響。
-   兩個狀態（預設／可互動）共用 variables.css 定義的網址，
-   若日後 JS 的 canvas 縮圖成功，會用同名 CSS 變數覆蓋，
-   因此「規則來源」永遠只有一份，不會有兩處定義互相搶優先度
-   而造成游標在元素邊緣快速切換、看起來像閃動的問題。
+/* ── 自訂游標疊加層 ────────────────────────────────────────
+   只在確定 JS 已成功建立疊加層時（html 帶 custom-cursor-active
+   class）才隱藏原生游標，觸控裝置與 JS 失效時都會維持原生游標，
+   不會出現「什麼游標都看不到」的情況。
 ──────────────────────────────────────────────────────── */
 @media (pointer: fine) {
-  html {
-    cursor: var(--cursor-default);
+  html.custom-cursor-active,
+  html.custom-cursor-active * {
+    cursor: none !important;
   }
+}
 
-  a,
-  button,
-  input,
-  label,
-  [role="button"],
-  .pill,
-  .icon-btn {
-    cursor: var(--cursor-pointer);
-  }
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.custom-cursor.is-active {
+  opacity: 1;
+}
+
+.custom-cursor__img {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), filter 0.18s ease;
+}
+
+/* 靠近可互動元素時放大並發出金橘光暈作為回饋，
+   不去動 cursor 屬性本身，避免與原生游標邏輯互相干擾 */
+.custom-cursor.is-interactive .custom-cursor__img {
+  transform: translate(-50%, -50%) scale(1.25);
+  filter: drop-shadow(0 0 8px rgba(var(--color-gold-rgb), 0.6));
 }
 
 /* ── 螢火蟲粒子 ────────────────────────────────────────── */
@@ -65,17 +92,16 @@ Description:
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  /* 薄荷青：對應流螢裙擺／髮尾的淺色螢光能量色 */
   background: var(--color-glow);
-  box-shadow: 0 0 10px 3px rgba(var(--color-glow-rgb), 0.40);
+  box-shadow: 0 0 10px 3px rgba(var(--color-glow-rgb), 0.45);
   opacity: 0;
   animation: firefly-drift linear infinite;
 }
 
 @keyframes firefly-drift {
   0%   { transform: translate(0, 0); opacity: 0; }
-  10%  { opacity: 0.70; }
+  10%  { opacity: 0.75; }
   50%  { transform: translate(var(--drift-x, 40px), -110px); }
-  90%  { opacity: 0.45; }
+  90%  { opacity: 0.50; }
   100% { transform: translate(0, -210px); opacity: 0; }
 }

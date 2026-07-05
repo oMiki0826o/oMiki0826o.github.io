@@ -3,28 +3,41 @@ css/components.css
 
 Modification():
 
-- Changed 配色改為淺色系（奶霜白／薄荷綠／暖金），對應流螢角色圖片重新校色
-- Fixed 多處陰影色 rgba(240, 120, 50, ...) / rgba(44, 62, 106, ...) 為寫死數字，
-        與 variables.css 的實際強調色脫鉤；改為引用 --color-accent-rgb／
-        --color-glow-rgb，色彩來源統一，未來只需改一處
-- Added  card--featured 水晶玻璃質感：稜鏡漸層描邊 + 雙色柔光 + 捲動進場時
-        掃過一次的玻璃反光動畫，對應「大圖呈現水晶玻璃質感」需求
-- Changed card--featured 內部結構新增 .card--featured__frame 包裹層，
-        承載描邊漸層與反光圖層，img 本身不再直接套用陰影
+- Changed 原本以 --color-accent（金橘）當文字色的地方（Hero 簽名、
+        卡片連結、時間軸年份）全部改用 --color-blue：金橘壓暗到
+        符合文字對比度後會失去飽和度變成棕色，藍色沒有這個問題，
+        加深後依然讀得出是藍色
+- Kept   金橘（--color-gold）維持在背景填色／圖示／光暈／邊框等
+        裝飾用途，且不再壓暗，維持高飽和度的「金橘」而非「棕色」
+- Added  .glass 新增頂緣玻璃反光細線（inset box-shadow），強化
+        「隔著霧面玻璃」的穿透與反光感，回應「玻璃感不足」的回饋
+- Changed .card--featured 的稜鏡描邊由雙色（金＋綠）漸層改為
+        藍→綠→金橘→藍的四段漸層，更接近水晶真正分光的效果，
+        也把本次要求的三個顏色都放進這個簽名視覺裡
+- Changed 螢火蟲、時間軸圓點等原本引用 --color-accent-rgb 的陰影
+        改引用 --color-gold-rgb（變數改名，邏輯不變）
 
 Description:
 
 可重複使用 UI 元件的外觀定義，實作流螢主題的淺色玻璃擬態風格。
 */
 
-/* ── 玻璃質感基底 ─────────────────────────────────────── */
+/* ── 玻璃質感基底 ─────────────────────────────────────────
+   頂緣加一條極細的白色反光（inset box-shadow），模擬真實玻璃
+   邊緣在光線下的反光線條，讓卡片不只是「模糊」，還要「看得出
+   是玻璃」——單靠 backdrop-filter 模糊不足以傳達材質感，
+   需要這種高光細節輔助。
+──────────────────────────────────────────────────────── */
 .glass {
   background: var(--color-card);
   border: 1px solid var(--color-card-border);
   backdrop-filter: var(--blur-glass);
   -webkit-backdrop-filter: var(--blur-glass);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
+  box-shadow:
+    var(--shadow-card),
+    inset 0 1px 0 var(--color-card-rim),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.20);
 }
 
 /* ── 導覽列 ────────────────────────────────────────────── */
@@ -37,7 +50,7 @@ Description:
   height: 34px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1.5px solid var(--color-accent);
+  border: 1.5px solid var(--color-gold);
 }
 
 .site-nav__links a {
@@ -48,7 +61,7 @@ Description:
 
 .site-nav__links a:hover,
 .site-nav__links a:focus-visible {
-  color: var(--color-accent);
+  color: var(--color-blue);
 }
 
 /* ── Hero ──────────────────────────────────────────────── */
@@ -57,8 +70,8 @@ Description:
   height: 112px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--color-accent);
-  box-shadow: 0 0 0 6px rgba(var(--color-accent-rgb), 0.12);
+  border: 2px solid var(--color-gold);
+  box-shadow: 0 0 0 6px rgba(var(--color-gold-rgb), 0.14);
 }
 
 .hero__name {
@@ -76,7 +89,7 @@ Description:
 .hero__signature {
   font-family: var(--font-display);
   font-size: 1.05rem;
-  color: var(--color-accent);
+  color: var(--color-blue);
   max-width: 420px;
 }
 
@@ -103,7 +116,7 @@ Description:
   border-radius: 999px;
   background: linear-gradient(
     to right,
-    var(--color-accent) var(--progress, 0%),
+    var(--color-gold) var(--progress, 0%),
     var(--color-divider) var(--progress, 0%)
   );
   cursor: pointer;
@@ -114,8 +127,8 @@ Description:
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: var(--color-accent);
-  box-shadow: 0 0 8px rgba(var(--color-accent-rgb), 0.55);
+  background: var(--color-gold);
+  box-shadow: 0 0 8px rgba(var(--color-gold-rgb), 0.55);
 }
 
 .player__time {
@@ -142,13 +155,13 @@ Description:
 }
 
 .player__controls button:hover {
-  color: var(--color-accent);
+  color: var(--color-blue);
   transform: scale(1.1);
 }
 
 .player__play {
   font-size: 1.4rem !important;
-  color: var(--color-accent) !important;
+  color: var(--color-gold) !important;
 }
 
 .player__volume {
@@ -189,8 +202,8 @@ Description:
 }
 
 .icon-btn:hover {
-  color: var(--color-accent);
-  background: rgba(var(--color-accent-rgb), 0.10);
+  color: var(--color-gold);
+  background: rgba(var(--color-gold-rgb), 0.12);
   transform: translateY(-3px);
 }
 
@@ -210,9 +223,9 @@ Description:
 }
 
 .pill:hover {
-  color: var(--color-bg-a);
-  background: var(--color-accent);
-  border-color: var(--color-accent);
+  color: #fff;
+  background: var(--color-gold);
+  border-color: var(--color-gold);
   transform: translateY(-2px);
 }
 
@@ -222,12 +235,12 @@ Description:
 }
 
 /* ── 鎮樓圖大卡：水晶玻璃質感 ──────────────────────────────
-   三層結構做出「透光＋折射＋反光掃過」的水晶感，而非單純的
-   模糊玻璃平面：
-   1) .card--featured 本身：外層雙色柔光（暖金＋薄荷），
+   三層結構做出「透光＋折射＋反光掃過」的水晶感：
+   1) .card--featured 本身：外層三色柔光（藍＋綠＋金），
       模擬光線穿透水晶邊緣後在四周暈染的效果。
-   2) .card--featured__frame：以對角漸層做 1.5px 描邊，
-      模擬切割玻璃邊緣隨角度變色的稜鏡感。
+   2) .card--featured__frame：以四段漸層做 1.5px 描邊
+      （藍→綠→金橘→藍），模擬水晶切面把白光分散成光譜的
+      折射感，而不是單一顏色的裝飾邊框。
    3) .card--featured__sheen：疊在圖片上的白色斜向光帶，
       預設隱藏在畫面外，捲動進場（.is-visible）時掃過一次，
       模擬光線滑過水晶表面的瞬間反光；不循環播放以免干擾閱讀。
@@ -238,21 +251,23 @@ Description:
   position: relative;
   box-shadow:
     var(--shadow-card),
-    0 0 60px -24px rgba(var(--color-accent-rgb), 0.35),
-    0 0 90px -30px rgba(var(--color-glow-rgb), 0.30);
+    inset 0 1px 0 var(--color-card-rim),
+    0 0 55px -22px rgba(var(--color-blue-rgb), 0.40),
+    0 0 70px -24px rgba(var(--color-glow-rgb), 0.32),
+    0 0 85px -28px rgba(var(--color-gold-rgb), 0.30);
 }
 
 .card--featured__frame {
   position: relative;
   overflow: hidden;
   border-radius: calc(var(--radius-lg) - 6px);
-  padding: 1.5px;
+  padding: 2px;
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.95) 0%,
-    rgba(var(--color-glow-rgb), 0.55) 32%,
-    rgba(var(--color-accent-rgb), 0.55) 68%,
-    rgba(255, 255, 255, 0.95) 100%
+    rgba(var(--color-blue-rgb), 0.65) 0%,
+    rgba(var(--color-glow-rgb), 0.65) 33%,
+    rgba(var(--color-gold-rgb), 0.65) 66%,
+    rgba(var(--color-blue-rgb), 0.65) 100%
   );
 }
 
@@ -273,7 +288,7 @@ Description:
     115deg,
     transparent 25%,
     rgba(255, 255, 255, 0.50) 42%,
-    rgba(255, 255, 255, 0.75) 50%,
+    rgba(255, 255, 255, 0.78) 50%,
     rgba(255, 255, 255, 0.50) 58%,
     transparent 75%
   );
@@ -296,14 +311,14 @@ Description:
   font-size: 0.7rem;
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
-  background: rgba(255, 253, 247, 0.72);
+  background: rgba(255, 255, 255, 0.72);
   color: var(--color-text-muted);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
 
 .card--featured__credit a {
-  color: var(--color-accent);
+  color: var(--color-blue);
 }
 
 /* ── 卡片通用文字 ──────────────────────────────────────── */
@@ -327,7 +342,7 @@ Description:
   align-items: center;
   gap: 0.3rem;
   font-size: 0.85rem;
-  color: var(--color-accent);
+  color: var(--color-blue);
 }
 
 .card__link i {
@@ -350,8 +365,8 @@ Description:
   font-size: 0.72rem;
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
-  color: var(--color-steel-blue);
-  background: rgba(47, 74, 70, 0.10);
+  color: var(--color-blue-strong);
+  background: rgba(var(--color-blue-rgb), 0.10);
 }
 
 /* ── 緊湊橫式卡片（專案 / 文章）─────────────────────────────
@@ -369,7 +384,7 @@ Description:
 
 .mini-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 22px 52px -28px rgba(47, 74, 70, 0.30);
+  box-shadow: 0 22px 52px -28px rgba(28, 62, 90, 0.34);
 }
 
 .mini-card__thumb {
@@ -438,14 +453,14 @@ Description:
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(var(--color-accent-rgb), 0.16);
+  background: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(var(--color-gold-rgb), 0.20);
 }
 
 .timeline-item__year {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  color: var(--color-accent);
+  color: var(--color-blue);
   line-height: 1.2;
 }
 
@@ -474,5 +489,5 @@ Description:
 }
 
 .back-link:hover {
-  color: var(--color-accent);
+  color: var(--color-blue);
 }
