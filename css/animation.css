@@ -8,10 +8,13 @@ Modification():
         因「圖片尺寸超過瀏覽器對原生游標的上限」而被直接忽略，
         詳細原因見 js/animation.js 開頭的說明。改由 JS 建立的
         .custom-cursor 疊加層取代，樣式規則見下方新增區塊。
-- Added   .custom-cursor 疊加層樣式：外層只負責定位（JS 用
-        transform 更新座標），內層 __img 只負責大小與「靠近可
-        互動元素時放大＋發光」的回饋，兩層職責分開，避免定位用的
-        transform 與回饋用的 transform 互相覆蓋。
+- Added   .custom-cursor 改用 CSS 變數（--cursor-x／--cursor-y）驅動
+        transform，JS 端只需要更新兩個數值，實際的 transform 定義
+        留在 CSS；並加上 will-change: transform 提示瀏覽器針對這個
+        頻繁變動的屬性做合成層最佳化。
+- Removed .custom-cursor 原本固定的 opacity 起始 transform 寫法，
+        改為帶預設值的 var()，避免 JS 尚未更新座標前疊加層跳到
+        畫面左上角 (0, 0)。
 - Added   html.custom-cursor-active 才隱藏原生游標；這個 class
         只有在 JS 確認疊加層真的建立成功後才會被加上，JS 若整段
         失敗，使用者仍會看到瀏覽器預設箭頭，不會兩頭落空。
@@ -56,6 +59,8 @@ Description:
   pointer-events: none;
   z-index: 9999;
   opacity: 0;
+  will-change: transform;
+  transform: translate3d(var(--cursor-x, 50vw), var(--cursor-y, 50vh), 0);
   transition: opacity 0.2s ease;
 }
 

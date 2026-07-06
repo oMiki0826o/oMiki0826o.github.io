@@ -3,7 +3,15 @@ css/style.css
 
 Modification():
 
-- Added 樣式總入口，匯入 reset / variables / layout / components / animation
+- Fixed   ::selection／:focus-visible 仍引用上一輪已改名、實際上
+        已不存在的 --color-accent。CSS 用到未定義的自訂屬性不會
+        拋出錯誤、只會讓該行樣式被忽略（不像 JS 呼叫未定義函式會
+        直接中斷程式），所以這兩個選擇器先前只是「選取顏色／
+        focus 外框沒有作用」，不影響頁面能否顯示，但仍應修正。
+        文字選取背景改用金橘（裝飾性用途）；:focus-visible 是鍵盤
+        操作時的重要無障礙指示，需要清楚可辨識，改用藍色（此配色
+        中唯一同時兼顧「飽和、好看」與「對比足夠」兩個條件的顏色）
+- Added   樣式總入口，匯入 reset / variables / layout / components / animation
 
 Description:
 
@@ -18,11 +26,11 @@ Description:
 @import url('animation.css');
 
 ::selection {
-  background: var(--color-accent);
+  background: var(--color-gold);
   color: var(--color-text);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-blue);
   outline-offset: 3px;
 }

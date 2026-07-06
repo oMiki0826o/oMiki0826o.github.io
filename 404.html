@@ -1,0 +1,71 @@
+<!--
+404.html
+
+Modification():
+
+- Added 全新檔案：GitHub Pages 找不到路徑時會自動顯示這個檔案
+        （必須放在儲存庫根目錄，檔名固定為 404.html）。
+        刻意不載入 loader.js／render.js／main.js 這一整組資料驅動的
+        初始化流程——404 頁面的職責只是「告訴使用者這裡沒有內容、
+        並提供回首頁的路」，不需要也不應該依賴任何 JSON 是否能
+        成功載入；把邏輯降到最低，才能確保「顯示錯誤頁」這件事
+        本身不會再出錯。視覺上引用同一份 style.css 維持風格一致。
+
+Description:
+
+GitHub Pages 標準錯誤頁，網址打錯或連結失效時顯示。
+-->
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>找不到頁面 | Miki's website</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="https://cdn.discordapp.com/avatars/839381498351190036/3ea0f92ec08c0cc642cd90df9aee3634.png?size=2048&quality=lossless">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Noto+Sans+TC:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <style>
+    /* 這個頁面不載入 layout.css 以外的排版邏輯，獨立寫幾行置中樣式即可 */
+    .not-found {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: var(--space-sm);
+      padding: var(--space-md);
+    }
+    .not-found__code {
+      font-family: var(--font-mono);
+      font-size: 3rem;
+      color: var(--color-blue);
+    }
+    .not-found__title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--color-text);
+    }
+    .not-found__desc {
+      color: var(--color-text-muted);
+      max-width: 32ch;
+    }
+  </style>
+</head>
+<body>
+  <main class="not-found glass card" style="max-width: 420px; margin-inline: auto;">
+    <p class="not-found__code">404</p>
+    <h1 class="not-found__title">這裡什麼都沒有</h1>
+    <p class="not-found__desc">你要找的頁面不存在，或連結可能已經失效。</p>
+    <a class="card__link" href="/index.html" style="margin-top: 0.5rem;">
+      <i class="fa-solid fa-house"></i>&nbsp; 回首頁
+    </a>
+  </main>
+</body>
+</html>

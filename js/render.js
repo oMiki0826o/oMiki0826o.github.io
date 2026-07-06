@@ -3,6 +3,9 @@
  *
  * Modification():
  *
+ * - Added   renderNav 品牌頭像、renderMiniCard 縮圖補上對應 CSS
+ *   實際顯示尺寸的 width/height 屬性與 decoding="async"，避免圖片
+ *   載入完成前造成版面跳動（CLS），解碼也不佔用主執行緒。
  * - Changed renderFeaturedCard：輸出結構新增 .card--featured__frame／
  *   __sheen 兩層，對應 components.css 的水晶玻璃描邊與反光掃過效果
  * - Added   updateLastUpdatedFromRepo：向 GitHub API 查詢真實最後
@@ -49,7 +52,10 @@ function renderNav(navItems, brandAvatarUrl) {
   const linksEl = document.querySelector('[data-nav-links]');
 
   if (brandEl && brandAvatarUrl) {
-    brandEl.innerHTML = `<img src="${escapeHTML(brandAvatarUrl)}" alt="Miki 頭像">`;
+    // width/height 對應 components.css 中 .site-nav__brand img 的實際
+    // 顯示尺寸（34×34），避免圖片載入前導覽列版面跳動。
+    brandEl.innerHTML =
+      `<img src="${escapeHTML(brandAvatarUrl)}" alt="Miki 頭像" width="34" height="34" decoding="async">`;
   }
 
   if (!linksEl || !navItems) return;
@@ -104,7 +110,7 @@ function renderFeaturedCard(site) {
   // 兩者搭配 components.css 的 .card--featured 規則做出水晶玻璃質感。
   el.innerHTML =
     `<div class="card--featured__frame">
-       <img src="${escapeHTML(site.featuredImage)}" alt="鎮樓圖" loading="lazy">
+       <img src="${escapeHTML(site.featuredImage)}" alt="鎮樓圖" loading="lazy" decoding="async">
        <div class="card--featured__sheen" aria-hidden="true"></div>
      </div>` +
     (credit
@@ -178,12 +184,15 @@ function renderMiniCard(item, type) {
     ? (item.tags ?? []).join(' · ')
     : (item.date ?? '');
 
-  // 有封面圖才渲染 img；否則略過，body 區塊自動 flex:1 填滿
+  // 有封面圖才渲染 img；否則略過，body 區塊自動 flex:1 填滿。
+  // width/height 對應 components.css 中 .mini-card__thumb 的實際
+  // 顯示尺寸（72×72），避免圖片載入前卡片版面跳動。
   const thumb = item.cover
     ? `<img class="mini-card__thumb"
             src="${escapeHTML(item.cover)}"
             alt="${escapeHTML(item.title)}"
-            loading="lazy">`
+            width="72" height="72"
+            loading="lazy" decoding="async">`
     : '';
 
   const desc = item.description ?? item.excerpt ?? '';

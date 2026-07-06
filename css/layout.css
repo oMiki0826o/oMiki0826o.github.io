@@ -3,6 +3,11 @@ css/layout.css
 
 Modification():
 
+- Fixed   .site-footer__quote 仍引用上一輪已改名、實際上已不存在的
+        --color-accent，改為與其他文字強調色一致的 --color-blue。
+        這個變數本身在瀏覽器中「用到未定義的值」不會拋出錯誤、
+        只會讓該行樣式被忽略，因此不影響頁面能否顯示，但仍應修正
+        以維持配色一致性。
 - Changed 背景漸層改用流螢少女型態三色（洋裝白 → 灰銀 → 帶藍灰）
 - Changed card-grid gap 由 1.75rem 縮為 1rem，配合緊湊 mini-card
 - Changed timeline-list gap 由 1.75rem 縮為 0.55rem，讓歷程更扁平
@@ -139,7 +144,7 @@ body {
 .site-footer__quote {
   font-family: var(--font-display);
   font-size: 1.05rem;
-  color: var(--color-accent);
+  color: var(--color-blue);
   margin-bottom: var(--space-md);
 }
 

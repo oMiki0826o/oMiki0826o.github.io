@@ -3,11 +3,19 @@ README.md
 
 Modification():
 
-- Changed 視覺風格章節：配色說明改為「實際比對流螢角色圖片後校正」的
-  淺色系（奶霜白／薄荷綠／暖金），並補充鎮樓圖水晶玻璃效果、
-  游標／陰影改為集中變數管理、頁尾最後更新時間改抓 GitHub API
-  真實資料等本次調整內容
-
+- Fixed   上一輪重寫 js/animation.js 時誤刪了 initFireflyField／
+  initNavAutoHide／initScrollReveal 三個函式，只留下游標相關程式碼。
+  main.js 會在頁面載入時依序同步呼叫這幾個函式，最前面的
+  initFireflyField 一旦是未定義函式，會直接拋出例外並中斷同一個
+  回呼裡後面所有程式碼——包含負責抓資料、渲染整個頁面的
+  bootstrap()。這正是「網頁顯示不出東西」的真正原因。
+  這次補回三個函式，並在 main.js 呼叫端加上 try/catch 防護
+  （見 js/main.js 的 safeRun），讓裝飾性動效彼此獨立，任何一個
+  未來若再度出錯都不會連帶癱瘓整頁渲染。
+- Fixed   css/style.css／css/layout.css 有兩處殘留舊版
+  --color-accent 變數引用（配色改版時漏改），改為與其他文字
+  強調色一致的 --color-blue／--color-gold。這兩處不影響頁面能否
+  顯示（CSS 引用未定義變數只會讓該行樣式被忽略），但仍一併修正。
 
 Description:
 

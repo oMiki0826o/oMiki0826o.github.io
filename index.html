@@ -72,11 +72,17 @@ Miki 的個人介紹首頁。所有顯示內容皆由 config/*.json 透過 main.
   <!-- ── Hero ───────────────────────────────────────────── -->
   <header class="hero container">
 
-    <!-- src 會被 applySiteMeta 更新為 site.json 的 avatar -->
+    <!-- src 會被 applySiteMeta 更新為 site.json 的 avatar；
+         width/height 依 CSS 實際顯示尺寸（112×112）預先保留版面空間，
+         避免圖片載入完成前造成版面跳動（CLS）。fetchpriority="high"
+         提示瀏覽器優先載入這張使用者最先看到的圖片。 -->
     <img class="hero__avatar"
          data-hero-avatar
          src="https://cdn.discordapp.com/avatars/839381498351190036/3ea0f92ec08c0cc642cd90df9aee3634.png?size=2048&quality=lossless"
          alt="Miki 頭像"
+         width="112" height="112"
+         fetchpriority="high"
+         decoding="async"
          data-reveal>
 
     <!-- 以下文字皆由 renderHeroText 填入 -->
