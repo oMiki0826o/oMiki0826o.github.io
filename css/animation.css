@@ -3,27 +3,25 @@ css/animation.css
 
 Modification():
 
-- Removed 原生 cursor: url() 相關規則（@media (pointer: fine) 裡的
-        html／a／button 等選擇器）。已證實此素材在多數瀏覽器會
-        因「圖片尺寸超過瀏覽器對原生游標的上限」而被直接忽略，
-        詳細原因見 js/animation.js 開頭的說明。改由 JS 建立的
-        .custom-cursor 疊加層取代，樣式規則見下方新增區塊。
-- Added   .custom-cursor 改用 CSS 變數（--cursor-x／--cursor-y）驅動
-        transform，JS 端只需要更新兩個數值，實際的 transform 定義
-        留在 CSS；並加上 will-change: transform 提示瀏覽器針對這個
-        頻繁變動的屬性做合成層最佳化。
-- Removed .custom-cursor 原本固定的 opacity 起始 transform 寫法，
-        改為帶預設值的 var()，避免 JS 尚未更新座標前疊加層跳到
-        畫面左上角 (0, 0)。
-- Added   html.custom-cursor-active 才隱藏原生游標；這個 class
-        只有在 JS 確認疊加層真的建立成功後才會被加上，JS 若整段
-        失敗，使用者仍會看到瀏覽器預設箭頭，不會兩頭落空。
-- Changed 螢火蟲粒子飽和度提高（--color-glow 由柔霧綠改為飽和度
-        更高的翠綠），強化「螢」的視覺辨識度
+- Removed .custom-cursor 整組疊加層樣式（外層定位、內層圖片、
+        hover 放大效果）。這一整套 JS 疊加層方案是為了繞開「外部
+        圖床的尺寸限制與可能的防盜連限制」而設計的變通做法；現在
+        游標圖片已經改成隨網站一起部署的本地檔案（見
+        variables.css 的 --cursor-default／--cursor-pointer），
+        直接用瀏覽器原生 cursor: url() 就能穩定運作，不再需要 JS
+        追蹤滑鼠座標、也不需要任何 hover 委派監聽。原生方案更簡單、
+        效能更好（不必每一幀執行 JS），也不會有 JS 邏輯本身出錯的
+        風險——上一輪網站整頁空白的事故就是源自 JS 初始化流程，
+        能刪掉的 JS 依賴越少，這類風險就越低。
+- Added   @media (pointer: fine) 內的原生 cursor 規則，直接引用
+        variables.css 的 --cursor-default／--cursor-pointer 兩個
+        變數，只在滑鼠裝置上生效，觸控裝置不受影響。
+- Changed 螢火蟲粒子顏色的陰影引用改為 --color-orange-rgb（原
+        --color-gold-rgb 已更名）
 
 Description:
 
-集中管理視覺動效 CSS：捲動淡入、自訂游標疊加層、螢火蟲粒子背景。
+集中管理視覺動效 CSS：捲動淡入、自訂游標、螢火蟲粒子背景。
 */
 
 /* ── 捲動淡入 ──────────────────────────────────────────── */
@@ -38,50 +36,25 @@ Description:
   transform: translateY(0);
 }
 
-/* ── 自訂游標疊加層 ────────────────────────────────────────
-   只在確定 JS 已成功建立疊加層時（html 帶 custom-cursor-active
-   class）才隱藏原生游標，觸控裝置與 JS 失效時都會維持原生游標，
-   不會出現「什麼游標都看不到」的情況。
+/* ── 自訂游標（原生 CSS，本地資產）─────────────────────────
+   圖片是隨網站一起部署的本地檔案（assets/cursor.png，32×32），
+   不再依賴外部圖床，因此不會有跨網域請求被拒絕、CORS、或圖片
+   尺寸超出瀏覽器限制等問題，原生 cursor: url() 已足夠穩定使用。
 ──────────────────────────────────────────────────────── */
 @media (pointer: fine) {
-  html.custom-cursor-active,
-  html.custom-cursor-active * {
-    cursor: none !important;
+  html {
+    cursor: var(--cursor-default);
   }
-}
 
-.custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0;
-  will-change: transform;
-  transform: translate3d(var(--cursor-x, 50vw), var(--cursor-y, 50vh), 0);
-  transition: opacity 0.2s ease;
-}
-
-.custom-cursor.is-active {
-  opacity: 1;
-}
-
-.custom-cursor__img {
-  position: absolute;
-  width: 36px;
-  height: 36px;
-  transform: translate(-50%, -50%);
-  object-fit: contain;
-  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), filter 0.18s ease;
-}
-
-/* 靠近可互動元素時放大並發出金橘光暈作為回饋，
-   不去動 cursor 屬性本身，避免與原生游標邏輯互相干擾 */
-.custom-cursor.is-interactive .custom-cursor__img {
-  transform: translate(-50%, -50%) scale(1.25);
-  filter: drop-shadow(0 0 8px rgba(var(--color-gold-rgb), 0.6));
+  a,
+  button,
+  input,
+  label,
+  [role="button"],
+  .pill,
+  .icon-btn {
+    cursor: var(--cursor-pointer);
+  }
 }
 
 /* ── 螢火蟲粒子 ────────────────────────────────────────── */

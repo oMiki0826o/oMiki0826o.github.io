@@ -3,6 +3,15 @@ js/main.js
 
 Modification():
 
+- Fixed   initCustomCursor 已隨 animation.js 的游標方案簡化而移除
+        （改回純 CSS 原生 cursor: url() 搭配本地資產，見
+        animation.css／variables.css），這裡移除對應的呼叫。
+        這個問題原本會在呼叫未定義函式時拋出 ReferenceError，
+        但上一輪已經幫這三個裝飾性初始化函式包上 safeRun，
+        錯誤會被攔截並記錄在主控台，不會像更早之前那樣連帶讓
+        bootstrap() 也無法執行——這正是當初加上 safeRun 的目的。
+        即便如此，呼叫一個不存在的函式終究是應該修正的錯誤，
+        不能只依賴防護機制掩蓋問題。
 - Fixed   DOMContentLoaded 裡原本直接依序呼叫
         initFireflyField() / initCustomCursor() / initNavAutoHide()，
         三者與 bootstrap() 寫在同一個回呼、彼此同步依序執行。
@@ -32,12 +41,10 @@ Description:
 const CONFIG_BASE = '/config';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // initFireflyField／initCustomCursor／initNavAutoHide 都只是裝飾性
-  // 動效，任何一個實作若意外出錯，都不該連帶讓 bootstrap()（負責抓
-  // 資料、渲染整個頁面）跟著無法執行；safeRun 讓三者彼此獨立、
-  // 互不影響。
+  // initFireflyField／initNavAutoHide 都只是裝飾性動效，任何一個
+  // 實作若意外出錯，都不該連帶讓 bootstrap()（負責抓資料、渲染
+  // 整個頁面）跟著無法執行；safeRun 讓彼此獨立、互不影響。
   safeRun(initFireflyField);
-  safeRun(initCustomCursor);
   safeRun(initNavAutoHide);
   bootstrap();
 });

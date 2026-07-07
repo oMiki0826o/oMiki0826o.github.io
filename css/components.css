@@ -3,19 +3,23 @@ css/components.css
 
 Modification():
 
-- Changed 原本以 --color-accent（金橘）當文字色的地方（Hero 簽名、
-        卡片連結、時間軸年份）全部改用 --color-blue：金橘壓暗到
-        符合文字對比度後會失去飽和度變成棕色，藍色沒有這個問題，
-        加深後依然讀得出是藍色
-- Kept   金橘（--color-gold）維持在背景填色／圖示／光暈／邊框等
-        裝飾用途，且不再壓暗，維持高飽和度的「金橘」而非「棕色」
-- Added  .glass 新增頂緣玻璃反光細線（inset box-shadow），強化
-        「隔著霧面玻璃」的穿透與反光感，回應「玻璃感不足」的回饋
-- Changed .card--featured 的稜鏡描邊由雙色（金＋綠）漸層改為
-        藍→綠→金橘→藍的四段漸層，更接近水晶真正分光的效果，
-        也把本次要求的三個顏色都放進這個簽名視覺裡
-- Changed 螢火蟲、時間軸圓點等原本引用 --color-accent-rgb 的陰影
-        改引用 --color-gold-rgb（變數改名，邏輯不變）
+- Changed hero__signature／card__link／timeline-item__year／
+        site-footer__quote 改用中性文字色（--color-text／
+        --color-text-muted），不再直接把藍色當文字色使用（原因見
+        variables.css 檔頭說明：淺色調在白色系背景上天生對比不足，
+        繼續當文字色只會被迫壓暗，違背這次「不壓暗、要淺色」的
+        訴求）。這四處的「重點」改由圖示或字級／字重呈現，而不是
+        靠顏色。
+- Changed pill:hover 底色改用提亮後的橘色，文字色從白色改回深色
+        文字——原本的深橘搭白字在提亮後對比不足，淺底色需要搭配
+        深色文字才維持得住可讀性
+- Changed 所有原本使用單一 --color-orange／--color-blue／
+        --color-glow 的裝飾用途，依「是否需要一定辨識度」拆分為
+        vivid（圖示、邊框、按鈕背景）與 pastel（大面積光暈、
+        標籤底色、水晶描邊）兩階，讓卡片、標籤這類大面積或柔霧
+        用途可以用更淺的 pastel 版本，呈現真正的棉花糖質感
+- Kept   .glass 頂緣玻璃反光細線與 .card--featured 三層水晶結構
+        不變，僅將描邊與柔光改用 pastel 色階
 
 Description:
 
@@ -25,8 +29,7 @@ Description:
 /* ── 玻璃質感基底 ─────────────────────────────────────────
    頂緣加一條極細的白色反光（inset box-shadow），模擬真實玻璃
    邊緣在光線下的反光線條，讓卡片不只是「模糊」，還要「看得出
-   是玻璃」——單靠 backdrop-filter 模糊不足以傳達材質感，
-   需要這種高光細節輔助。
+   是玻璃」。
 ──────────────────────────────────────────────────────── */
 .glass {
   background: var(--color-card);
@@ -50,7 +53,7 @@ Description:
   height: 34px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1.5px solid var(--color-gold);
+  border: 1.5px solid var(--color-orange);
 }
 
 .site-nav__links a {
@@ -70,8 +73,8 @@ Description:
   height: 112px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--color-gold);
-  box-shadow: 0 0 0 6px rgba(var(--color-gold-rgb), 0.14);
+  border: 2px solid var(--color-orange);
+  box-shadow: 0 0 0 6px rgba(var(--color-orange-rgb), 0.14);
 }
 
 .hero__name {
@@ -86,10 +89,13 @@ Description:
   color: var(--color-text-muted);
 }
 
+/* 簽名文字改用中性深色，重點交給斜體與字型呈現，
+   不再需要把藍色壓暗成文字可用的深度（見檔頭說明） */
 .hero__signature {
   font-family: var(--font-display);
+  font-style: italic;
   font-size: 1.05rem;
-  color: var(--color-blue);
+  color: var(--color-text-muted);
   max-width: 420px;
 }
 
@@ -116,7 +122,7 @@ Description:
   border-radius: 999px;
   background: linear-gradient(
     to right,
-    var(--color-gold) var(--progress, 0%),
+    var(--color-orange) var(--progress, 0%),
     var(--color-divider) var(--progress, 0%)
   );
   cursor: pointer;
@@ -127,8 +133,8 @@ Description:
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: var(--color-gold);
-  box-shadow: 0 0 8px rgba(var(--color-gold-rgb), 0.55);
+  background: var(--color-orange);
+  box-shadow: 0 0 8px rgba(var(--color-orange-rgb), 0.55);
 }
 
 .player__time {
@@ -161,7 +167,7 @@ Description:
 
 .player__play {
   font-size: 1.4rem !important;
-  color: var(--color-gold) !important;
+  color: var(--color-orange) !important;
 }
 
 .player__volume {
@@ -202,8 +208,8 @@ Description:
 }
 
 .icon-btn:hover {
-  color: var(--color-gold);
-  background: rgba(var(--color-gold-rgb), 0.12);
+  color: var(--color-orange);
+  background: rgba(var(--color-orange-rgb), 0.16);
   transform: translateY(-3px);
 }
 
@@ -222,10 +228,12 @@ Description:
               background 0.25s ease, transform 0.25s ease;
 }
 
+/* 底色提亮後改搭深色文字：淺橘配白字會失去可讀性，
+   淺底色需要深色文字才撐得住對比 */
 .pill:hover {
-  color: #fff;
-  background: var(--color-gold);
-  border-color: var(--color-gold);
+  color: var(--color-text);
+  background: var(--color-orange);
+  border-color: var(--color-orange);
   transform: translateY(-2px);
 }
 
@@ -235,15 +243,13 @@ Description:
 }
 
 /* ── 鎮樓圖大卡：水晶玻璃質感 ──────────────────────────────
-   三層結構做出「透光＋折射＋反光掃過」的水晶感：
-   1) .card--featured 本身：外層三色柔光（藍＋綠＋金），
-      模擬光線穿透水晶邊緣後在四周暈染的效果。
+   三層結構做出「透光＋折射＋反光掃過」的水晶感，柔光與描邊
+   改用 pastel 色階，呈現更輕盈剔透的棉花糖水晶質感：
+   1) .card--featured 本身：外層三色柔光（藍＋綠＋橘 pastel）。
    2) .card--featured__frame：以四段漸層做 1.5px 描邊
-      （藍→綠→金橘→藍），模擬水晶切面把白光分散成光譜的
-      折射感，而不是單一顏色的裝飾邊框。
+      （藍→綠→橘→藍，皆為 pastel），模擬水晶切面的柔和折射。
    3) .card--featured__sheen：疊在圖片上的白色斜向光帶，
-      預設隱藏在畫面外，捲動進場（.is-visible）時掃過一次，
-      模擬光線滑過水晶表面的瞬間反光；不循環播放以免干擾閱讀。
+      捲動進場（.is-visible）時掃過一次，模擬光線滑過水晶表面。
 ──────────────────────────────────────────────────────── */
 .card--featured {
   padding: var(--space-xs);
@@ -252,9 +258,9 @@ Description:
   box-shadow:
     var(--shadow-card),
     inset 0 1px 0 var(--color-card-rim),
-    0 0 55px -22px rgba(var(--color-blue-rgb), 0.40),
-    0 0 70px -24px rgba(var(--color-glow-rgb), 0.32),
-    0 0 85px -28px rgba(var(--color-gold-rgb), 0.30);
+    0 0 55px -22px rgba(var(--color-blue-pastel-rgb), 0.55),
+    0 0 70px -24px rgba(var(--color-glow-pastel-rgb), 0.50),
+    0 0 85px -28px rgba(var(--color-orange-pastel-rgb), 0.50);
 }
 
 .card--featured__frame {
@@ -264,10 +270,10 @@ Description:
   padding: 2px;
   background: linear-gradient(
     135deg,
-    rgba(var(--color-blue-rgb), 0.65) 0%,
-    rgba(var(--color-glow-rgb), 0.65) 33%,
-    rgba(var(--color-gold-rgb), 0.65) 66%,
-    rgba(var(--color-blue-rgb), 0.65) 100%
+    rgba(var(--color-blue-pastel-rgb), 0.75) 0%,
+    rgba(var(--color-glow-pastel-rgb), 0.75) 33%,
+    rgba(var(--color-orange-pastel-rgb), 0.75) 66%,
+    rgba(var(--color-blue-pastel-rgb), 0.75) 100%
   );
 }
 
@@ -318,7 +324,8 @@ Description:
 }
 
 .card--featured__credit a {
-  color: var(--color-blue);
+  color: var(--color-text);
+  text-decoration: underline;
 }
 
 /* ── 卡片通用文字 ──────────────────────────────────────── */
@@ -337,15 +344,19 @@ Description:
   margin-bottom: var(--space-sm);
 }
 
+/* 連結文字改用中性深色，重點交給圖示的位移動畫呈現，
+   不再需要把藍色壓暗成文字可用的深度（見檔頭說明） */
 .card__link {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
   font-size: 0.85rem;
-  color: var(--color-blue);
+  font-weight: 700;
+  color: var(--color-text);
 }
 
 .card__link i {
+  color: var(--color-blue);
   transition: transform 0.25s ease;
 }
 
@@ -365,8 +376,8 @@ Description:
   font-size: 0.72rem;
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
-  color: var(--color-blue-strong);
-  background: rgba(var(--color-blue-rgb), 0.10);
+  color: var(--color-text-muted);
+  background: rgba(var(--color-blue-pastel-rgb), 0.45);
 }
 
 /* ── 緊湊橫式卡片（專案 / 文章）─────────────────────────────
@@ -384,7 +395,7 @@ Description:
 
 .mini-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 22px 52px -28px rgba(28, 62, 90, 0.34);
+  box-shadow: 0 22px 52px -28px rgba(47, 74, 70, 0.30);
 }
 
 .mini-card__thumb {
@@ -453,14 +464,15 @@ Description:
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--color-gold);
-  box-shadow: 0 0 0 3px rgba(var(--color-gold-rgb), 0.20);
+  background: var(--color-orange);
+  box-shadow: 0 0 0 3px rgba(var(--color-orange-rgb), 0.22);
 }
 
+/* 年份改用中性深色小字，時間軸的視覺重點交給圓點顏色呈現 */
 .timeline-item__year {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  color: var(--color-blue);
+  color: var(--color-text-faint);
   line-height: 1.2;
 }
 

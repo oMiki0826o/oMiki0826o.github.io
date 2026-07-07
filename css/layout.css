@@ -3,11 +3,12 @@ css/layout.css
 
 Modification():
 
-- Fixed   .site-footer__quote 仍引用上一輪已改名、實際上已不存在的
-        --color-accent，改為與其他文字強調色一致的 --color-blue。
-        這個變數本身在瀏覽器中「用到未定義的值」不會拋出錯誤、
-        只會讓該行樣式被忽略，因此不影響頁面能否顯示，但仍應修正
-        以維持配色一致性。
+- Fixed   .site-footer__quote 仍引用藍色作為文字色。這次配色整體
+        提亮為棉花糖色調後，淺色調在白色系背景上天生對比不足，
+        繼續當文字色只會被迫壓暗（違背這次「不壓暗、要淺色」的
+        訴求）；改為與 hero__signature／card__link／
+        timeline-item__year 一致的中性深色文字，讓藍色可以放心
+        保留淺色調，完整用在背景、圖示、邊框等裝飾用途。
 - Changed 背景漸層改用流螢少女型態三色（洋裝白 → 灰銀 → 帶藍灰）
 - Changed card-grid gap 由 1.75rem 縮為 1rem，配合緊湊 mini-card
 - Changed timeline-list gap 由 1.75rem 縮為 0.55rem，讓歷程更扁平
