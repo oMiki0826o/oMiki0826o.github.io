@@ -3,13 +3,13 @@ css/components.css
 
 Modification():
 
-- Changed hero__signature／card__link／timeline-item__year／
-        site-footer__quote 改用中性文字色（--color-text／
-        --color-text-muted），不再直接把藍色當文字色使用（原因見
-        variables.css 檔頭說明：淺色調在白色系背景上天生對比不足，
-        繼續當文字色只會被迫壓暗，違背這次「不壓暗、要淺色」的
-        訴求）。這四處的「重點」改由圖示或字級／字重呈現，而不是
-        靠顏色。
+- Reverted hero__signature／card__link／timeline-item__year 依使用者
+        明確指示改回藍色文字（上一輪曾因對比度考量改為中性深色）。
+        --color-blue 這次已提亮為棉花糖色調，與淺色背景的對比度
+        偏低（約 2.4:1，低於 WCAG AA 一般文字建議的 4.5:1），
+        可讀性會比中性深色文字稍弱；這是使用者已知情況下的明確
+        選擇，故予以保留，並在各處加上簡短提醒註解，方便日後若
+        想調整能快速找到位置。
 - Changed pill:hover 底色改用提亮後的橘色，文字色從白色改回深色
         文字——原本的深橘搭白字在提亮後對比不足，淺底色需要搭配
         深色文字才維持得住可讀性
@@ -89,13 +89,15 @@ Description:
   color: var(--color-text-muted);
 }
 
-/* 簽名文字改用中性深色，重點交給斜體與字型呈現，
-   不再需要把藍色壓暗成文字可用的深度（見檔頭說明） */
+/* 簽名文字依使用者指示改回藍色。提醒：--color-blue 這次已提亮為
+   棉花糖色調，與白色系背景的對比度偏低（約 2.4:1，低於 WCAG AA
+   文字建議的 4.5:1），可讀性會比中性深色文字稍弱；若之後覺得
+   閱讀吃力，可以只調整這一行改回中性色，其餘棉花糖配色不受影響。 */
 .hero__signature {
   font-family: var(--font-display);
   font-style: italic;
   font-size: 1.05rem;
-  color: var(--color-text-muted);
+  color: var(--color-blue);
   max-width: 420px;
 }
 
@@ -344,19 +346,19 @@ Description:
   margin-bottom: var(--space-sm);
 }
 
-/* 連結文字改用中性深色，重點交給圖示的位移動畫呈現，
-   不再需要把藍色壓暗成文字可用的深度（見檔頭說明） */
+/* 連結文字依使用者指示改回藍色，與圖示同色。提醒：--color-blue
+   這次已提亮為棉花糖色調，對比度偏低（約 2.4:1，低於 WCAG AA
+   文字建議的 4.5:1），可讀性會比中性深色文字稍弱。 */
 .card__link {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--color-blue);
 }
 
 .card__link i {
-  color: var(--color-blue);
   transition: transform 0.25s ease;
 }
 
@@ -468,11 +470,13 @@ Description:
   box-shadow: 0 0 0 3px rgba(var(--color-orange-rgb), 0.22);
 }
 
-/* 年份改用中性深色小字，時間軸的視覺重點交給圓點顏色呈現 */
+/* 年份依使用者指示改回藍色。提醒：--color-blue 這次已提亮為棉花糖
+   色調，對比度偏低（約 2.4:1，低於 WCAG AA 文字建議的 4.5:1），
+   這裡字級小、閱讀時間短，影響相對有限。 */
 .timeline-item__year {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  color: var(--color-text-faint);
+  color: var(--color-blue);
   line-height: 1.2;
 }
 
