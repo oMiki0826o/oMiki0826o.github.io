@@ -3,13 +3,16 @@
 
 Modification():
 
-- Added 全新檔案：GitHub Pages 找不到路徑時會自動顯示這個檔案
+- Removed 玻璃卡片樣式（.glass .card）：依使用者指示，404 頁面不use
+        卡片形式呈現，改為一般純頁面排版，內容置中即可。
+- Added   全新檔案：GitHub Pages 找不到路徑時會自動顯示這個檔案
         （必須放在儲存庫根目錄，檔名固定為 404.html）。
         刻意不載入 loader.js／render.js／main.js 這一整組資料驅動的
         初始化流程——404 頁面的職責只是「告訴使用者這裡沒有內容、
         並提供回首頁的路」，不需要也不應該依賴任何 JSON 是否能
         成功載入；把邏輯降到最低，才能確保「顯示錯誤頁」這件事
-        本身不會再出錯。視覺上引用同一份 style.css 維持風格一致。
+        本身不會再出錯。視覺上引用同一份 style.css 維持配色與字型
+        一致，但不套用玻璃擬態元件。
 
 Description:
 
@@ -31,7 +34,7 @@ GitHub Pages 標準錯誤頁，網址打錯或連結失效時顯示。
   <link rel="stylesheet" href="/css/style.css">
 
   <style>
-    /* 這個頁面不載入 layout.css 以外的排版邏輯，獨立寫幾行置中樣式即可 */
+    /* 一般頁面排版，不套用 .glass／.card 這類玻璃擬態元件樣式 */
     .not-found {
       min-height: 100vh;
       display: flex;
@@ -59,7 +62,7 @@ GitHub Pages 標準錯誤頁，網址打錯或連結失效時顯示。
   </style>
 </head>
 <body>
-  <main class="not-found glass card" style="max-width: 420px; margin-inline: auto;">
+  <main class="not-found">
     <p class="not-found__code">404</p>
     <h1 class="not-found__title">這裡什麼都沒有</h1>
     <p class="not-found__desc">你要找的頁面不存在，或連結可能已經失效。</p>
