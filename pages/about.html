@@ -3,6 +3,9 @@ pages/about.html
 
 Modification():
 
+- Removed 字型的 <link rel="stylesheet" href="fonts.googleapis...">，
+        改為集中在 css/variables.css 用 @import 載入，換字型不需要
+        逐一修改每個 HTML 檔案
 - Removed Skills 區塊（<section data-skills>）：
   依照需求移除首頁「不再出現下方的 skill」的一致化要求，
   about.html 的技能進度條區塊也一併移除，保留興趣標籤（tag-row）
@@ -27,7 +30,6 @@ Description:
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Noto+Sans+TC:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <link rel="stylesheet" href="/css/style.css">

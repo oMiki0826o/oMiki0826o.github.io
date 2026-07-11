@@ -3,6 +3,9 @@
 
 Modification():
 
+- Removed 字型的 <link rel="stylesheet" href="fonts.googleapis...">，
+        改為集中在 css/variables.css 用 @import 載入，跟其餘頁面
+        共用同一份字型設定，換字型不需要逐一修改每個 HTML 檔案。
 - Removed 玻璃卡片樣式（.glass .card）：依使用者指示，404 頁面不use
         卡片形式呈現，改為一般純頁面排版，內容置中即可。
 - Added   全新檔案：GitHub Pages 找不到路徑時會自動顯示這個檔案
@@ -29,7 +32,6 @@ GitHub Pages 標準錯誤頁，網址打錯或連結失效時顯示。
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Noto+Sans+TC:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="/css/style.css">
 

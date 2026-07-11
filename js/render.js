@@ -47,15 +47,21 @@ function escapeHTML(text) {
  * @param {Array}   navItems      links.json 中的 nav 陣列
  * @param {string}  brandAvatarUrl  site.json 的 avatar 欄位
  */
-function renderNav(navItems, brandAvatarUrl) {
+/**
+ * 渲染導覽列：品牌圖示 + 導覽連結。
+ * @param {Array} navItems 導覽連結清單（來自 links.json 的 nav）
+ * @param {string} navIconUrl 導覽列品牌圖示網址（來自 site.json 的
+ *   navIcon，跟大頭貼 avatar、favicon 各自獨立，可以放不同圖片）
+ */
+function renderNav(navItems, navIconUrl) {
   const brandEl = document.querySelector('[data-nav-brand]');
   const linksEl = document.querySelector('[data-nav-links]');
 
-  if (brandEl && brandAvatarUrl) {
+  if (brandEl && navIconUrl) {
     // width/height 對應 components.css 中 .site-nav__brand img 的實際
     // 顯示尺寸（34×34），避免圖片載入前導覽列版面跳動。
     brandEl.innerHTML =
-      `<img src="${escapeHTML(brandAvatarUrl)}" alt="Miki 頭像" width="34" height="34" decoding="async">`;
+      `<img src="${escapeHTML(navIconUrl)}" alt="Miki" width="34" height="34" decoding="async">`;
   }
 
   if (!linksEl || !navItems) return;

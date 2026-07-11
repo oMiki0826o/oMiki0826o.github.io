@@ -28,15 +28,34 @@ GitHub Pages 自動重新部署，重新整理頁面即可看到更新。
 
 副標前置的 `‧` 是視覺裝飾符，只出現在 Hero，不會混進分頁標題。
 
-### 更換頭像
+### 更換頭像、導覽列圖示、favicon
 
 ```json
 {
-  "avatar": "https://cdn.discordapp.com/avatars/xxx/yyy.png"
+  "avatar": "https://cdn.discordapp.com/avatars/xxx/yyy.png",
+  "navIcon": "https://cdn.discordapp.com/avatars/xxx/yyy.png",
+  "favicon": "https://cdn.discordapp.com/avatars/xxx/yyy.png"
 }
 ```
 
-`avatar` 同時用於 Hero 大頭貼與導覽列左側小圖，換一個 URL 即可。
+三個欄位各自獨立，可以放完全不同的三張圖：
+
+- `avatar`：Hero 區塊的大頭貼（112×112，已套用圓形裁切）
+- `navIcon`：導覽列左側的小圖示（34×34，已套用圓形裁切）
+- `favicon`：瀏覽器分頁上的小圖示
+
+目前三個欄位預設放同一張照片，純粹是因為手邊只有這一張可用；
+想放三張不同的圖，直接把對應欄位換成不同的圖片網址即可，不需要
+改任何程式碼。
+
+**關於 favicon 顯示成圓形**：`avatar`／`navIcon` 是網站自己畫出來的
+`<img>`，可以用 CSS `border-radius: 50%` 讓它變圓（已經套用）。
+但 `favicon` 顯示在瀏覽器分頁上，那個位置的外觀完全由瀏覽器／作業系統
+自己的介面決定，網站的程式碼無法從外部把它「裁」成圓形。實務上想讓
+favicon 看起來是圓的，得從**圖片檔案本身**下手：準備一張背景透明、
+主體本身就置中裁成圓形的 PNG，那麼即使瀏覽器把它放進方形的分頁格子裡，
+視覺上看到的內容依然是圓的（四個角是透明的）。若之後想這樣處理，
+提供一張這樣預先裁切好的圖片，把 `favicon` 換成那個檔案的網址即可。
 
 ### 更換鎮樓圖
 
@@ -303,3 +322,38 @@ GitHub Pages 自動重新部署，重新整理頁面即可看到更新。
 ```
 
 在 `quotes` 陣列末尾加入字串即可，不限數量。
+
+---
+
+## 更改全站字型
+
+字型網址集中定義在 `css/variables.css` 檔案最上方那一行 `@import`：
+
+```css
+@import url('https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Noto+Sans+TC:wght@400;500;700&family=Space+Mono&display=swap');
+```
+
+網站目前用三種字型，分別對應不同用途：
+
+- `Klee One`：標題、Hero 名字這類「展示用」的字，走手寫圓潤感
+- `Noto Sans TC`：內文、按鈕文字這類日常閱讀用的字
+- `Space Mono`：時間軸年份、播放時間這類「數據感」的等寬字
+
+換字型分兩步：
+
+1. 到 [Google Fonts](https://fonts.google.com/) 選好新字型，複製它提供的
+   `@import` 網址（或自行組合多個字型到同一個網址，跟現在的寫法一樣，
+   用 `&family=` 串接）
+2. 貼回 `css/variables.css` 最上方那一行，取代原本的網址
+
+貼上新網址後，還要把 `:root` 裡對應的三個變數改成新字型的名稱，
+才會真的套用到頁面上：
+
+```css
+--font-display: '你選的展示字', 'Noto Sans TC', sans-serif;
+--font-body:    '你選的內文字', 'Mulish', sans-serif;
+--font-mono:    '你選的等寬字', monospace;
+```
+
+因為字型網址只在這一個檔案出現一次，換字型只需要改這一個檔案，
+首頁跟五個子頁面都會自動套用新字型，不用逐一修改每個 HTML 檔案。

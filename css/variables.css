@@ -3,6 +3,11 @@ css/variables.css
 
 Modification():
 
+- Added   字型改為在此檔案用 @import 集中載入（原本每個 HTML 頁面
+        都各自貼一份 <link href="fonts.googleapis...">，換字型要
+        手動同步改 6 個檔案）。這裡是全站唯一會出現字型網址的地方，
+        之後想換字型只需要改這一行，其餘頁面透過共用的 style.css
+        自動套用，不需要逐一修改 HTML。
 - Changed 藍／綠／橘三色全面提亮，不再壓暗：
         上一版為了讓藍色能當文字色使用、刻意把明度壓低到符合文字
         對比度標準，這正是「顏色怪怪的、看起來偏暗」的根本原因——
@@ -30,6 +35,9 @@ Description:
 全站 CSS 自訂屬性的唯一事實來源。
 調整色彩、字型、間距、游標圖片時只需修改此檔，其他樣式表自動跟進。
 */
+
+/* 全站唯一的字型網址來源，換字型只需要改這一行 */
+@import url('https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Noto+Sans+TC:wght@400;500;700&family=Space+Mono&display=swap');
 
 :root {
   /* ── 背景：淺天藍 → 淺薄荷綠，本身已是柔和淺色，維持不變 ──── */

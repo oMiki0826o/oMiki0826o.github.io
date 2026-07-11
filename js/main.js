@@ -92,7 +92,7 @@ async function bootstrap() {
 
   if (links) {
     try {
-      renderNav(links.nav, site?.avatar);
+      renderNav(links.nav, site?.navIcon);
       renderSocial(links.social);
       renderQuickLinks(links.quickLinks);
     } catch (error) {
