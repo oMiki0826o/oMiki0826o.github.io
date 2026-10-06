@@ -1,11 +1,28 @@
 import {resolveLocale} from '@/i18n/config';
-import {getProfile} from '@/lib/content';
 import {projects} from '@/content/projects';
 import {localize} from '@/lib/content';
+import {ContentPage} from '@/components/layout/content-page';
 
 export default async function ProjectsPage({params}: {params: Promise<{locale: string}>}) {
-  const {locale: rawLocale} = await params; const locale = resolveLocale(rawLocale);
-  const profile = getProfile(locale);
-  const label = locale === 'ja' ? '選んだ制作' : '精選作品';
-  return <main className="content-page"><p className="eyebrow">{label}</p><h1>{profile.status}</h1><div className="project-list">{projects.map((project) => <article className="project-card" key={project.slug}><p>{project.stack.join(' · ')}</p><h2>{localize(project.title, locale)}</h2><p>{localize(project.summary, locale)}</p><a href={project.href} target="_blank" rel="noreferrer">GitHub ↗</a></article>)}</div></main>;
+  const {locale: rawLocale} = await params;
+  const locale = resolveLocale(rawLocale);
+  return (
+    <ContentPage
+      locale={locale}
+      eyebrow="works"
+      title={locale === 'ja' ? '制作実績' : '做過的東西'}
+      lead={locale === 'ja' ? 'いま作っているものと、これまで形にしてきたもの。' : '正在做的東西，以及一路整理成形的作品。'}
+    >
+      <div className="page-projects">
+        {projects.map((project) => (
+          <article className="page-project" key={project.slug}>
+            <small>{project.tags.join(' · ')}</small>
+            <h2>{localize(project.title, locale)}</h2>
+            <p>{localize(project.description, locale)}</p>
+            <a href={project.url} target="_blank" rel="noreferrer">GitHub ↗</a>
+          </article>
+        ))}
+      </div>
+    </ContentPage>
+  );
 }

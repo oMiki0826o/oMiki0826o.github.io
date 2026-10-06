@@ -1,5 +1,6 @@
-import Link from 'next/link';
+import {PageShell} from '@/components/layout/page-shell';
+import {HomePage} from '@/components/home/home-page';
 
 export default function Home() {
-  return <main><Link href="/zh-TW">Enter Miki&apos;s website</Link></main>;
+  return <PageShell locale="zh-TW"><HomePage locale="zh-TW" /></PageShell>;
 }
