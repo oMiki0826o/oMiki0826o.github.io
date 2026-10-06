@@ -6,6 +6,7 @@ import {createYouTubeAdapter} from '@/lib/player/youtube';
 import type {PlayerAdapter, PlayerState} from '@/lib/player/types';
 import type {Locale} from '@/i18n/config';
 import {localize} from '@/lib/content';
+import {ui} from '@/i18n/ui';
 
 function formatTime(value: number) {
   if (!Number.isFinite(value) || value < 0) return '00:00';
@@ -15,6 +16,7 @@ function formatTime(value: number) {
 }
 
 export function MusicPlayer({locale}: {locale: Locale}) {
+  const copy = ui[locale].player;
   const [trackIndex, setTrackIndex] = useState(0);
   const [playerState, setPlayerState] = useState<PlayerState>('idle');
   const [currentTime, setCurrentTime] = useState(0);
@@ -83,17 +85,17 @@ export function MusicPlayer({locale}: {locale: Locale}) {
   const progress = duration > 0 ? currentTime / duration : 0;
 
   return (
-    <section className="music" aria-label="音樂播放器">
+    <section className="music" aria-label={copy.label}>
       <div className="music-label">now playing</div>
       <div className="music-title">{localize(track.title, locale)}</div>
       <div className="music-artist">{localize(track.artist, locale)}</div>
 
       <div className="music-buttons">
-        <button type="button" onClick={restart} aria-label="上一首">←</button>
-        <button type="button" id="play" className="play" onClick={toggle} aria-label={playerState === 'playing' ? '暫停' : '播放'}>
+        <button type="button" onClick={restart} aria-label={copy.previous}>←</button>
+        <button type="button" id="play" className="play" onClick={toggle} aria-label={playerState === 'playing' ? copy.pause : copy.play}>
           {playerState === 'playing' ? '❚❚' : '▶'}
         </button>
-        <button type="button" onClick={restart} aria-label="下一首">→</button>
+        <button type="button" onClick={restart} aria-label={copy.next}>→</button>
       </div>
 
       <div className="progress-row">
@@ -117,7 +119,7 @@ export function MusicPlayer({locale}: {locale: Locale}) {
             adapter.seek(duration * ratio);
             seekingRef.current = false;
           }}
-          aria-label="播放進度"
+          aria-label={copy.progress}
         />
         <time>{formatTime(duration)}</time>
       </div>
@@ -130,7 +132,7 @@ export function MusicPlayer({locale}: {locale: Locale}) {
           max="100"
           value={volume}
           onChange={(event) => void handleVolume(Number(event.currentTarget.value))}
-          aria-label="音量"
+          aria-label={copy.volume}
         />
       </label>
 

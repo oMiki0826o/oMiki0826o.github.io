@@ -3,6 +3,7 @@ import {notFound} from 'next/navigation';
 import {locales, resolveLocale, type Locale} from '@/i18n/config';
 import {profile} from '@/content/profile';
 import {localize} from '@/lib/content';
+import {buildPageMetadata} from '@/lib/metadata';
 import {PageShell} from '@/components/layout/page-shell';
 
 export const dynamicParams = false;
@@ -14,14 +15,11 @@ export function generateStaticParams() {
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}): Promise<Metadata> {
   const {locale: rawLocale} = await params;
   const locale = resolveLocale(rawLocale);
-  return {
+  return buildPageMetadata({
+    locale,
     title: locale === 'ja' ? 'Miki の小さな世界' : locale === 'en' ? "Miki's little world" : 'Miki 的奇幻世界',
-    description: localize(profile.intro, locale),
-    alternates: {
-      canonical: locale === 'zh-TW' ? '/' : '/ja/',
-      languages: {'zh-TW': '/', en: '/en/', ja: '/ja/'}
-    }
-  };
+    description: localize(profile.intro, locale)
+  });
 }
 
 export default async function LocaleLayout({children, params}: {children: React.ReactNode; params: Promise<{locale: string}>}) {

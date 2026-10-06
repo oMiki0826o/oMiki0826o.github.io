@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type {Locale} from '@/i18n/config';
 import {localizedPath} from '@/lib/content';
+import {ui} from '@/i18n/ui';
 import {SiteFooter} from './site-footer';
 
 export function ContentPage({
@@ -18,7 +19,7 @@ export function ContentPage({
 }) {
   return (
     <main className="content-page">
-      <Link className="back-link" href={localizedPath(locale)}>← {locale === 'ja' ? 'ホームへ' : '回到首頁'}</Link>
+      <Link className="back-link" href={localizedPath(locale)}>← {ui[locale].common.backHome}</Link>
       <p className="content-eyebrow">{eyebrow}</p>
       <h1>{title}</h1>
       <p className="content-lead">{lead}</p>
