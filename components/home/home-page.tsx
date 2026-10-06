@@ -25,7 +25,7 @@ export function HomePage({locale}: {locale: Locale}) {
 
       <nav className="social-row" aria-label="Contact links">
         <a href="https://github.com/omiki0826o" target="_blank" rel="noreferrer" aria-label="GitHub"><i className="fa-brands fa-github" /></a>
-        <a href="https://discord.gg/" target="_blank" rel="noreferrer" aria-label="Discord"><i className="fa-brands fa-discord" /></a>
+        <a href="https://discord.com/users/839381498351190036" target="_blank" rel="noreferrer" aria-label="Discord: miki._.0826"><i className="fa-brands fa-discord" /></a>
         <a href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><i className="fa-brands fa-instagram" /></a>
         <a href="https://threads.net/" target="_blank" rel="noreferrer" aria-label="Threads"><i className="fa-brands fa-threads" /></a>
       </nav>
