@@ -109,6 +109,7 @@ button,input{font:inherit}
 .about-copy h3{margin:0 0 9px;font:700 1rem var(--jp);color:var(--text-strong)}
 .about-copy p{margin:0 0 12px}
 .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+.about-grid .tags{margin-bottom:1.75rem}
 .tag{padding:4px 8px;border-radius:999px;background:rgba(177,212,241,.22);color:var(--blue);font:700 .6rem var(--en)}
 .tag:nth-child(2){background:rgba(244,209,179,.22);color:#c58f67}
 .tag:nth-child(3){background:rgba(213,234,184,.28);color:#83a85c}
@@ -132,6 +133,7 @@ button,input{font:inherit}
 .note h3{margin:7px 0 5px;font:700 .92rem var(--jp);color:var(--blue)}
 .note p{margin:0;color:var(--muted);font-size:.75rem;line-height:1.65}
 .timeline{width:min(100%,560px);margin:0 auto;padding-left:25px;border-left:1px solid var(--line)}
+.content-page .timeline{padding-bottom:1.75rem}
 .event{position:relative;padding:0 0 23px}
 .event:last-child{padding-bottom:0}
 .event:before{content:'';position:absolute;left:-29px;top:5px;width:7px;height:7px;border-radius:50%;background:var(--blue)}

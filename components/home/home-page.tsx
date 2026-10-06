@@ -72,7 +72,7 @@ export function HomePage({locale}: {locale: Locale}) {
             </a>
           ))}
         </div>
-        <Link className="more-button" href={localizedPath(locale, '/projects')}>View More</Link>
+        <Link className="more-button" href={localizedPath(locale, '/projects')}>{locale === 'ja' ? 'もっと見る →' : locale === 'en' ? 'View more →' : '查看更多 →'}</Link>
       </section>
 
       <section className="section" id="notes">
@@ -89,7 +89,7 @@ export function HomePage({locale}: {locale: Locale}) {
             </article>
           ))}
         </div>
-        <Link className="more-button" href={localizedPath(locale, '/notes')}>View More</Link>
+        <Link className="more-button" href={localizedPath(locale, '/notes')}>{locale === 'ja' ? 'もっと見る →' : locale === 'en' ? 'View more →' : '查看更多 →'}</Link>
       </section>
 
       <section className="section" id="timeline">
@@ -106,7 +106,7 @@ export function HomePage({locale}: {locale: Locale}) {
             </article>
           ))}
         </div>
-        <Link className="more-button" href={localizedPath(locale, '/timeline')}>View Full Timeline</Link>
+        <Link className="more-button" href={localizedPath(locale, '/timeline')}>{locale === 'ja' ? 'すべて見る →' : locale === 'en' ? 'View timeline →' : '查看完整歷程 →'}</Link>
       </section>
 
       <SiteFooter locale={locale} />
