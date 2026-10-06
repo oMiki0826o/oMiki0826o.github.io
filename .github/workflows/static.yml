@@ -35,19 +35,17 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: HTML/package-lock.json
+          cache-dependency-path: package-lock.json
       - name: Install dependencies
-        working-directory: HTML
         run: npm ci --legacy-peer-deps
       - name: Build static site
-        working-directory: HTML
         run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: HTML/out
+          path: out
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
