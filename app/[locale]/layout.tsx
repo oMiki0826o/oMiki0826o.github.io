@@ -15,11 +15,11 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
   const {locale: rawLocale} = await params;
   const locale = resolveLocale(rawLocale);
   return {
-    title: locale === 'ja' ? 'Miki の小さな世界' : 'Miki 的奇幻世界',
+    title: locale === 'ja' ? 'Miki の小さな世界' : locale === 'en' ? "Miki's little world" : 'Miki 的奇幻世界',
     description: localize(profile.intro, locale),
     alternates: {
       canonical: locale === 'zh-TW' ? '/' : '/ja/',
-      languages: {'zh-TW': '/', ja: '/ja/'}
+      languages: {'zh-TW': '/', en: '/en/', ja: '/ja/'}
     }
   };
 }

@@ -4,18 +4,18 @@ import Link from 'next/link';
 import {usePathname} from 'next/navigation';
 import type {Locale} from '@/i18n/config';
 import {localizedPath} from '@/lib/content';
+import {ThemeToggle} from './theme-toggle';
 
 const labels = {
   'zh-TW': {about: 'About', projects: 'Works', notes: 'Notes', timeline: 'Timeline'},
+  en: {about: 'About', projects: 'Works', notes: 'Notes', timeline: 'Timeline'},
   ja: {about: 'About', projects: 'Works', notes: 'Notes', timeline: 'Timeline'}
 } as const;
 
 export function SiteHeader({locale}: {locale: Locale}) {
   const pathname = usePathname() ?? '';
-  const otherLocale: Locale = locale === 'zh-TW' ? 'ja' : 'zh-TW';
-  const languageLabel = locale === 'zh-TW' ? '日' : '中';
   const copy = labels[locale];
-  const suffix = pathname === '/' ? '' : pathname.replace(/^\/(zh-TW|ja)(?=\/|$)/, '');
+  const suffix = pathname === '/' ? '' : pathname.replace(/^\/(zh-TW|en|ja)(?=\/|$)/, '');
 
   return (
     <header className="topbar">
@@ -26,9 +26,7 @@ export function SiteHeader({locale}: {locale: Locale}) {
         <Link href={localizedPath(locale, '/notes')}>{copy.notes}</Link>
         <Link href={localizedPath(locale, '/timeline')}>{copy.timeline}</Link>
       </nav>
-      <Link className="lang" href={localizedPath(otherLocale, suffix)} hrefLang={otherLocale}>
-        {languageLabel}
-      </Link>
+      <div className="header-controls"><nav className="language-links" aria-label="Language">{(['zh-TW', 'en', 'ja'] as Locale[]).map((item) => <Link className={item === locale ? 'is-current' : ''} href={localizedPath(item, suffix)} hrefLang={item} key={item}>{item === 'zh-TW' ? '中' : item === 'ja' ? '日' : 'EN'}</Link>)}</nav><ThemeToggle /></div>
     </header>
   );
 }

@@ -1,9 +1,15 @@
 'use client';
 
-import {useTheme} from 'next-themes';
+import {useEffect, useState} from 'react';
 
 export function ThemeToggle() {
-  const {resolvedTheme, setTheme} = useTheme();
-  const next = resolvedTheme === 'dark' ? 'light' : 'dark';
-  return <button className="theme-toggle" type="button" aria-label="Toggle theme" onClick={() => setTheme(next)}>{resolvedTheme === 'dark' ? '☀' : '☾'}</button>;
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  useEffect(() => setTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'), []);
+  const toggle = () => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('miki-theme', next);
+    setTheme(next);
+  };
+  return <button className="theme-toggle" type="button" onClick={toggle} aria-label={theme === 'dark' ? 'Use light theme' : 'Use dark theme'}>{theme === 'dark' ? '☀' : '☾'}</button>;
 }

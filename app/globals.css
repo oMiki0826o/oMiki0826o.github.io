@@ -21,6 +21,12 @@
   --body:'Noto Sans TC',sans-serif;
   --quote:'Klee One','Noto Sans TC',sans-serif;
 }
+[data-theme='dark']{
+  --bg-a:#284952;--bg-b:#355a54;--bg-c:#405d4e;
+  --blue:#9accec;--blue-soft:#587f97;--orange:#f1c38b;--orange-soft:#856f61;
+  --green:#c9e991;--green-soft:#69865c;--text:#eaf2ed;--text-strong:#f5faf5;
+  --muted:#c5d5cd;--faint:#a8bdb4;--line:rgba(235,248,240,.17);--white:rgba(31,65,68,.48);
+}
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;min-width:320px}
@@ -56,7 +62,7 @@ button,input{font:inherit}
 .topnav{display:flex;gap:22px;align-items:center}
 .topnav a{font:600 .72rem var(--en);text-decoration:none;color:var(--muted)}
 .topnav a:hover{color:var(--blue)}
-.lang{font:700 .68rem var(--jp);color:var(--orange);text-decoration:none}
+.header-controls{display:flex;align-items:center;gap:9px}.language-links{display:flex;align-items:center;gap:7px}.language-links a{font:700 .68rem var(--jp);color:var(--orange);text-decoration:none}.language-links a.is-current{color:var(--blue)}.theme-toggle{width:28px;height:28px;border:1px solid var(--line);border-radius:50%;background:var(--white);color:var(--blue);cursor:pointer;font-size:.82rem}
 
 .intro{text-align:center;padding:72px 0 54px}
 .avatar{display:block;width:104px;height:104px;margin:0 auto 22px;border-radius:50%;object-fit:cover;box-shadow:0 12px 30px -24px rgba(49,72,81,.35)}
@@ -164,7 +170,7 @@ button,input{font:inherit}
 
 @media(max-width:680px){
   .page{width:min(100% - 20px,820px)}
-  .topnav{display:none}
+  .topnav{display:none}.header-controls{gap:7px}.language-links{gap:6px}
   .intro{padding-top:54px}
   .avatar{width:92px;height:92px}
   .intro h1{font-size:3.2rem}

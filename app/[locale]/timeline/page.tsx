@@ -10,8 +10,8 @@ export default async function TimelinePage({params}: {params: Promise<{locale: s
     <ContentPage
       locale={locale}
       eyebrow="timeline"
-      title={locale === 'ja' ? 'これまでの記録' : '一路走來'}
-      lead={locale === 'ja' ? '学びながら作ってきたものの記録。' : '一路學、一邊做留下來的紀錄。'}
+      title={locale === 'ja' ? 'これまでの記録' : locale === 'en' ? 'The way here' : '一路走來'}
+      lead={locale === 'ja' ? '学びながら作ってきたものの記録。' : locale === 'en' ? 'A record of learning and making along the way.' : '一路學、一邊做留下來的紀錄。'}
     >
       <div className="timeline">
         {timeline.map((item) => (

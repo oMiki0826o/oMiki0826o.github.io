@@ -10,8 +10,8 @@ export default async function ProjectsPage({params}: {params: Promise<{locale: s
     <ContentPage
       locale={locale}
       eyebrow="works"
-      title={locale === 'ja' ? '制作実績' : '做過的東西'}
-      lead={locale === 'ja' ? 'いま作っているものと、これまで形にしてきたもの。' : '正在做的東西，以及一路整理成形的作品。'}
+      title={locale === 'ja' ? '制作実績' : locale === 'en' ? 'Things I made' : '做過的東西'}
+      lead={locale === 'ja' ? 'いま作っているものと、これまで形にしてきたもの。' : locale === 'en' ? 'What I am making now, and the things I have shaped along the way.' : '正在做的東西，以及一路整理成形的作品。'}
     >
       <div className="page-projects">
         {projects.map((project) => (

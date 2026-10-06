@@ -10,8 +10,8 @@ export default async function NotesPage({params}: {params: Promise<{locale: stri
     <ContentPage
       locale={locale}
       eyebrow="notes"
-      title={locale === 'ja' ? '記事と記録' : '文章與紀錄'}
-      lead={locale === 'ja' ? '開発記録、つまずきのメモ、ときどき技術以外のこと。' : '開發紀錄、踩坑筆記，以及偶爾不那麼技術的東西。'}
+      title={locale === 'ja' ? '記事と記録' : locale === 'en' ? 'Notes & records' : '文章與紀錄'}
+      lead={locale === 'ja' ? '開発記録、つまずきのメモ、ときどき技術以外のこと。' : locale === 'en' ? 'Development notes, lessons learned, and occasional non-technical thoughts.' : '開發紀錄、踩坑筆記，以及偶爾不那麼技術的東西。'}
     >
       <div className="page-notes">
         {notes.map((note) => (
