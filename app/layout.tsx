@@ -26,5 +26,5 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children}: Readonly<{children: React.ReactNode}>) {
   const themeScript = "try{var t=localStorage.getItem('miki-theme');document.documentElement.dataset.theme=t==='dark'?'dark':'light'}catch(e){}";
-  return <html lang="zh-TW" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{__html: themeScript}} /></head><body>{children}</body></html>;
+  return <html lang="zh-TW" suppressHydrationWarning><head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" /><script dangerouslySetInnerHTML={{__html: themeScript}} /></head><body>{children}</body></html>;
 }

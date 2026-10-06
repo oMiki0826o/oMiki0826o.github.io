@@ -8,13 +8,6 @@ import {localize, localizedPath} from '@/lib/content';
 import {MusicPlayer} from './music-player';
 import {SiteFooter} from '@/components/layout/site-footer';
 
-function SocialIcon({name}: {name: 'github' | 'discord' | 'instagram' | 'threads'}) {
-  if (name === 'instagram') return <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg>;
-  if (name === 'discord') return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5A14 14 0 0 1 9 5l.5 1a11 11 0 0 1 5 0l.5-1a14 14 0 0 1 4 1.5c1.6 2.4 2 5.4 1.6 8.5A12 12 0 0 1 16.7 17l-1-1.2M8.3 15.8l-1 1.2A12 12 0 0 1 3.4 15c-.4-3.1 0-6.1 1.6-8.5Z" /><circle cx="9" cy="12" r="1" fill="currentColor" stroke="none" /><circle cx="15" cy="12" r="1" fill="currentColor" stroke="none" /></svg>;
-  if (name === 'threads') return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c-4.5 0-7 2.8-7 7.8 0 4.7 2.6 8.2 7.1 8.2 3.5 0 5.9-2 5.9-4.7 0-2.4-1.9-3.9-4.8-3.9-2.4 0-4.1 1.2-4.1 3.1 0 1.5 1.2 2.5 3 2.5 2.2 0 3.8-1.7 3.8-4.7 0-4.2-2.2-6.6-5.5-6.6-2.2 0-3.7 1-4.7 2.7" /></svg>;
-  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5a8.5 8.5 0 0 0-2.7 16.6c.4.1.5-.2.5-.4v-1.6c-2.1.5-2.5-.9-2.5-.9-.3-.9-.8-1.1-.8-1.1-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.2 1.8.9 2.3.7.1-.5.3-.9.5-1.1-1.7-.2-3.5-.8-3.5-3.8 0-.8.3-1.5.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8a7.7 7.7 0 0 1 4 0c1.5-1 2.2-.8 2.2-.8.5 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.1 0 3-1.8 3.6-3.5 3.8.3.2.5.7.5 1.4v2.1c0 .2.1.5.5.4A8.5 8.5 0 0 0 12 3.5Z" /></svg>;
-}
-
 export function HomePage({locale}: {locale: Locale}) {
   const aboutParagraphs = profile.about[locale];
 
@@ -31,10 +24,10 @@ export function HomePage({locale}: {locale: Locale}) {
       <MusicPlayer locale={locale} />
 
       <nav className="social-row" aria-label="Contact links">
-        <a href="https://github.com/omiki0826o" target="_blank" rel="noreferrer" aria-label="GitHub"><SocialIcon name="github" /></a>
-        <a href="https://discord.gg/" target="_blank" rel="noreferrer" aria-label="Discord"><SocialIcon name="discord" /></a>
-        <a href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><SocialIcon name="instagram" /></a>
-        <a href="https://threads.net/" target="_blank" rel="noreferrer" aria-label="Threads"><SocialIcon name="threads" /></a>
+        <a href="https://github.com/omiki0826o" target="_blank" rel="noreferrer" aria-label="GitHub"><i className="fa-brands fa-github" /></a>
+        <a href="https://discord.gg/" target="_blank" rel="noreferrer" aria-label="Discord"><i className="fa-brands fa-discord" /></a>
+        <a href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><i className="fa-brands fa-instagram" /></a>
+        <a href="https://threads.net/" target="_blank" rel="noreferrer" aria-label="Threads"><i className="fa-brands fa-threads" /></a>
       </nav>
 
       <figure className="featured">
@@ -70,7 +63,7 @@ export function HomePage({locale}: {locale: Locale}) {
         <div className="projects">
           {projects.map((project) => (
             <a className={`project project-${project.tone}`} href={project.url} target="_blank" rel="noreferrer" key={project.slug}>
-              <div className="project-cover">{project.title['zh-TW'].toUpperCase()}</div>
+              <div className="project-cover"><span>{project.title['zh-TW'].toUpperCase()}</span></div>
               <div className="project-body">
                 <small>{project.tags.join(' / ')}</small>
                 <h3>{localize(project.title, locale)}</h3>
