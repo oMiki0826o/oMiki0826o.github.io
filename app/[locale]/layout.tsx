@@ -13,8 +13,8 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
   const {locale: rawLocale} = await params;
   const locale = resolveLocale(rawLocale);
   return {
-    title: locale === 'ja' ? 'Mikiの小さな世界' : locale === 'en' ? "Miki's little world" : 'Miki 的小小世界',
-    alternates: {languages: {'zh-TW': '/zh-TW', en: '/en', ja: '/ja'}}
+    title: locale === 'ja' ? 'Mikiの小さな世界' : 'Miki 的小小世界',
+    alternates: {languages: {'zh-TW': '/zh-TW', ja: '/ja'}}
   };
 }
 

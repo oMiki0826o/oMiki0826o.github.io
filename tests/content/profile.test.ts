@@ -2,8 +2,8 @@ import {describe, expect, it} from 'vitest';
 import {getLinkHubItems, getProfile, getQuote, localize} from '@/lib/content';
 
 describe('profile content', () => {
-  it('returns English profile copy for en', () => {
-    expect(getProfile('en').subtitle).toBeTruthy();
+  it('returns Japanese profile copy for ja', () => {
+    expect(getProfile('ja').subtitle).toBe('Mikiの小さな世界');
   });
 
   it('falls back to Chinese copy when a localized entry is unavailable', () => {
@@ -12,6 +12,6 @@ describe('profile content', () => {
 
   it('localizes link-hub labels and selects a quote deterministically', () => {
     expect(getLinkHubItems('ja')[0]?.label).toBe('プロフィール');
-    expect(getQuote('en', () => 0.9)).toBe('Let curiosity lead.');
+    expect(getQuote('ja', () => 0.9)).toBe('好奇心に導かれて。');
   });
 });

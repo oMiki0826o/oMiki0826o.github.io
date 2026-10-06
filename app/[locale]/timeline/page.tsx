@@ -4,6 +4,6 @@ import {localize} from '@/lib/content';
 
 export default async function TimelinePage({params}: {params: Promise<{locale: string}>}) {
   const {locale: rawLocale} = await params; const locale = resolveLocale(rawLocale);
-  const heading = locale === 'ja' ? 'これまでの道のり' : locale === 'en' ? 'The way here' : '一路走來';
+  const heading = locale === 'ja' ? 'これまでの道のり' : '一路走來';
   return <main className="content-page"><p className="eyebrow">timeline</p><h1>{heading}</h1><ol className="timeline">{timeline.map((item) => <li key={`${item.year}-${item.title['zh-TW']}`}><time>{item.year}</time><h2>{localize(item.title, locale)}</h2><p>{localize(item.description, locale)}</p></li>)}</ol></main>;
 }
