@@ -19,18 +19,22 @@ export function HomePage({locale}: {locale: Locale}) {
         <p className="subtitle">{localize(profile.subtitle, locale)}</p>
         <p className="aboutline">{localize(profile.intro, locale)}</p>
         <p className="quote">{localize(profile.signature, locale)}</p>
-        <span className="status"><i />{localize(profile.status, locale)}</span>
       </section>
 
-      <MusicPlayer />
+      <MusicPlayer locale={locale} />
+
+      <nav className="social-row" aria-label="Contact links">
+        <a href="https://github.com/omiki0826o" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://discord.gg/" target="_blank" rel="noreferrer">Discord</a>
+        <a href="https://instagram.com/" target="_blank" rel="noreferrer">Instagram</a>
+        <a href="https://threads.net/" target="_blank" rel="noreferrer">Threads</a>
+      </nav>
 
       <figure className="featured">
-        <div className="featured-image">
-          <img src={profile.featuredImage} alt={locale === 'ja' ? 'お気に入りの一枚' : '鎮樓圖'} loading="lazy" />
-        </div>
+        <a className="featured-image" href="https://twitter.com" target="_blank" rel="noreferrer"><img src={profile.featuredImage} alt="鎮樓圖" loading="lazy" /></a>
         <figcaption className="featured-caption">
-          <strong>Featured image</strong>
-          <span>{localize(profile.featuredCaption, locale)}</span>
+          <strong>{locale === 'ja' ? '鎮樓圖' : locale === 'en' ? 'Featured image' : '鎮樓圖'}</strong>
+          <a href="https://twitter.com" target="_blank" rel="noreferrer">Twitter ↗</a>
         </figcaption>
       </figure>
 
@@ -40,7 +44,6 @@ export function HomePage({locale}: {locale: Locale}) {
           <small>{localize(profile.aboutTitle, locale)}</small>
         </header>
         <div className="about-grid">
-          <img className="about-photo" src={profile.avatar} alt="Miki" width="160" height="160" loading="lazy" />
           <div className="about-copy">
             <h3>{localize(profile.aboutTitle, locale)}</h3>
             {aboutParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}

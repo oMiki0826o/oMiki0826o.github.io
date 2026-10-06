@@ -66,7 +66,7 @@ button,input{font:inherit}
 
 .intro{text-align:center;padding:72px 0 54px}
 .avatar{display:block;width:104px;height:104px;margin:0 auto 22px;border-radius:50%;object-fit:cover;box-shadow:0 12px 30px -24px rgba(49,72,81,.35)}
-.intro h1{margin:0;font:800 clamp(2.8rem,8vw,4.4rem)/1 var(--en);letter-spacing:-.035em;color:var(--blue)}
+.intro h1{margin:0;font:700 clamp(2.8rem,8vw,4.4rem)/1 'Noto Sans TC','Noto Sans JP',Arial,sans-serif;letter-spacing:-.025em;color:var(--blue)}
 .intro .subtitle{margin:10px 0 0;font:700 .94rem var(--jp);letter-spacing:.06em;color:var(--text)}
 .intro .aboutline{max-width:520px;margin:18px auto 0;color:var(--muted);line-height:1.9;font-size:.9rem}
 .intro .quote{margin:22px 0 0;font:600 .98rem var(--quote);color:var(--blue)}
@@ -74,16 +74,17 @@ button,input{font:inherit}
 .status i{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 9px 2px rgba(182,222,124,.30)}
 
 .music{width:min(100%,500px);margin:0 auto 72px;text-align:center}
+.social-row{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin:-44px auto 62px}.social-row a{padding:5px 9px;border:1px solid var(--line);border-radius:999px;background:var(--white);color:var(--blue);font:700 .62rem var(--en);text-decoration:none}
 .music-label{font:700 .6rem var(--en);letter-spacing:.15em;text-transform:uppercase;color:#8caf68}
 .music-title{margin-top:5px;font:700 1rem var(--jp);color:var(--blue)}
 .music-artist{margin-top:2px;font:600 .73rem var(--en);color:#c89369}
 .music-buttons{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:14px}
 .music-buttons button{border:0;background:transparent;padding:3px 5px;color:var(--blue);cursor:pointer}
-.music-buttons .play{color:var(--orange);font-size:1.22rem}
+.music-buttons .play{color:var(--orange);font-size:1.05rem}
 .progress-row{display:grid;grid-template-columns:42px 1fr 42px;gap:10px;align-items:center;margin-top:11px}
 .progress-row time{font:600 .55rem var(--en);color:var(--faint)}
 .progress-row time:last-child{text-align:right}
-.player-progress{-webkit-appearance:none;appearance:none;width:100%;height:2px;background:linear-gradient(90deg,var(--blue) var(--progress,0%),var(--line) var(--progress,0%))}
+.player-progress{-webkit-appearance:none;appearance:none;width:100%;height:1px;background:linear-gradient(90deg,var(--blue) var(--progress,0%),var(--line) var(--progress,0%))}
 .player-progress::-webkit-slider-thumb{-webkit-appearance:none;width:8px;height:8px;border-radius:50%;background:var(--blue)}
 .player-progress::-moz-range-thumb{width:8px;height:8px;border:0;border-radius:50%;background:var(--blue)}
 .volume{margin-top:10px;display:flex;justify-content:center;align-items:center;gap:7px;color:var(--faint);font:600 .55rem var(--en)}
@@ -95,14 +96,14 @@ button,input{font:inherit}
 .featured{width:min(100%,700px);margin:0 auto 84px}
 .featured-image{aspect-ratio:16/9;overflow:hidden;border-radius:15px;background:#eaf2f4;box-shadow:0 16px 38px -30px rgba(49,72,81,.32)}
 .featured-image img{width:100%;height:100%;display:block;object-fit:cover;filter:saturate(.84) brightness(1.03)}
-.featured-caption{display:flex;justify-content:space-between;gap:20px;margin-top:12px;color:var(--muted);font-size:.72rem}
+.featured-caption{display:flex;justify-content:space-between;gap:20px;margin-top:12px;color:var(--muted);font-size:.72rem}.featured-caption a{color:var(--blue);text-decoration:none}
 .featured-caption strong{font:700 .68rem var(--en);color:var(--blue)}
 
 .section{width:min(100%,720px);margin:0 auto;padding:66px 0;border-top:1px solid var(--line)}
 .section-head{text-align:center;margin-bottom:34px}
 .section-head h2{margin:0;font:800 clamp(1.9rem,5vw,2.8rem) var(--en);color:rgba(95,164,221,.72)}
-.section-head small{display:block;margin-top:-2px;font:700 .75rem var(--jp);color:var(--text)}
-.about-grid{display:grid;grid-template-columns:160px 1fr;gap:30px;align-items:start}
+.section-head small{display:block;margin-top:-2px;font:700 .75rem var(--jp);color:var(--blue)}
+.about-grid{display:block;max-width:580px;margin:0 auto}
 .about-photo{width:160px;aspect-ratio:1;object-fit:cover;border-radius:10px}
 .about-copy{line-height:1.95;color:var(--muted);font-size:.84rem}
 .about-copy h3{margin:0 0 9px;font:700 1rem var(--jp);color:var(--text-strong)}
@@ -117,7 +118,7 @@ button,input{font:inherit}
 .projects{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .project{overflow:hidden;border-radius:12px;background:rgba(255,255,255,.40);border:1px solid rgba(255,255,255,.60);box-shadow:0 12px 30px -27px rgba(49,72,81,.34);text-decoration:none;transition:transform .2s ease,box-shadow .2s ease}
 .project:hover{transform:translateY(-2px);box-shadow:0 16px 35px -26px rgba(49,72,81,.40)}
-.project-cover{aspect-ratio:4/3;display:grid;place-items:center;background:linear-gradient(145deg,rgba(177,212,241,.27),rgba(213,234,184,.18));color:var(--blue);font:700 .62rem var(--en);letter-spacing:.05em;text-align:center;padding:10px}
+.project-cover{aspect-ratio:5/3;display:grid;place-items:center;background:linear-gradient(145deg,rgba(177,212,241,.27),rgba(213,234,184,.18));color:var(--blue);font:700 .62rem var(--en);letter-spacing:.05em;text-align:center;padding:10px}
 .project-orange .project-cover{background:linear-gradient(145deg,rgba(244,209,179,.22),rgba(255,255,255,.28));color:#c58f67}
 .project-green .project-cover{background:linear-gradient(145deg,rgba(213,234,184,.24),rgba(177,212,241,.18));color:#83a85c}
 .project-body{padding:12px 13px 15px}
@@ -169,8 +170,8 @@ button,input{font:inherit}
 .rip p{color:#d98c83;font-size:4rem;margin:0}.rip h1{font:800 3rem var(--en);letter-spacing:.12em;margin:.3rem}.rip span{color:#a9bdb4}
 
 @media(max-width:680px){
-  .page{width:min(100% - 20px,820px)}
-  .topnav{display:none}.header-controls{gap:7px}.language-links{gap:6px}
+  .page{width:min(100% - 36px,820px)}
+  .topbar{height:auto;min-height:68px;gap:10px}.topnav{display:flex;gap:10px;order:3;width:100%;padding:0 0 10px;justify-content:center}.topnav a{font-size:.65rem}.header-controls{gap:7px}.language-links{gap:6px}
   .intro{padding-top:54px}
   .avatar{width:92px;height:92px}
   .intro h1{font-size:3.2rem}

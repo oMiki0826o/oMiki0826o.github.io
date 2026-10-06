@@ -4,6 +4,8 @@ import {useCallback, useEffect, useRef, useState, type CSSProperties} from 'reac
 import {musicTracks} from '@/content/music';
 import {createYouTubeAdapter} from '@/lib/player/youtube';
 import type {PlayerAdapter, PlayerState} from '@/lib/player/types';
+import type {Locale} from '@/i18n/config';
+import {localize} from '@/lib/content';
 
 function formatTime(value: number) {
   if (!Number.isFinite(value) || value < 0) return '00:00';
@@ -12,7 +14,7 @@ function formatTime(value: number) {
   return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
-export function MusicPlayer() {
+export function MusicPlayer({locale}: {locale: Locale}) {
   const [trackIndex, setTrackIndex] = useState(0);
   const [playerState, setPlayerState] = useState<PlayerState>('idle');
   const [currentTime, setCurrentTime] = useState(0);
@@ -83,8 +85,8 @@ export function MusicPlayer() {
   return (
     <section className="music" aria-label="音樂播放器">
       <div className="music-label">now playing</div>
-      <div className="music-title">{track.title}</div>
-      <div className="music-artist">{track.artist}</div>
+      <div className="music-title">{localize(track.title, locale)}</div>
+      <div className="music-artist">{localize(track.artist, locale)}</div>
 
       <div className="music-buttons">
         <button type="button" onClick={restart} aria-label="上一首">←</button>
