@@ -9,7 +9,9 @@ export const localizedTextSchema = z.object({
 
 export const profileSchema = z.object({
   name: z.string(),
-  avatar: z.string().url(),
+  avatar: z.string().refine((value) => value.startsWith('/') || /^https?:\/\//.test(value), {
+    message: 'Avatar must be a site-root path or an http(s) URL.'
+  }),
   subtitle: localizedTextSchema,
   signature: localizedTextSchema,
   about: localizedTextSchema,

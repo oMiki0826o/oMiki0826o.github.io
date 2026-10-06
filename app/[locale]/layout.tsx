@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import {locales, resolveLocale, type Locale} from '@/i18n/config';
+import {SiteChrome} from '@/components/layout/site-chrome';
 
 type Props = Readonly<{children: React.ReactNode; params: Promise<{locale: string}>}>;
 
@@ -20,5 +21,5 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
 export default async function LocaleLayout({children, params}: Props) {
   const {locale: rawLocale} = await params;
   if (!locales.includes(rawLocale as Locale)) notFound();
-  return <div lang={rawLocale}>{children}</div>;
+  return <div lang={rawLocale}><SiteChrome locale={rawLocale as Locale} />{children}</div>;
 }
