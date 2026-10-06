@@ -66,7 +66,7 @@ button,input{font:inherit}
 
 .intro{text-align:center;padding:72px 0 54px}
 .avatar{display:block;width:104px;height:104px;margin:0 auto 22px;border-radius:50%;object-fit:cover;box-shadow:0 12px 30px -24px rgba(49,72,81,.35)}
-.intro h1{margin:0;font:700 clamp(2.8rem,8vw,4.4rem)/1 'Noto Sans TC','Noto Sans JP',Arial,sans-serif;letter-spacing:-.025em;color:var(--blue)}
+.intro h1{margin:0;font:700 clamp(2.8rem,8vw,4.4rem)/1 var(--jp);letter-spacing:-.025em;color:var(--blue)}
 .intro .subtitle{margin:10px 0 0;font:700 .94rem var(--jp);letter-spacing:.06em;color:var(--text)}
 .intro .aboutline{max-width:520px;margin:18px auto 0;color:var(--muted);line-height:1.9;font-size:.9rem}
 .intro .quote{margin:22px 0 0;font:600 .98rem var(--quote);color:var(--blue)}
@@ -74,7 +74,7 @@ button,input{font:inherit}
 .status i{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 9px 2px rgba(182,222,124,.30)}
 
 .music{width:min(100%,500px);margin:0 auto 72px;text-align:center}
-.social-row{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin:-44px auto 62px}.social-row a{padding:5px 9px;border:1px solid var(--line);border-radius:999px;background:var(--white);color:var(--blue);font:700 .62rem var(--en);text-decoration:none}
+.social-row{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:-44px auto 62px}.social-row a{display:grid;place-items:center;width:30px;height:30px;border:1px solid var(--line);border-radius:50%;background:var(--white);color:var(--blue);text-decoration:none}.social-row svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .music-label{font:700 .6rem var(--en);letter-spacing:.15em;text-transform:uppercase;color:#8caf68}
 .music-title{margin-top:5px;font:700 1rem var(--jp);color:var(--blue)}
 .music-artist{margin-top:2px;font:600 .73rem var(--en);color:#c89369}

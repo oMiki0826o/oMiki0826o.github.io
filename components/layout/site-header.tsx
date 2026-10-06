@@ -7,9 +7,9 @@ import {localizedPath} from '@/lib/content';
 import {ThemeToggle} from './theme-toggle';
 
 const labels = {
-  'zh-TW': {about: 'About', projects: 'Works', notes: 'Notes', timeline: 'Timeline'},
-  en: {about: 'About', projects: 'Works', notes: 'Notes', timeline: 'Timeline'},
-  ja: {about: 'About', projects: 'Works', notes: 'Notes', timeline: 'Timeline'}
+  'zh-TW': {home: '首頁', about: '關於', projects: '專案', notes: '文章', timeline: '歷程'},
+  en: {home: 'Home', about: 'About', projects: 'Works', notes: 'Notes', timeline: 'Timeline'},
+  ja: {home: 'ホーム', about: '私について', projects: '作品', notes: '記事', timeline: '記録'}
 } as const;
 
 export function SiteHeader({locale}: {locale: Locale}) {
@@ -19,8 +19,9 @@ export function SiteHeader({locale}: {locale: Locale}) {
 
   return (
     <header className="topbar">
-      <Link className="wordmark" href={localizedPath(locale)}>miki.</Link>
+      <Link className="wordmark" href={localizedPath(locale)}>Miki</Link>
       <nav className="topnav" aria-label={locale === 'ja' ? 'メインナビゲーション' : '主要導覽'}>
+        <Link href={localizedPath(locale)}>{copy.home}</Link>
         <Link href={localizedPath(locale, '/about')}>{copy.about}</Link>
         <Link href={localizedPath(locale, '/projects')}>{copy.projects}</Link>
         <Link href={localizedPath(locale, '/notes')}>{copy.notes}</Link>
