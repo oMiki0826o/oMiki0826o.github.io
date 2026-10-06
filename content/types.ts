@@ -17,6 +17,10 @@ export type Note = {
   excerpt: LocalizedText;
   date: string;
   category: string;
+  sections: Array<{
+    heading: LocalizedText;
+    paragraphs: Record<Locale, string[]>;
+  }>;
 };
 
 export type TimelineItem = {

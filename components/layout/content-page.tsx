@@ -9,17 +9,21 @@ export function ContentPage({
   eyebrow,
   title,
   lead,
+  backHref,
+  backLabel,
   children
 }: {
   locale: Locale;
   eyebrow: string;
   title: string;
   lead: string;
+  backHref?: string;
+  backLabel?: string;
   children: React.ReactNode;
 }) {
   return (
     <main className="content-page">
-      <Link className="back-link" href={localizedPath(locale)}>← {ui[locale].common.backHome}</Link>
+      <Link className="back-link" href={backHref ?? localizedPath(locale)}>← {backLabel ?? ui[locale].common.backHome}</Link>
       <p className="content-eyebrow">{eyebrow}</p>
       <h1>{title}</h1>
       <p className="content-lead">{lead}</p>

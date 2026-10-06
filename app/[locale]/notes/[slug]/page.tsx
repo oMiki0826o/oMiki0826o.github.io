@@ -1,0 +1,54 @@
+import {notFound} from 'next/navigation';
+import type {Metadata} from 'next';
+import {locales, resolveLocale} from '@/i18n/config';
+import {getNote, notes} from '@/content/notes';
+import {localize, localizedPath} from '@/lib/content';
+import {buildPageMetadata, siteUrl} from '@/lib/metadata';
+import {ui} from '@/i18n/ui';
+import {ContentPage} from '@/components/layout/content-page';
+import {JsonLd} from '@/components/seo/json-ld';
+
+export function generateStaticParams() {
+  return locales.flatMap((locale) => notes.map((note) => ({locale, slug: note.slug})));
+}
+
+export async function generateMetadata({params}: {params: Promise<{locale: string; slug: string}>}): Promise<Metadata> {
+  const {locale: rawLocale, slug} = await params;
+  const locale = resolveLocale(rawLocale);
+  const note = getNote(slug);
+  if (!note) return {};
+  return buildPageMetadata({
+    locale,
+    pathname: `/notes/${note.slug}`,
+    title: localize(note.title, locale),
+    description: localize(note.excerpt, locale)
+  });
+}
+
+export default async function NotePage({params}: {params: Promise<{locale: string; slug: string}>}) {
+  const {locale: rawLocale, slug} = await params;
+  const locale = resolveLocale(rawLocale);
+  const note = getNote(slug);
+  if (!note) notFound();
+
+  const title = localize(note.title, locale);
+  const description = localize(note.excerpt, locale);
+  const pathname = localizedPath(locale, `/notes/${note.slug}`);
+  return (
+    <ContentPage locale={locale} backHref={localizedPath(locale, '/notes')} backLabel={ui[locale].common.backNotes} eyebrow={`${note.date} · ${note.category}`} title={title} lead={description}>
+      <JsonLd data={{
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: title,
+        description,
+        datePublished: note.date,
+        inLanguage: locale,
+        mainEntityOfPage: new URL(pathname, siteUrl).toString(),
+        author: {'@type': 'Person', name: 'Miki'}
+      }} />
+      <article className="prose note-article">
+        {note.sections.map((section) => <section key={section.heading['zh-TW']}><h2>{localize(section.heading, locale)}</h2>{section.paragraphs[locale].map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</section>)}
+      </article>
+    </ContentPage>
+  );
+}
