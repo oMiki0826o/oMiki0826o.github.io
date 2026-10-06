@@ -14,6 +14,7 @@
   --text-strong:#314851;
   --muted:#71858b;
   --faint:#9badb1;
+  --heading-subtle:#76969d;
   --line:rgba(57,81,90,.12);
   --white:rgba(255,255,255,.68);
   --en:'Nunito',sans-serif;
@@ -25,7 +26,7 @@
   --bg-a:#284952;--bg-b:#355a54;--bg-c:#405d4e;
   --blue:#9accec;--blue-soft:#587f97;--orange:#f1c38b;--orange-soft:#856f61;
   --green:#c9e991;--green-soft:#69865c;--text:#eaf2ed;--text-strong:#f5faf5;
-  --muted:#c5d5cd;--faint:#a8bdb4;--line:rgba(235,248,240,.17);--white:rgba(31,65,68,.48);
+  --muted:#c5d5cd;--faint:#a8bdb4;--heading-subtle:#b4cbc1;--line:rgba(235,248,240,.17);--white:rgba(31,65,68,.48);
 }
 
 *{box-sizing:border-box}
@@ -102,7 +103,7 @@ button,input{font:inherit}
 .section{width:min(100%,720px);margin:0 auto;padding:66px 0;border-top:1px solid var(--line)}
 .section-head{text-align:center;margin-bottom:34px}
 .section-head h2{margin:0;font:800 clamp(1.9rem,5vw,2.8rem) var(--en);color:rgba(95,164,221,.72)}
-.section-head small{display:block;margin-top:-2px;font:700 .75rem var(--jp);color:var(--orange)}
+.section-head small{display:block;margin-top:-2px;font:700 .75rem var(--jp);color:var(--heading-subtle)}
 .about-grid{display:block;max-width:580px;margin:0 auto}
 .about-photo{width:160px;aspect-ratio:1;object-fit:cover;border-radius:10px}
 .about-copy{line-height:1.95;color:var(--muted);font-size:.84rem}
@@ -175,7 +176,7 @@ button,input{font:inherit}
 
 @media(max-width:680px){
   .page{width:min(100% - 36px,820px)}
-  .topbar{height:auto;min-height:68px;display:grid;grid-template-columns:1fr auto;gap:10px}.topnav{grid-column:1/-1;display:flex;gap:10px;width:100%;padding:0 0 10px;justify-content:center}.topnav a{font-size:.65rem}.header-controls{gap:7px}.language-links{gap:6px}
+  .topbar{height:auto;min-height:52px;display:grid;grid-template-columns:1fr auto;gap:5px}.topnav{grid-column:1/-1;display:flex;gap:10px;width:100%;padding:0 0 7px;justify-content:center}.topnav a{font-size:.65rem}.header-controls{gap:7px}.language-links{gap:6px}
   .intro{padding-top:54px}
   .avatar{width:92px;height:92px}
   .intro h1{font-size:3.2rem}
