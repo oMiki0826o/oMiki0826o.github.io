@@ -69,6 +69,13 @@ describe('note content', () => {
     expect(getNote('spacetime-and-gravitational-waves')?.category).toBe('Astronomy');
   });
 
+  it('keeps editorial related reading links in note metadata', () => {
+    expect(getNote('discord-bot-usage-guide')?.relatedSlugs).toEqual([
+      'discord-bot-mod-guide',
+      'discord-bot-from-zero'
+    ]);
+  });
+
   it('publishes the research presentation without editor-facing disclaimers', () => {
     const guide = getNote('ultrasonic-call-study-notes');
 

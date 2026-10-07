@@ -22,6 +22,7 @@ export type Note = {
   excerpt: LocalizedText;
   date: string;
   category: NoteCategory;
+  relatedSlugs?: readonly string[];
   sections: Array<{
     heading: LocalizedText;
     paragraphs: Record<Locale, string[]>;

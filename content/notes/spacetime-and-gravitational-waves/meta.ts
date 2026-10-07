@@ -2,6 +2,7 @@ export default {
   "slug": "spacetime-and-gravitational-waves",
   "date": "2026-10-07",
   "category": "Astronomy",
+  "relatedSlugs": ["seasonal-night-sky-guide"],
   "title": {
     "zh-TW": "從幾何到重力波：時空的入門筆記",
     "en": "From geometry to gravitational waves: an introduction to spacetime",

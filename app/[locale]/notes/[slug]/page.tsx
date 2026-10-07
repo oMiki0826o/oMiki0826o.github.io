@@ -38,7 +38,10 @@ export default async function NotePage({params}: {params: Promise<{locale: strin
   const title = localize(note.title, locale);
   const description = localize(note.excerpt, locale);
   const pathname = localizedPath(locale, `/notes/${note.slug}`);
-  const relatedNotes = notes.filter((item) => item.slug !== note.slug && item.category === note.category).slice(0, 2);
+  const relatedNotes = (note.relatedSlugs
+    ? note.relatedSlugs.map((relatedSlug) => notes.find((item) => item.slug === relatedSlug)).filter((item): item is typeof note => Boolean(item))
+    : notes.filter((item) => item.slug !== note.slug && item.category === note.category)
+  ).slice(0, 2);
   const metadata = `${formatNoteDate(note.date, locale)} · ${note.category} · ${ui[locale].notes.readingTime(estimateReadingMinutes(note, locale))}`;
   return (
     <ContentPage locale={locale} backHref={localizedPath(locale, '/notes')} backLabel={ui[locale].common.backNotes} eyebrow={metadata} title={title} lead={description} fixedChildren={<><ReadingProgress /><BackToTop label={ui[locale].common.backTop} /></>}>

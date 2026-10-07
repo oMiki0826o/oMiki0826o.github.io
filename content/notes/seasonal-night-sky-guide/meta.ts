@@ -2,6 +2,7 @@ export default {
   "slug": "seasonal-night-sky-guide",
   "date": "2026-10-07",
   "category": "Astronomy",
+  "relatedSlugs": ["spacetime-and-gravitational-waves"],
   "title": {
     "zh-TW": "夜空入門：從北極星開始認星",
     "en": "A beginner’s night sky: start with Polaris",

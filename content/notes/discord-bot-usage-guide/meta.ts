@@ -2,6 +2,7 @@ export default {
   "slug": "discord-bot-usage-guide",
   "date": "2026-10-07",
   "category": "Discord",
+  "relatedSlugs": ["discord-bot-mod-guide", "discord-bot-from-zero"],
   "title": {
     "zh-TW": "Discord Bot 使用教學",
     "en": "Discord Bot usage guide",
