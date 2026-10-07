@@ -25,10 +25,13 @@ export default async function ProjectsPage({params}: {params: Promise<{locale: s
       <div className="page-projects">
         {projects.map((project) => (
           <article className="page-project" key={project.slug}>
+            <a className="page-project-cover" href={project.url} target="_blank" rel="noreferrer" aria-label={`${localize(project.title, locale)} GitHub`}>
+              <img src={project.image} alt="" loading="lazy" />
+            </a>
             <small>{project.tags.join(' · ')}</small>
             <h2>{localize(project.title, locale)}</h2>
             <p>{localize(project.description, locale)}</p>
-            <a href={project.url} target="_blank" rel="noreferrer">GitHub →</a>
+            <a href={project.url} target="_blank" rel="noreferrer">GitHub ↗</a>
           </article>
         ))}
       </div>

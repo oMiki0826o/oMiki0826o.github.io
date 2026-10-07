@@ -5,6 +5,8 @@ import {HomePage} from '@/components/home/home-page';
 import {pinnedTimeline} from '@/content/timeline';
 import {notes} from '@/content/notes';
 import AboutPage from '@/app/[locale]/about/page';
+import ProjectsPage from '@/app/[locale]/projects/page';
+import {PageShell} from '@/components/layout/page-shell';
 
 describe('RootLayout', () => {
   it('renders the application root without throwing', () => {
@@ -62,5 +64,17 @@ describe('RootLayout', () => {
     expect(container.querySelector('.about-profile')).toBeInTheDocument();
     expect(container.querySelectorAll('.about-details section')).toHaveLength(8);
     expect(container.querySelector('.about-details + .tags')).toBeInTheDocument();
+  });
+
+  it('marks the rendered locale shell so initial English and Japanese content has the right language', () => {
+    const {container} = render(<PageShell locale="ja"><main>content</main></PageShell>);
+
+    expect(container.querySelector('.page')).toHaveAttribute('lang', 'ja');
+  });
+
+  it('shows each work with its real 5:3 cover on the Works page', async () => {
+    const {container} = render(await ProjectsPage({params: Promise.resolve({locale: 'zh-TW'})}));
+
+    expect(container.querySelectorAll('.page-project-cover img')).toHaveLength(2);
   });
 });

@@ -8,7 +8,7 @@ export function PageShell({locale, children}: {locale: Locale; children: React.R
     <>
       <Fireflies />
       <LocaleDocument locale={locale} />
-      <div className="page">
+      <div className="page" lang={locale}>
         <SiteHeader locale={locale} />
         {children}
       </div>
