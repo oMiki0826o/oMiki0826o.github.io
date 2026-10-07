@@ -1,4 +1,6 @@
 import type {Note} from './types';
+import {loadMarkdownNote} from './notes-loader';
+import {aboutMeMeta} from './notes/about-me/meta';
 
 const allNotes: Note[] = [
   {
@@ -310,7 +312,7 @@ const allNotes: Note[] = [
   }
 ];
 
-export const notes = [...allNotes].sort((left, right) => Date.parse(right.date) - Date.parse(left.date));
+export const notes = [...allNotes.filter((note) => note.slug !== 'about-me'), loadMarkdownNote(aboutMeMeta)].sort((left, right) => Date.parse(right.date) - Date.parse(left.date));
 export const featuredNote = notes.find((note) => note.slug === 'ultrasonic-call-study-notes') ?? notes[0];
 
 export function getNote(slug: string) {
