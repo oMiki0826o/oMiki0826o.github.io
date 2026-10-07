@@ -87,11 +87,11 @@ export function HomePage({locale}: {locale: Locale}) {
         </header>
         <div className="notes">
           {latestNotes.map((note) => (
-            <article className="note" key={note.slug}>
-              <time>{note.date} · {note.category}</time>
+            <Link className="note" href={localizedPath(locale, `/notes/${note.slug}`)} key={note.slug}>
+              <time dateTime={note.date}>{note.date} · {note.category}</time>
               <h3>{localize(note.title, locale)}</h3>
               <p>{localize(note.excerpt, locale)}</p>
-            </article>
+            </Link>
           ))}
         </div>
         <Link className="more-button" href={localizedPath(locale, '/notes')}>{copy.home.notesMore}</Link>
