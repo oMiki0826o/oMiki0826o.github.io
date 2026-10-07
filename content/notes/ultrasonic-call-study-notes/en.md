@@ -27,3 +27,11 @@ In the similarly small type-analysis sample (n = 4), predator odor was significa
 The type and frequency analyses currently include only four pups, so they cannot establish a species-wide communication rule. Individual variation, development, and litter effects may all change the result; larger samples on days 4 and 8 are needed.
 
 A more careful reading is that pups may change call structure under odor threat rather than simply calling more. With more acoustic records, this could become one direction for understanding environmental stress and conservation behavior.
+
+## From recordings to spectrograms
+
+A research log cannot stop at “they called” or “they called more.” Separate recordings by individual, date, and stimulus first, then inspect duration, dominant frequency, frequency change, and call count. Spectrograms make differences easier to compare, but software peaks still need human review before they become biological claims.
+
+## What the result can support
+
+This record is best read as a research exercise: establish a repeatable classification, then ask whether different odours accompany changes in call structure. Sample size, individual variation, age, and recording conditions all affect the result. A next round should add repeated observations and preserve exclusions and uncertainty alongside the analysis.

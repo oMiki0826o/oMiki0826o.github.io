@@ -27,3 +27,11 @@ The rubber-sheet image can help visualize curvature, but it has limits: a sheet 
 When an extreme system changes rapidly, such as two black holes or neutron stars spiraling together, disturbances in spacetime propagate outward as gravitational waves. By the time they reach Earth, the change is extraordinarily small and difficult to detect.
 
 Light can be absorbed or blocked by dust. Gravitational waves interact only weakly with matter and carry a different kind of information. Combining them with electromagnetic and other observations is a central part of multi-messenger astronomy.
+
+## Why reference frames come first
+
+Many relativity puzzles begin when everyday experience is applied directly to high-speed motion. A person on a platform and a person on a train use different coordinates and clocks. Once the observer and the measured events are stated clearly, time dilation and simultaneity become relationships that can be calculated.
+
+## From an idea back to an observation
+
+Gravitational-wave signals are tiny. Detectors must separate a possible signal from ground motion, thermal noise, and instrument glitches. Researchers compare arrival times and waveforms across detectors, then check candidate events against other observations. One event can support a model without answering every question about the universe.

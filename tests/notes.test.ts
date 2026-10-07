@@ -59,14 +59,14 @@ describe('note content', () => {
     const guide = getNote('seasonal-night-sky-guide');
 
     expect(guide?.title['zh-TW']).toBe('夜空入門：從北極星開始認星');
-    expect(guide?.sections).toHaveLength(5);
+    expect(guide?.sections).toHaveLength(7);
   });
 
   it('publishes an anonymized introduction to spacetime and gravitational waves', () => {
     const guide = getNote('spacetime-and-gravitational-waves');
 
     expect(guide?.title['zh-TW']).toBe('從幾何到重力波：時空的入門筆記');
-    expect(guide?.sections).toHaveLength(5);
+    expect(guide?.sections).toHaveLength(7);
     expect(JSON.stringify(guide)).not.toContain('政大附中');
   });
 
@@ -96,7 +96,7 @@ describe('note content', () => {
 
     expect(guide?.title['zh-TW']).toBe('幼鼠超音波叫聲研究紀錄與發表');
     expect(guide?.excerpt['zh-TW']).not.toContain('已隱去');
-    expect(guide?.sections).toHaveLength(5);
+    expect(guide?.sections).toHaveLength(7);
   });
 
   it('exports a page for every locale and note', async () => {

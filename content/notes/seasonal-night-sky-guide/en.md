@@ -27,3 +27,13 @@ Taurus holds the Pleiades, M45, a compact cluster of fine blue-white stars. Bino
 Give each session one small goal, such as finding Polaris or recognizing the Summer Triangle. Note the date, place, weather, and what you saw. Returning to the same sky becomes much more rewarding.
 
 Cloud, moonlight, and light pollution all change what is visible. Missing a target does not mean you did it wrong. Check the moon phase and transparency, then try on another night. Stargazing is a gradual familiarity, not a test.
+
+## Constellations lead to objects
+
+Constellations are regions and patterns drawn from Earth. The stars inside one constellation do not have to be close to one another in space. Once that becomes clear, a constellation becomes a map for finding your way. Use bright stars to establish direction, then move toward nebulae, clusters, and galaxies.
+
+Different objects need different conditions. Nebulae benefit from a dark sky, clusters often look better through binoculars, and galaxies disappear quickly in light pollution. A note that says “barely visible” is still useful because it gives the next observation a comparison point.
+
+## A complete observing session
+
+Let your eyes adjust, find one bright landmark, use a chart to confirm the surrounding pattern, then choose one deep-sky target. Write down the date, place, cloud cover, Moon, and equipment afterward. After a few sessions, those small notes become a personal map of the sky.
