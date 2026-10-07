@@ -49,7 +49,7 @@ test('article tools are readable and reduced motion never hides content', async 
 
 test('notes filters keep the reading list quiet and usable', async ({page}) => {
   await page.goto('/zh-TW/notes/');
-  await page.getByRole('button', {name: '天文'}).click();
+  await page.getByRole('button', {name: 'Astronomy'}).click();
   await expect(page.getByRole('heading', {name: '夜空入門：從北極星開始認星'})).toBeVisible();
   await expect(page.getByRole('heading', {name: 'Discord Bot 使用教學'})).toHaveCount(0);
   await page.getByRole('button', {name: '全部'}).click();

@@ -1,10 +1,5 @@
-import type {Note, NoteCategory} from '@/content/types';
+import type {Note} from '@/content/types';
 import type {Locale} from '@/i18n/config';
-import {ui} from '@/i18n/ui';
-
-export function localizeNoteCategory(category: NoteCategory, locale: Locale) {
-  return ui[locale].notes.categories[category];
-}
 
 export function estimateReadingMinutes(note: Note, locale: Locale) {
   const text = note.sections.flatMap((section) => [section.heading[locale], ...section.paragraphs[locale]]).join(' ');

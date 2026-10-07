@@ -50,6 +50,12 @@ describe('RootLayout', () => {
     expect(within(container).queryByText('幼鼠超音波叫聲研究紀錄與發表')).toBeNull();
   });
 
+  it('keeps English note categories as a consistent visual label in every locale', () => {
+    const {container} = render(<HomePage locale="ja" />);
+
+    expect(within(container).getByText('2026-10-07 · Astronomy')).toBeInTheDocument();
+  });
+
   it('groups About content into readable profile sections before its tags', async () => {
     const {container} = render(await AboutPage({params: Promise.resolve({locale: 'zh-TW'})}));
 
