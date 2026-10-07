@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type {Locale} from '@/i18n/config';
 import {profile} from '@/content/profile';
 import {projects} from '@/content/projects';
-import {notes} from '@/content/notes';
+import {pinnedNotes} from '@/content/notes';
 import {timeline} from '@/content/timeline';
 import {localize, localizedPath} from '@/lib/content';
 import {MusicPlayer} from './music-player';
@@ -13,6 +13,7 @@ import {ui} from '@/i18n/ui';
 export function HomePage({locale}: {locale: Locale}) {
   const aboutParagraphs = profile.about[locale];
   const copy = ui[locale];
+  const latestNotes = pinnedNotes;
 
   return (
     <main>
@@ -83,7 +84,7 @@ export function HomePage({locale}: {locale: Locale}) {
           <small>{copy.sections.notes}</small>
         </header>
         <div className="notes">
-          {notes.map((note) => (
+          {latestNotes.map((note) => (
             <article className="note" key={note.slug}>
               <time>{note.date} · {note.category}</time>
               <h3>{localize(note.title, locale)}</h3>

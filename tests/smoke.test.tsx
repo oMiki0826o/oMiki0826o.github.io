@@ -1,8 +1,9 @@
-import {render, screen} from '@testing-library/react';
+import {render, screen, within} from '@testing-library/react';
 import {describe, expect, it} from 'vitest';
 import RootLayout from '@/app/layout';
 import {HomePage} from '@/components/home/home-page';
 import {timeline} from '@/content/timeline';
+import {notes} from '@/content/notes';
 
 describe('RootLayout', () => {
   it('renders the application root without throwing', () => {
@@ -36,5 +37,15 @@ describe('RootLayout', () => {
     const {container} = render(<HomePage locale="zh-TW" />);
 
     expect(container.querySelectorAll('.timeline-reveal')).toHaveLength(timeline.length);
+  });
+
+  it('keeps the homepage notes preview to the three pinned records', () => {
+    const {container} = render(<HomePage locale="zh-TW" />);
+
+    expect(container.querySelectorAll('.note')).toHaveLength(Math.min(notes.length, 3));
+    expect(within(container).getByText('Discord Bot 使用教學')).toBeInTheDocument();
+    expect(within(container).getByText('Discord Bot Mod 撰寫教學')).toBeInTheDocument();
+    expect(within(container).getByText('夜空入門：從北極星開始認星')).toBeInTheDocument();
+    expect(within(container).queryByText('幼鼠超音波叫聲研究紀錄與發表')).toBeNull();
   });
 });

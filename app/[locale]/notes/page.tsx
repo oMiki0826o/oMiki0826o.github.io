@@ -25,7 +25,7 @@ export default async function NotesPage({params}: {params: Promise<{locale: stri
       lead={ui[locale].pages.notesLead}
     >
       <div className="page-notes">
-        {notes.map((note) => (
+        {notes.slice().reverse().map((note) => (
           <article className="page-note" key={note.slug}>
             <time>{note.date} · {note.category}</time>
             <h2><Link href={localizedPath(locale, `/notes/${note.slug}`)}>{localize(note.title, locale)}</Link></h2>
