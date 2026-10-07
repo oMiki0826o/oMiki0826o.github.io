@@ -36,6 +36,7 @@ export default async function NotePage({params}: {params: Promise<{locale: strin
   const title = localize(note.title, locale);
   const description = localize(note.excerpt, locale);
   const pathname = localizedPath(locale, `/notes/${note.slug}`);
+  const relatedNotes = notes.filter((item) => item.slug !== note.slug && item.category === note.category).slice(0, 2);
   return (
     <ContentPage locale={locale} backHref={localizedPath(locale, '/notes')} backLabel={ui[locale].common.backNotes} eyebrow={`${note.date} · ${note.category}`} title={title} lead={description}>
       <ReadingProgress />
@@ -52,6 +53,10 @@ export default async function NotePage({params}: {params: Promise<{locale: strin
       <article className="prose note-article">
         {note.sections.map((section) => <section key={section.heading['zh-TW']}><h2>{localize(section.heading, locale)}</h2>{section.paragraphs[locale].map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</section>)}
       </article>
+      {relatedNotes.length > 0 ? <aside className="related-notes" aria-label={ui[locale].notes.related}>
+        <h2>{ui[locale].notes.related}</h2>
+        {relatedNotes.map((item) => <a href={localizedPath(locale, `/notes/${item.slug}`)} key={item.slug}><span>{item.date} · {item.category}</span>{localize(item.title, locale)} <b aria-hidden="true">↗</b></a>)}
+      </aside> : null}
       <BackToTop label={ui[locale].common.backTop} />
     </ContentPage>
   );
