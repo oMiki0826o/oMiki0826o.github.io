@@ -75,7 +75,7 @@ button,input{font:inherit}
 .status i{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 9px 2px rgba(182,222,124,.30)}
 
 .music{width:min(100%,500px);margin:0 auto 72px;text-align:center}
-.social-row{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:-44px auto 62px}.social-row a{display:grid;place-items:center;width:30px;height:30px;border:1px solid var(--line);border-radius:50%;background:var(--white);color:var(--blue);text-decoration:none}.social-row i{font-size:.88rem}
+.social-row{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:-44px auto 62px}.social-row a{display:grid;place-items:center;width:30px;height:30px;border:1px solid var(--line);border-radius:50%;background:var(--white);color:var(--blue);text-decoration:none}.social-row svg{width:.88rem;height:.88rem}
 .music-label{font:700 .6rem var(--en);letter-spacing:.15em;text-transform:uppercase;color:#8caf68}
 .music-title{margin-top:5px;font:700 1rem var(--jp);color:var(--blue)}
 .music-artist{margin-top:2px;font:600 .73rem var(--en);color:#c89369}
@@ -121,8 +121,7 @@ button,input{font:inherit}
 .project{overflow:hidden;border-radius:12px;background:rgba(255,255,255,.40);border:1px solid rgba(255,255,255,.60);box-shadow:0 12px 30px -27px rgba(49,72,81,.34);text-decoration:none;transition:transform .2s ease,box-shadow .2s ease}
 .project:hover{transform:translateY(-2px);box-shadow:0 16px 35px -26px rgba(49,72,81,.40)}
 .project-cover{position:relative;display:grid;place-items:center;width:100%;aspect-ratio:5 / 3;overflow:hidden;background:linear-gradient(145deg,rgba(177,212,241,.27),rgba(213,234,184,.18));color:var(--blue);font:700 .62rem var(--en);letter-spacing:.05em;text-align:center}
-.project-cover::before{content:'';display:block;padding-top:60%;grid-area:1 / 1}
-.project-cover>span{grid-area:1 / 1;padding:10px}
+.project-cover::before{content:'';display:block;padding-top:60%;grid-area:1 / 1}.project-cover img{grid-area:1 / 1;width:100%;height:100%;object-fit:cover;filter:saturate(.84) brightness(1.03)}
 .project-orange .project-cover{background:linear-gradient(145deg,rgba(244,209,179,.22),rgba(255,255,255,.28));color:#c58f67}
 .project-green .project-cover{background:linear-gradient(145deg,rgba(213,234,184,.24),rgba(177,212,241,.18));color:#83a85c}
 .project-body{padding:12px 13px 15px}

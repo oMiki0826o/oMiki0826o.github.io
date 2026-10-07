@@ -11,6 +11,8 @@ export const projects: Project[] = [
     },
     tags: ['Python', 'discord.py', 'Gemini'],
     url: 'https://github.com/oMiki0826o/Discord-Bot',
+    image: '/assets/projects/firefly-bot.jpg',
+    imageSource: 'https://github.com/oMiki0826o/Discord-Bot',
     tone: 'blue'
   },
   {
@@ -23,6 +25,8 @@ export const projects: Project[] = [
     },
     tags: ['Python', 'Discord', 'Minecraft'],
     url: 'https://github.com/oMiki0826o/mc-server-qb-bot-discord',
+    image: '/assets/projects/minecraft-backup.jpg',
+    imageSource: 'https://github.com/oMiki0826o/mc-server-qb-bot-discord',
     tone: 'orange'
   },
   {
@@ -35,6 +39,8 @@ export const projects: Project[] = [
     },
     tags: ['Next.js', 'TypeScript', 'CSS'],
     url: 'https://github.com/oMiki0826o/oMiki0826o.github.io',
+    image: '/assets/projects/miki-website.jpg',
+    imageSource: 'https://omiki0826o.github.io/',
     tone: 'green'
   }
 ];

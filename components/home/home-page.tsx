@@ -7,6 +7,7 @@ import {timeline} from '@/content/timeline';
 import {localize, localizedPath} from '@/lib/content';
 import {MusicPlayer} from './music-player';
 import {SiteFooter} from '@/components/layout/site-footer';
+import {SocialIcon} from '@/components/ui/social-icons';
 
 export function HomePage({locale}: {locale: Locale}) {
   const aboutParagraphs = profile.about[locale];
@@ -24,10 +25,9 @@ export function HomePage({locale}: {locale: Locale}) {
       <MusicPlayer locale={locale} />
 
       <nav className="social-row" aria-label="Contact links">
-        <a href="https://github.com/omiki0826o" target="_blank" rel="noreferrer" aria-label="GitHub"><i className="fa-brands fa-github" /></a>
-        <a href="https://discord.com/users/839381498351190036" target="_blank" rel="noreferrer" aria-label="Discord: miki._.0826"><i className="fa-brands fa-discord" /></a>
-        <a href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><i className="fa-brands fa-instagram" /></a>
-        <a href="https://threads.net/" target="_blank" rel="noreferrer" aria-label="Threads"><i className="fa-brands fa-threads" /></a>
+        <a href="https://github.com/omiki0826o" target="_blank" rel="noreferrer" aria-label="GitHub"><SocialIcon name="github" /></a>
+        <a href="https://discord.com/users/839381498351190036" target="_blank" rel="noreferrer" aria-label="Discord: miki._.0826"><SocialIcon name="discord" /></a>
+        <a href="mailto:chenmiki0925@gmail.com" aria-label="Email"><SocialIcon name="email" /></a>
       </nav>
 
       <figure className="featured">
@@ -63,7 +63,7 @@ export function HomePage({locale}: {locale: Locale}) {
         <div className="projects">
           {projects.map((project) => (
             <a className={`project project-${project.tone}`} href={project.url} target="_blank" rel="noreferrer" key={project.slug}>
-              <div className="project-cover"><span>{project.title['zh-TW'].toUpperCase()}</span></div>
+              <div className="project-cover"><img src={project.image} alt={localize(project.title, locale)} loading="lazy" /></div>
               <div className="project-body">
                 <small>{project.tags.join(' / ')}</small>
                 <h3>{localize(project.title, locale)}</h3>

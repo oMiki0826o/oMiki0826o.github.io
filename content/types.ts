@@ -8,6 +8,8 @@ export type Project = {
   description: LocalizedText;
   tags: string[];
   url: string;
+  image: string;
+  imageSource: string;
   tone: 'blue' | 'orange' | 'green';
 };
 

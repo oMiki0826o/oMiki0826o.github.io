@@ -13,6 +13,13 @@ import {timeline} from '@/content/timeline';
     expect(projects).toHaveLength(3);
   });
 
+  it('gives every project an authentic local cover image', () => {
+    for (const project of projects) {
+      expect(project.image).toMatch(/^\/assets\/projects\/.+\.(png|jpg|jpeg|webp)$/);
+      expect(project.imageSource).toMatch(/^https:\/\//);
+    }
+  });
+
   it('keeps the 2024 Python milestone', () => {
     expect(timeline.some((item) => item.year === '2024')).toBe(true);
   });
