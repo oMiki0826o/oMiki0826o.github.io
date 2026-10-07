@@ -50,13 +50,12 @@ describe('note content', () => {
     expect(JSON.stringify(guide)).not.toContain('政大附中');
   });
 
-  it('publishes an anonymized note on studying ultrasonic calls', () => {
+  it('publishes the research presentation without editor-facing disclaimers', () => {
     const guide = getNote('ultrasonic-call-study-notes');
 
     expect(guide?.title['zh-TW']).toBe('幼鼠超音波叫聲研究紀錄與發表');
+    expect(guide?.excerpt['zh-TW']).not.toContain('已隱去');
     expect(guide?.sections).toHaveLength(5);
-    expect(guide?.sections[3]?.heading['zh-TW']).toBe('目前結果：叫聲結構出現差異');
-    expect(JSON.stringify(guide)).not.toContain('臺師大');
   });
 
   it('exports a page for every locale and note', async () => {

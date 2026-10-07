@@ -22,8 +22,8 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
       title={localize(profile.aboutTitle, locale)}
       lead={ui[locale].pages.aboutLead}
     >
-      <div className="prose">
-        {profile.about[locale].map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+      <div className="prose about-details">
+        {profile.aboutDetails[locale].map((section) => <section key={section.heading}><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</section>)}
       </div>
       <div className="tags">{profile.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div>
     </ContentPage>

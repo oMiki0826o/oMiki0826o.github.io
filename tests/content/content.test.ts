@@ -7,6 +7,7 @@ import {timeline} from '@/content/timeline';
   it('keeps the 5.x homepage identity', () => {
     expect(profile.name).toBe('Miki');
     expect(profile.signature['zh-TW']).toContain('欲買桂花同載酒');
+    expect(profile.aboutDetails['zh-TW'].some((section) => section.heading === '簡介' && section.paragraphs.join('').includes('學習日文學到爆炸'))).toBe(true);
   });
 
   it('keeps only the two current core projects', () => {

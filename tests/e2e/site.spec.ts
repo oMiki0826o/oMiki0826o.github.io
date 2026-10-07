@@ -35,6 +35,9 @@ test('theme remains dark after a refresh', async ({page}) => {
 test('the narrow homepage has no horizontal overflow and keeps real contact links', async ({page}) => {
   await page.setViewportSize({width: 320, height: 720});
   await page.goto('/');
+  await expect(page.getByRole('button', {name: '開啟選單'})).toBeVisible();
+  await page.getByRole('button', {name: '開啟選單'}).click();
+  await expect(page.getByRole('link', {name: '關於'})).toHaveAttribute('href', '/zh-TW/about/');
   const hasNoHorizontalOverflow = await page.locator('html').evaluate((element) => element.scrollWidth <= element.clientWidth);
   expect(hasNoHorizontalOverflow).toBe(true);
   await expect(page.getByRole('link', {name: 'Email'})).toHaveAttribute('href', 'mailto:chenmiki0925@gmail.com');

@@ -2,7 +2,7 @@ import type {Locale} from './config';
 
 type UiCopy = {
   siteTitle: string;
-  navigation: {home: string; about: string; projects: string; notes: string; timeline: string; label: string};
+  navigation: {home: string; about: string; projects: string; notes: string; timeline: string; label: string; openMenu: string; closeMenu: string};
   common: {backHome: string; backNotes: string; more: string};
   sections: {about: string; works: string; notes: string; timeline: string};
   home: {featuredImage: string; aboutMore: string; worksMore: string; notesMore: string; timelineMore: string};
@@ -16,7 +16,7 @@ type UiCopy = {
 export const ui: Record<Locale, UiCopy> = {
   'zh-TW': {
     siteTitle: 'Miki 的奇幻世界',
-    navigation: {home: '首頁', about: '關於', projects: '專案', notes: '文章', timeline: '歷程', label: '主要導覽'},
+    navigation: {home: '首頁', about: '關於', projects: '專案', notes: '文章', timeline: '歷程', label: '主要導覽', openMenu: '開啟選單', closeMenu: '關閉選單'},
     common: {backHome: '回到首頁', backNotes: '回到文章', more: '查看更多 →'},
     sections: {about: '關於我', works: '專案紀錄', notes: '文章與紀錄', timeline: '一路走來'},
     home: {featuredImage: '鎮樓圖', aboutMore: '完整介紹 →', worksMore: '查看更多 →', notesMore: '查看更多 →', timelineMore: '查看完整歷程 →'},
@@ -28,7 +28,7 @@ export const ui: Record<Locale, UiCopy> = {
   },
   en: {
     siteTitle: "Miki's little world",
-    navigation: {home: 'Home', about: 'About', projects: 'Works', notes: 'Notes', timeline: 'Timeline', label: 'Main navigation'},
+    navigation: {home: 'Home', about: 'About', projects: 'Works', notes: 'Notes', timeline: 'Timeline', label: 'Main navigation', openMenu: 'Open menu', closeMenu: 'Close menu'},
     common: {backHome: 'Back home', backNotes: 'Back to notes', more: 'View more →'},
     sections: {about: 'About me', works: 'Selected works', notes: 'Notes & records', timeline: 'Along the way'},
     home: {featuredImage: 'Featured image', aboutMore: 'Read more →', worksMore: 'View more →', notesMore: 'View more →', timelineMore: 'View timeline →'},
@@ -40,7 +40,7 @@ export const ui: Record<Locale, UiCopy> = {
   },
   ja: {
     siteTitle: 'Miki の小さな世界',
-    navigation: {home: 'ホーム', about: '私について', projects: '作品', notes: '記事', timeline: '記録', label: 'メインナビゲーション'},
+    navigation: {home: 'ホーム', about: '私について', projects: '作品', notes: '記事', timeline: '記録', label: 'メインナビゲーション', openMenu: 'メニューを開く', closeMenu: 'メニューを閉じる'},
     common: {backHome: 'ホームへ', backNotes: '記事一覧へ', more: 'もっと見る →'},
     sections: {about: '私について', works: '制作実績', notes: '記事と記録', timeline: 'これまでの記録'},
     home: {featuredImage: '鎮樓図', aboutMore: 'もっと見る →', worksMore: 'もっと見る →', notesMore: 'もっと見る →', timelineMore: 'すべて見る →'},

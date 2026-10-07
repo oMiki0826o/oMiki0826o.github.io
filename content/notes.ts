@@ -1,6 +1,6 @@
 import type {Note} from './types';
 
-export const notes: Note[] = [
+const allNotes: Note[] = [
   {
     slug: 'discord-bot-from-zero',
     title: {'zh-TW': '從零開始寫 Discord Bot', en: 'Building a Discord Bot from scratch', ja: 'Discord Botをゼロから作る'},
@@ -259,9 +259,9 @@ export const notes: Note[] = [
     slug: 'ultrasonic-call-study-notes',
     title: {'zh-TW': '幼鼠超音波叫聲研究紀錄與發表', en: 'Pup ultrasonic calls: research record and presentation', ja: '幼獣の超音波発声：研究記録と発表'},
     excerpt: {
-      'zh-TW': '關於高山田鼠幼鼠超音波叫聲的研究紀錄：從掠食者氣味實驗、聲譜判讀到目前分析結果。人名、學校與實驗室資訊均已隱去。',
-      en: 'A research record on ultrasonic calls in vole pups: from predator-odor trials and spectrogram scoring to the current analysis. Names, schools, and laboratory information have been removed.',
-      ja: 'ハタネズミの幼獣の超音波発声に関する研究記録です。捕食者のにおいを用いた実験、スペクトログラムの判読、現在の解析結果をまとめています。個人名、学校、研究室の情報は除いています。'
+      'zh-TW': '從掠食者氣味實驗、聲譜判讀到目前分析結果，記錄高山田鼠幼鼠如何以超音波回應環境訊號。',
+      en: 'From predator-odor trials and spectrogram scoring to the current analysis, a record of how vole pups use ultrasonic calls in response to environmental signals.',
+      ja: '捕食者のにおいを用いた実験、スペクトログラムの判読、現在の解析結果から、高山のハタネズミの幼獣が環境の手がかりに超音波でどう応答するかを記録します。'
     },
     date: '2026-10-07',
     category: 'Biology',
@@ -301,14 +301,16 @@ export const notes: Note[] = [
       {
         heading: {'zh-TW': '發表時保留結果的邊界', en: 'Keeping the limits visible in a presentation', ja: '発表で結果の限界も残す'},
         paragraphs: {
-          'zh-TW': ['目前類型與頻率的分析樣本只有 4 隻幼鼠，不能把結果說成物種已經確定的溝通規則。個體差異、發育階段與窩別效應都可能改變結果，需要擴大第 4 與第 8 天的樣本再確認。', '這份發表保留一個較克制的解讀：幼鼠面對氣味威脅時，可能改變了叫聲結構，而不是單純增加叫聲數量。後續若能累積聲學資料，也許能成為理解環境壓力與保育行為的一個方向。本文不附動物照片，也已移除可辨識的人與單位資訊。'],
-          en: ['The type and frequency analyses currently include only four pups, so they cannot establish a species-wide communication rule. Individual variation, development, and litter effects may all change the result; larger samples on days 4 and 8 are needed.', 'The presentation therefore keeps a restrained reading: under odor threat, pups may change call structure rather than simply calling more. With more acoustic records, this could become one direction for understanding environmental stress and conservation behavior. This note contains no animal images and removes identifiable people and institutions.'],
-          ja: ['種類と周波数の解析は現在4匹だけなので、種全体の確定したコミュニケーション規則とは言えません。個体差、発達段階、腹ごとの影響で結果は変わり得ます。生後4日と8日の標本を増やして確かめる必要があります。', 'この発表では、においの脅威に対して幼獣が単に多く鳴くのではなく、声の構造を変えている可能性がある、という控えめな解釈にとどめます。音響記録を増やせば、環境ストレスと保全行動を理解する方向の一つになるかもしれません。この記事には動物写真を載せず、個人と所属を特定できる情報も除いています。']
+          'zh-TW': ['目前類型與頻率的分析樣本只有 4 隻幼鼠，不能把結果說成物種已經確定的溝通規則。個體差異、發育階段與窩別效應都可能改變結果，需要擴大第 4 與第 8 天的樣本再確認。', '目前較合理的解讀是：幼鼠面對氣味威脅時，可能改變了叫聲結構，而不是單純增加叫聲數量。後續若能累積更多聲學資料，或許能成為理解環境壓力與保育行為的一個方向。'],
+          en: ['The type and frequency analyses currently include only four pups, so they cannot establish a species-wide communication rule. Individual variation, development, and litter effects may all change the result; larger samples on days 4 and 8 are needed.', 'A more careful reading is that pups may change call structure under odor threat rather than simply calling more. With more acoustic records, this could become one direction for understanding environmental stress and conservation behavior.'],
+          ja: ['種類と周波数の解析は現在4匹だけなので、種全体の確定したコミュニケーション規則とは言えません。個体差、発達段階、腹ごとの影響で結果は変わり得ます。生後4日と8日の標本を増やして確かめる必要があります。', '現時点では、においの脅威に対して幼獣が単に多く鳴くのではなく、声の構造を変えている可能性がある、と慎重に読むのが妥当です。音響記録を増やせば、環境ストレスと保全行動を理解する方向の一つになるかもしれません。']
         }
       }
     ]
   }
 ];
+
+export const notes = allNotes;
 
 export function getNote(slug: string) {
   return notes.find((note) => note.slug === slug);
