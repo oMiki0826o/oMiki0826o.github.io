@@ -3,7 +3,7 @@ import type {Locale} from './config';
 type UiCopy = {
   siteTitle: string;
   navigation: {home: string; about: string; projects: string; notes: string; timeline: string; label: string; openMenu: string; closeMenu: string; closeOverlay: string};
-  common: {backHome: string; backNotes: string; more: string};
+  common: {backHome: string; backNotes: string; backTop: string; more: string};
   sections: {about: string; works: string; notes: string; timeline: string};
   home: {featuredImage: string; aboutMore: string; worksMore: string; notesMore: string; timelineMore: string};
   pages: {aboutLead: string; projectsTitle: string; projectsLead: string; notesLead: string; timelineTitle: string; timelineLead: string};
@@ -17,7 +17,7 @@ export const ui: Record<Locale, UiCopy> = {
   'zh-TW': {
     siteTitle: 'Miki 的奇幻世界',
     navigation: {home: '首頁', about: '關於', projects: '專案', notes: '文章', timeline: '歷程', label: '主要導覽', openMenu: '開啟選單', closeMenu: '關閉選單', closeOverlay: '關閉導覽背景'},
-    common: {backHome: '回到首頁', backNotes: '回到文章', more: '查看更多 →'},
+    common: {backHome: '回到首頁', backNotes: '回到文章', backTop: '回到頁面頂端', more: '查看更多 →'},
     sections: {about: '關於我', works: '專案紀錄', notes: '文章與紀錄', timeline: '一路走來'},
     home: {featuredImage: '鎮樓圖', aboutMore: '完整介紹 →', worksMore: '查看更多 →', notesMore: '查看更多 →', timelineMore: '查看完整歷程 →'},
     pages: {aboutLead: '把想法拆開、做成工具，再慢慢把它修到穩定可用。', projectsTitle: '做過的東西', projectsLead: '正在做的東西，以及一路整理成形的作品。', notesLead: '開發紀錄、踩坑筆記，以及偶爾不那麼技術的東西。', timelineTitle: '一路走來', timelineLead: '一路學、一邊做留下來的紀錄。'},
@@ -29,7 +29,7 @@ export const ui: Record<Locale, UiCopy> = {
   en: {
     siteTitle: "Miki's little world",
     navigation: {home: 'Home', about: 'About', projects: 'Works', notes: 'Notes', timeline: 'Timeline', label: 'Main navigation', openMenu: 'Open menu', closeMenu: 'Close menu', closeOverlay: 'Close navigation backdrop'},
-    common: {backHome: 'Back home', backNotes: 'Back to notes', more: 'View more →'},
+    common: {backHome: 'Back home', backNotes: 'Back to notes', backTop: 'Back to top', more: 'View more →'},
     sections: {about: 'About me', works: 'Selected works', notes: 'Notes & records', timeline: 'Along the way'},
     home: {featuredImage: 'Featured image', aboutMore: 'Read more →', worksMore: 'View more →', notesMore: 'View more →', timelineMore: 'View timeline →'},
     pages: {aboutLead: 'Making, trying, and refining things a little at a time.', projectsTitle: 'Things I made', projectsLead: 'What I am making now, and the things I have shaped along the way.', notesLead: 'Development notes, lessons learned, and occasional non-technical thoughts.', timelineTitle: 'The way here', timelineLead: 'A record of learning and making along the way.'},
@@ -41,7 +41,7 @@ export const ui: Record<Locale, UiCopy> = {
   ja: {
     siteTitle: 'Miki の小さな世界',
     navigation: {home: 'ホーム', about: '私について', projects: '作品', notes: '記事', timeline: '記録', label: 'メインナビゲーション', openMenu: 'メニューを開く', closeMenu: 'メニューを閉じる', closeOverlay: 'ナビゲーション背景を閉じる'},
-    common: {backHome: 'ホームへ', backNotes: '記事一覧へ', more: 'もっと見る →'},
+    common: {backHome: 'ホームへ', backNotes: '記事一覧へ', backTop: 'ページ上部へ戻る', more: 'もっと見る →'},
     sections: {about: '私について', works: '制作実績', notes: '記事と記録', timeline: 'これまでの記録'},
     home: {featuredImage: '鎮樓図', aboutMore: 'もっと見る →', worksMore: 'もっと見る →', notesMore: 'もっと見る →', timelineMore: 'すべて見る →'},
     pages: {aboutLead: '作ること、試すこと、少しずつ整えていくこと。', projectsTitle: '制作実績', projectsLead: 'いま作っているものと、これまで形にしてきたもの。', notesLead: '開発記録、つまずきのメモ、ときどき技術以外のこと。', timelineTitle: 'これまでの記録', timelineLead: '学びながら作ってきたものの記録。'},

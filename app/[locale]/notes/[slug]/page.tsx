@@ -7,6 +7,8 @@ import {buildPageMetadata, siteUrl} from '@/lib/metadata';
 import {ui} from '@/i18n/ui';
 import {ContentPage} from '@/components/layout/content-page';
 import {JsonLd} from '@/components/seo/json-ld';
+import {BackToTop} from '@/components/ui/back-to-top';
+import {ReadingProgress} from '@/components/ui/reading-progress';
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => notes.map((note) => ({locale, slug: note.slug})));
@@ -36,6 +38,7 @@ export default async function NotePage({params}: {params: Promise<{locale: strin
   const pathname = localizedPath(locale, `/notes/${note.slug}`);
   return (
     <ContentPage locale={locale} backHref={localizedPath(locale, '/notes')} backLabel={ui[locale].common.backNotes} eyebrow={`${note.date} · ${note.category}`} title={title} lead={description}>
+      <ReadingProgress />
       <JsonLd data={{
         '@context': 'https://schema.org',
         '@type': 'Article',
@@ -49,6 +52,7 @@ export default async function NotePage({params}: {params: Promise<{locale: strin
       <article className="prose note-article">
         {note.sections.map((section) => <section key={section.heading['zh-TW']}><h2>{localize(section.heading, locale)}</h2>{section.paragraphs[locale].map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</section>)}
       </article>
+      <BackToTop label={ui[locale].common.backTop} />
     </ContentPage>
   );
 }
