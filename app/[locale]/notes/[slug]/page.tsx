@@ -9,6 +9,7 @@ import {ContentPage} from '@/components/layout/content-page';
 import {JsonLd} from '@/components/seo/json-ld';
 import {BackToTop} from '@/components/ui/back-to-top';
 import {ReadingProgress} from '@/components/ui/reading-progress';
+import {estimateReadingMinutes, formatNoteDate, localizeNoteCategory} from '@/lib/note-metadata';
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => notes.map((note) => ({locale, slug: note.slug})));
@@ -37,8 +38,9 @@ export default async function NotePage({params}: {params: Promise<{locale: strin
   const description = localize(note.excerpt, locale);
   const pathname = localizedPath(locale, `/notes/${note.slug}`);
   const relatedNotes = notes.filter((item) => item.slug !== note.slug && item.category === note.category).slice(0, 2);
+  const metadata = `${formatNoteDate(note.date, locale)} · ${localizeNoteCategory(note.category, locale)} · ${ui[locale].notes.readingTime(estimateReadingMinutes(note, locale))}`;
   return (
-    <ContentPage locale={locale} backHref={localizedPath(locale, '/notes')} backLabel={ui[locale].common.backNotes} eyebrow={`${note.date} · ${note.category}`} title={title} lead={description} fixedChildren={<><ReadingProgress /><BackToTop label={ui[locale].common.backTop} /></>}>
+    <ContentPage locale={locale} backHref={localizedPath(locale, '/notes')} backLabel={ui[locale].common.backNotes} eyebrow={metadata} title={title} lead={description} fixedChildren={<><ReadingProgress /><BackToTop label={ui[locale].common.backTop} /></>}>
       <JsonLd data={{
         '@context': 'https://schema.org',
         '@type': 'Article',
@@ -54,7 +56,7 @@ export default async function NotePage({params}: {params: Promise<{locale: strin
       </article>
       {relatedNotes.length > 0 ? <aside className="related-notes" aria-label={ui[locale].notes.related}>
         <h2>{ui[locale].notes.related}</h2>
-        {relatedNotes.map((item) => <a href={localizedPath(locale, `/notes/${item.slug}`)} key={item.slug}><span>{item.date} · {item.category}</span>{localize(item.title, locale)} <b aria-hidden="true">↗</b></a>)}
+        {relatedNotes.map((item) => <a href={localizedPath(locale, `/notes/${item.slug}`)} key={item.slug}><span>{formatNoteDate(item.date, locale)} · {localizeNoteCategory(item.category, locale)}</span>{localize(item.title, locale)} <b aria-hidden="true">↗</b></a>)}
       </aside> : null}
     </ContentPage>
   );

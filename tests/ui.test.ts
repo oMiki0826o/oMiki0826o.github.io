@@ -8,6 +8,9 @@ describe('shared UI copy', () => {
       expect(ui[locale].navigation.home).not.toHaveLength(0);
       expect(ui[locale].common.backHome).not.toHaveLength(0);
       expect(ui[locale].notes.more).not.toHaveLength(0);
+      expect(ui[locale].notes.all).not.toHaveLength(0);
+      expect(ui[locale].notes.readingTime(1)).not.toHaveLength(0);
+      expect(ui[locale].notes.categories.Astronomy).not.toHaveLength(0);
       expect(ui[locale].player.play).not.toHaveLength(0);
       expect(ui[locale].theme.useDark).not.toHaveLength(0);
     }

@@ -2,6 +2,8 @@ import type {Locale} from '@/i18n/config';
 
 export type LocalizedText = Record<Locale, string>;
 
+export type NoteCategory = 'About' | 'Astronomy' | 'Biology' | 'Discord' | 'Science';
+
 export type Project = {
   slug: string;
   title: LocalizedText;
@@ -18,7 +20,7 @@ export type Note = {
   title: LocalizedText;
   excerpt: LocalizedText;
   date: string;
-  category: string;
+  category: NoteCategory;
   sections: Array<{
     heading: LocalizedText;
     paragraphs: Record<Locale, string[]>;

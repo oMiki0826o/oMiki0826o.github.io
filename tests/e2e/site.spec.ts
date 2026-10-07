@@ -47,6 +47,15 @@ test('article tools are readable and reduced motion never hides content', async 
   await expect(page.getByRole('button', {name: '回到頁面頂端'})).toBeVisible();
 });
 
+test('notes filters keep the reading list quiet and usable', async ({page}) => {
+  await page.goto('/zh-TW/notes/');
+  await page.getByRole('button', {name: '天文'}).click();
+  await expect(page.getByRole('heading', {name: '夜空入門：從北極星開始認星'})).toBeVisible();
+  await expect(page.getByRole('heading', {name: 'Discord Bot 使用教學'})).toHaveCount(0);
+  await page.getByRole('button', {name: '全部'}).click();
+  await expect(page.getByRole('heading', {name: 'Discord Bot 使用教學'})).toBeVisible();
+});
+
 test('theme remains dark after a refresh', async ({page}) => {
   await page.goto('/');
   await page.getByRole('button', {name: /深色/}).click();
@@ -64,6 +73,16 @@ test('the narrow homepage has no horizontal overflow and keeps real contact link
   expect(hasNoHorizontalOverflow).toBe(true);
   await expect(page.getByRole('link', {name: 'Email'})).toHaveAttribute('href', 'mailto:chenmiki0925@gmail.com');
   await expect(page.getByRole('link', {name: 'Discord: miki._.0826'})).toHaveAttribute('href', 'https://discord.com/users/839381498351190036');
+});
+
+test('the home project preview balances two real projects on desktop', async ({page}) => {
+  await page.setViewportSize({width: 1180, height: 800});
+  await page.goto('/');
+  const cards = page.locator('.projects .project');
+  await expect(cards).toHaveCount(2);
+  const [first, second] = await Promise.all([cards.nth(0).boundingBox(), cards.nth(1).boundingBox()]);
+  expect(first?.width).toBeGreaterThan(300);
+  expect(second?.x).toBeGreaterThan((first?.x ?? 0) + (first?.width ?? 0));
 });
 
 test('the memorial easter egg keeps its standalone layout and click tribute', async ({page}) => {

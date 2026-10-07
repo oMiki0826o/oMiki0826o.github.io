@@ -4,6 +4,7 @@ import RootLayout from '@/app/layout';
 import {HomePage} from '@/components/home/home-page';
 import {pinnedTimeline} from '@/content/timeline';
 import {notes} from '@/content/notes';
+import AboutPage from '@/app/[locale]/about/page';
 
 describe('RootLayout', () => {
   it('renders the application root without throwing', () => {
@@ -47,5 +48,13 @@ describe('RootLayout', () => {
     expect(within(container).getByText('Discord Bot Mod 撰寫教學')).toBeInTheDocument();
     expect(within(container).getByText('夜空入門：從北極星開始認星')).toBeInTheDocument();
     expect(within(container).queryByText('幼鼠超音波叫聲研究紀錄與發表')).toBeNull();
+  });
+
+  it('groups About content into readable profile sections before its tags', async () => {
+    const {container} = render(await AboutPage({params: Promise.resolve({locale: 'zh-TW'})}));
+
+    expect(container.querySelector('.about-profile')).toBeInTheDocument();
+    expect(container.querySelectorAll('.about-details section')).toHaveLength(8);
+    expect(container.querySelector('.about-details + .tags')).toBeInTheDocument();
   });
 });
