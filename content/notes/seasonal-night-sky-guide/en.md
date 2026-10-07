@@ -1,0 +1,29 @@
+## Let your eyes adjust first
+
+Do not rush to find targets the moment you arrive. Stay away from direct lights and give your eyes around fifteen minutes to adapt. Lower your phone brightness or use a red-light mode.
+
+You do not need to chase faint stars at first. Find the brightest, most recognizable pattern, establish your direction, then check it with Stellarium or Star Walk 2. An app should support looking up, not replace it.
+
+## Polaris is a northward reference
+
+Polaris belongs to Ursa Minor and sits close to the north celestial pole, so it appears nearly fixed through the night. It is not the brightest star, but it is a useful reference for true north and the northern sky.
+
+In spring and summer, begin with the Big Dipper. Extend the line through the two stars at the bowl’s outer edge by roughly five times their separation. In autumn and winter, the W of Cassiopeia offers another starting point.
+
+## Learn one bright pattern per season
+
+For spring, look for the Spring Triangle of Arcturus, Spica, and Regulus. Summer’s easiest pattern is the Summer Triangle: Vega, Altair, and Deneb. All three are bright and lie near the Milky Way.
+
+In autumn, recognize Cassiopeia and the Great Square of Pegasus before moving toward Andromeda. Winter begins with Orion’s Belt, Sirius, and Procyon. Treat these as landmarks and the rest of the sky starts to gain a place.
+
+## Constellations also lead to deep-sky objects
+
+M31 near Andromeda is a galaxy that can appear as a small hazy patch to the unaided eye under a dark sky. M42 below Orion’s Belt is one of the most approachable nebulae in winter.
+
+Taurus holds the Pleiades, M45, a compact cluster of fine blue-white stars. Binoculars are often friendlier than a high-power telescope for a first attempt: the field is wider and it is easier to stay oriented.
+
+## Turn one observation into your own sky map
+
+Give each session one small goal, such as finding Polaris or recognizing the Summer Triangle. Note the date, place, weather, and what you saw. Returning to the same sky becomes much more rewarding.
+
+Cloud, moonlight, and light pollution all change what is visible. Missing a target does not mean you did it wrong. Check the moon phase and transparency, then try on another night. Stargazing is a gradual familiarity, not a test.

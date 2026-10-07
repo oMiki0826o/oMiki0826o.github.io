@@ -1,4 +1,6 @@
 import {describe, expect, it} from 'vitest';
+import fs from 'node:fs';
+import path from 'node:path';
 import {locales} from '@/i18n/config';
 import {getNote, notes} from '@/content/notes';
 import {generateStaticParams} from '@/app/[locale]/notes/[slug]/page';
@@ -12,6 +14,18 @@ describe('note content', () => {
           expect(section.heading[locale]).not.toHaveLength(0);
           expect(section.paragraphs[locale].length).toBeGreaterThan(0);
         }
+      }
+    }
+  });
+
+  it('stores every note as an independent multilingual content entry', () => {
+    const notesRoot = path.join(process.cwd(), 'content', 'notes');
+
+    for (const note of notes) {
+      const folder = path.join(notesRoot, note.slug);
+      expect(fs.existsSync(path.join(folder, 'meta.ts'))).toBe(true);
+      for (const locale of locales) {
+        expect(fs.existsSync(path.join(folder, `${locale}.md`))).toBe(true);
       }
     }
   });
