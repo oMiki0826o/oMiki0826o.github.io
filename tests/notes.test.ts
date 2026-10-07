@@ -82,6 +82,15 @@ describe('note content', () => {
     ]);
   });
 
+  it('does not leave related reading links pointing at missing notes', () => {
+    const slugs = new Set(notes.map((note) => note.slug));
+    for (const note of notes) {
+      for (const relatedSlug of note.relatedSlugs ?? []) {
+        expect(slugs.has(relatedSlug), `${note.slug} references ${relatedSlug}`).toBe(true);
+      }
+    }
+  });
+
   it('publishes the research presentation without editor-facing disclaimers', () => {
     const guide = getNote('ultrasonic-call-study-notes');
 
