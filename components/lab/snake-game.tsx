@@ -71,7 +71,7 @@ export function SnakeGame() {
     <div className="snake-heading"><div><p className="lab-eyebrow">LAB / 03</p><h2>Snake</h2></div><div className="snake-score"><span>score</span><strong>{String(score).padStart(2, '0')}</strong></div></div>
     <div className="snake-board" role="grid" aria-label="Snake game board">{Array.from({length: size * size}, (_, index) => { const point = {x: index % size, y: Math.floor(index / size)}; const head = same(point, snake[0]!); const part = snake.some((item) => same(item, point)); return <i className={head ? 'snake-cell snake-head' : part ? 'snake-cell snake-body' : same(point, food) ? 'snake-cell snake-food' : 'snake-cell'} key={index} />; })}</div>
     <div className="snake-status">{gameOver ? '撞到了。按下重新開始，再來一次。' : running ? '保持移動。' : '按方向鍵或下方按鈕開始。'}</div>
-    <div className="snake-controls" aria-label="Snake controls"><button type="button" onClick={() => turn({x: 0, y: -1})}>↑</button><button type="button" onClick={() => turn({x: -1, y: 0})}>←</button><button type="button" onClick={() => turn({x: 0, y: 1})}>↓</button><button type="button" onClick={() => turn({x: 1, y: 0})}>→</button></div>
+    <div className="snake-controls" aria-label="Snake controls"><button className="snake-up" type="button" onClick={() => turn({x: 0, y: -1})}>↑</button><div className="snake-row"><button type="button" onClick={() => turn({x: -1, y: 0})}>←</button><button type="button" onClick={() => turn({x: 0, y: 1})}>↓</button><button type="button" onClick={() => turn({x: 1, y: 0})}>→</button></div></div>
     <button className="snake-reset" type="button" onClick={reset}>{gameOver ? '重新開始' : '重設'}</button>
   </section>;
 }
