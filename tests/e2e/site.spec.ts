@@ -37,3 +37,10 @@ test('the narrow homepage has no horizontal overflow and keeps real contact link
   await expect(page.getByRole('link', {name: 'Email'})).toHaveAttribute('href', 'mailto:chenmiki0925@gmail.com');
   await expect(page.getByRole('link', {name: 'Discord: miki._.0826'})).toHaveAttribute('href', 'https://discord.com/users/839381498351190036');
 });
+
+test('the memorial easter egg keeps its standalone layout and click tribute', async ({page}) => {
+  await page.goto('/ripmiki/');
+  await expect(page.locator('.grave-layout')).toBeVisible();
+  await page.mouse.click(120, 180);
+  await expect(page.locator('.rip-flower')).toHaveCount(1);
+});
