@@ -44,6 +44,7 @@ describe('discovery routes', () => {
     expect(urls).toContain('https://omiki0826o.github.io/');
     expect(urls).toContain('https://omiki0826o.github.io/en/projects/');
     expect(urls).toContain('https://omiki0826o.github.io/ja/timeline/');
+    expect(urls).toContain('https://omiki0826o.github.io/en/notes/about-me/');
   });
 
   it('allows crawlers while advertising the sitemap', () => {

@@ -5,6 +5,8 @@
 目前視覺基準：**V5「柔和日系 5.x」**  
 目前技術基準：**Next.js App Router + TypeScript + Static Export**
 
+> **現行實作優先說明（2026-10-07）**：此文件保留重構歷史供參考；若後續段落與現況矛盾，以下狀態優先：網站正式支援 `zh-TW`／`en`／`ja`、`package-lock.json` 與 `npm ci`、per-page canonical／hreflang、sitemap、robots、Person／WebSite／Article JSON-LD、三語 Notes detail、真實 5:3 作品封面、GitHub／Discord／Email 真實聯絡入口，以及 exported-site E2E。首頁**不**渲染即時 status；V5 視覺與首頁順序維持 Freeze。
+
 ---
 
 ## 1. 文件定位
@@ -905,6 +907,7 @@ CSS：
 
 ```text
 zh-TW
+en
 ja
 ```
 
@@ -917,8 +920,7 @@ zh-TW
 要求：
 
 - 繁中必填。
-- 日文同步補。
-- 不重新加入未使用 English locale。
+- 英文與日文同步補。
 - 路由必須可 static export。
 
 目前主要 URL：
@@ -926,14 +928,19 @@ zh-TW
 ```text
 /
 /zh-TW
+/en
 /ja
 /zh-TW/about
+/en/about
 /ja/about
 /zh-TW/projects
+/en/projects
 /ja/projects
 /zh-TW/notes
+/en/notes
 /ja/notes
 /zh-TW/timeline
+/en/timeline
 /ja/timeline
 ```
 

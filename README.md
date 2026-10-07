@@ -7,7 +7,7 @@ Miki 的個人網站，部署在 GitHub Pages。
 ## 首頁順序
 
 1. 頭像
-2. Miki / 簡介 / 銘言 / 目前狀態
+2. Miki / 簡介 / 銘言
 3. 無外框音樂播放器
 4. 鎮樓圖
 5. About
@@ -24,7 +24,7 @@ Miki 的個人網站，部署在 GitHub Pages。
 - React 19
 - TypeScript
 - Static Export (`out/`)
-- `zh-TW` / `ja`
+- `zh-TW` / `en` / `ja`
 - YouTube IFrame API 音樂播放器
 - Vitest
 - GitHub Actions + GitHub Pages
@@ -32,7 +32,7 @@ Miki 的個人網站，部署在 GitHub Pages。
 ## 本機開發
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
@@ -41,6 +41,7 @@ npm run dev
 ```bash
 npm test
 npm run build
+npm run test:e2e
 ```
 
 成功建置後輸出在 `out/`。
@@ -79,8 +80,9 @@ YouTube API 只在使用者第一次按播放後載入；不自動播放，ifram
 
 推送 `main` 後，GitHub Actions 會依序執行：
 
-1. `npm install`
+1. `npm ci`
 2. `npm test`
 3. `npm run build`
-4. 上傳 `out/`
-5. 部署 GitHub Pages
+4. `npm run test:e2e`
+5. 上傳 `out/`
+6. 部署 GitHub Pages

@@ -5,6 +5,14 @@ import {ContentPage} from '@/components/layout/content-page';
 import Link from 'next/link';
 import {localizedPath} from '@/lib/content';
 import {ui} from '@/i18n/ui';
+import type {Metadata} from 'next';
+import {buildPageMetadata} from '@/lib/metadata';
+
+export async function generateMetadata({params}: {params: Promise<{locale: string}>}): Promise<Metadata> {
+  const {locale: rawLocale} = await params;
+  const locale = resolveLocale(rawLocale);
+  return buildPageMetadata({locale, pathname: '/notes', title: ui[locale].sections.notes, description: ui[locale].pages.notesLead});
+}
 
 export default async function NotesPage({params}: {params: Promise<{locale: string}>}) {
   const {locale: rawLocale} = await params;
@@ -14,7 +22,7 @@ export default async function NotesPage({params}: {params: Promise<{locale: stri
       locale={locale}
       eyebrow="notes"
       title={ui[locale].sections.notes}
-      lead={locale === 'ja' ? '開発記録、つまずきのメモ、ときどき技術以外のこと。' : locale === 'en' ? 'Development notes, lessons learned, and occasional non-technical thoughts.' : '開發紀錄、踩坑筆記，以及偶爾不那麼技術的東西。'}
+      lead={ui[locale].pages.notesLead}
     >
       <div className="page-notes">
         {notes.map((note) => (

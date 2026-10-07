@@ -27,5 +27,5 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children}: Readonly<{children: React.ReactNode}>) {
   const themeScript = "try{var t=localStorage.getItem('miki-theme');document.documentElement.dataset.theme=t==='dark'?'dark':'light'}catch(e){}";
-  return <html lang="zh-TW" suppressHydrationWarning><head><script dangerouslySetInnerHTML={{__html: themeScript}} /></head><body><SiteJsonLd />{children}</body></html>;
+  return <html lang="zh-TW" suppressHydrationWarning><head><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Noto+Sans+TC:wght@400;500;600&family=Nunito:wght@500;600;700;800&family=Zen+Maru+Gothic:wght@500;700&display=swap" /><script dangerouslySetInnerHTML={{__html: themeScript}} /></head><body><SiteJsonLd />{children}</body></html>;
 }

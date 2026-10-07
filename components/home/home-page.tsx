@@ -8,9 +8,11 @@ import {localize, localizedPath} from '@/lib/content';
 import {MusicPlayer} from './music-player';
 import {SiteFooter} from '@/components/layout/site-footer';
 import {SocialIcon} from '@/components/ui/social-icons';
+import {ui} from '@/i18n/ui';
 
 export function HomePage({locale}: {locale: Locale}) {
   const aboutParagraphs = profile.about[locale];
+  const copy = ui[locale];
 
   return (
     <main>
@@ -33,7 +35,7 @@ export function HomePage({locale}: {locale: Locale}) {
       <figure className="featured">
         <a className="featured-image" href="https://twitter.com" target="_blank" rel="noreferrer"><img src={profile.featuredImage} alt="鎮樓圖" loading="lazy" /></a>
         <figcaption className="featured-caption">
-          <strong>{locale === 'ja' ? '鎮樓圖' : locale === 'en' ? 'Featured image' : '鎮樓圖'}</strong>
+          <strong>{copy.home.featuredImage}</strong>
           <a href="https://twitter.com" target="_blank" rel="noreferrer">Twitter ↗</a>
         </figcaption>
       </figure>
@@ -50,7 +52,7 @@ export function HomePage({locale}: {locale: Locale}) {
             <div className="tags">
               {profile.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}
             </div>
-            <Link className="text-link" href={localizedPath(locale, '/about')}>{locale === 'ja' ? 'もっと見る →' : '完整介紹 →'}</Link>
+            <Link className="text-link" href={localizedPath(locale, '/about')}>{copy.home.aboutMore}</Link>
           </div>
         </div>
       </section>
@@ -58,7 +60,7 @@ export function HomePage({locale}: {locale: Locale}) {
       <section className="section" id="projects">
         <header className="section-head">
           <h2>Works</h2>
-          <small>{locale === 'ja' ? '制作実績' : '專案紀錄'}</small>
+          <small>{copy.sections.works}</small>
         </header>
         <div className="projects">
           {projects.map((project) => (
@@ -72,13 +74,13 @@ export function HomePage({locale}: {locale: Locale}) {
             </a>
           ))}
         </div>
-        <Link className="more-button" href={localizedPath(locale, '/projects')}>{locale === 'ja' ? 'もっと見る →' : locale === 'en' ? 'View more →' : '查看更多 →'}</Link>
+        <Link className="more-button" href={localizedPath(locale, '/projects')}>{copy.home.worksMore}</Link>
       </section>
 
       <section className="section" id="notes">
         <header className="section-head">
           <h2>Notes</h2>
-          <small>{locale === 'ja' ? '記事と記録' : '文章與紀錄'}</small>
+          <small>{copy.sections.notes}</small>
         </header>
         <div className="notes">
           {notes.map((note) => (
@@ -89,13 +91,13 @@ export function HomePage({locale}: {locale: Locale}) {
             </article>
           ))}
         </div>
-        <Link className="more-button" href={localizedPath(locale, '/notes')}>{locale === 'ja' ? 'もっと見る →' : locale === 'en' ? 'View more →' : '查看更多 →'}</Link>
+        <Link className="more-button" href={localizedPath(locale, '/notes')}>{copy.home.notesMore}</Link>
       </section>
 
       <section className="section" id="timeline">
         <header className="section-head">
           <h2>Timeline</h2>
-          <small>{locale === 'ja' ? 'これまでの記録' : '一路走來'}</small>
+          <small>{copy.sections.timeline}</small>
         </header>
         <div className="timeline">
           {timeline.map((item) => (
@@ -106,7 +108,7 @@ export function HomePage({locale}: {locale: Locale}) {
             </article>
           ))}
         </div>
-        <Link className="more-button" href={localizedPath(locale, '/timeline')}>{locale === 'ja' ? 'すべて見る →' : locale === 'en' ? 'View timeline →' : '查看完整歷程 →'}</Link>
+        <Link className="more-button" href={localizedPath(locale, '/timeline')}>{copy.home.timelineMore}</Link>
       </section>
 
       <SiteFooter locale={locale} />

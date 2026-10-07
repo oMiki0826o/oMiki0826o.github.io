@@ -4,6 +4,7 @@ import {locales, resolveLocale, type Locale} from '@/i18n/config';
 import {profile} from '@/content/profile';
 import {localize} from '@/lib/content';
 import {buildPageMetadata} from '@/lib/metadata';
+import {ui} from '@/i18n/ui';
 import {PageShell} from '@/components/layout/page-shell';
 
 export const dynamicParams = false;
@@ -17,7 +18,7 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
   const locale = resolveLocale(rawLocale);
   return buildPageMetadata({
     locale,
-    title: locale === 'ja' ? 'Miki の小さな世界' : locale === 'en' ? "Miki's little world" : 'Miki 的奇幻世界',
+    title: ui[locale].siteTitle,
     description: localize(profile.intro, locale)
   });
 }

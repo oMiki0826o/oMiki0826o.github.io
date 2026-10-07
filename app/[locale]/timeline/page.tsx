@@ -2,6 +2,15 @@ import {resolveLocale} from '@/i18n/config';
 import {timeline} from '@/content/timeline';
 import {localize} from '@/lib/content';
 import {ContentPage} from '@/components/layout/content-page';
+import type {Metadata} from 'next';
+import {buildPageMetadata} from '@/lib/metadata';
+import {ui} from '@/i18n/ui';
+
+export async function generateMetadata({params}: {params: Promise<{locale: string}>}): Promise<Metadata> {
+  const {locale: rawLocale} = await params;
+  const locale = resolveLocale(rawLocale);
+  return buildPageMetadata({locale, pathname: '/timeline', title: ui[locale].pages.timelineTitle, description: ui[locale].pages.timelineLead});
+}
 
 export default async function TimelinePage({params}: {params: Promise<{locale: string}>}) {
   const {locale: rawLocale} = await params;
@@ -10,8 +19,8 @@ export default async function TimelinePage({params}: {params: Promise<{locale: s
     <ContentPage
       locale={locale}
       eyebrow="timeline"
-      title={locale === 'ja' ? 'これまでの記録' : locale === 'en' ? 'The way here' : '一路走來'}
-      lead={locale === 'ja' ? '学びながら作ってきたものの記録。' : locale === 'en' ? 'A record of learning and making along the way.' : '一路學、一邊做留下來的紀錄。'}
+      title={ui[locale].pages.timelineTitle}
+      lead={ui[locale].pages.timelineLead}
     >
       <div className="timeline">
         {timeline.map((item) => (
