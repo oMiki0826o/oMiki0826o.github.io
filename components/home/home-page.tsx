@@ -10,6 +10,7 @@ import {SiteFooter} from '@/components/layout/site-footer';
 import {SocialIcon} from '@/components/ui/social-icons';
 import {ui} from '@/i18n/ui';
 import {ScrollReveal} from '@/components/ui/scroll-reveal';
+import {TypewriterText} from '@/components/ui/typewriter-text';
 
 export function HomePage({locale}: {locale: Locale}) {
   const aboutParagraphs = profile.about[locale];
@@ -21,7 +22,7 @@ export function HomePage({locale}: {locale: Locale}) {
       <section className="intro">
         <img className="avatar" src={profile.avatar} alt="Miki" width="104" height="104" fetchPriority="high" />
         <h1>{profile.name}</h1>
-        <p className="subtitle">{localize(profile.subtitle, locale)}</p>
+        <p className="subtitle"><TypewriterText text={localize(profile.subtitle, locale)} /></p>
         <p className="aboutline">{localize(profile.intro, locale)}</p>
         <p className="quote">{localize(profile.signature, locale)}</p>
       </section>

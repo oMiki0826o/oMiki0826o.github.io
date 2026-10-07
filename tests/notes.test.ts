@@ -17,7 +17,7 @@ describe('note content', () => {
   });
 
   it('finds existing notes by slug', () => {
-    expect(getNote('discord-bot-from-zero')?.title.en).toBe('Building a Discord Bot from scratch');
+    expect(getNote('discord-bot-from-zero')?.title.en).toBe('How Firefly Bot grew');
     expect(getNote('missing-note')).toBeUndefined();
   });
 

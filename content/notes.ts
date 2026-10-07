@@ -310,7 +310,8 @@ const allNotes: Note[] = [
   }
 ];
 
-export const notes = allNotes;
+export const notes = [...allNotes].sort((left, right) => Date.parse(right.date) - Date.parse(left.date));
+export const featuredNote = notes.find((note) => note.slug === 'ultrasonic-call-study-notes') ?? notes[0];
 
 export function getNote(slug: string) {
   return notes.find((note) => note.slug === slug);

@@ -1,5 +1,5 @@
 import {resolveLocale} from '@/i18n/config';
-import {notes} from '@/content/notes';
+import {featuredNote, notes} from '@/content/notes';
 import {localize} from '@/lib/content';
 import {ContentPage} from '@/components/layout/content-page';
 import Link from 'next/link';
@@ -24,14 +24,20 @@ export default async function NotesPage({params}: {params: Promise<{locale: stri
       title={ui[locale].sections.notes}
       lead={ui[locale].pages.notesLead}
     >
+      {featuredNote ? <Link className="featured-note" href={localizedPath(locale, `/notes/${featuredNote.slug}`)}>
+        <span>{featuredNote.date} · {featuredNote.category}</span>
+        <h2>{localize(featuredNote.title, locale)}</h2>
+        <p>{localize(featuredNote.excerpt, locale)}</p>
+        <b aria-hidden="true">↗</b>
+      </Link> : null}
       <div className="page-notes">
-        {notes.slice().reverse().map((note) => (
-          <article className="page-note" key={note.slug}>
+        {notes.filter((note) => note.slug !== featuredNote?.slug).map((note) => (
+          <Link className="page-note" href={localizedPath(locale, `/notes/${note.slug}`)} key={note.slug}>
             <time>{note.date} · {note.category}</time>
-            <h2><Link href={localizedPath(locale, `/notes/${note.slug}`)}>{localize(note.title, locale)}</Link></h2>
+            <h2>{localize(note.title, locale)}</h2>
             <p>{localize(note.excerpt, locale)}</p>
-            <Link className="text-link" href={localizedPath(locale, `/notes/${note.slug}`)}>{ui[locale].notes.more}</Link>
-          </article>
+            <b aria-hidden="true">↗</b>
+          </Link>
         ))}
       </div>
     </ContentPage>
