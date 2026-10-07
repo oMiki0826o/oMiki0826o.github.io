@@ -21,3 +21,13 @@ When a feature needs settings, follow the dm Module: register settings in setup,
 First, make sure the folder really sits under bot/mod/ and contains extension.py. Second, every Module named in MODULE_DEPENDENCIES must exist, remain enabled, and avoid dependency cycles. Third, setup must be async and every Cog must construct correctly. Fourth, use $mod list, $bot health, or the logs to read the error recorded by the loader.
 
 Do not hide dependency checks or swallow exceptions just to make the Bot “start somehow.” The loader respects dependency order and records failures; let the error stop in the right place so it can be diagnosed later.
+
+## Keep the first version maintainable
+
+The first Module does not need to contain every feature. Start with a loadable extension and one command, then add settings, storage, and background work one layer at a time. Restart the Bot after each meaningful addition so you know which change introduced a problem instead of debugging ten changes at once.
+
+When a command calls an external service, keep timeouts and error translation in a Service rather than letting exceptions leak out of the Cog. The Cog should turn a Discord interaction into input and present the result; data formats, retries, and persistence belong in a lower layer.
+
+## A small release checklist
+
+Before committing, do a clean startup, confirm `/help` lists the command, verify that disabling a Module does not leave its Cog registered, and run the tests related to the feature. If the Module owns a migration or settings schema, also test a first launch with an empty environment. These checks prevent more maintenance pain than another abstraction inside `extension.py`.

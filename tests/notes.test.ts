@@ -45,14 +45,14 @@ describe('note content', () => {
     const guide = getNote('discord-bot-usage-guide');
 
     expect(guide?.title['zh-TW']).toBe('Discord Bot 使用教學');
-    expect(guide?.sections).toHaveLength(4);
+    expect(guide?.sections).toHaveLength(7);
   });
 
   it('publishes a human-readable Module authoring guide', () => {
     const guide = getNote('discord-bot-mod-guide');
 
     expect(guide?.title['zh-TW']).toBe('Discord Bot Mod 撰寫教學');
-    expect(guide?.sections).toHaveLength(4);
+    expect(guide?.sections).toHaveLength(6);
   });
 
   it('publishes a practical guide to the seasonal night sky', () => {
