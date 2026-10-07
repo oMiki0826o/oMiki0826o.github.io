@@ -7,7 +7,7 @@ export function SiteFooter({locale}: {locale: Locale}) {
   return (
     <footer className="footer">
       <strong>{quote}</strong>
-      <span>Miki&apos;s website · Next.js static export</span>
+      <span>Miki&apos;s website · <a href="/feed.xml">RSS</a> · Next.js static export</span>
     </footer>
   );
 }

@@ -158,7 +158,7 @@ button,input{font:inherit}
 .footer{width:min(100%,720px);margin:0 auto;padding:58px 0 42px;text-align:center;border-top:1px solid var(--line)}
 .scroll-reveal:has(.section#timeline)+.footer{border-top:0}
 .footer strong{display:block;margin-bottom:10px;font:600 .92rem var(--quote);color:var(--blue)}
-.footer span{font:600 .57rem var(--en);color:var(--faint)}
+.footer span{font:600 .57rem var(--en);color:var(--faint)}.footer span a{color:inherit;text-decoration:none}.footer span a:hover{color:var(--blue-text);text-decoration:underline;text-underline-offset:.2em}
 
 .content-page{width:min(100%,720px);margin:0 auto;padding:54px 0 0}
 .back-link{display:inline-block;margin-bottom:38px;color:var(--muted);font:700 .7rem var(--en);text-decoration:none}
