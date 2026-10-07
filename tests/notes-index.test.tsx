@@ -21,4 +21,11 @@ describe('NotesIndex', () => {
 
     expect(within(container).getByRole('heading', {name: 'Discord Bot 使用教學'})).toBeInTheDocument();
   });
+
+  it('uses a centered text arrow instead of an emoji-style diagonal arrow', () => {
+    const {container} = render(<NotesIndex locale="zh-TW" notes={notes} featuredNote={featuredNote} />);
+
+    expect(container.querySelectorAll('.note-arrow')).not.toHaveLength(0);
+    expect(container.textContent).not.toContain('↗');
+  });
 });

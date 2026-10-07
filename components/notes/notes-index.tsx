@@ -18,7 +18,7 @@ function NoteLink({note, locale, featured = false}: {note: Note; locale: Locale;
     <span className="note-meta"><time dateTime={note.date}>{formatNoteDate(note.date, locale)}</time><i aria-hidden="true">·</i>{note.category}<i aria-hidden="true">·</i>{ui[locale].notes.readingTime(minutes)}</span>
     <h2>{localize(note.title, locale)}</h2>
     <p>{localize(note.excerpt, locale)}</p>
-    <b aria-hidden="true">↗</b>
+    <b className="note-arrow" aria-hidden="true">→</b>
   </Link>;
 }
 

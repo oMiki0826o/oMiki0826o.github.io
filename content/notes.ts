@@ -211,7 +211,7 @@ const allNotes: Note[] = [
       ja: '平行線、基準系、時空の曲がり方から、相対論が重力の理解をどう変えたかをたどる短い入門です。'
     },
     date: '2026-10-07',
-    category: 'Science',
+    category: 'Astronomy',
     sections: [
       {
         heading: {'zh-TW': '幾何不只存在於平面', en: 'Geometry is not limited to a plane', ja: '幾何は平面だけのものではない'},

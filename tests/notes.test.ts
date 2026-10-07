@@ -50,6 +50,11 @@ describe('note content', () => {
     expect(JSON.stringify(guide)).not.toContain('政大附中');
   });
 
+  it('keeps the two night-sky notes together under Astronomy', () => {
+    expect(getNote('seasonal-night-sky-guide')?.category).toBe('Astronomy');
+    expect(getNote('spacetime-and-gravitational-waves')?.category).toBe('Astronomy');
+  });
+
   it('publishes the research presentation without editor-facing disclaimers', () => {
     const guide = getNote('ultrasonic-call-study-notes');
 

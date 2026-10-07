@@ -6,6 +6,7 @@ import {pinnedTimeline} from '@/content/timeline';
 import {notes} from '@/content/notes';
 import AboutPage from '@/app/[locale]/about/page';
 import ProjectsPage from '@/app/[locale]/projects/page';
+import NotePage from '@/app/[locale]/notes/[slug]/page';
 import {PageShell} from '@/components/layout/page-shell';
 
 describe('RootLayout', () => {
@@ -76,5 +77,12 @@ describe('RootLayout', () => {
     const {container} = render(await ProjectsPage({params: Promise.resolve({locale: 'zh-TW'})}));
 
     expect(container.querySelectorAll('.page-project-cover img')).toHaveLength(2);
+  });
+
+  it('connects the two astronomy notes through related reading', async () => {
+    const {container} = render(await NotePage({params: Promise.resolve({locale: 'zh-TW', slug: 'seasonal-night-sky-guide'})}));
+
+    expect(within(container).getByRole('heading', {name: '繼續閱讀'})).toBeInTheDocument();
+    expect(within(container).getByRole('link', {name: /從幾何到重力波/})).toBeInTheDocument();
   });
 });

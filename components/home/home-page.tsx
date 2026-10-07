@@ -39,7 +39,7 @@ export function HomePage({locale}: {locale: Locale}) {
         <a className="featured-image" href="https://twitter.com" target="_blank" rel="noreferrer"><img src={profile.featuredImage} alt="鎮樓圖" loading="lazy" /></a>
         <figcaption className="featured-caption">
           <strong>{copy.home.featuredImage}</strong>
-          <a href="https://twitter.com" target="_blank" rel="noreferrer">Twitter ↗</a>
+          <a href="https://twitter.com" target="_blank" rel="noreferrer">Twitter →</a>
         </figcaption>
       </figure></ScrollReveal>
 
