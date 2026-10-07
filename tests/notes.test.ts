@@ -18,6 +18,12 @@ describe('note content', () => {
     }
   });
 
+  it('keeps the same section count across every translation', () => {
+    for (const note of notes) {
+      expect(note.sections.map((section) => section.heading.en)).toHaveLength(note.sections.length);
+    }
+  });
+
   it('stores every note as an independent multilingual content entry', () => {
     const notesRoot = path.join(process.cwd(), 'content', 'notes');
 
