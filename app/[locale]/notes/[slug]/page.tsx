@@ -1,4 +1,5 @@
 import {notFound} from 'next/navigation';
+import Link from 'next/link';
 import type {Metadata} from 'next';
 import {locales, resolveLocale} from '@/i18n/config';
 import {getNote, notes} from '@/content/notes';
@@ -56,7 +57,7 @@ export default async function NotePage({params}: {params: Promise<{locale: strin
       </article>
       {relatedNotes.length > 0 ? <aside className="related-notes" aria-label={ui[locale].notes.related}>
         <h2>{ui[locale].notes.related}</h2>
-        {relatedNotes.map((item) => <a href={localizedPath(locale, `/notes/${item.slug}`)} key={item.slug}><span>{formatNoteDate(item.date, locale)} · {item.category}</span>{localize(item.title, locale)} <b className="note-arrow" aria-hidden="true">→</b></a>)}
+        {relatedNotes.map((item) => <Link href={localizedPath(locale, `/notes/${item.slug}`)} key={item.slug}><span>{formatNoteDate(item.date, locale)} · {item.category}</span>{localize(item.title, locale)} <b className="note-arrow" aria-hidden="true">→</b></Link>)}
       </aside> : null}
     </ContentPage>
   );

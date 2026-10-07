@@ -9,5 +9,5 @@ export function estimateReadingMinutes(note: Note, locale: Locale) {
 
 export function formatNoteDate(date: string, locale: Locale) {
   const language = locale === 'zh-TW' ? 'zh-TW' : locale === 'ja' ? 'ja-JP' : 'en-US';
-  return new Intl.DateTimeFormat(language, {year: 'numeric', month: 'short', day: 'numeric'}).format(new Date(`${date}T00:00:00Z`));
+  return new Intl.DateTimeFormat(language, {year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC'}).format(new Date(`${date}T00:00:00Z`));
 }

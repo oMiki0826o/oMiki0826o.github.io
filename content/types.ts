@@ -2,7 +2,8 @@ import type {Locale} from '@/i18n/config';
 
 export type LocalizedText = Record<Locale, string>;
 
-export type NoteCategory = 'About' | 'Astronomy' | 'Biology' | 'Discord' | 'Science';
+export const noteCategories = ['Discord', 'Astronomy', 'Science', 'Biology', 'About'] as const;
+export type NoteCategory = typeof noteCategories[number];
 
 export type Project = {
   slug: string;

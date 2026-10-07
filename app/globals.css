@@ -76,7 +76,7 @@ button,input{font:inherit}
 .intro{text-align:center;padding:72px 0 54px}
 .avatar{display:block;width:104px;height:104px;margin:0 auto 22px;border-radius:50%;object-fit:cover;box-shadow:0 12px 30px -24px rgba(49,72,81,.35)}
 .intro h1{margin:0;font:700 clamp(2.8rem,8vw,4.4rem)/1 var(--jp);letter-spacing:-.025em;color:var(--blue)}
-.intro .subtitle{margin:10px 0 0;font:700 .94rem var(--jp);letter-spacing:.06em;color:var(--text)}.typewriter{display:inline-block;clip-path:inset(0 100% 0 0);white-space:nowrap}.typewriter.is-ready{animation:type-reveal .9s steps(18,end) both}.typewriter::after{content:'·';display:inline-block;margin-left:.24em;color:var(--green);animation:type-cursor .7s ease-in-out 3}.typewriter.is-ready::after{animation-delay:.9s}@keyframes type-reveal{to{clip-path:inset(0 0 0 0)}}@keyframes type-cursor{50%{opacity:0}}
+.intro .subtitle{margin:10px 0 0;font:700 .94rem var(--jp);letter-spacing:.06em;color:var(--text)}.typewriter{display:inline-block;clip-path:none;white-space:nowrap}.typewriter.is-ready{clip-path:inset(0 100% 0 0);animation:type-reveal .9s steps(18,end) both}.typewriter::after{content:'·';display:inline-block;margin-left:.24em;color:var(--green);animation:type-cursor .7s ease-in-out 3}.typewriter.is-ready::after{animation-delay:.9s}@keyframes type-reveal{to{clip-path:inset(0 0 0 0)}}@keyframes type-cursor{50%{opacity:0}}
 .intro .aboutline{max-width:520px;margin:18px auto 0;color:var(--muted);line-height:1.9;font-size:.9rem}
 .intro .quote{margin:22px 0 0;font:600 .98rem var(--quote);color:var(--blue)}
 .status{display:inline-flex;align-items:center;gap:7px;margin-top:18px;font-size:.7rem;color:var(--muted)}
