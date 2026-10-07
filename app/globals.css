@@ -103,6 +103,7 @@ button,input{font:inherit}
 .featured-caption strong{font:700 .68rem var(--en);color:var(--blue)}
 
 .section{width:min(100%,720px);margin:0 auto;padding:66px 0;border-top:1px solid var(--line)}
+.scroll-reveal{width:100%}.scroll-reveal.is-pending{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}.scroll-reveal.is-pending.is-visible{opacity:1;transform:translateY(0)}
 .section-head{text-align:center;margin-bottom:34px}
 .section-head h2{margin:0;font:800 clamp(1.9rem,5vw,2.8rem) var(--en);color:rgba(95,164,221,.72)}
 .section-head small{display:block;margin-top:-2px;font:700 .75rem var(--jp);color:var(--heading-subtle)}
@@ -174,6 +175,7 @@ button,input{font:inherit}
 .page-note h2{font:700 1.02rem var(--jp);color:var(--blue);margin:7px 0}.page-note h2 a{color:inherit;text-decoration:none}
 .page-note p{margin:0;color:var(--muted);font-size:.8rem;line-height:1.7}
 .note-article section+section{margin-top:2.1rem}.note-article h2{margin:0 0 .65rem;font:700 1.12rem var(--jp);color:var(--blue)}
+.reading-progress{position:fixed;z-index:30;top:0;right:0;left:0;height:2px;background:transparent;pointer-events:none}.reading-progress span{display:block;width:100%;height:100%;transform-origin:left;background:linear-gradient(90deg,var(--blue),var(--green));box-shadow:0 0 8px rgba(95,164,221,.32)}.back-to-top{position:fixed;right:max(18px,calc((100vw - 820px)/2));bottom:24px;z-index:15;display:grid;place-items:center;width:32px;height:32px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--white);box-shadow:0 10px 24px -18px rgba(49,72,81,.7);color:var(--blue);cursor:pointer;font:700 1rem var(--en);backdrop-filter:blur(10px)}
 
 .rip{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:40px;background:radial-gradient(circle at 50% 45%,#383b3e 0%,#1a1c1e 70%,#0d0e0f 100%);color:#b5b5b5;font-family:'Noto Serif TC','Apple LiMin','SimSun',serif;cursor:pointer;isolation:isolate}
 .rip-side-line{position:absolute;top:5vh;bottom:5vh;width:3px;background:linear-gradient(to bottom,transparent 0%,#4f5255 15%,#5a5d60 50%,#4f5255 85%,transparent 100%);box-shadow:-1px 0 1px rgba(0,0,0,.5),1px 0 1px rgba(255,255,255,.05);z-index:1}.rip-side-line-left{left:3vw}.rip-side-line-right{right:3vw}
@@ -199,7 +201,7 @@ button,input{font:inherit}
   .content-page{padding-top:40px}
   .rip{position:fixed;padding:28px 32px 78px;overflow:auto}.grave-layout{grid-template-columns:1fr;gap:30px;justify-items:center}.rip-left-space,.rip-right-space{justify-content:center;gap:20px}.rip-couplet-left,.rip-couplet-right{padding:0;border:0}.rip-date-text,.rip-descendants-main{padding-top:0}.rip-descendants-offset{padding-top:34px}.rip-silence-notice{bottom:22px;font-size:11px;letter-spacing:2px}
 }
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.fireflies i{animation:none;opacity:.16}.project{transition:none}.grave-layout,.rip-flower{animation:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.fireflies i{animation:none;opacity:.16}.project,.scroll-reveal.is-pending{transition:none}.scroll-reveal.is-pending{opacity:1;transform:none}.grave-layout,.rip-flower{animation:none}}
 @supports (animation-timeline:view()){
   .timeline-reveal{opacity:0;animation:timeline-reveal linear both;animation-timeline:view();animation-range:entry 8% exit 96%}
   @keyframes timeline-reveal{0%{opacity:0;transform:translateY(18px)}18%,76%{opacity:1;transform:translateY(0)}100%{opacity:.28;transform:translateY(-10px)}}

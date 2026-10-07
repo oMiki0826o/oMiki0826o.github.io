@@ -3,6 +3,7 @@ import type {Locale} from '@/i18n/config';
 import {localizedPath} from '@/lib/content';
 import {ui} from '@/i18n/ui';
 import {SiteFooter} from './site-footer';
+import {ScrollReveal} from '@/components/ui/scroll-reveal';
 
 export function ContentPage({
   locale,
@@ -27,7 +28,7 @@ export function ContentPage({
       <p className="content-eyebrow">{eyebrow}</p>
       <h1>{title}</h1>
       <p className="content-lead">{lead}</p>
-      {children}
+      <ScrollReveal>{children}</ScrollReveal>
       <SiteFooter locale={locale} />
     </main>
   );

@@ -9,6 +9,7 @@ import {MusicPlayer} from './music-player';
 import {SiteFooter} from '@/components/layout/site-footer';
 import {SocialIcon} from '@/components/ui/social-icons';
 import {ui} from '@/i18n/ui';
+import {ScrollReveal} from '@/components/ui/scroll-reveal';
 
 export function HomePage({locale}: {locale: Locale}) {
   const aboutParagraphs = profile.about[locale];
@@ -25,7 +26,7 @@ export function HomePage({locale}: {locale: Locale}) {
         <p className="quote">{localize(profile.signature, locale)}</p>
       </section>
 
-      <MusicPlayer locale={locale} />
+      <ScrollReveal><MusicPlayer locale={locale} /></ScrollReveal>
 
       <nav className="social-row" aria-label="Contact links">
         <a href="https://github.com/omiki0826o" target="_blank" rel="noreferrer" aria-label="GitHub"><SocialIcon name="github" /></a>
@@ -33,15 +34,15 @@ export function HomePage({locale}: {locale: Locale}) {
         <a href="mailto:chenmiki0925@gmail.com" aria-label="Email"><SocialIcon name="email" /></a>
       </nav>
 
-      <figure className="featured">
+      <ScrollReveal><figure className="featured">
         <a className="featured-image" href="https://twitter.com" target="_blank" rel="noreferrer"><img src={profile.featuredImage} alt="鎮樓圖" loading="lazy" /></a>
         <figcaption className="featured-caption">
           <strong>{copy.home.featuredImage}</strong>
           <a href="https://twitter.com" target="_blank" rel="noreferrer">Twitter ↗</a>
         </figcaption>
-      </figure>
+      </figure></ScrollReveal>
 
-      <section className="section" id="about">
+      <ScrollReveal><section className="section" id="about">
         <header className="section-head">
           <h2>About</h2>
           <small>{localize(profile.aboutTitle, locale)}</small>
@@ -56,9 +57,9 @@ export function HomePage({locale}: {locale: Locale}) {
             <Link className="text-link" href={localizedPath(locale, '/about')}>{copy.home.aboutMore}</Link>
           </div>
         </div>
-      </section>
+      </section></ScrollReveal>
 
-      <section className="section" id="projects">
+      <ScrollReveal><section className="section" id="projects">
         <header className="section-head">
           <h2>Works</h2>
           <small>{copy.sections.works}</small>
@@ -76,9 +77,9 @@ export function HomePage({locale}: {locale: Locale}) {
           ))}
         </div>
         <Link className="more-button" href={localizedPath(locale, '/projects')}>{copy.home.worksMore}</Link>
-      </section>
+      </section></ScrollReveal>
 
-      <section className="section" id="notes">
+      <ScrollReveal><section className="section" id="notes">
         <header className="section-head">
           <h2>Notes</h2>
           <small>{copy.sections.notes}</small>
@@ -93,9 +94,9 @@ export function HomePage({locale}: {locale: Locale}) {
           ))}
         </div>
         <Link className="more-button" href={localizedPath(locale, '/notes')}>{copy.home.notesMore}</Link>
-      </section>
+      </section></ScrollReveal>
 
-      <section className="section" id="timeline">
+      <ScrollReveal><section className="section" id="timeline">
         <header className="section-head">
           <h2>Timeline</h2>
           <small>{copy.sections.timeline}</small>
@@ -110,7 +111,7 @@ export function HomePage({locale}: {locale: Locale}) {
           ))}
         </div>
         <Link className="more-button" href={localizedPath(locale, '/timeline')}>{copy.home.timelineMore}</Link>
-      </section>
+      </section></ScrollReveal>
 
       <SiteFooter locale={locale} />
     </main>
