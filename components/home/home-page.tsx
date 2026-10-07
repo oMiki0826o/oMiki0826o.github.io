@@ -101,7 +101,7 @@ export function HomePage({locale}: {locale: Locale}) {
         </header>
         <div className="timeline">
           {timeline.map((item) => (
-            <article className="event" key={`${item.year}-${item.title['zh-TW']}`}>
+            <article className="event timeline-reveal" key={`${item.year}-${item.title['zh-TW']}`}>
               <time>{item.year}</time>
               <h3>{localize(item.title, locale)}</h3>
               <p>{localize(item.description, locale)}</p>

@@ -109,6 +109,7 @@ button,input{font:inherit}
 .about-copy p{margin:0 0 12px}
 .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
 .about-grid .tags{margin-bottom:1.75rem}
+.content-page>.tags{margin-bottom:2.5rem}
 .tag{padding:4px 8px;border-radius:999px;background:rgba(177,212,241,.22);color:var(--blue);font:700 .6rem var(--en)}
 .tag:nth-child(2){background:rgba(244,209,179,.22);color:#c58f67}
 .tag:nth-child(3){background:rgba(213,234,184,.28);color:#83a85c}
@@ -189,3 +190,8 @@ button,input{font:inherit}
   .content-page{padding-top:40px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.fireflies i{animation:none;opacity:.16}.project{transition:none}}
+@supports (animation-timeline:view()){
+  .timeline-reveal{opacity:0;animation:timeline-reveal linear both;animation-timeline:view();animation-range:entry 8% exit 96%}
+  @keyframes timeline-reveal{0%{opacity:0;transform:translateY(18px)}18%,76%{opacity:1;transform:translateY(0)}100%{opacity:.28;transform:translateY(-10px)}}
+}
+@media(prefers-reduced-motion:reduce){.timeline-reveal{opacity:1!important;animation:none!important;transform:none!important}}

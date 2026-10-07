@@ -9,8 +9,8 @@ import {timeline} from '@/content/timeline';
     expect(profile.signature['zh-TW']).toContain('欲買桂花同載酒');
   });
 
-  it('contains the three core projects', () => {
-    expect(projects).toHaveLength(3);
+  it('keeps only the two current core projects', () => {
+    expect(projects.map((project) => project.slug)).toEqual(['firefly-bot', 'miki-website']);
   });
 
   it('gives every project an authentic local cover image', () => {

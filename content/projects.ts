@@ -16,20 +16,6 @@ export const projects: Project[] = [
     tone: 'blue'
   },
   {
-    slug: 'minecraft-backup',
-    title: {'zh-TW': 'Minecraft Server Backup', en: 'Minecraft Server Backup', ja: 'Minecraft Server Backup'},
-    description: {
-      'zh-TW': '透過 Discord 管理 Minecraft 伺服器備份、回檔與相關維運流程。',
-      en: 'A Discord tool for managing Minecraft server backups, restores, and maintenance routines.',
-      ja: 'DiscordからMinecraftサーバーのバックアップ、復元、運用フローを管理するツールです。'
-    },
-    tags: ['Python', 'Discord', 'Minecraft'],
-    url: 'https://github.com/oMiki0826o/mc-server-qb-bot-discord',
-    image: '/assets/projects/minecraft-backup.jpg',
-    imageSource: 'https://github.com/oMiki0826o/mc-server-qb-bot-discord',
-    tone: 'orange'
-  },
-  {
     slug: 'miki-website',
     title: {'zh-TW': "Miki's Website", en: "Miki's Website", ja: "Miki's Website"},
     description: {

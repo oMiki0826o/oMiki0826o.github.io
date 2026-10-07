@@ -571,7 +571,6 @@ About 要像「介紹自己」，不是 Resume。
 
 ```text
 Firefly Bot
-Minecraft Server Backup
 Miki's Website
 ```
 
@@ -579,11 +578,10 @@ Miki's Website
 
 ```text
 https://github.com/oMiki0826o/Discord-Bot
-https://github.com/oMiki0826o/mc-server-qb-bot-discord
 https://github.com/oMiki0826o/oMiki0826o.github.io
 ```
 
-目前 cover 是柔和文字色塊。
+目前 cover 為柔和處理的實際專案畫面。
 
 後續建議換成：
 
