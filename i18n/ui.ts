@@ -20,7 +20,7 @@ export const ui: Record<Locale, UiCopy> = {
     common: {backHome: '回到首頁', backNotes: '回到文章', backTop: '回到頁面頂端', more: '查看更多 →'},
     sections: {about: '關於我', works: '專案紀錄', notes: '文章與紀錄', timeline: '一路走來'},
     home: {featuredImage: '鎮樓圖', aboutMore: '完整介紹 →', worksMore: '查看更多 →', notesMore: '查看更多 →', timelineMore: '查看完整歷程 →'},
-    pages: {aboutLead: '把想法拆開、做成工具，再慢慢把它修到穩定可用。', projectsTitle: '做過的東西', projectsLead: '正在做的東西，以及一路整理成形的作品。', notesLead: '開發紀錄、踩坑筆記，以及偶爾不那麼技術的東西。', timelineTitle: '一路走來', timelineLead: '一路學、一邊做留下來的紀錄。'},
+    pages: {aboutLead: '警告：此人很神秘，成分很複雜請小心觀賞', projectsTitle: '做過的東西', projectsLead: '正在做的東西，以及一路整理成形的作品。', notesLead: '開發紀錄、踩坑筆記，以及偶爾不那麼技術的東西。', timelineTitle: '一路走來', timelineLead: '一路學、一邊做留下來的紀錄。'},
     notes: {more: '查看更多 →', eyebrow: '文章'},
     player: {label: '音樂播放器', previous: '上一首', next: '下一首', play: '播放', pause: '暫停', progress: '播放進度', volume: '音量'},
     theme: {useLight: '切換為淺色主題', useDark: '切換為深色主題'},

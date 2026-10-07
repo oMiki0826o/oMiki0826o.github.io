@@ -5,6 +5,6 @@ import {SiteFooter} from '@/components/layout/site-footer';
 describe('SiteFooter', () => {
   it('renders a quote', () => {
     render(<SiteFooter locale="zh-TW" />);
-    expect(screen.getByText('人生如逆旅，我亦是行人。')).toBeInTheDocument();
+    expect(screen.getByText('滾滾長江東逝水')).toBeInTheDocument();
   });
 });

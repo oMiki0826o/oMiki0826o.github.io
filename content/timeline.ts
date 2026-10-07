@@ -2,6 +2,7 @@ import type {TimelineItem} from './types';
 
 export const timeline: TimelineItem[] = [
   {
+    pinned: true,
     year: '2026',
     title: {'zh-TW': "Miki's website", en: "Miki's website", ja: "Miki's website"},
     description: {
@@ -20,6 +21,7 @@ export const timeline: TimelineItem[] = [
     }
   },
   {
+    pinned: true,
     year: '2025',
     title: {'zh-TW': '開始開發 Discord Bot', en: 'Started building Discord Bots', ja: 'Discord Botの開発を開始'},
     description: {
@@ -29,6 +31,7 @@ export const timeline: TimelineItem[] = [
     }
   },
   {
+    pinned: true,
     year: '2024',
     title: {'zh-TW': '開始學 Python', en: 'Started learning Python', ja: 'Pythonの学習を開始'},
     description: {
@@ -38,3 +41,5 @@ export const timeline: TimelineItem[] = [
     }
   }
 ];
+
+export const pinnedTimeline = timeline.filter((item) => item.pinned);

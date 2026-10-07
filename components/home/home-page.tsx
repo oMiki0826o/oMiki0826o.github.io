@@ -3,7 +3,7 @@ import type {Locale} from '@/i18n/config';
 import {profile} from '@/content/profile';
 import {projects} from '@/content/projects';
 import {pinnedNotes} from '@/content/notes';
-import {timeline} from '@/content/timeline';
+import {pinnedTimeline} from '@/content/timeline';
 import {localize, localizedPath} from '@/lib/content';
 import {MusicPlayer} from './music-player';
 import {SiteFooter} from '@/components/layout/site-footer';
@@ -102,7 +102,7 @@ export function HomePage({locale}: {locale: Locale}) {
           <small>{copy.sections.timeline}</small>
         </header>
         <div className="timeline">
-          {timeline.map((item) => (
+          {pinnedTimeline.map((item) => (
             <article className="event timeline-reveal" key={`${item.year}-${item.title['zh-TW']}`}>
               <time>{item.year}</time>
               <h3>{localize(item.title, locale)}</h3>

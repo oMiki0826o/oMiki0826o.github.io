@@ -3,9 +3,9 @@ import type {Note} from './types';
 const allNotes: Note[] = [
   {
     slug: 'discord-bot-from-zero',
-    title: {'zh-TW': '從零開始寫 Discord Bot', en: 'Building a Discord Bot from scratch', ja: 'Discord Botをゼロから作る'},
+    title: {'zh-TW': 'Firefly Bot 是怎麼長出來的', en: 'How Firefly Bot grew', ja: 'Firefly Botができるまで'},
     excerpt: {
-      'zh-TW': '第一次把 Bot 從想法做到真的能用時，踩過的坑與後來才懂的事情。',
+      'zh-TW': '從「想做個能播歌的東西」開始，最後一路長成塞滿功能、也得慢慢收拾的 Discord Bot。',
       en: 'The problems and lessons from taking a first Bot from idea to something genuinely useful.',
       ja: '初めてBotをアイデアから実際に使える形まで作ったときの、つまずきと学びの記録。'
     },
@@ -13,17 +13,17 @@ const allNotes: Note[] = [
     category: 'Discord',
     sections: [
       {
-        heading: {'zh-TW': '從一個想法開始', en: 'Starting with an idea', ja: 'ひとつのアイデアから'},
+        heading: {'zh-TW': '起點其實很普通', en: 'Starting with an idea', ja: 'ひとつのアイデアから'},
         paragraphs: {
-          'zh-TW': ['一開始只是想把 Discord 裡重複的小事做得更順一點。從指令、音樂到管理功能，每一項都讓 Bot 慢慢有了實際能幫上忙的地方。'],
+          'zh-TW': ['最早只是想做一隻能放歌、能少打一點指令的 Bot。後來看到什麼麻煩就想塞什麼進去：管理、查資料、Minecraft 相關的小工具，然後它就越來越不像一開始那隻了。'],
           en: ['It began with a wish to make repeated little tasks in Discord smoother. Commands, music, and moderation each gave the Bot a small but practical purpose.'],
           ja: ['最初はDiscordで繰り返す小さな作業を、少しでもスムーズにしたいという思いから始まりました。コマンド、音楽、管理機能を重ねるごとに、Botは少しずつ実用的になっていきました。']
         }
       },
       {
-        heading: {'zh-TW': '邊做邊整理', en: 'Building while learning', ja: '作りながら整える'},
+        heading: {'zh-TW': '功能長太快，才知道要整理', en: 'Building while learning', ja: '作りながら整える'},
         paragraphs: {
-          'zh-TW': ['第一次把想法做成真的能用的工具，也讓我開始在意模組怎麼拆、功能怎麼維護。現在仍持續整理 Firefly Bot 的架構，讓它能慢慢長成更可靠的工具。'],
+          'zh-TW': ['一開始當然是想到就寫，能動就先爽。等功能彼此開始牽線、改一個地方另一邊壞掉，才被迫學著拆模組、留設定、把錯誤講清楚。Firefly Bot 還在收拾，但至少現在比較知道自己在收拾什麼。'],
           en: ['Turning an idea into a useful tool for the first time made structure and maintenance matter. Firefly Bot is still being organized so it can grow into something more reliable.'],
           ja: ['アイデアを実際に使える道具にした最初の経験で、構成の分け方や保守のしやすさを意識するようになりました。Firefly Botは今も整理を続け、少しずつ信頼できる道具に育てています。']
         }
@@ -32,9 +32,9 @@ const allNotes: Note[] = [
   },
   {
     slug: 'about-me',
-    title: {'zh-TW': '簡單的了解我', en: 'A little about me', ja: '私について少し'},
+    title: {'zh-TW': '這個網站不是履歷表', en: 'A little about me', ja: '私について少し'},
     excerpt: {
-      'zh-TW': '最近在做什麼、喜歡什麼，以及這個網站為什麼總是在重做。',
+      'zh-TW': '放一些做過的東西、踩過的坑，還有不想讓它們直接消失的小紀錄。',
       en: 'What I am making lately, what I enjoy, and why this website keeps being rebuilt.',
       ja: '最近作っているもの、好きなこと、そしてこのサイトを何度も作り直している理由。'
     },
@@ -42,17 +42,17 @@ const allNotes: Note[] = [
     category: 'About',
     sections: [
       {
-        heading: {'zh-TW': '做一些真的會用到的東西', en: 'Making things I can use', ja: '実際に使うものを作る'},
+        heading: {'zh-TW': '不是用來裝專業的', en: 'Making things I can use', ja: '実際に使うものを作る'},
         paragraphs: {
-          'zh-TW': ['我喜歡把日常裡的小麻煩整理成自動化的小程式，也喜歡把一個模糊的想法慢慢修成可以使用的工具。Discord Bot、Minecraft 工具、網站和小型自動化，是最近最常碰到的方向。'],
+          'zh-TW': ['這裡沒有要假裝自己是什麼全端大神。Bot、Minecraft 工具、網站和一些不知道以後還會不會碰的東西，都只是剛好做過，或是還沒放棄。'],
           en: ['I like turning everyday friction into small automated programs and refining vague ideas into useful tools. Discord Bots, Minecraft tools, websites, and small automations are the areas I work on most lately.'],
           ja: ['日常の小さな面倒を自動化するプログラムに変え、曖昧なアイデアを少しずつ使える道具に整えるのが好きです。最近はDiscord Bot、Minecraft向けツール、Webサイト、小さな自動化をよく作っています。']
         }
       },
       {
-        heading: {'zh-TW': '把過程留下來', en: 'Keeping the process', ja: '過程を残す'},
+        heading: {'zh-TW': '不想讓做過的東西直接蒸發', en: 'Keeping the process', ja: '過程を残す'},
         paragraphs: {
-          'zh-TW': ['這個網站不是履歷表，而是把作品、文章和一路做過的事放在一起的小空間。它會一直慢慢調整，因為我也想把每次學到的事留下一點痕跡。'],
+          'zh-TW': ['有些東西做完就忘了，有些會被新版蓋掉。這個網站就是留個地方，把還看得下去的作品、文章和一路上的一坨堆在一起。哪天回來看，大概會覺得以前的自己很吵，但至少還找得到。'],
           en: ['This website is not a résumé. It is a small place for work, writing, and the things I have made along the way. It will keep changing slowly because I want to leave a trace of what I learn.'],
           ja: ['このサイトは履歴書ではありません。作品や文章、これまでに作ったものを一緒に置く小さな場所です。学んだことの痕跡を残したいので、これからも少しずつ整えていきます。']
         }

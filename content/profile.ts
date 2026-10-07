@@ -8,12 +8,12 @@ export const profile = {
     ja: 'Miki の小さな世界'
   } satisfies LocalizedText,
   intro: {
-    'zh-TW': '寫程式、做工具、摸 Minecraft，也把一路上的作品與小小紀錄留在這裡。',
+    'zh-TW': '造大餅、搓垃圾、摸 Minecraft，也把一路上的一坨與小小紀錄留在這裡。',
     en: 'I build programs and small tools, explore Minecraft, and keep my work and little notes here.',
     ja: 'プログラムや小さな道具を作り、Minecraftを触りながら、作品と日々の記録を残しています。'
   } satisfies LocalizedText,
   signature: {
-    'zh-TW': '欲買桂花同載酒，終不似，少年遊。',
+    'zh-TW': '滾滾長江東逝水',
     en: 'Small tools, quiet records, and a little wonder.',
     ja: '欲買桂花同載酒，終不似，少年遊。'
   } satisfies LocalizedText,
@@ -53,7 +53,7 @@ export const profile = {
       {heading: '稱呼', paragraphs: ['Miki。']},
       {heading: '簡介', paragraphs: ['高中牲一枚，學測沒救，嚴重百合廚、流螢控。', '畫畫白癡，美感炸裂；成分複雜、要素過多，在哪裡看到我都不奇怪。日文很爛，學習日文學到爆炸。']},
       {heading: '雷點', paragraphs: ['想不到，可能沒有吧。不要太奇怪、太智障就好，厭蠢。']},
-      {heading: '動漫坑', paragraphs: ['首推《關於我轉生變成史萊姆這檔事》，萌王可愛。', '《鄰家天使》、《刀劍神域》、《Unnamed Memory》、《命運石之門》、《不時輕聲地以俄語遮羞的鄰座艾莉同學》、《這個勇者明明超 TUEEE 卻過度謹慎》、《時鐘機關之星》。']},
+      {heading: '動漫坑', paragraphs: ['首推《關於我轉生變成史萊姆這檔事》，萌王可愛。', '《鄰家天使》、《刀劍神域》、《Unnamed Memory》、《命運石之門》、《不時輕聲地以俄語遮羞的鄰座艾莉同學》、《這是你與我最後的戰場，或是世界起始的聖戰》、《時鐘機關之星》。']},
       {heading: '遊戲坑｜Minecraft', paragraphs: ['TMC PvP player，雜食玩家，什麼都爛。CTEC member。']},
       {heading: '遊戲坑｜Memento Mori', paragraphs: ['神祕音樂播放器遊戲。深蹲日服科迪慈懷，都該來聽歌；每日被綠隊大蟑螂打到破防。']},
       {heading: '遊戲坑｜世界計畫', paragraphs: ['普羅洗腳，日台雙修，悠閒遊玩，想到才碰。25 時是頂級團體。']},

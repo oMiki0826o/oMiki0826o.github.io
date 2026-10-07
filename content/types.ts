@@ -26,6 +26,7 @@ export type Note = {
 };
 
 export type TimelineItem = {
+  pinned?: boolean;
   year: string;
   title: LocalizedText;
   description: LocalizedText;

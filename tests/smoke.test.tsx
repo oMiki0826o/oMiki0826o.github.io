@@ -2,7 +2,7 @@ import {render, screen, within} from '@testing-library/react';
 import {describe, expect, it} from 'vitest';
 import RootLayout from '@/app/layout';
 import {HomePage} from '@/components/home/home-page';
-import {timeline} from '@/content/timeline';
+import {pinnedTimeline} from '@/content/timeline';
 import {notes} from '@/content/notes';
 
 describe('RootLayout', () => {
@@ -36,7 +36,7 @@ describe('RootLayout', () => {
   it('marks timeline entries for scroll-based reveal', () => {
     const {container} = render(<HomePage locale="zh-TW" />);
 
-    expect(container.querySelectorAll('.timeline-reveal')).toHaveLength(timeline.length);
+    expect(container.querySelectorAll('.timeline-reveal')).toHaveLength(pinnedTimeline.length);
   });
 
   it('keeps the homepage notes preview to the three pinned records', () => {
