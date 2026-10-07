@@ -25,6 +25,28 @@ test('language navigation preserves the current page path', async ({page}) => {
   await expect(page.getByRole('link', {name: '中'})).toHaveAttribute('href', '/zh-TW/projects/');
 });
 
+test('the navigation drawer identifies, and can close, the current page', async ({page}) => {
+  await page.goto('/zh-TW/about/');
+  await page.getByRole('button', {name: '開啟選單'}).click();
+  await expect(page.getByRole('link', {name: '關於'})).toHaveAttribute('aria-current', 'page');
+  await page.keyboard.press('Escape');
+  await expect(page.locator('.site-menu')).toHaveCount(0);
+
+  await page.getByRole('button', {name: '開啟選單'}).click();
+  await page.locator('.menu-scrim').click({position: {x: 4, y: 4}});
+  await expect(page.locator('.site-menu')).toHaveCount(0);
+});
+
+test('article tools are readable and reduced motion never hides content', async ({page}) => {
+  await page.setViewportSize({width: 390, height: 360});
+  await page.emulateMedia({reducedMotion: 'reduce'});
+  await page.goto('/zh-TW/notes/discord-bot-usage-guide/');
+  await expect(page.locator('.reading-progress')).toBeVisible();
+  await expect(page.locator('.note-article')).toBeVisible();
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await expect(page.getByRole('button', {name: '回到頁面頂端'})).toBeVisible();
+});
+
 test('theme remains dark after a refresh', async ({page}) => {
   await page.goto('/');
   await page.getByRole('button', {name: /深色/}).click();
@@ -47,6 +69,8 @@ test('the narrow homepage has no horizontal overflow and keeps real contact link
 test('the memorial easter egg keeps its standalone layout and click tribute', async ({page}) => {
   await page.goto('/ripmiki/');
   await expect(page.locator('.grave-layout')).toBeVisible();
+  await expect(page.locator('.reading-progress')).toHaveCount(0);
+  await expect(page.locator('.fireflies')).toHaveCount(0);
   await page.mouse.click(120, 180);
   await expect(page.locator('.rip-flower')).toHaveCount(1);
 });
