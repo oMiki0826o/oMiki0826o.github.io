@@ -11,7 +11,7 @@ import {timeline} from '@/content/timeline';
   });
 
   it('keeps only the two current core projects', () => {
-    expect(projects.map((project) => project.slug)).toEqual(['firefly-bot', 'miki-website']);
+    expect(projects.map((project) => project.slug)).toEqual(['discord-bot', 'miki-website']);
   });
 
   it('gives every project an authentic local cover image', () => {

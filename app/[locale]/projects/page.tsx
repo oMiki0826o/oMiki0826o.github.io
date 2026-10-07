@@ -5,6 +5,8 @@ import {ContentPage} from '@/components/layout/content-page';
 import type {Metadata} from 'next';
 import {buildPageMetadata} from '@/lib/metadata';
 import {ui} from '@/i18n/ui';
+import Link from 'next/link';
+import {localizedPath} from '@/lib/content';
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}): Promise<Metadata> {
   const {locale: rawLocale} = await params;
@@ -29,7 +31,7 @@ export default async function ProjectsPage({params}: {params: Promise<{locale: s
               <img src={project.image} alt="" loading="lazy" />
             </a>
             <small>{project.tags.join(' · ')}</small>
-            <h2>{localize(project.title, locale)}</h2>
+            <h2><Link href={localizedPath(locale, `/projects/${project.slug}`)}>{localize(project.title, locale)}</Link></h2>
             <p>{localize(project.description, locale)}</p>
             <a href={project.url} target="_blank" rel="noreferrer">GitHub →</a>
           </article>

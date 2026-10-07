@@ -2,7 +2,7 @@ import type {Project} from './types';
 
 export const projects: Project[] = [
   {
-    slug: 'firefly-bot',
+    slug: 'discord-bot',
     title: {'zh-TW': 'Firefly Bot', en: 'Firefly Bot', ja: 'Firefly Bot'},
     description: {
       'zh-TW': '整合音樂、管理、自動化與 AI 對話的 Discord Bot，持續整理模組架構與可靠性。',
