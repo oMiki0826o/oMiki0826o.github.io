@@ -52,8 +52,9 @@ export default async function NotePage({params}: {params: Promise<{locale: strin
         mainEntityOfPage: new URL(pathname, siteUrl).toString(),
         author: {'@type': 'Person', name: 'Miki'}
       }} />
+      {note.sections.length > 2 ? <nav className="note-toc" aria-label={ui[locale].notes.toc}><span>{ui[locale].notes.toc}</span>{note.sections.map((section, index) => <a href={`#note-section-${index + 1}`} key={section.heading['zh-TW']}>{String(index + 1).padStart(2, '0')} {localize(section.heading, locale)}</a>)}</nav> : null}
       <article className="prose note-article">
-        {note.sections.map((section) => <section key={section.heading['zh-TW']}><h2>{localize(section.heading, locale)}</h2>{section.paragraphs[locale].map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</section>)}
+        {note.sections.map((section, index) => <section id={`note-section-${index + 1}`} key={section.heading['zh-TW']}><h2>{localize(section.heading, locale)}</h2>{section.paragraphs[locale].map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</section>)}
       </article>
       {relatedNotes.length > 0 ? <aside className="related-notes" aria-label={ui[locale].notes.related}>
         <h2>{ui[locale].notes.related}</h2>
