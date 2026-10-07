@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest';
 import {estimateReadingMinutes} from '@/lib/note-metadata';
-import {getNote} from '@/content/notes';
+import {getNote} from '@/content/notes/index';
 
 describe('note metadata', () => {
   it('always gives a populated note at least one minute of reading time', () => {

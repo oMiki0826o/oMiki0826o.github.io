@@ -1,7 +1,7 @@
 import {fireEvent, render, screen, within} from '@testing-library/react';
 import {describe, expect, it} from 'vitest';
 import {NotesIndex} from '@/components/notes/notes-index';
-import {featuredNote, notes} from '@/content/notes';
+import {featuredNote, notes} from '@/content/notes/index';
 
 describe('NotesIndex', () => {
   it('filters the editorial list without hiding the selected note', () => {

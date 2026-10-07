@@ -1,4 +1,4 @@
-import {notes} from '@/content/notes';
+import {notes} from '@/content/notes/index';
 
 export const dynamic = 'force-static';
 

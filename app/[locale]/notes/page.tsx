@@ -1,5 +1,5 @@
 import {resolveLocale} from '@/i18n/config';
-import {featuredNote, notes} from '@/content/notes';
+import {featuredNote, notes} from '@/content/notes/index';
 import {ContentPage} from '@/components/layout/content-page';
 import {ui} from '@/i18n/ui';
 import type {Metadata} from 'next';

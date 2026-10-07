@@ -22,4 +22,4 @@ content/notes/
 
 Markdown 檔案只放對應語言的正文。`content/notes/index.ts` 集中匯入 metadata，`notes-loader.ts` 在建置時讀取三語正文；頁面、RSS、閱讀時間與 sitemap 都從同一個 content loader 讀取，新增文章時不需要修改頁面元件。
 
-根目錄的 `content/notes.ts` 只保留相容性 re-export，讓既有測試與元件匯入路徑不必一次改完；所有實際內容都在各自的 Markdown 檔案中，不會產生兩份公開頁面。
+網站與測試都直接從 `content/notes/index.ts` 讀取；所有實際內容都在各自的 Markdown 檔案中，不會產生兩份公開頁面。

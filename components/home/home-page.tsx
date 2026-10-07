@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type {Locale} from '@/i18n/config';
 import {profile} from '@/content/profile';
 import {projects} from '@/content/projects';
-import {pinnedNotes} from '@/content/notes';
+import {pinnedNotes} from '@/content/notes/index';
 import {pinnedTimeline} from '@/content/timeline';
 import {localize, localizedPath} from '@/lib/content';
 import {MusicPlayer} from './music-player';

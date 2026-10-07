@@ -2,7 +2,7 @@ import {describe, expect, it} from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 import {locales} from '@/i18n/config';
-import {getNote, notes} from '@/content/notes';
+import {getNote, notes} from '@/content/notes/index';
 import {generateStaticParams} from '@/app/[locale]/notes/[slug]/page';
 
 describe('note content', () => {

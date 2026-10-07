@@ -2,7 +2,7 @@ import {notFound} from 'next/navigation';
 import Link from 'next/link';
 import type {Metadata} from 'next';
 import {locales, resolveLocale} from '@/i18n/config';
-import {getNote, notes} from '@/content/notes';
+import {getNote, notes} from '@/content/notes/index';
 import {localize, localizedPath} from '@/lib/content';
 import {buildPageMetadata, siteUrl} from '@/lib/metadata';
 import {ui} from '@/i18n/ui';

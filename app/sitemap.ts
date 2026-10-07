@@ -1,7 +1,7 @@
 import type {MetadataRoute} from 'next';
 import {locales} from '@/i18n/config';
 import {localizedUrl, siteUrl} from '@/lib/metadata';
-import {notes} from '@/content/notes';
+import {notes} from '@/content/notes/index';
 
 export const dynamic = 'force-static';
 

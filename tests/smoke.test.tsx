@@ -3,7 +3,7 @@ import {describe, expect, it} from 'vitest';
 import RootLayout from '@/app/layout';
 import {HomePage} from '@/components/home/home-page';
 import {pinnedTimeline} from '@/content/timeline';
-import {notes} from '@/content/notes';
+import {notes} from '@/content/notes/index';
 import AboutPage from '@/app/[locale]/about/page';
 import ProjectsPage from '@/app/[locale]/projects/page';
 import NotePage from '@/app/[locale]/notes/[slug]/page';
