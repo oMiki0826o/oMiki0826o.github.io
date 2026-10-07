@@ -12,7 +12,8 @@ export function ContentPage({
   lead,
   backHref,
   backLabel,
-  children
+  children,
+  fixedChildren
 }: {
   locale: Locale;
   eyebrow: string;
@@ -21,6 +22,7 @@ export function ContentPage({
   backHref?: string;
   backLabel?: string;
   children: React.ReactNode;
+  fixedChildren?: React.ReactNode;
 }) {
   return (
     <main className="content-page">
@@ -29,6 +31,7 @@ export function ContentPage({
       <h1>{title}</h1>
       <p className="content-lead">{lead}</p>
       <ScrollReveal>{children}</ScrollReveal>
+      {fixedChildren}
       <SiteFooter locale={locale} />
     </main>
   );
