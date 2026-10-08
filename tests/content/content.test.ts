@@ -3,7 +3,7 @@ import {profile} from '@/content/profile';
 import {pinnedProjects, projects} from '@/content/projects';
 import {timeline} from '@/content/timeline';
 import {getProjectDetail} from '@/content/project-details';
-import {calculatePearlCannon, createPearlSettings, genericFtlVersions} from '@/lib/pearl-calculator';
+import {calculatePearlCannon, createPearlSettings, genericFtlVersions, validatePearlSettings} from '@/lib/pearl-calculator';
 
  describe('site content', () => {
   it('keeps the 5.x homepage identity', () => {
@@ -53,5 +53,10 @@ import {calculatePearlCannon, createPearlSettings, genericFtlVersions} from '@/l
   it('keeps generic FTL presets extensible without changing the UI inputs', () => {
     expect(genericFtlVersions.length).toBeGreaterThanOrEqual(3);
     expect(createPearlSettings({maxCharge: 80}).maxCharge).toBe(80);
+  });
+
+  it('rejects invalid FTL settings before simulation', () => {
+    expect(validatePearlSettings(createPearlSettings({maxCharge: 0}))).toContain('最大當量');
+    expect(calculatePearlCannon([0, 170, 0], [1000, 1000], createPearlSettings({maxCharge: 0}))).toEqual([]);
   });
 });
