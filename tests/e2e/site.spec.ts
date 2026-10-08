@@ -75,14 +75,15 @@ test('the narrow homepage has no horizontal overflow and keeps real contact link
   await expect(page.getByRole('link', {name: 'Discord: miki._.0826'})).toHaveAttribute('href', 'https://discord.com/users/839381498351190036');
 });
 
-test('the home project preview balances two real projects on desktop', async ({page}) => {
+test('the home project preview balances the pinned projects on desktop', async ({page}) => {
   await page.setViewportSize({width: 1180, height: 800});
   await page.goto('/');
   const cards = page.locator('.projects .project');
-  await expect(cards).toHaveCount(2);
-  const [first, second] = await Promise.all([cards.nth(0).boundingBox(), cards.nth(1).boundingBox()]);
-  expect(first?.width).toBeGreaterThan(300);
-  expect(second?.x).toBeGreaterThan((first?.x ?? 0) + (first?.width ?? 0));
+  await expect(cards).toHaveCount(3);
+  const boxes = await Promise.all([0, 1, 2].map((index) => cards.nth(index).boundingBox()));
+  for (const box of boxes) expect(box?.width).toBeGreaterThan(230);
+  expect(boxes[1]?.x).toBeGreaterThan((boxes[0]?.x ?? 0) + (boxes[0]?.width ?? 0));
+  expect(boxes[2]?.x).toBeGreaterThan((boxes[1]?.x ?? 0) + (boxes[1]?.width ?? 0));
 });
 
 test('the memorial easter egg keeps its standalone layout and click tribute', async ({page}) => {
