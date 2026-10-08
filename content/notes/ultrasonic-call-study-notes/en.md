@@ -35,3 +35,11 @@ A research log cannot stop at “they called” or “they called more.” Separ
 ## What the result can support
 
 This record is best read as a research exercise: establish a repeatable classification, then ask whether different odours accompany changes in call structure. Sample size, individual variation, age, and recording conditions all affect the result. A next round should add repeated observations and preserve exclusions and uncertainty alongside the analysis.
+
+## From a log to a publication
+
+A publication is not a raw lab notebook pasted online. It gives the reader a path: why the question mattered, what stimulus and recording setup were used, how the data was segmented, and what the result can actually support. Each figure should answer a specific question.
+
+Keep original recordings, annotation tables, and cleaned data as separate layers. Every deletion or merge should have a reason. A careful report also states what it cannot answer: a frequency difference may reflect the stimulus, age, activity, or microphone distance.
+
+The useful conclusion is a reusable method: fix the conditions, preserve raw data, describe observations before interpretations, and record uncertainty with the next step. That is more valuable than a polished answer nobody else can reproduce.

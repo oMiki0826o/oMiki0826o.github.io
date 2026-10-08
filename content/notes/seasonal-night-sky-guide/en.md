@@ -37,3 +37,11 @@ Different objects need different conditions. Nebulae benefit from a dark sky, cl
 ## A complete observing session
 
 Let your eyes adjust, find one bright landmark, use a chart to confirm the surrounding pattern, then choose one deep-sky target. Write down the date, place, cloud cover, Moon, and equipment afterward. After a few sessions, those small notes become a personal map of the sky.
+
+## Turning observation into a repeatable process
+
+Keep the same small fields each time: date, location, transparency, light pollution, Moon phase, equipment, and target height. The record does not need to look like a paper; it only needs to let a future version of you reconstruct the conditions.
+
+Begin with one bright landmark and follow the chart from there. The lines between stars are a memory aid, not a claim that the stars are physically related. For a cluster or nebula, start with a wide field and increase magnification only after the target is located.
+
+“I could not see it” is useful information. Moonlight, cloud, city glow, target altitude, and dark adaptation all change what the eye can detect. Following one seasonal target for several weeks can reveal changes in rising time and position.
