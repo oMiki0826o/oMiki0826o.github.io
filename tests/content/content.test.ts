@@ -24,6 +24,12 @@ import {getProjectDetail} from '@/content/project-details';
     ]);
   });
 
+  it('keeps every project linked to a detail page', () => {
+    for (const project of projects) {
+      expect(getProjectDetail(project.slug)).toBeDefined();
+    }
+  });
+
   it('gives every project an authentic local cover image', () => {
     for (const project of projects) {
       expect(project.image).toMatch(/^\/assets\/projects\/.+\.(png|jpg|jpeg|webp)$/);

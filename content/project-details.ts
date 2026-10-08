@@ -21,6 +21,19 @@ export const projectDetails: ProjectDetail[] = [{
     {heading: {'zh-TW': '這個作品真正留下的東西', en: 'What the project leaves behind', ja: 'この作品に残ったもの'}, body: {'zh-TW': '功能清單會隨時間改變，但真正留下的是一套面對變更的習慣：先劃出邊界，再保存狀態，最後讓錯誤有地方可追。Firefly Bot 仍在開發中，但已經從一次性的練習變成可以持續整理的專案。', en: 'Feature lists will change, but the lasting result is a way to handle change: draw boundaries, preserve state, and leave errors somewhere traceable. Firefly Bot is still under development, yet it has become a project I can return to and improve.', ja: '機能一覧は変わりますが、残ったのは変化に向き合う習慣です。境界を決め、状態を保存し、エラーを追える場所に残す。Firefly Botは開発途中ですが、何度でも戻って整理できるプロジェクトになりました。'}},
   ]
 }, {
+  slug: 'miki-website',
+  title: {'zh-TW': "Miki's Website", en: "Miki's Website", ja: "Miki's Website"},
+  lead: {
+    'zh-TW': '一個慢慢整理成形的個人網站：保留螢火蟲與留白，也讓作品與筆記有地方可以繼續長大。',
+    en: 'A personal site shaped slowly over time: keeping the fireflies and quiet space while giving works and notes room to grow.',
+    ja: '蛍と余白の空気を残しながら、作品と記録が少しずつ育つ場所として整えている個人サイトです。'
+  },
+  sections: [
+    {heading: {'zh-TW': '從舊站留下來的東西', en: 'What stayed from the old site', ja: '旧サイトから残したもの'}, body: {'zh-TW': '這個網站不是從一張空白模板開始，而是從幾次重做與部署失敗裡慢慢留下來。淺藍、薄荷、暖色字與螢火蟲，都是比框架更早存在的語氣。', en: 'This site did not begin as a blank template. It grew through several rewrites and failed deployments. The pale blue, mint, warm accents, and fireflies existed before the framework.', ja: 'このサイトは空のテンプレートから始まったのではなく、何度も作り直し、失敗したデプロイを越えて残ったものです。淡い青、ミント、暖色の文字、蛍はフレームワークより先にありました。'}},
+    {heading: {'zh-TW': '內容與畫面分開', en: 'Content apart from presentation', ja: '内容と画面を分ける'}, body: {'zh-TW': '作品、文章、歷程與三語文案放在各自的 content 與 i18n 資料層，頁面元件只負責把它們排成可閱讀的樣子。新增一篇文章或一個作品，不需要重新複製整頁 JSX。', en: 'Works, notes, timeline entries, and localized copy live in their content layers. Page components focus on arranging them for reading, so a new note or project does not require duplicating page JSX.', ja: '作品、記録、Timeline、三言語の文言はそれぞれのcontentとi18n層に置き、ページのコンポーネントは読みやすく並べることに集中します。'}},
+    {heading: {'zh-TW': '靜態，但不是靜止', en: 'Static, not stagnant', ja: '静的でも止まってはいない'}, body: {'zh-TW': '網站以 Static Export 部署到 GitHub Pages，不依賴伺服器或資料庫。這讓它可以長期放著運作，也能在有新作品、新文章或新彩蛋時，透過一次建置留下變化。', en: 'The site is deployed as a static export on GitHub Pages, without a server or database. It can stay reliable for a long time while still changing whenever a new work, note, or small secret is built.', ja: 'GitHub PagesへStatic Exportとしてデプロイし、サーバーやデータベースに依存しません。長く安定して置きながら、新しい作品や記録、小さな仕掛けをビルドのたびに残せます。'}}
+  ]
+}, {
   slug: 'cipher-tool',
   title: {'zh-TW': 'CipherTool', en: 'CipherTool', ja: 'CipherTool'},
   lead: {
