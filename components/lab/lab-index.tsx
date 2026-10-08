@@ -3,7 +3,7 @@
 import {useState} from 'react';
 
 const entries = [
-  {number: '01', title: 'Minecraft tools', text: '一些會慢慢長出來的計算器與小工具。', detail: '第一個工具是主世界與地獄之間的座標換算，之後再慢慢補上漏斗吞吐量與箱子容量。', state: 'open'},
+  {number: '01', title: 'Pearl cannon calculator', text: '把實際珍珠砲計算邏輯搬進瀏覽器。', detail: '輸入 84gt 珍珠位置、目標座標與地面高度，搜尋誤差最小的 TNT 配置。', state: 'open'},
   {number: '02', title: 'Astro compare', text: '把照片處理前後放在同一片天空下。', detail: '拖曳照片中間的分界線，比較原始影像與處理後的差異。', state: 'soon'},
   {number: '03', title: 'Small strange things', text: '沒有用途，但我想知道它能不能動。', detail: '第一個已經可以玩的東西在下面：一條不太聰明的貪食蛇。', state: 'open'}
 ];
