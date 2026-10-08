@@ -2,6 +2,7 @@ import {describe, expect, it} from 'vitest';
 import {profile} from '@/content/profile';
 import {projects} from '@/content/projects';
 import {timeline} from '@/content/timeline';
+import {getProjectDetail} from '@/content/project-details';
 
  describe('site content', () => {
   it('keeps the 5.x homepage identity', () => {
@@ -12,6 +13,14 @@ import {timeline} from '@/content/timeline';
 
   it('keeps only the two current core projects', () => {
     expect(projects.map((project) => project.slug)).toEqual(['discord-bot', 'miki-website']);
+  });
+
+  it('connects the Discord Bot project with its notes', () => {
+    expect(getProjectDetail('discord-bot')?.relatedNoteSlugs).toEqual([
+      'discord-bot-from-zero',
+      'discord-bot-usage-guide',
+      'discord-bot-mod-guide'
+    ]);
   });
 
   it('gives every project an authentic local cover image', () => {

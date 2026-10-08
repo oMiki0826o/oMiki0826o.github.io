@@ -1,6 +1,6 @@
 import type {LocalizedText} from './types';
 
-export type ProjectDetail = {slug: string; title: LocalizedText; lead: LocalizedText; sections: Array<{heading: LocalizedText; body: LocalizedText}>};
+export type ProjectDetail = {slug: string; title: LocalizedText; lead: LocalizedText; relatedNoteSlugs?: readonly string[]; sections: Array<{heading: LocalizedText; body: LocalizedText}>};
 
 export const projectDetails: ProjectDetail[] = [{
   slug: 'discord-bot',
@@ -10,6 +10,7 @@ export const projectDetails: ProjectDetail[] = [{
     en: 'A Discord Bot that started as something that worked, then slowly became something maintainable.',
     ja: '動けば十分だったところから、少しずつ保守できる形へ整理しているDiscord Botです。'
   },
+  relatedNoteSlugs: ['discord-bot-from-zero', 'discord-bot-usage-guide', 'discord-bot-mod-guide'],
   sections: [
     {heading: {'zh-TW': '為什麼做', en: 'Why', ja: 'なぜ作ったか'}, body: {'zh-TW': '最初只是想把腦中的功能做出來：音樂、管理、自動化，還有一些不太安分的想法。功能越長越多後，真正的問題變成怎麼讓它不要互相拖垮。', en: 'It began with a few ideas: music, moderation, automation, and experiments. As the bot grew, the real problem became keeping each feature from pulling the others apart.', ja: '音楽、管理、自動化、そしていくつかの実験を形にしたかったのが始まりです。機能が増えると、互いに壊し合わずに保つことが課題になりました。'}},
     {heading: {'zh-TW': '架構整理', en: 'Architecture', ja: '構成'}, body: {'zh-TW': '把核心啟動流程、extension 載入、設定、資料庫與各個模組分開。extension.py 負責組裝，模組自己管理功能，核心不需要知道每個功能的細節。', en: 'The startup flow, extension loading, settings, database, and features are separated. The assembly layer wires things together while the core stays unaware of each module’s details.', ja: '起動処理、extensionの読み込み、設定、データベース、各機能を分けています。組み立て役が接続し、Coreは各モジュールの細部を知りません。'}},
