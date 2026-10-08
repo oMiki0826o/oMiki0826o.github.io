@@ -67,14 +67,14 @@ export function HomePage({locale}: {locale: Locale}) {
         </header>
         <div className="projects">
           {pinnedProjects.map((project) => (
-            <a className={`project project-${project.tone}`} href={project.url} target="_blank" rel="noreferrer" key={project.slug}>
+            <Link className={`project project-${project.tone}`} href={localizedPath(locale, `/projects/${project.slug}`)} key={project.slug}>
               <div className="project-cover"><img src={project.image} alt={localize(project.title, locale)} loading="lazy" /></div>
               <div className="project-body">
                 <small>{project.tags.join(' / ')}</small>
                 <h3>{localize(project.title, locale)}</h3>
                 <p>{localize(project.description, locale)}</p>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
         <Link className="more-button" href={localizedPath(locale, '/projects')}>{copy.home.worksMore}</Link>
