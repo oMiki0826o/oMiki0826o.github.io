@@ -1,30 +1,25 @@
-export type PearlDirection = 'N' | 'S' | 'E' | 'W';
-export type PearlFtlMode = 'generic' | 'custom';
 export type PearlGameVersion = '1.11–1.21.1' | '1.21.2+';
-export type PearlSettings = {gravity: number; airResistance: number; tntXZ: number; tntY: number; initialY: number; maxCharge: number; groundY: number};
-export type PearlResult = {rank: number; totalTick: number; direction: PearlDirection; sideA: number; sideB: number; code: string; landX: number; landY: number; landZ: number; error: number};
+export type PearlSettings = {gameVersion: PearlGameVersion; maxCharge: number; maxTicks: number; maxDistance: number; northWestTnt: [number, number, number]; northEastTnt: [number, number, number]; southWestTnt: [number, number, number]; southEastTnt: [number, number, number]; gravity: number; airResistance: number};
+export type PearlResult = {rank: number; tick: number; totalTnt: number; red: number; blue: number; direction: 'N' | 'S' | 'E' | 'W'; landX: number; landY: number; landZ: number; error: number; redCode: number[]; blueCode: number[]};
 
-const weights = [80, 40, 20, 10, 4, 3, 2, 1];
-const toBits = (value: number) => { let rest = Math.abs(value); return weights.map((weight) => { if (rest >= weight) { rest -= weight; return '1'; } return '0'; }).join(''); };
+const defaults: PearlSettings = {gameVersion: '1.11–1.21.1', maxCharge: 160, maxTicks: 200, maxDistance: 5, northWestTnt: [-0.885, 170.5, -0.885], northEastTnt: [0.885, 170.5, -0.885], southWestTnt: [-0.885, 170.5, 0.885], southEastTnt: [0.885, 170.5, 0.885], gravity: 0.03, airResistance: 0.99};
+export const genericFtlVersions = ['1.11–1.21.1', '1.21.2+'] as const;
+export const createPearlSettings = (overrides: Partial<PearlSettings> = {}): PearlSettings => ({...defaults, ...overrides});
+export function validatePearlSettings(settings: PearlSettings): string | null { if (settings.maxCharge <= 0 || !Number.isFinite(settings.maxCharge)) return '單側最大當量必須大於 0。'; if (settings.maxTicks < 1 || settings.maxTicks > 500) return '搜尋 tick 必須介於 1 與 500。'; if (settings.maxDistance <= 0) return '最大誤差必須大於 0。'; return null; }
 
-export const defaultPearlSettings: PearlSettings = {gravity: 0.03, airResistance: 0.9899999499320984, tntXZ: 0.6026793588895138, tntY: 0.004435058914919521, initialY: -0.340740225070415, maxCharge: 160, groundY: 128};
+type Vec = [number, number, number];
+const add = (a: Vec, b: Vec): Vec => [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
+const sub = (a: Vec, b: Vec): Vec => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+const mul = (a: Vec, n: number): Vec => [a[0] * n, a[1] * n, a[2] * n];
+const length = (a: Vec) => Math.hypot(a[0], a[1], a[2]);
+function tntMotion(pearl: Vec, tnt: Vec, version: PearlGameVersion): Vec { const adjusted: Vec = [tnt[0], tnt[1] + 0.98 * 0.0625, tnt[2]]; const distance = sub(pearl, adjusted); const d12 = length(distance) / 8; const vector: Vec = [distance[0], pearl[1] + 0.85 * 0.25 - adjusted[1], distance[2]]; const d13 = length(vector); const factor = 1 - d12; return mul(mul(vector, 1 / d13), factor * (version === '1.11–1.21.1' ? 1 : 1)); }
+function direction(dx: number, dz: number): 'N' | 'S' | 'E' | 'W' { if (Math.abs(dx) >= Math.abs(dz)) return dx > 0 ? 'E' : 'W'; return dz > 0 ? 'S' : 'N'; }
+function vectors(pearl: Vec, dir: 'N' | 'S' | 'E' | 'W', settings: PearlSettings): [Vec, Vec] { const red = dir === 'N' || dir === 'S' ? settings.southEastTnt : settings.southWestTnt; const blue = dir === 'N' || dir === 'S' ? settings.northWestTnt : settings.northEastTnt; return [tntMotion(pearl, red, settings.gameVersion), tntMotion(pearl, blue, settings.gameVersion)]; }
+function tick(position: Vec, motion: Vec, version: PearlGameVersion): [Vec, Vec] { let nextMotion = motion; let nextPosition = position; if (version === '1.11–1.21.1') { nextPosition = add(position, motion); nextMotion = [motion[0] * 0.99, motion[1] * 0.99 - 0.03, motion[2] * 0.99]; } else { nextMotion = [motion[0] * 0.99, (motion[1] - 0.03) * 0.99, motion[2] * 0.99]; nextPosition = add(position, nextMotion); } return [nextPosition, nextMotion]; }
+const encode = (n: number) => { let rest = Math.abs(n); return [80, 40, 20, 10, 4, 3, 2, 1].filter((weight) => { if (rest >= weight) { rest -= weight; return true; } return false; }); };
 
-export const genericFtlVersions: readonly PearlGameVersion[] = ['1.11–1.21.1', '1.21.2+'];
-
-export function createPearlSettings(overrides: Partial<PearlSettings> = {}): PearlSettings {
-  return {...defaultPearlSettings, ...overrides};
-}
-
-export function validatePearlSettings(settings: PearlSettings): string | null {
-  if (settings.maxCharge <= 0 || !Number.isFinite(settings.maxCharge)) return '單側最大當量必須大於 0。';
-  if (settings.airResistance <= 0 || settings.airResistance >= 1) return '空氣阻力必須介於 0 與 1 之間。';
-  if (settings.groundY >= 1000 || !Number.isFinite(settings.groundY)) return '地面高度不是有效數值。';
-  return null;
-}
-
-export function calculatePearlCannon(projected: [number, number, number], target: [number, number], settings: PearlSettings = defaultPearlSettings): PearlResult[] {
-  if (validatePearlSettings(settings)) return [];
-  const [px, py, pz] = projected; const [targetX, targetZ] = target; const dx = targetX - px; const dz = targetZ - pz; const direction: PearlDirection = Math.abs(dx) >= Math.abs(dz) ? (dx > 0 ? 'E' : 'W') : (dz > 0 ? 'S' : 'N'); const directionBits = {N: '00', W: '01', E: '10', S: '11'}[direction]; const candidates: Array<{error: number; tick: number; m: number; n: number; code: string; x: number; y: number; z: number}> = [];
-  for (let tick = 1; tick <= 200; tick += 1) { const kp = 2 * settings.tntXZ * ((settings.airResistance - settings.airResistance ** (tick + 1)) / (1 - settings.airResistance)); let m: number; let n: number; let mx: number; let mz: number; if (direction === 'N' || direction === 'S') { m = Math.round((dx + dz) / kp); n = Math.round((dz - dx) / kp); if (direction === 'N') [m, n] = [n, m]; mx = (Math.abs(m) - Math.abs(n)) * settings.tntXZ; mz = (m + n) * settings.tntXZ; } else { m = Math.round((dx + dz) / kp); n = Math.round((dx - dz) / kp); if (direction === 'W') [m, n] = [n, m]; mx = (m + n) * settings.tntXZ; mz = (Math.abs(m) - Math.abs(n)) * settings.tntXZ; } if (Math.abs(m) > settings.maxCharge || Math.abs(n) > settings.maxCharge) continue; let x = px; let y = py; let z = pz; let my = Math.abs(m + n) * settings.tntY + settings.initialY; for (let step = 0; step < tick; step += 1) { mx *= settings.airResistance; my = (my - settings.gravity) * settings.airResistance; mz *= settings.airResistance; x += mx; y += my; z += mz; } if (y > settings.groundY) continue; candidates.push({error: Math.hypot(x - targetX, z - targetZ), tick, m, n, x, y, z, code: `${toBits(n).split('').reverse().join('')} ${directionBits} ${toBits(m)}`}); }
-  return candidates.sort((a, b) => a.error - b.error).slice(0, 10).map((item, index) => ({rank: index + 1, totalTick: item.tick + 84, direction, sideA: Math.abs(item.m), sideB: Math.abs(item.n), code: item.code, landX: item.x, landY: item.y, landZ: item.z, error: item.error}));
+export function calculatePearlCannon(projected: Vec, target: [number, number], settings: PearlSettings = defaults): PearlResult[] {
+  if (validatePearlSettings(settings)) return []; const [targetX, targetZ] = target; const dx = targetX - projected[0]; const dz = targetZ - projected[2]; const dir = direction(dx, dz); const [redVector, blueVector] = vectors(projected, dir, settings); const denominator = redVector[2] * blueVector[0] - blueVector[2] * redVector[0]; if (denominator === 0) return []; const distance: Vec = [dx, 0, dz]; const trueRed = (distance[2] * blueVector[0] - distance[0] * blueVector[2]) / denominator; const trueBlue = (distance[0] - trueRed * redVector[0]) / blueVector[0]; const results: PearlResult[] = []; let divider = 0;
+  for (let currentTick = 1; currentTick <= settings.maxTicks; currentTick += 1) { divider += Math.pow(settings.airResistance, currentTick - (settings.gameVersion === '1.11–1.21.1' ? 1 : 0)); const redBase = Math.trunc(trueRed / divider); const blueBase = Math.trunc(trueBlue / divider); for (let redAdjust = -5; redAdjust <= 5; redAdjust += 1) for (let blueAdjust = -5; blueAdjust <= 5; blueAdjust += 1) { const red = redBase + redAdjust; const blue = blueBase + blueAdjust; if (red < 0 || blue < 0 || red > settings.maxCharge || blue > settings.maxCharge) continue; let position = [...projected] as Vec; let motion = add(mul(redVector, red), mul(blueVector, blue)); for (let step = 0; step < currentTick; step += 1) [position, motion] = tick(position, motion, settings.gameVersion); const error = Math.hypot(position[0] - targetX, position[2] - targetZ); if (error <= settings.maxDistance) results.push({rank: 0, tick: currentTick, totalTnt: red + blue, red, blue, direction: dir, landX: position[0], landY: position[1], landZ: position[2], error, redCode: encode(red), blueCode: encode(blue)}); } }
+  return results.sort((a, b) => a.error - b.error || a.totalTnt - b.totalTnt).slice(0, 10).map((result, index) => ({...result, rank: index + 1}));
 }

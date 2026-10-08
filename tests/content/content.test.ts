@@ -46,8 +46,8 @@ import {calculatePearlCannon, createPearlSettings, genericFtlVersions, validateP
     const results = calculatePearlCannon([0, 170, 0], [1000, 1000]);
     expect(results.length).toBeGreaterThan(0);
     expect(results[0]?.direction).toBe('E');
-    expect(results[0]?.sideA).toBeTypeOf('number');
-    expect(results[0]?.sideB).toBeTypeOf('number');
+    expect(results[0]?.red).toBeTypeOf('number');
+    expect(results[0]?.blue).toBeTypeOf('number');
   });
 
   it('keeps generic FTL presets extensible without changing the UI inputs', () => {
