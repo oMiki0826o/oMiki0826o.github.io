@@ -45,3 +45,7 @@ Keep the same small fields each time: date, location, transparency, light pollut
 Begin with one bright landmark and follow the chart from there. The lines between stars are a memory aid, not a claim that the stars are physically related. For a cluster or nebula, start with a wide field and increase magnification only after the target is located.
 
 “I could not see it” is useful information. Moonlight, cloud, city glow, target altitude, and dark adaptation all change what the eye can detect. Following one seasonal target for several weeks can reveal changes in rising time and position.
+
+## Keeping the record useful
+
+Write down both what was visible and what prevented a clear view. A short, honest record is easier to compare than a confident memory.

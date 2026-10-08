@@ -43,3 +43,7 @@ A publication is not a raw lab notebook pasted online. It gives the reader a pat
 Keep original recordings, annotation tables, and cleaned data as separate layers. Every deletion or merge should have a reason. A careful report also states what it cannot answer: a frequency difference may reflect the stimulus, age, activity, or microphone distance.
 
 The useful conclusion is a reusable method: fix the conditions, preserve raw data, describe observations before interpretations, and record uncertainty with the next step. That is more valuable than a polished answer nobody else can reproduce.
+
+## A record that can be continued
+
+The next observer should be able to tell which parts are measurements, which parts are interpretations, and which questions remain open. That clarity is part of the result.
