@@ -3,7 +3,8 @@ import {LabIndex} from '@/components/lab/lab-index';
 
 export const metadata: Metadata = {
   title: 'Lab',
-  description: 'A small collection of experiments, tools, and things that did not need to exist.'
+  description: 'A small collection of experiments, tools, and things that did not need to exist.',
+  robots: {index: false, follow: false}
 };
 
 export default function LabPage() {

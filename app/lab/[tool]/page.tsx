@@ -13,7 +13,7 @@ export function generateStaticParams() { return tools.map((tool) => ({tool})); }
 export async function generateMetadata({params}: {params: Promise<{tool: string}>}): Promise<Metadata> {
   const {tool} = await params;
   const titles: Record<string, string> = {'pearl-cannon': 'Pearl cannon calculator', 'astro-compare': 'Astro compare', snake: 'Snake', 'github-galaxy': 'GitHub galaxy'};
-  return {title: titles[tool] ?? 'Lab'};
+  return {title: titles[tool] ?? 'Lab', robots: {index: false, follow: false}};
 }
 
 function titleFor(tool: Tool) { return ({'pearl-cannon': 'Pearl cannon calculator', 'astro-compare': 'Astro compare', snake: 'Snake', 'github-galaxy': 'GitHub galaxy'} as const)[tool]; }

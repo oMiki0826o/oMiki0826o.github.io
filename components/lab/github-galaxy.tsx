@@ -1,3 +1,16 @@
 import type {CSSProperties} from 'react';
-const repos = [{name: 'Discord Bot', language: 'Python', size: 1.15, color: '#d3a16e'}, {name: 'Miki Website', language: 'TypeScript', size: .9, color: '#a8c5b4'}, {name: 'CipherTool', language: 'Python', size: .68, color: '#9ec3db'}, {name: 'AI Development Governance', language: 'Python', size: .52, color: '#75857e'}];
-export function GithubGalaxy() { return <section className="github-galaxy" id="github-galaxy" aria-labelledby="galaxy-title"><div className="tool-heading"><div><p className="lab-eyebrow">LAB / 04</p><h2 id="galaxy-title">GitHub galaxy</h2></div><span>public repositories</span></div><p className="tool-lead">把公開 repository 暫時放進一個小宇宙。星體大小只是視覺比喻，不代表專案重要性。</p><div className="galaxy-stage">{repos.map((repo, index) => <div className={`galaxy-node galaxy-node-${index + 1}`} key={repo.name} style={{'--node-color': repo.color, '--node-size': `${repo.size}rem`} as CSSProperties}><span className="galaxy-star" /><strong>{repo.name}</strong><small>{repo.language}</small></div>)}<i className="galaxy-core" aria-hidden="true" /></div></section>; }
+
+const repos = [
+  {name: 'Discord Bot', language: 'Python', size: 1.15, color: '#d3a16e'},
+  {name: 'Miki Website', language: 'TypeScript', size: .9, color: '#a8c5b4'},
+  {name: 'CipherTool', language: 'Python', size: .68, color: '#9ec3db'},
+  {name: 'AI Development Governance', language: 'Python', size: .52, color: '#75857e'}
+];
+
+export function GithubGalaxy() {
+  return <section className="github-galaxy" id="github-galaxy" aria-labelledby="galaxy-title">
+    <div className="tool-heading"><div><p className="lab-eyebrow">LAB / 04</p><h2 id="galaxy-title">GitHub galaxy</h2></div><span>curated snapshot</span></div>
+    <p className="tool-lead">把幾個精選 repository 暫時放進一個小宇宙。這是手工整理的視覺快照，不是即時 API 資料。</p>
+    <div className="galaxy-stage">{repos.map((repo, index) => <div className={`galaxy-node galaxy-node-${index + 1}`} key={repo.name} style={{'--node-color': repo.color, '--node-size': `${repo.size}rem`} as CSSProperties}><span className="galaxy-star" /><strong>{repo.name}</strong><small>{repo.language}</small></div>)}<i className="galaxy-core" aria-hidden="true" /></div>
+  </section>;
+}
