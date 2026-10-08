@@ -3,7 +3,7 @@
 import {useState} from 'react';
 
 const entries = [
-  {number: '01', title: 'Minecraft tools', text: '一些會慢慢長出來的計算器與小工具。', detail: '座標換算、漏斗吞吐量與箱子容量，會先從最常用的三個開始。', state: 'soon'},
+  {number: '01', title: 'Minecraft tools', text: '一些會慢慢長出來的計算器與小工具。', detail: '第一個工具是主世界與地獄之間的座標換算，之後再慢慢補上漏斗吞吐量與箱子容量。', state: 'open'},
   {number: '02', title: 'Astro compare', text: '把照片處理前後放在同一片天空下。', detail: '拖曳照片中間的分界線，比較原始影像與處理後的差異。', state: 'soon'},
   {number: '03', title: 'Small strange things', text: '沒有用途，但我想知道它能不能動。', detail: '第一個已經可以玩的東西在下面：一條不太聰明的貪食蛇。', state: 'open'}
 ];
@@ -14,6 +14,6 @@ export function LabIndex() {
     <button className="lab-entry-button" type="button" onClick={() => setOpen(open === entry.number ? null : entry.number)} aria-expanded={open === entry.number}>
       <span className="lab-number">{entry.number}</span><span><strong>{entry.title}</strong><small>{entry.text}</small></span><span className="lab-state">{entry.state === 'open' ? 'in the making' : 'not yet'}</span><span className="lab-toggle" aria-hidden="true">{open === entry.number ? '−' : '+'}</span>
     </button>
-    {open === entry.number ? <div className="lab-entry-detail"><p>{entry.detail}</p>{entry.state === 'open' ? <a href="#snake">進入 Snake →</a> : <span>這個實驗還在筆記裡。</span>}</div> : null}
+    {open === entry.number ? <div className="lab-entry-detail"><p>{entry.detail}</p>{entry.number === '01' ? <a href="#minecraft-tools">進入工具 →</a> : entry.state === 'open' ? <a href="#snake">進入 Snake →</a> : <span>這個實驗還在筆記裡。</span>}</div> : null}
   </article>)}</section>;
 }
