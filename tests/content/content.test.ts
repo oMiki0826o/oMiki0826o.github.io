@@ -59,4 +59,9 @@ import {calculatePearlCannon, createPearlSettings, genericFtlVersions, validateP
     expect(validatePearlSettings(createPearlSettings({maxCharge: 0}))).toContain('最大當量');
     expect(calculatePearlCannon([0, 170, 0], [1000, 1000], createPearlSettings({maxCharge: 0}))).toEqual([]);
   });
+
+  it('supports the public calculator Y-motion cancellation mode', () => {
+    const results = calculatePearlCannon([0, 170.3, 0], [1000, 1000], createPearlSettings({pearlYMotionCancellation: true}));
+    expect(results).toBeInstanceOf(Array);
+  });
 });
