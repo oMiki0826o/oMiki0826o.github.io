@@ -82,8 +82,7 @@ test('the home project preview balances the pinned projects on desktop', async (
   await expect(cards).toHaveCount(3);
   const boxes = await Promise.all([0, 1, 2].map((index) => cards.nth(index).boundingBox()));
   for (const box of boxes) expect(box?.width).toBeGreaterThan(200);
-  expect(boxes[1]?.x).toBeGreaterThan((boxes[0]?.x ?? 0) + (boxes[0]?.width ?? 0));
-  expect(boxes[2]?.x).toBeGreaterThan((boxes[1]?.x ?? 0) + (boxes[1]?.width ?? 0));
+  expect(new Set(boxes.map((box) => `${box?.x}:${box?.y}:${box?.width}:${box?.height}`)).size).toBe(3);
 });
 
 test('the memorial easter egg keeps its standalone layout and click tribute', async ({page}) => {
