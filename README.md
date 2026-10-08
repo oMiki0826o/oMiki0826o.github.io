@@ -58,13 +58,18 @@ npm run test:e2e
 
 ```text
 content/
-├── profile.ts
-├── music.ts
-├── projects.ts
-├── notes.ts
-├── timeline.ts
-└── quotes.ts
+├── profile.ts / music.ts / projects.ts / timeline.ts
+├── project-details.ts
+└── notes/
+    ├── index.ts
+    └── <article-slug>/{meta.ts, zh-TW.md, en.md, ja.md}
 ```
+
+文章檔案採用目前的受限 Markdown 格式：以 `##` 分段、空行分隔段落；粗體、清單與 Markdown 連結目前會以純文字保留。作品有獨立的 `/projects/[slug]/` 詳情頁，`/feed.xml` 會由同一份 Notes 資料產生。
+
+## Lab
+
+`/lab/` 是與主站共用 GitHub Pages 網域、但保持獨立電影感視覺的實驗入口。每個工具都有自己的頁面：珍珠砲計算器、Astro compare、Snake 與 GitHub galaxy。
 
 一般內容修改不需要碰 React 頁面。
 

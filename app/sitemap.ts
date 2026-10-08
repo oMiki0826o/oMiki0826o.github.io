@@ -2,6 +2,7 @@ import type {MetadataRoute} from 'next';
 import {locales} from '@/i18n/config';
 import {localizedUrl, siteUrl} from '@/lib/metadata';
 import {notes} from '@/content/notes/index';
+import {projects} from '@/content/projects';
 
 export const dynamic = 'force-static';
 
@@ -18,6 +19,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: new URL(localizedUrl(locale, `/notes/${note.slug}`), siteUrl).toString(),
       changeFrequency: 'yearly' as const,
       priority: 0.6
+    })),
+    ...projects.map((project) => ({
+      url: new URL(localizedUrl(locale, `/projects/${project.slug}`), siteUrl).toString(),
+      changeFrequency: 'yearly' as const,
+      priority: 0.7
     }))
   ]);
 }
