@@ -77,7 +77,7 @@ describe('RootLayout', () => {
     const {container} = render(await ProjectsPage({params: Promise.resolve({locale: 'zh-TW'})}));
 
     expect(container.querySelectorAll('.page-project-cover img')).toHaveLength(3);
-    expect(screen.getAllByRole('link', {name: 'CipherTool'})[0]).toHaveAttribute('href', '/zh-TW/projects/cipher-tool');
+    expect(within(container).getAllByRole('link', {name: 'CipherTool'})[0]).toHaveAttribute('href', '/zh-TW/projects/cipher-tool');
   });
 
   it('connects the two astronomy notes through related reading', async () => {
