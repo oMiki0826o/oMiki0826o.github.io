@@ -1,21 +1,41 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import type {Note, LocalizedText} from './types';
+import type {LocalizedText, Note} from './types';
 
+type Locale = keyof LocalizedText;
 type Meta = {slug: string; date: string; category: Note['category']; title: LocalizedText; excerpt: LocalizedText; relatedSlugs?: readonly string[]};
-function readSections(file: string, locale: keyof LocalizedText) {
+type LocalizedSections = {heading: string; paragraphs: string[]};
+const locales = ['zh-TW', 'en', 'ja'] as const satisfies readonly Locale[];
+
+function readLocalizedSections(file: string): LocalizedSections[] {
   const source = fs.readFileSync(file, 'utf8');
-  return source.split(/^## /m).filter(Boolean).map((chunk) => { const [heading, ...body] = chunk.split('\n'); return {heading: {[locale]: heading.trim()} as LocalizedText, paragraphs: {[locale]: body.join('\n').split(/\n\s*\n/).map((item) => item.trim()).filter(Boolean)} as Record<keyof LocalizedText, string[]>}; });
+  return source.split(/^## /m).filter(Boolean).map((chunk) => {
+    const [heading, ...body] = chunk.split('\n');
+    return {heading: heading?.trim() ?? '', paragraphs: body.join('\n').split(/\n\s*\n/).map((item) => item.trim()).filter(Boolean)};
+  });
 }
+
+function readSectionsForLocale(folder: string, locale: Locale) {
+  return readLocalizedSections(path.join(folder, `${locale}.md`));
+}
+
+function validateSectionCounts(slug: string, sectionsByLocale: readonly LocalizedSections[][]) {
+  const expected = sectionsByLocale[0]?.length ?? 0;
+  sectionsByLocale.forEach((sections, index) => {
+    if (sections.length !== expected) throw new Error(`Note ${slug} has ${expected} sections in zh-TW but ${sections.length} in ${locales[index]}`);
+  });
+}
+
+function mergeSections(sectionsByLocale: readonly LocalizedSections[][]): Note['sections'] {
+  return sectionsByLocale[0]!.map((_, index) => ({
+    heading: Object.fromEntries(locales.map((locale, localeIndex) => [locale, sectionsByLocale[localeIndex]![index]!.heading])) as LocalizedText,
+    paragraphs: Object.fromEntries(locales.map((locale, localeIndex) => [locale, sectionsByLocale[localeIndex]![index]!.paragraphs])) as Record<Locale, string[]>
+  }));
+}
+
 export function loadMarkdownNote(meta: Meta): Note {
   const folder = path.join(process.cwd(), 'content', 'notes', meta.slug);
-  const sectionsByLocale = (['zh-TW', 'en', 'ja'] as const).map((locale) => readSections(path.join(folder, `${locale}.md`), locale));
-  const sectionCount = sectionsByLocale[0].length;
-  for (const [index, sections] of sectionsByLocale.entries()) {
-    if (sections.length !== sectionCount) {
-      const locale = (['zh-TW', 'en', 'ja'] as const)[index];
-      throw new Error(`Note ${meta.slug} has ${sectionCount} sections in zh-TW but ${sections.length} in ${locale}`);
-    }
-  }
-  return {slug: meta.slug, title: meta.title, excerpt: meta.excerpt, date: meta.date, category: meta.category, relatedSlugs: meta.relatedSlugs, sections: sectionsByLocale[0].map((_, index) => ({heading: Object.fromEntries((['zh-TW', 'en', 'ja'] as const).map((locale, localeIndex) => [locale, sectionsByLocale[localeIndex]![index]!.heading[locale]])) as LocalizedText, paragraphs: Object.fromEntries((['zh-TW', 'en', 'ja'] as const).map((locale, localeIndex) => [locale, sectionsByLocale[localeIndex]![index]!.paragraphs[locale]])) as Record<'zh-TW' | 'en' | 'ja', string[]>}))};
+  const sectionsByLocale = locales.map((locale) => readSectionsForLocale(folder, locale));
+  validateSectionCounts(meta.slug, sectionsByLocale);
+  return {...meta, sections: mergeSections(sectionsByLocale)};
 }
