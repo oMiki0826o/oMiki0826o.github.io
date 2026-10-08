@@ -1,6 +1,4 @@
-'use client';
-
-import {useState} from 'react';
+import Link from 'next/link';
 
 const entries = [
   {number: '01', title: 'Pearl cannon calculator', text: '把實際珍珠砲計算邏輯搬進瀏覽器。', detail: '輸入 84gt 珍珠位置、目標座標與地面高度，搜尋誤差最小的 TNT 配置。', state: 'open'},
@@ -10,11 +8,10 @@ const entries = [
 ];
 
 export function LabIndex() {
-  const [open, setOpen] = useState<string | null>(null);
-  return <section className="lab-list" aria-label="Lab projects">{entries.map((entry) => <article className={`lab-entry lab-entry-${entry.state}${open === entry.number ? ' is-open' : ''}`} key={entry.number}>
-    <button className="lab-entry-button" type="button" onClick={() => setOpen(open === entry.number ? null : entry.number)} aria-expanded={open === entry.number}>
-      <span className="lab-number">{entry.number}</span><span><strong>{entry.title}</strong><small>{entry.text}</small></span><span className="lab-state">{entry.state === 'open' ? 'in the making' : 'not yet'}</span><span className="lab-toggle" aria-hidden="true">{open === entry.number ? '−' : '+'}</span>
-    </button>
-    {open === entry.number ? <div className="lab-entry-detail"><p>{entry.detail}</p>{entry.number === '01' ? <a href="#minecraft-tools">進入工具 →</a> : entry.number === '02' ? <a href="#astro-compare">進入比較 →</a> : entry.number === '04' ? <a href="#github-galaxy">進入星系 →</a> : entry.state === 'open' ? <a href="#snake">進入 Snake →</a> : <span>這個實驗還在筆記裡。</span>}</div> : null}
+  return <section className="lab-list" aria-label="Lab projects">{entries.map((entry) => <article className={`lab-entry lab-entry-${entry.state}`} key={entry.number}>
+    <Link className="lab-entry-button" href={entry.number === '01' ? '/lab/pearl-cannon/' : entry.number === '02' ? '/lab/astro-compare/' : entry.number === '04' ? '/lab/github-galaxy/' : '/lab/snake/'}>
+      <span className="lab-number">{entry.number}</span><span><strong>{entry.title}</strong><small>{entry.text}</small></span><span className="lab-state">{entry.state === 'open' ? 'in the making' : 'not yet'}</span><span className="lab-toggle" aria-hidden="true">→</span>
+    </Link>
+    <div className="lab-entry-detail"><p>{entry.detail}</p><Link href={entry.number === '01' ? '/lab/pearl-cannon/' : entry.number === '02' ? '/lab/astro-compare/' : entry.number === '04' ? '/lab/github-galaxy/' : '/lab/snake/'}>進入實驗 →</Link></div>
   </article>)}</section>;
 }
