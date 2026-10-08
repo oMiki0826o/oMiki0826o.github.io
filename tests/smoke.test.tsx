@@ -27,7 +27,7 @@ describe('RootLayout', () => {
     expect(screen.getByRole('link', {name: 'Discord: miki._.0826'})).toHaveAttribute('href', 'https://discord.com/users/839381498351190036');
     expect(screen.getByRole('link', {name: 'Email'})).toHaveAttribute('href', 'mailto:chenmiki0925@gmail.com');
     expect(container.querySelector('[class*="fa-"]')).toBeNull();
-    expect(container.querySelectorAll('.project-cover img')).toHaveLength(2);
+    expect(container.querySelectorAll('.project-cover img')).toHaveLength(3);
     expect(screen.queryByText('Minecraft Server Backup')).not.toBeInTheDocument();
   });
 
@@ -76,7 +76,7 @@ describe('RootLayout', () => {
   it('shows each work with its real 5:3 cover on the Works page', async () => {
     const {container} = render(await ProjectsPage({params: Promise.resolve({locale: 'zh-TW'})}));
 
-    expect(container.querySelectorAll('.page-project-cover img')).toHaveLength(2);
+    expect(container.querySelectorAll('.page-project-cover img')).toHaveLength(3);
   });
 
   it('connects the two astronomy notes through related reading', async () => {

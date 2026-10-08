@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest';
 import {profile} from '@/content/profile';
-import {projects} from '@/content/projects';
+import {pinnedProjects, projects} from '@/content/projects';
 import {timeline} from '@/content/timeline';
 import {getProjectDetail} from '@/content/project-details';
 
@@ -12,7 +12,8 @@ import {getProjectDetail} from '@/content/project-details';
   });
 
   it('keeps only the two current core projects', () => {
-    expect(projects.map((project) => project.slug)).toEqual(['discord-bot', 'miki-website']);
+    expect(projects.map((project) => project.slug)).toEqual(['discord-bot', 'miki-website', 'cipher-tool']);
+    expect(pinnedProjects.map((project) => project.slug)).toEqual(['discord-bot', 'cipher-tool', 'miki-website']);
   });
 
   it('connects the Discord Bot project with its notes', () => {

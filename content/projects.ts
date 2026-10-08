@@ -28,5 +28,26 @@ export const projects: Project[] = [
     image: '/assets/projects/miki-website.jpg',
     imageSource: 'https://omiki0826o.github.io/',
     tone: 'green'
+  },
+  {
+    slug: 'cipher-tool',
+    title: {'zh-TW': 'CipherTool', en: 'CipherTool', ja: 'CipherTool'},
+    description: {
+      'zh-TW': '用 Python 與 Tkinter 製作的文字工具，整理古典密碼、編碼、進位與文字轉換。',
+      en: 'A Python and Tkinter text tool for classical ciphers, encodings, base conversion, and text transforms.',
+      ja: 'PythonとTkinterで作った文字ツール。古典暗号、エンコード、基数変換、文字変換をまとめています。'
+    },
+    tags: ['Python', 'Tkinter', 'Text tools'],
+    url: 'https://github.com/oMiki0826o/CipherTool',
+    image: '/assets/projects/cipher-tool.png',
+    imageSource: 'https://github.com/oMiki0826o/CipherTool',
+    tone: 'orange'
   }
 ];
+
+export const pinnedProjectSlugs = ['discord-bot', 'cipher-tool', 'miki-website'] as const;
+export const pinnedProjects = pinnedProjectSlugs.map((slug) => {
+  const project = projects.find((item) => item.slug === slug);
+  if (!project) throw new Error(`Pinned project not found: ${slug}`);
+  return project;
+});

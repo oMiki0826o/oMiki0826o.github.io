@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type {Locale} from '@/i18n/config';
 import {profile} from '@/content/profile';
-import {projects} from '@/content/projects';
+import {pinnedProjects} from '@/content/projects';
 import {pinnedNotes} from '@/content/notes/index';
 import {pinnedTimeline} from '@/content/timeline';
 import {localize, localizedPath} from '@/lib/content';
@@ -66,7 +66,7 @@ export function HomePage({locale}: {locale: Locale}) {
           <small>{copy.sections.works}</small>
         </header>
         <div className="projects">
-          {projects.map((project) => (
+          {pinnedProjects.map((project) => (
             <a className={`project project-${project.tone}`} href={project.url} target="_blank" rel="noreferrer" key={project.slug}>
               <div className="project-cover"><img src={project.image} alt={localize(project.title, locale)} loading="lazy" /></div>
               <div className="project-body">

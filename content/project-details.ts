@@ -20,6 +20,19 @@ export const projectDetails: ProjectDetail[] = [{
     {heading: {'zh-TW': '一個錯誤怎麼被接住', en: 'How a failure is contained', ja: '失敗をどこで受け止めるか'}, body: {'zh-TW': '音樂播放器斷線、AI Provider 逾時或資料庫暫時鎖定時，模組應該先在自己的 Service 處理，再把可理解的結果交給 Cog。卸載也要清理播放器、自然語言指令與工作執行緒。', en: 'When a music player disconnects, an AI provider times out, or SQLite is briefly locked, the module handles it in its Service before the Cog presents a readable result. Teardown also removes players, natural commands, and workers.', ja: '音楽Playerの切断、AI Providerのtimeout、SQLiteの一時的なlockは、まずModuleのServiceで処理し、Cogには読める結果だけを渡します。Player、自然言語コマンド、workerも終了時に片付けます。'}},
     {heading: {'zh-TW': '這個作品真正留下的東西', en: 'What the project leaves behind', ja: 'この作品に残ったもの'}, body: {'zh-TW': '功能清單會隨時間改變，但真正留下的是一套面對變更的習慣：先劃出邊界，再保存狀態，最後讓錯誤有地方可追。Firefly Bot 仍在開發中，但已經從一次性的練習變成可以持續整理的專案。', en: 'Feature lists will change, but the lasting result is a way to handle change: draw boundaries, preserve state, and leave errors somewhere traceable. Firefly Bot is still under development, yet it has become a project I can return to and improve.', ja: '機能一覧は変わりますが、残ったのは変化に向き合う習慣です。境界を決め、状態を保存し、エラーを追える場所に残す。Firefly Botは開発途中ですが、何度でも戻って整理できるプロジェクトになりました。'}},
   ]
+}, {
+  slug: 'cipher-tool',
+  title: {'zh-TW': 'CipherTool', en: 'CipherTool', ja: 'CipherTool'},
+  lead: {
+    'zh-TW': '把常見的密碼、編碼與文字轉換集中在一個可以直接操作的小工具裡。',
+    en: 'A small hands-on tool that brings common ciphers, encodings, and text conversions together.',
+    ja: 'よく使う暗号、エンコード、文字変換を一つにまとめて直接試せる小さなツールです。'
+  },
+  sections: [
+    {heading: {'zh-TW': '從解題與學習開始', en: 'Built for learning and puzzles', ja: '学習とパズルから'}, body: {'zh-TW': 'CipherTool 不是現代密碼學函式庫，而是一個把古典密碼與文字處理放在一起練習的工具。它適合觀察 Caesar、Vigenère、Rail Fence 等方法如何改變文字，也適合處理 Base64、Morse 與進位轉換。', en: 'CipherTool is not a modern cryptography library. It is a place to practise classical ciphers and text processing, from Caesar and Vigenère to Base64, Morse, and base conversion.', ja: 'CipherToolは現代暗号ライブラリではありません。CaesarやVigenère、Rail Fence、Base64、Morse、基数変換を試しながら学ぶための道具です。'}},
+    {heading: {'zh-TW': '介面與功能邊界', en: 'Interface and boundaries', ja: '画面と境界'}, body: {'zh-TW': 'Tkinter 介面會依工具類型顯示需要的模式與參數，提供執行、複製與清除。功能集中在文字輸入與轉換，不把資料上傳到外部服務；但使用者仍不應把密碼、Token 或個資交給這些古典方法保護。', en: 'The Tkinter interface shows the mode and parameters needed by each tool, with execute, copy, and clear actions. The work stays in the text tool, but passwords, tokens, and personal data should never rely on these classical methods for protection.', ja: 'Tkinterの画面はツールごとに必要なモードと引数を表示し、実行、コピー、消去を用意します。処理は文字ツール内で完結しますが、パスワードやToken、個人情報を古典的な方式で守ってはいけません。'}},
+    {heading: {'zh-TW': '這個作品留下的練習', en: 'What the project practises', ja: 'この作品で練習したこと'}, body: {'zh-TW': '這個專案的價值不只在功能數量，也在於把每個轉換方法拆成可以單獨理解與測試的步驟。它是一個比大型 Bot 小很多的作品，卻很適合拿來練習輸入驗證、錯誤提示與桌面介面。', en: 'The value is not only the number of tools. Each transform is separated into a step that can be understood and tested on its own. It is much smaller than the Bot, but useful practice for input validation, error messages, and desktop UI.', ja: '価値は機能の数だけではありません。各変換を理解しやすく、個別にテストできる単位へ分けています。Botより小さい作品ですが、入力検証、エラー表示、デスクトップUIの練習になりました。'}}
+  ]
 }];
 
 export function getProjectDetail(slug: string) { return projectDetails.find((project) => project.slug === slug); }
