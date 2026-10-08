@@ -4,12 +4,14 @@ const topLevelRoutes = [
   '/', '/en/', '/ja/',
   '/zh-TW/about/', '/en/about/', '/ja/about/',
   '/zh-TW/projects/', '/en/projects/', '/ja/projects/',
+  '/zh-TW/projects/discord-bot/', '/en/projects/cipher-tool/', '/ja/projects/miki-website/',
   '/zh-TW/notes/', '/en/notes/', '/ja/notes/',
   '/zh-TW/timeline/', '/en/timeline/', '/ja/timeline/',
   '/zh-TW/notes/about-me/', '/en/notes/about-me/', '/ja/notes/discord-bot-from-zero/',
   '/zh-TW/notes/discord-bot-usage-guide/', '/en/notes/discord-bot-mod-guide/',
   '/zh-TW/notes/seasonal-night-sky-guide/', '/en/notes/spacetime-and-gravitational-waves/',
-  '/ja/notes/ultrasonic-call-study-notes/'
+  '/ja/notes/ultrasonic-call-study-notes/',
+  '/lab/', '/lab/pearl-cannon/', '/lab/astro-compare/', '/lab/snake/', '/lab/github-galaxy/'
 ];
 
 test('all public locale and note routes load from the exported site', async ({page}) => {

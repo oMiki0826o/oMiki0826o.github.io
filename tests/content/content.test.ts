@@ -12,7 +12,7 @@ import {calculatePearlCannon, createPearlSettings, genericFtlVersions, validateP
     expect(profile.aboutDetails['zh-TW'].some((section) => section.heading === '簡介' && section.paragraphs.join('').includes('學習日文學到爆炸'))).toBe(true);
   });
 
-  it('keeps only the two current core projects', () => {
+  it('keeps the current core projects', () => {
     expect(projects.map((project) => project.slug)).toEqual(['discord-bot', 'miki-website', 'cipher-tool']);
     expect(pinnedProjects.map((project) => project.slug)).toEqual(['discord-bot', 'cipher-tool', 'miki-website']);
   });
