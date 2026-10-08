@@ -51,7 +51,7 @@ import {calculatePearlCannon, createPearlSettings, genericFtlVersions, validateP
   });
 
   it('keeps generic FTL presets extensible without changing the UI inputs', () => {
-    expect(genericFtlVersions.length).toBeGreaterThanOrEqual(3);
+    expect(genericFtlVersions).toEqual(['1.11–1.21.1', '1.21.2+']);
     expect(createPearlSettings({maxCharge: 80}).maxCharge).toBe(80);
   });
 

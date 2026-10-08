@@ -1,6 +1,6 @@
 export type PearlDirection = 'N' | 'S' | 'E' | 'W';
 export type PearlFtlMode = 'generic' | 'custom';
-export type PearlGameVersion = '1.8–1.12' | '1.13–1.20' | '1.20.5–1.21';
+export type PearlGameVersion = '1.11–1.21.1' | '1.21.2+';
 export type PearlSettings = {gravity: number; airResistance: number; tntXZ: number; tntY: number; initialY: number; maxCharge: number; groundY: number};
 export type PearlResult = {rank: number; totalTick: number; direction: PearlDirection; sideA: number; sideB: number; code: string; landX: number; landY: number; landZ: number; error: number};
 
@@ -9,7 +9,7 @@ const toBits = (value: number) => { let rest = Math.abs(value); return weights.m
 
 export const defaultPearlSettings: PearlSettings = {gravity: 0.03, airResistance: 0.9899999499320984, tntXZ: 0.6026793588895138, tntY: 0.004435058914919521, initialY: -0.340740225070415, maxCharge: 160, groundY: 128};
 
-export const genericFtlVersions: readonly PearlGameVersion[] = ['1.8–1.12', '1.13–1.20', '1.20.5–1.21'];
+export const genericFtlVersions: readonly PearlGameVersion[] = ['1.11–1.21.1', '1.21.2+'];
 
 export function createPearlSettings(overrides: Partial<PearlSettings> = {}): PearlSettings {
   return {...defaultPearlSettings, ...overrides};
