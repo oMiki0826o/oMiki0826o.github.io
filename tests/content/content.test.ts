@@ -3,7 +3,7 @@ import {profile} from '@/content/profile';
 import {pinnedProjects, projects} from '@/content/projects';
 import {timeline} from '@/content/timeline';
 import {getProjectDetail} from '@/content/project-details';
-import {calculatePearlCannon} from '@/lib/pearl-calculator';
+import {calculatePearlCannon, createPearlSettings, genericFtlVersions} from '@/lib/pearl-calculator';
 
  describe('site content', () => {
   it('keeps the 5.x homepage identity', () => {
@@ -48,5 +48,10 @@ import {calculatePearlCannon} from '@/lib/pearl-calculator';
     expect(results[0]?.direction).toBe('E');
     expect(results[0]?.sideA).toBeTypeOf('number');
     expect(results[0]?.sideB).toBeTypeOf('number');
+  });
+
+  it('keeps generic FTL presets extensible without changing the UI inputs', () => {
+    expect(genericFtlVersions.length).toBeGreaterThanOrEqual(3);
+    expect(createPearlSettings({maxCharge: 80}).maxCharge).toBe(80);
   });
 });

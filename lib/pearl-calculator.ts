@@ -1,4 +1,6 @@
 export type PearlDirection = 'N' | 'S' | 'E' | 'W';
+export type PearlFtlMode = 'generic' | 'custom';
+export type PearlGameVersion = '1.8–1.12' | '1.13–1.20' | '1.20.5–1.21';
 export type PearlSettings = {gravity: number; airResistance: number; tntXZ: number; tntY: number; initialY: number; maxCharge: number; groundY: number};
 export type PearlResult = {rank: number; totalTick: number; direction: PearlDirection; sideA: number; sideB: number; code: string; landX: number; landY: number; landZ: number; error: number};
 
@@ -6,6 +8,12 @@ const weights = [80, 40, 20, 10, 4, 3, 2, 1];
 const toBits = (value: number) => { let rest = Math.abs(value); return weights.map((weight) => { if (rest >= weight) { rest -= weight; return '1'; } return '0'; }).join(''); };
 
 export const defaultPearlSettings: PearlSettings = {gravity: 0.03, airResistance: 0.9899999499320984, tntXZ: 0.6026793588895138, tntY: 0.004435058914919521, initialY: -0.340740225070415, maxCharge: 160, groundY: 128};
+
+export const genericFtlVersions: readonly PearlGameVersion[] = ['1.8–1.12', '1.13–1.20', '1.20.5–1.21'];
+
+export function createPearlSettings(overrides: Partial<PearlSettings> = {}): PearlSettings {
+  return {...defaultPearlSettings, ...overrides};
+}
 
 export function calculatePearlCannon(projected: [number, number, number], target: [number, number], settings: PearlSettings = defaultPearlSettings): PearlResult[] {
   const [px, py, pz] = projected; const [targetX, targetZ] = target; const dx = targetX - px; const dz = targetZ - pz; const direction: PearlDirection = Math.abs(dx) >= Math.abs(dz) ? (dx > 0 ? 'E' : 'W') : (dz > 0 ? 'S' : 'N'); const directionBits = {N: '00', W: '01', E: '10', S: '11'}[direction]; const candidates: Array<{error: number; tick: number; m: number; n: number; code: string; x: number; y: number; z: number}> = [];
