@@ -3,6 +3,7 @@ import {profile} from '@/content/profile';
 import {pinnedProjects, projects} from '@/content/projects';
 import {timeline} from '@/content/timeline';
 import {getProjectDetail} from '@/content/project-details';
+import {calculatePearlCannon} from '@/lib/pearl-calculator';
 
  describe('site content', () => {
   it('keeps the 5.x homepage identity', () => {
@@ -39,5 +40,13 @@ import {getProjectDetail} from '@/content/project-details';
 
   it('keeps the 2024 Python milestone', () => {
     expect(timeline.some((item) => item.year === '2024')).toBe(true);
+  });
+
+  it('calculates pearl cannon direction and two-side charge', () => {
+    const results = calculatePearlCannon([0, 170, 0], [1000, 1000]);
+    expect(results.length).toBeGreaterThan(0);
+    expect(results[0]?.direction).toBe('E');
+    expect(results[0]?.sideA).toBeTypeOf('number');
+    expect(results[0]?.sideB).toBeTypeOf('number');
   });
 });
