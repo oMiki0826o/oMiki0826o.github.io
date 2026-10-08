@@ -64,4 +64,9 @@ import {calculatePearlCannon, createPearlSettings, genericFtlVersions, validateP
     const results = calculatePearlCannon([0, 170.3, 0], [1000, 1000], createPearlSettings({pearlYMotionCancellation: true}));
     expect(results).toBeInstanceOf(Array);
   });
+
+  it('accepts a custom FTL pair without changing the general input flow', () => {
+    const results = calculatePearlCannon([0, 170.3, 0], [1000, 1000], createPearlSettings({mode: 'custom', customRedTnt: [1, 170, 1], customBlueTnt: [-1, 170, -1]}));
+    expect(results).toBeInstanceOf(Array);
+  });
 });
