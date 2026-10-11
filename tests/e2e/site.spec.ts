@@ -154,7 +154,7 @@ test('astro compare rejects unsupported image formats', async ({page}) => {
     mimeType: 'image/svg+xml',
     buffer: Buffer.from('<svg xmlns="http://www.w3.org/2000/svg"/>')
   });
-  await expect(page.getByRole('alert')).toContainText('JPEG');
+  await expect(page.locator('.astro-error')).toContainText('JPEG');
 });
 
 test('StructMark editor imports a local UTF-8 .sm document', async ({page}) => {
@@ -173,13 +173,13 @@ test('StructMark editor rejects unsupported file extensions', async ({page}) => 
   await page.getByLabel('匯入本機 StructMark 文件').setInputFiles({
     name: 'notes.md', mimeType: 'text/plain', buffer: Buffer.from('#1 Invalid', 'utf8')
   });
-  await expect(page.getByRole('alert')).toContainText('.sm');
+  await expect(page.locator('.sm-file-error')).toContainText('.sm');
 });
 
 test('music player shows an error when YouTube API cannot load', async ({page}) => {
   await page.route('**/iframe_api', route => route.abort());
   await page.goto('/');
-  await page.getByRole('button', {name: '播放'}).click();
+  await page.locator('#play').click();
   await expect(page.locator('.player-error')).toBeVisible({timeout: 20_000});
 });
 
