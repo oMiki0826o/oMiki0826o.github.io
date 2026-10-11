@@ -1,12 +1,19 @@
 # Miki's Website
 
+![Version](https://img.shields.io/badge/version-6.3.5-blue)
 [![Verify and deploy](https://github.com/oMiki0826o/oMiki0826o.github.io/actions/workflows/static.yml/badge.svg)](https://github.com/oMiki0826o/oMiki0826o.github.io/actions/workflows/static.yml)
 
-Miki 的個人網站：收錄作品、文章、研究筆記與一路整理留下的紀錄。網站保留柔和的天空藍、薄荷色與螢火蟲氛圍，並以繁體中文、英文、日文提供內容。
+[中文](#中文) | [English](#english)
+
+## 中文
+
+### 關於
+
+Miki 的個人網站，收錄作品、文章、研究筆記與一路整理留下的紀錄。網站保留柔和的天空藍、薄荷色與螢火蟲氛圍，提供繁體中文、英文與日文內容。
 
 正式網站：[omiki0826o.github.io](https://omiki0826o.github.io/)
 
-## 內容
+### 功能
 
 - 首頁、About、Works、Notes、Timeline
 - 九個作品的獨立介紹頁，以及 GitHub／Demo 連結
@@ -15,16 +22,16 @@ Miki 的個人網站：收錄作品、文章、研究筆記與一路整理留下
 - `/lab/`：與主站視覺和內容定位分開的實驗工具區
 - `/ripmiki/`：獨立的紀念彩蛋頁
 
-## 技術
+### 技術
 
 - Next.js 16、React 19、TypeScript
 - App Router、Static Export、GitHub Pages
 - Vitest、Node.js native tests、Playwright
 - StructMark V1.1：文章解析、AST 驗證與 HTML 渲染
 
-## 本機開發
+### 安裝
 
-需求：Node.js 22 以上、npm。瀏覽器驗證另外需要 Playwright 的 Chromium 與 WebKit。
+需求：Node.js 22 以上、npm。完整瀏覽器驗證另外需要 Playwright 的 Chromium 與 WebKit。
 
 ```bash
 npm ci
@@ -33,9 +40,9 @@ npm run dev
 
 開發伺服器預設位於 `http://localhost:3000`。
 
-## 驗證與建置
+### 使用與驗證
 
-快速品質檢查會依序執行 repository hygiene、原生迴歸測試、StructMark 完整性、作品與文章資料檢查、Vitest、TypeScript 與靜態建置：
+快速品質檢查：
 
 ```bash
 npm run validate:fast
@@ -60,9 +67,9 @@ npm run validate
 npm run preview
 ```
 
-GitHub Actions 會在 Pull Request 與 `main` push 執行相同驗證；只有 `main` 的完整關卡通過後，才會部署 `out/` 到 GitHub Pages。
+GitHub Actions 會在 Pull Request 與 `main` push 執行驗證；只有 `main` 的完整關卡通過後，才會部署 `out/` 到 GitHub Pages。
 
-## 內容維護
+### 內容維護
 
 | 內容 | 位置 |
 | --- | --- |
@@ -74,19 +81,13 @@ GitHub Actions 會在 Pull Request 與 `main` push 執行相同驗證；只有 `
 | 語系介面文字 | `i18n/ui.ts`、`i18n/config.ts` |
 | Lab 工具登錄 | `content/lab-tools.ts` |
 | 主站與 Lab 樣式 | `app/styles/site.css`、`app/styles/lab.css` |
-| StructMark 核心 | `lib/structmark/core/` |
+| StructMark 語言核心 | `lib/structmark/core/` |
 
-新增文章後執行：
+新增文章後執行 `npm run notes:sync`。文章採用 StructMark 的受限文件格式；完整規則與維護流程見 `docs/DEVELOPMENT.sm`。
 
-```bash
-npm run notes:sync
-```
+### 開發治理
 
-文章採用 StructMark 的受限文件格式。完整規則與維護流程見 `docs/DEVELOPMENT.sm`。
-
-## 開發治理
-
-本專案參考 [AI Development Governance](https://github.com/oMiki0826o/AI-Development-Governance)，並以專案內文件作為實際執行入口：
+本專案參考 [AI Development Governance](https://github.com/oMiki0826o/AI-Development-Governance)。實際維護入口如下：
 
 - `AGENTS.md`：本專案的協作與品質關卡
 - `docs/GOVERNANCE.sm`：修改、驗證與發布規則
@@ -94,8 +95,104 @@ npm run notes:sync
 - `docs/VALIDATION.sm`：實際驗證紀錄與限制
 - `docs/CHANGELOG.sm`：可追溯的版本變更
 
-文件面向網站維護者與讀者，不把未執行的測試寫成通過。完整瀏覽器驗證必須在已安裝 Playwright 瀏覽器的環境執行。
+README 與 docs 面向網站使用者及維護者，不把未執行的測試寫成通過。完整瀏覽器驗證必須在已安裝 Playwright 瀏覽器的環境執行。
 
-## 授權與第三方內容
+### 授權
 
-網站原始碼與自製內容依 repository 授權條款使用。StructMark 核心的原始授權保留於 `lib/structmark/LICENSE`；第三方資料、字型與外部服務依各自授權及使用條款處理。
+本倉庫目前未附獨立 `LICENSE` 檔案；使用或再發布前，請先依倉庫擁有者的明確授權辦理。StructMark 核心另依 `lib/structmark/LICENSE` 的原始授權條款使用。
+
+## English
+
+### About
+
+Miki's personal website for projects, articles, research notes and a record of how the site has evolved. It keeps a soft sky-blue, mint and firefly atmosphere, with Traditional Chinese, English and Japanese content.
+
+Live site: [omiki0826o.github.io](https://omiki0826o.github.io/)
+
+### Features
+
+- Home, About, Works, Notes and Timeline sections
+- Nine projects with dedicated detail pages and GitHub or demo links
+- StructMark `.sm` articles with tables of contents, reading progress, related notes and RSS
+- Light and dark themes, responsive layouts and a restrained firefly interaction
+- `/lab/`, an experimental area intentionally separated from the main site's visual and content system
+- `/ripmiki/`, an independent memorial easter-egg page
+
+### Technology
+
+- Next.js 16, React 19 and TypeScript
+- App Router, static export and GitHub Pages
+- Vitest, native Node.js tests and Playwright
+- StructMark V1.1 for article parsing, AST validation and HTML rendering
+
+### Installation
+
+Requirements: Node.js 22 or newer and npm. Full browser verification also requires Playwright's Chromium and WebKit browsers.
+
+```bash
+npm ci
+npm run dev
+```
+
+The development server runs at `http://localhost:3000` by default.
+
+### Usage and verification
+
+Run the fast quality gate:
+
+```bash
+npm run validate:fast
+```
+
+Before a release, install the browsers and run the exported-site checks:
+
+```bash
+npx playwright install chromium webkit
+npm run test:e2e
+```
+
+Or run both stages with:
+
+```bash
+npm run validate
+```
+
+The static export is written to `out/`. Preview it with:
+
+```bash
+npm run preview
+```
+
+GitHub Actions runs the validation on pull requests and pushes to `main`; `out/` is deployed to GitHub Pages only after the complete `main` workflow passes.
+
+### Content maintenance
+
+| Content | Location |
+| --- | --- |
+| Profile and home introduction | `content/profile.ts` |
+| Projects and project details | `content/projects.ts`, `content/project-details.ts` |
+| Music playlist | `content/music.ts` |
+| Articles | `content/notes/<slug>/{zh-TW,en,ja}.sm` |
+| Article metadata | `content/notes/<slug>/meta.ts` |
+| Localized UI text | `i18n/ui.ts`, `i18n/config.ts` |
+| Lab registry | `content/lab-tools.ts` |
+| Main and Lab styles | `app/styles/site.css`, `app/styles/lab.css` |
+| StructMark language core | `lib/structmark/core/` |
+
+Run `npm run notes:sync` after adding an article. Articles use the supported subset of StructMark; see `docs/DEVELOPMENT.sm` for the maintenance rules.
+
+### Development governance
+
+This repository follows the principles of [AI Development Governance](https://github.com/oMiki0826o/AI-Development-Governance). The project-specific entry points are:
+
+- `AGENTS.md` for collaboration and quality gates
+- `docs/GOVERNANCE.sm` for change, verification and release rules
+- `docs/DEVELOPMENT.sm` for content and code maintenance
+- `docs/VALIDATION.sm` for recorded evidence and limitations
+- `docs/CHANGELOG.sm` for traceable changes
+
+README and docs are written for users and maintainers, not as agent command prompts. Browser acceptance must be run in an environment with the Playwright browsers installed.
+
+### License
+
+This repository currently does not include a standalone `LICENSE` file. Obtain explicit permission from the repository owner before using or redistributing the site. The vendored StructMark core is governed separately by `lib/structmark/LICENSE`.
