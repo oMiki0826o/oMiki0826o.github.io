@@ -1,11 +1,12 @@
 'use client';
 
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 type Burst = {id: number; x: number; y: number};
 
 export function Fireflies() {
   const [bursts, setBursts] = useState<Burst[]>([]);
+  const timeoutIds = useRef<Set<number>>(new Set());
 
   useEffect(() => {
     const addBurst = (event: PointerEvent) => {
@@ -15,10 +16,18 @@ export function Fireflies() {
       const y = Math.min(Math.max(event.clientY, 18), window.innerHeight - 18);
       const burst = {id: Date.now(), x, y};
       setBursts((current) => [...current.slice(-3), burst]);
-      window.setTimeout(() => setBursts((current) => current.filter((item) => item.id !== burst.id)), 900);
+      const timeoutId = window.setTimeout(() => {
+        timeoutIds.current.delete(timeoutId);
+        setBursts((current) => current.filter((item) => item.id !== burst.id));
+      }, 900);
+      timeoutIds.current.add(timeoutId);
     };
     document.addEventListener('pointerdown', addBurst);
-    return () => document.removeEventListener('pointerdown', addBurst);
+    return () => {
+      document.removeEventListener('pointerdown', addBurst);
+      timeoutIds.current.forEach((timeoutId) => window.clearTimeout(timeoutId));
+      timeoutIds.current.clear();
+    };
   }, []);
 
   return (
