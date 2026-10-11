@@ -1,83 +1,101 @@
 # Miki's Website
 
-[![Build and deploy](https://github.com/oMiki0826o/oMiki0826o.github.io/actions/workflows/static.yml/badge.svg)](https://github.com/oMiki0826o/oMiki0826o.github.io/actions/workflows/static.yml)
+[![Verify and deploy](https://github.com/oMiki0826o/oMiki0826o.github.io/actions/workflows/static.yml/badge.svg)](https://github.com/oMiki0826o/oMiki0826o.github.io/actions/workflows/static.yml)
 
-我的個人網站，記錄作品、開發過程、文章與一些小實驗。
+Miki 的個人網站：收錄作品、文章、研究筆記與一路整理留下的紀錄。網站保留柔和的天空藍、薄荷色與螢火蟲氛圍，並以繁體中文、英文、日文提供內容。
 
-網站使用 **Next.js 16、React 19、TypeScript**，以靜態匯出方式部署在 GitHub Pages。介面保留原本天空藍、薄荷綠的色調和簡單的內容順序，不刻意堆疊動畫或資訊卡片。
+正式網站：[omiki0826o.github.io](https://omiki0826o.github.io/)
 
-## 網站內容
+## 內容
 
-首頁依序放置個人介紹、音樂、圖片、作品、筆記與歷程。作品有獨立頁面，筆記提供繁體中文、英文、日文三種版本。另有 `/lab/`，供放置不一定屬於個人履歷的實驗和工具。
+- 首頁、About、Works、Notes、Timeline
+- 九個作品的獨立介紹頁，以及 GitHub／Demo 連結
+- StructMark `.sm` 文章、目錄、閱讀進度、相關文章與 RSS
+- 深淺主題、響應式版面與低干擾的螢火蟲互動
+- `/lab/`：與主站視覺和內容定位分開的實驗工具區
+- `/ripmiki/`：獨立的紀念彩蛋頁
 
-### StructMark 在這裡的用途
+## 技術
 
-網站的 `content/notes/` 已經使用 `.sm`，不只是重新命名檔案：建置時會讀入 StructMark V1.1 語言核心，解析成 AST，再以官方 HTML Renderer 產生安全內容。`/lab/structmark/` 則是同一核心的即時編輯與預覽頁面，可以查看 AST、解析診斷，以及匯出 `.sm`。
+- Next.js 16、React 19、TypeScript
+- App Router、Static Export、GitHub Pages
+- Vitest、Node.js native tests、Playwright
+- StructMark V1.1：文章解析、AST 驗證與 HTML 渲染
 
-目前語言核心的來源為 [StructMark](https://github.com/oMiki0826o/StructMark)，採專案內複製的方式放在 `lib/structmark/core/`，版本為隨此專案保存的 V1.1；更新時請先比較上游變更及跑完整測試。原始授權在 `lib/structmark/LICENSE`。
+## 本機開發
 
-## 執行方式
-
-需 Node.js 22 或更新版本、npm，以及 Playwright 所需的瀏覽器環境。
+需求：Node.js 22 以上、npm。瀏覽器驗證另外需要 Playwright 的 Chromium 與 WebKit。
 
 ```bash
 npm ci
 npm run dev
 ```
 
-在本機確認功能後執行：
+開發伺服器預設位於 `http://localhost:3000`。
+
+## 驗證與建置
+
+快速品質檢查會依序執行 repository hygiene、原生迴歸測試、StructMark 完整性、作品與文章資料檢查、Vitest、TypeScript 與靜態建置：
 
 ```bash
-npm run test:native
-npm run core:check
-npm run works:check
-python3 scripts/release_smoke.py
+npm run validate:fast
+```
+
+完整發布前檢查：
+
+```bash
 npx playwright install chromium webkit
+npm run test:e2e
+```
+
+或一次執行：
+
+```bash
 npm run validate
 ```
 
-`npm run build` 會產生 `out/`，並將靜態輸出內各語言 HTML 的 `lang` 改為正確值。想預覽產物可使用 `npm run preview`，並開啟 `http://localhost:4173/`。瀏覽器測試會涵蓋 Chromium、WebKit 與行動版 WebKit；請先執行 `npx playwright install chromium webkit`。
+建置結果輸出到 `out/`。預覽靜態輸出：
 
-GitHub Actions 會在 pull request 與 main 分支執行驗證，只會在 main 通過全部關卡後部署 `out/`。
+```bash
+npm run preview
+```
 
-## 維護內容
+GitHub Actions 會在 Pull Request 與 `main` push 執行相同驗證；只有 `main` 的完整關卡通過後，才會部署 `out/` 到 GitHub Pages。
 
-| 想修改的內容 | 檔案位置 |
+## 內容維護
+
+| 內容 | 位置 |
 | --- | --- |
-| 首頁介紹、頭像、選圖 | `content/profile.ts` |
-| 專案列表與詳細介紹 | `content/projects.ts`、`content/project-details.ts`；參考 `docs/WORKS.sm` |
-| 音樂播放來源 | `content/music.ts` |
-| 文章 | `content/notes/<slug>/{zh-TW,en,ja}.sm` |
-| 文章標題、日期、分類 | `content/notes/<slug>/meta.ts` |
-| 網站三語介面 | `i18n/ui.ts` |
-| 主題色、版面與響應式規則 | `app/styles/site.css`、`app/styles/lab.css`、`app/styles/structmark.css` |
-| StructMark 語言核心 | `lib/structmark/core/` |
-| Lab 工具清單、路由和介紹 | `content/lab-tools.ts` |
+| 個人資料與首頁介紹 | `content/profile.ts` |
+| 作品與作品詳情 | `content/projects.ts`、`content/project-details.ts` |
+| 音樂播放清單 | `content/music.ts` |
+| 文章內容 | `content/notes/<slug>/{zh-TW,en,ja}.sm` |
+| 文章索引資料 | `content/notes/<slug>/meta.ts` |
+| 語系介面文字 | `i18n/ui.ts`、`i18n/config.ts` |
+| Lab 工具登錄 | `content/lab-tools.ts` |
+| 主站與 Lab 樣式 | `app/styles/site.css`、`app/styles/lab.css` |
+| StructMark 核心 | `lib/structmark/core/` |
 
-文章採用 StructMark 的 `#2` 作為主要章節標題。三個語言檔案的章節數量須一致，且自訂標題錨點會直接套用到文章。新增一篇文章後，也要執行 `npm run notes:sync` 自動更新 `content/notes/index.ts`，毋須手動管理匯入。
+新增文章後執行：
 
-更完整的維護說明放在 `docs/DEVELOPMENT.sm`；更新摘要在 `docs/CHANGELOG.sm`。
+```bash
+npm run notes:sync
+```
 
-## V6.3.5 修正與精簡
-修正珍珠砲通用幾何模型的共線推力與世界座標問題，採雙軸穩定求解，檢查數值範圍並如實呈現預測高度；五個 Lab 工具改共用單一登錄表。清理已停用的舊版網站、JSON 設定、樣式、未引用的翻譯及內容模組，並移除未使用的 zod 依賴，避免誤改不再生效的檔案；原始壓縮包仍保留歷史內容。其他風格與功能維持不變。
-
-**發布驗證：** 詳見 `docs/VALIDATION.sm`。Node.js 原生迴歸測試、內容檢查與原始碼語法檢查，不等同於完整 Vitest、Next.js 靜態建置或 Playwright。必須讓 GitHub Actions 全部通過才能部署。
-
-## V6.3.4 改進
-
-Works 擴充至九個真實 GitHub 專案，新增 AstroLab、STLab、CipherTool Web、StructMark、NoteBlock Tweaks、AI Development Governance。每個作品有繁中、英文、日文詳情；具有公開網站的作品另提供直接使用連結。六張新封面是本站自行設計的輕量文字 SVG 識別圖，並非專案截圖。
-
-首頁仍只精選三個專案，完整清單依「網站與語言」「工具與開發」分組。新增 `.sm` Front Matter `project:`，讓文章能直接關聯作品；Works 與 Notes 會雙向連結，無須重複維護關聯清單。StructMark 核心透過 `npm run core:check` 檢查 SHA-256，`npm run core:sync -- <StructMark/src>` 可在人工比對後同步版本。
-
-實作同時補齊 `npm run works:check`、相應的 Node.js 測試、三語作品路由及手機版 E2E 情境。網站原有配色、排版順序、真實圖片與其他 Lab 工具都保留。
-
-
-## 注意事項
-
-音樂播放器透過 YouTube IFrame API，影片限制、封鎖或網路問題可能影響播放，但不會阻止主站載入。天文比對工具只使用使用者在本機選取的影像，並不把濾鏡效果冒充成真實天文細節。
-
-這個儲存庫的目標是留下一個能長期整理作品的地方；平常只需要更新內容，不必為了維護網頁而維護另一套儀表板。
+文章採用 StructMark 的受限文件格式。完整規則與維護流程見 `docs/DEVELOPMENT.sm`。
 
 ## 開發治理
 
-專案採用精簡的開發檢查關卡，參考 [AI Development Governance](https://github.com/oMiki0826o/AI-Development-Governance)。實際協作約定見 `AGENTS.md`，驗證與發布流程見 `docs/GOVERNANCE.sm`。
+本專案參考 [AI Development Governance](https://github.com/oMiki0826o/AI-Development-Governance)，並以專案內文件作為實際執行入口：
+
+- `AGENTS.md`：本專案的協作與品質關卡
+- `docs/GOVERNANCE.sm`：修改、驗證與發布規則
+- `docs/DEVELOPMENT.sm`：內容與程式維護方式
+- `docs/VALIDATION.sm`：實際驗證紀錄與限制
+- `docs/CHANGELOG.sm`：可追溯的版本變更
+
+文件面向網站維護者與讀者，不把未執行的測試寫成通過。完整瀏覽器驗證必須在已安裝 Playwright 瀏覽器的環境執行。
+
+## 授權與第三方內容
+
+網站原始碼與自製內容依 repository 授權條款使用。StructMark 核心的原始授權保留於 `lib/structmark/LICENSE`；第三方資料、字型與外部服務依各自授權及使用條款處理。
