@@ -1,7 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600" role="img" aria-label="STLAB minimalist title cover">
-  <rect width="1000" height="600" fill="#e9efe5"/>
+  <rect width="1000" height="600" fill="#172522"/>
+  <rect x="610" y="130" width="260" height="300" rx="12" fill="#263b35" stroke="#b6d48c" stroke-opacity=".45"/>
+  <g fill="#b6d48c" opacity=".9"><rect x="642" y="176" width="196" height="12" rx="6"/><rect x="642" y="218" width="148" height="9" rx="4"/><rect x="642" y="251" width="176" height="9" rx="4"/><rect x="642" y="284" width="118" height="9" rx="4"/></g>
   <g fill="none" stroke="#54715e" stroke-width="1.6" opacity=".24"><path d="M76 96H924M76 506H924"/><path d="M76 96V506M924 96V506"/></g>
-  <g fill="#54715e" font-family="Arial,'Helvetica Neue',sans-serif">
+  <g fill="#d9e5c4" font-family="Arial,'Helvetica Neue',sans-serif">
     <text x="91" y="155" font-size="25" letter-spacing="5" font-weight="600">MIKI / WORKS</text>
     <text x="89" y="353" font-size="190" letter-spacing="-11" font-weight="600">ST</text>
     <text x="92" y="446" font-size="36" font-weight="600" letter-spacing="2">STLAB</text>

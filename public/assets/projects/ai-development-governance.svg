@@ -1,7 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600" role="img" aria-label="AI DEVELOPMENT GOVERNANCE minimalist title cover">
-  <rect width="1000" height="600" fill="#eee9e2"/>
+  <rect width="1000" height="600" fill="#282321"/>
+  <rect x="610" y="132" width="270" height="290" rx="10" fill="#3b302a" stroke="#e0b894" stroke-opacity=".6"/>
+  <g stroke="#e0b894" stroke-width="4" fill="none" opacity=".8"><path d="M650 190h170M650 240h120M650 290h155M650 340h90"/></g>
   <g fill="none" stroke="#846a58" stroke-width="1.6" opacity=".24"><path d="M76 96H924M76 506H924"/><path d="M76 96V506M924 96V506"/></g>
-  <g fill="#846a58" font-family="Arial,'Helvetica Neue',sans-serif">
+  <g fill="#f0d1b0" font-family="Arial,'Helvetica Neue',sans-serif">
     <text x="91" y="155" font-size="25" letter-spacing="5" font-weight="600">MIKI / WORKS</text>
     <text x="89" y="353" font-size="190" letter-spacing="-11" font-weight="600">AG</text>
     <text x="92" y="446" font-size="36" font-weight="600" letter-spacing="2">AI DEVELOPMENT GOVERNANCE</text>

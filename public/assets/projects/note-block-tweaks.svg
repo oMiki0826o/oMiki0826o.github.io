@@ -1,7 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600" role="img" aria-label="NOTE BLOCK TWEAKS minimalist title cover">
-  <rect width="1000" height="600" fill="#e9eddf"/>
+  <rect width="1000" height="600" fill="#20251d"/>
+  <g fill="#b9d28a"><rect x="612" y="142" width="48" height="180" rx="8"/><rect x="680" y="190" width="48" height="132" rx="8"/><rect x="748" y="112" width="48" height="210" rx="8"/></g>
+  <g fill="#e3f4ac"><circle cx="636" cy="364" r="14"/><circle cx="704" cy="364" r="14"/><circle cx="772" cy="364" r="14"/></g>
   <g fill="none" stroke="#647451" stroke-width="1.6" opacity=".24"><path d="M76 96H924M76 506H924"/><path d="M76 96V506M924 96V506"/></g>
-  <g fill="#647451" font-family="Arial,'Helvetica Neue',sans-serif">
+  <g fill="#e1edc0" font-family="Arial,'Helvetica Neue',sans-serif">
     <text x="91" y="155" font-size="25" letter-spacing="5" font-weight="600">MIKI / WORKS</text>
     <text x="89" y="353" font-size="190" letter-spacing="-11" font-weight="600">NB</text>
     <text x="92" y="446" font-size="36" font-weight="600" letter-spacing="2">NOTE BLOCK TWEAKS</text>

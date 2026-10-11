@@ -1,7 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600" role="img" aria-label="ASTRO LAB minimalist title cover">
-  <rect width="1000" height="600" fill="#e1ecf1"/>
+  <defs><linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0f2635"/><stop offset="1" stop-color="#426f7e"/></linearGradient></defs>
+  <rect width="1000" height="600" fill="url(#sky)"/>
+  <circle cx="760" cy="210" r="132" fill="#b9d8dc" opacity=".18"/><circle cx="760" cy="210" r="5" fill="#f6d58d"/><circle cx="700" cy="145" r="2.5" fill="#fff"/><circle cx="840" cy="290" r="3" fill="#fff"/>
+  <g fill="none" stroke="#b8d8dc" stroke-width="1" opacity=".35"><path d="M610 210h300M760 60v300"/><circle cx="760" cy="210" r="86"/></g>
   <g fill="none" stroke="#355f70" stroke-width="1.6" opacity=".24"><path d="M76 96H924M76 506H924"/><path d="M76 96V506M924 96V506"/></g>
-  <g fill="#355f70" font-family="Arial,'Helvetica Neue',sans-serif">
+  <g fill="#e5f2f1" font-family="Arial,'Helvetica Neue',sans-serif">
     <text x="91" y="155" font-size="25" letter-spacing="5" font-weight="600">MIKI / WORKS</text>
     <text x="89" y="353" font-size="190" letter-spacing="-11" font-weight="600">AL</text>
     <text x="92" y="446" font-size="36" font-weight="600" letter-spacing="2">ASTRO LAB</text>

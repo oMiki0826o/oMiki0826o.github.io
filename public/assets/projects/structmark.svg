@@ -1,7 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600" role="img" aria-label="STRUCTMARK minimalist title cover">
-  <rect width="1000" height="600" fill="#e7f0ef"/>
+  <rect width="1000" height="600" fill="#142b2d"/>
+  <rect x="605" y="128" width="284" height="314" rx="12" fill="#1f4241" stroke="#a7d0c8" stroke-opacity=".55"/>
+  <g fill="#b8dfd3" font-family="monospace" font-size="16"><text x="632" y="180">#1 Notes</text><text x="632" y="216">*[structured]</text><text x="632" y="252">- parser</text><text x="632" y="288">- AST</text><text x="632" y="324">- renderer</text></g>
   <g fill="none" stroke="#3f6f6e" stroke-width="1.6" opacity=".24"><path d="M76 96H924M76 506H924"/><path d="M76 96V506M924 96V506"/></g>
-  <g fill="#3f6f6e" font-family="Arial,'Helvetica Neue',sans-serif">
+  <g fill="#d7eee8" font-family="Arial,'Helvetica Neue',sans-serif">
     <text x="91" y="155" font-size="25" letter-spacing="5" font-weight="600">MIKI / WORKS</text>
     <text x="89" y="353" font-size="190" letter-spacing="-11" font-weight="600">SM</text>
     <text x="92" y="446" font-size="36" font-weight="600" letter-spacing="2">STRUCTMARK</text>

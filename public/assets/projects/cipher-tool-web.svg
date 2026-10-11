@@ -1,7 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600" role="img" aria-label="CIPHER TOOL WEB minimalist title cover">
-  <rect width="1000" height="600" fill="#f1eae3"/>
+  <rect width="1000" height="600" fill="#30231f"/>
+  <rect x="595" y="132" width="286" height="292" rx="12" fill="#49342b" stroke="#e7b07f" stroke-opacity=".6"/>
+  <g fill="#f3c49a" font-family="monospace" font-size="18"><text x="625" y="184">CAESAR CIPHER</text><text x="625" y="238">INPUT</text><rect x="625" y="252" width="210" height="42" rx="6" fill="#2a1f1c"/><text x="625" y="345">RESULT</text><rect x="625" y="358" width="210" height="18" rx="6" fill="#c87850" opacity=".7"/></g>
   <g fill="none" stroke="#a26b50" stroke-width="1.6" opacity=".24"><path d="M76 96H924M76 506H924"/><path d="M76 96V506M924 96V506"/></g>
-  <g fill="#a26b50" font-family="Arial,'Helvetica Neue',sans-serif">
+  <g fill="#f3d3b4" font-family="Arial,'Helvetica Neue',sans-serif">
     <text x="91" y="155" font-size="25" letter-spacing="5" font-weight="600">MIKI / WORKS</text>
     <text x="89" y="353" font-size="190" letter-spacing="-11" font-weight="600">CT</text>
     <text x="92" y="446" font-size="36" font-weight="600" letter-spacing="2">CIPHER TOOL WEB</text>
