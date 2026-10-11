@@ -76,7 +76,7 @@ describe('RootLayout', () => {
   it('shows each work with its real 5:3 cover on the Works page', async () => {
     const {container} = render(await ProjectsPage({params: Promise.resolve({locale: 'zh-TW'})}));
 
-    expect(container.querySelectorAll('.page-project-cover img')).toHaveLength(3);
+    expect(container.querySelectorAll('.page-project-cover img')).toHaveLength(9);
     expect(within(container).getAllByRole('link', {name: 'CipherTool'})[0]).toHaveAttribute('href', '/zh-TW/projects/cipher-tool');
   });
 

@@ -1,0 +1,23 @@
+#1 V6.2.5 實作計畫
+
+#2 工作單元
+
+- [o] 1. 保存 V6.1 基線、重現 npm 安裝限制；檢查無依賴替身的驗證能力。
+- [o] 2. 編寫失敗的 Playground 匯入、資料安全、診斷定位回歸測試；新增必要 UI。
+- [o] 3. 編寫失敗的 CI、依賴同步及離線驗證測試；修正 package / lock / workflow。
+- [o] 4. 編寫失敗的播放器、Astro 操作及響應式樣式檢查；修正及整理程式。
+- [o] 5. 補上適合 GitHub Pages 的輸出語言與路由驗證、強化 .sm 及 Notes 一致性。
+- [o] 6. 更新 README、DEVELOPMENT.sm、CHANGELOG.sm、VALIDATION.sm；執行能執行的完整檢查。
+- [o] 7. 檢查 ZIP 的檔案清單、SHA-256 與沒有 node_modules/.next；以原始碼方式輸出。
+
+#2 執行策略
+
+每項改動先建立可復現的測試，確認測試失敗，再修改程式，重跑測試與基線健檢。不宣稱未能執行的 npm build、完整 TypeScript typecheck 或 Playwright 為通過。
+
+#2 實際驗證摘要
+
+- RED：新增原生測試時，偵測到尚無匯入工具、版本未同步、CI 沒有 PR 關卡、原始圖片被套濾鏡。
+- GREEN：改動後 Node.js 原生測試 7／7、Python 基線健檢 7／7，Notes 索引 7 篇一致。
+- TypeScript Compiler API 解析 111 個程式碼來源檔、PostCSS 解析 3 份 CSS，語法錯誤 0。
+- 依賴安裝受 EAI_AGAIN 阻礙，未宣稱完整 Vitest、型別檢查、Next.js build 或 Playwright 通過。
+- 已將上述限制明列於 docs/VALIDATION.sm。

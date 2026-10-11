@@ -13,6 +13,7 @@ describe('note content', () => {
         for (const locale of locales) {
           expect(section.heading[locale]).not.toHaveLength(0);
           expect(section.paragraphs[locale].length).toBeGreaterThan(0);
+          expect(section.ids[locale].length).toBeGreaterThan(0);
         }
       }
     }
@@ -31,7 +32,7 @@ describe('note content', () => {
       const folder = path.join(notesRoot, note.slug);
       expect(fs.existsSync(path.join(folder, 'meta.ts'))).toBe(true);
       for (const locale of locales) {
-        expect(fs.existsSync(path.join(folder, `${locale}.md`))).toBe(true);
+        expect(fs.existsSync(path.join(folder, `${locale}.sm`))).toBe(true);
       }
     }
   });

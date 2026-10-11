@@ -1,0 +1,15 @@
+#1 Notes 資料夾
+
+每篇文章有 `meta.ts` 與 `zh-TW.sm`、`en.sm`、`ja.sm` 三份內容。新增文章時，把三語檔案放在同一個資料夾，之後執行 `npm run notes:sync` 自動註冊。
+
+#2 如何編輯
+
+用 `#2` 建立大段落。粗體使用 `*[文字]`，斜體使用 `/[文字]`，連結使用 `[標籤](https://example.com)`。程式碼可用三個反引號的圍欄。
+
+#2 網站怎麼讀文章
+
+`content/notes-loader.ts` 會讀取 .sm，呼叫 StructMark V1.1 解析成 AST，依 H2 切章節，再以官方渲染器產生安全 HTML。三語章節數量須一致，解析錯誤會使建置失敗。
+
+#2 檢查
+
+執行 `npm run notes:sync` 產生文章索引，再以 `npm run docs:check` 用正式 StructMark Parser 檢查 UTF-8、LF 與三語章節。執行 `npm test` 測試內容載入和既有網站邏輯。

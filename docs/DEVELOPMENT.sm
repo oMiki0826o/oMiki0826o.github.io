@@ -1,0 +1,65 @@
+#1 開發與維護
+
+這個網站的主站是個人作品與筆記的入口，Lab 則用來收納獨立的小工具。前者盡量穩定，後者可以自由實驗，但所有公開按鈕仍應有真正的操作結果。
+
+#2 開始開發
+
+請使用 Node.js 22 與 npm。執行 `npm ci` 還原鎖定的依賴，`npm run dev` 啟動 Next.js。測試使用 `npm run test:native` 與 `npm test`，建置使用 `npm run build`。需要檢視實際靜態匯出時，請使用 `npm run preview`。
+
+#2 文章寫法
+
+文章存放於 `content/notes/<slug>/`，包含 `meta.ts`、`zh-TW.sm`、`en.sm` 與 `ja.sm`。新增文章後執行 `npm run notes:sync` 更新註冊表；三份正文都使用 `#2` 作為章節標題；可以使用 `*[粗體]`、`/[斜體]`、`[連結](https://example.com)`、列表、表格及程式碼。
+
+建置流程不是把 .sm 檔案直接塞進 HTML。`content/notes-loader.ts` 會使用語言核心轉為 AST，嚴格處理解析錯誤，並輸出經過跳脫的 HTML。自訂章節 ID 如 `#2 節標題 (#id)` 會直接成為網頁錨點。請勿跳過 Parser，直接信任原始文件字串。
+
+#2 新增 Lab 工具
+
+每個工具放在 `components/lab/`，再到 `app/lab/[tool]/page.tsx` 加入對應路由，也需要在 `components/lab/lab-index.tsx` 新增入口。工具如果在瀏覽器執行，請用 React Client Component；不得在頁面初次載入時要求非必要外部 API。
+
+#2 StructMark 更新
+
+內嵌的 TypeScript 原始碼來自 StructMark V1.1 的 `src/`，位置在 `lib/structmark/core/`，授權附在 `lib/structmark/LICENSE`。升級時應從官方倉庫取得新版本，確認 API 相容性後再更換；不要直接修改文法以符合單一頁面的需要。
+
+#2 發布前核對
+
+在可存取 npm Registry 的環境執行 `npm ci`，再執行 `npm run test:native`、`npm run docs:check`、`npm test`、`npm run typecheck` 與 `npm run build`。先安裝 `npx playwright install chromium webkit`，最後執行 `npm run test:e2e`。可使用 `npm run validate` 串接全套檢查。
+
+如有新增路由，請為 Chromium、WebKit 與行動版 WebKit 補充使用情境。驗證不通過就不能把變更當成穩定發布版。
+
+#2 部署
+
+正式部署使用 `.github/workflows/static.yml`。Pull request 會驗證但不部署；main 分支通過文件、測試、型別與瀏覽器檢查後，才會把相同的已驗證靜態產物部署出去。GitHub Pages 應設定為 GitHub Actions；Next.js 採用 `output: export`，最後上傳 `out/`。如果未設定 Pages 權限，請先在儲存庫設定頁啟用。
+
+#2 樣式檔案
+
+主站樣式在 `app/styles/site.css`，Lab 在 `app/styles/lab.css`，文章與 Playground 在 `app/styles/structmark.css`。調整視覺時應保持選擇器責任清楚，避免在檔案尾端一再覆寫同一個規則。
+
+#2 StructMark Playground
+
+編輯器網址為 `/lab/structmark/`。可以直接輸入語法，或從電腦匯入 `.sm` 檔案；它會拒絕空檔、非 `.sm` 檔、超過 400 KB 的資料和不合法的 UTF-8。解析上限為 100,000 字元。診斷結果可點選回到原始碼的對應行列，預覽只使用官方 Renderer，不接受自行拼接 HTML。
+
+匯入的文章與草稿都只在使用者自己的瀏覽器處理。若未來新增上傳服務或跨裝置同步，需另外設計明確的個資與安全性說明。
+
+#2 V6.3.4 作品管理與文章關聯
+
+Works 的正式來源是 `content/projects.ts`，詳細文字在 `content/project-details.ts`。更新或新增作品時，需填入唯一 slug、三語標題及簡介、分類、標籤、實際 GitHub URL 和本機封面；若有可公開操作的網頁才填 `demoUrl`。分類使用 web 或 tools，封面請放在 `public/assets/projects/`。`npm run works:check` 會檢查三語文字、作品資料、網址和封面檔案；更完整的說明見 `docs/WORKS.sm`。
+
+希望文章自動連到作品時，在三份 `.sm` 文件最前面使用相同的 Front Matter，例如：
+
+```sm
+---
+project: discord-bot
+---
+
+#2 這篇文章的第一節
+
+文章內容。
+```
+
+網站在解析 AST 時檢查 project，且會拒絕三語不一致或不存在的作品。文章詳情頁會顯示相關作品，作品詳情頁也會從同一資料來源取得相關文章。新增文章後執行 `npm run notes:sync`；變更作品資料後執行 `npm run works:check`。
+
+#2 StructMark 核心同步
+
+`lib/structmark/core/` 是從使用者提供的 StructMark src 原始檔帶入，未在此網站內另行修改文法。對應的逐檔 SHA-256 放在 `lib/structmark/core-manifest.json`。
+
+先執行 `npm run core:check` 確認沒有意外變更。如要升級，下載原專案後先檢視 API 與測試差異，再使用 `npm run core:sync -- <StructMark/src 資料夾路徑>`。同步工具要求來源檔案清單一致；若上游增減檔案，必須人工調整架構，不可盲目覆蓋。同步後要在具備依賴的環境重跑 `npm run validate`。

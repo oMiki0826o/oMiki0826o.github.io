@@ -1,0 +1,31 @@
+#1 Works 作品資料與維護
+
+本站的 Works 是實際完成或正在開發的公開專案，不是自動產生的 GitHub 排名，也不是需要每日維護的動態狀態板。
+
+#2 已列出的作品
+
+- Firefly Bot — Discord 音樂、管理與 AI 功能。
+- Miki's Website — 本個人網站。
+- CipherTool — Python / Tkinter 文字工具。
+- AstroLab — 雙語觀星工具。
+- STLab — 輕量日常網頁工具。
+- CipherTool Web — 瀏覽器文字轉換工具。
+- StructMark — 自訂 .sm 結構化標記語言。
+- NoteBlock Tweaks — Fabric 音階盒調音輔助模組。
+- AI Development Governance — AI 開發規範及驗證流程。
+
+#2 加入或更新作品
+
+先在 `content/projects.ts` 新增項目，填入與 GitHub 對應的唯一 slug、三語標題／簡介、技術標籤、URL、封面、類別。公開網站地址可填 `demoUrl`，純原始碼專案可以省略。再到 `content/project-details.ts` 新增三語說明段落；路由、目錄與 sitemap 都會根據兩份資料自動輸出，不必建立新的 page.tsx。
+
+專案圖片應使用實際截圖，或清楚標示用途的文字封面。新加的六張封面是本站本地的 SVG 文字識別圖，不能視為原作品畫面或程式執行結果。
+
+首頁僅由 `pinnedProjectSlugs` 選三個主打作品。Works 全部作品另外依「網站與語言」「工具與開發」呈現。
+
+#2 關聯文章
+
+如果某篇 Notes 對應到作品，在繁中、英文、日文三份 `.sm` 文件開頭加入相同 `project:`，值必須與 Works 的 slug 完全一致。StructMark Parser 解析後會產生雙向連結；不需要在作品的細節資料重複維護文章檔名。
+
+#2 驗證與發布
+
+修改後先跑 `npm run works:check`、`npm run test:native` 與 `npm run core:check`，再在完成 `npm ci` 的環境執行 `npm run validate`。其中 `validate` 才會涵蓋 Next.js 真正的靜態匯出與 Chromium／WebKit 瀏覽器測試。

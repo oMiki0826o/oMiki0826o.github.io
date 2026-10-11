@@ -36,10 +36,10 @@ export function HomePage({locale}: {locale: Locale}) {
       </nav>
 
       <ScrollReveal><figure className="featured">
-        <a className="featured-image" href="https://twitter.com" target="_blank" rel="noreferrer"><img src={profile.featuredImage} alt="鎮樓圖" loading="lazy" /></a>
+        <div className="featured-image"><img src={profile.featuredImage} alt={copy.home.featuredImage} loading="lazy" decoding="async" /></div>
         <figcaption className="featured-caption">
           <strong>{copy.home.featuredImage}</strong>
-          <a href="https://twitter.com" target="_blank" rel="noreferrer">Twitter →</a>
+          <span>{localize(profile.featuredCaption, locale)}</span>
         </figcaption>
       </figure></ScrollReveal>
 

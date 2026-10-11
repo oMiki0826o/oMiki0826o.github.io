@@ -14,6 +14,8 @@ export type Project = {
   image: string;
   imageSource: string;
   tone: 'blue' | 'orange' | 'green';
+  category: 'web' | 'tools';
+  demoUrl?: string;
 };
 
 export type Note = {
@@ -23,9 +25,12 @@ export type Note = {
   date: string;
   category: NoteCategory;
   relatedSlugs?: readonly string[];
+  projectSlug?: string;
   sections: Array<{
     heading: LocalizedText;
     paragraphs: Record<Locale, string[]>;
+    html: Record<Locale, string>;
+    ids: Record<Locale, string>;
   }>;
 };
 

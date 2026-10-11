@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "rootDir": "lib/structmark/core",
+    "outDir": ".sm-cache/core",
+    "noEmit": false,
+    "declaration": false,
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "types": [],
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["lib/structmark/core/**/*.ts"],
+  "exclude": ["node_modules"]
+}

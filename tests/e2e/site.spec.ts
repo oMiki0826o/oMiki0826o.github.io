@@ -5,13 +5,15 @@ const topLevelRoutes = [
   '/zh-TW/about/', '/en/about/', '/ja/about/',
   '/zh-TW/projects/', '/en/projects/', '/ja/projects/',
   '/zh-TW/projects/discord-bot/', '/en/projects/cipher-tool/', '/ja/projects/miki-website/',
+  '/zh-TW/projects/structmark/', '/en/projects/astro-lab/', '/ja/projects/stlab/',
+  '/zh-TW/projects/cipher-tool-web/', '/en/projects/note-block-tweaks/', '/ja/projects/ai-development-governance/',
   '/zh-TW/notes/', '/en/notes/', '/ja/notes/',
   '/zh-TW/timeline/', '/en/timeline/', '/ja/timeline/',
   '/zh-TW/notes/about-me/', '/en/notes/about-me/', '/ja/notes/discord-bot-from-zero/',
   '/zh-TW/notes/discord-bot-usage-guide/', '/en/notes/discord-bot-mod-guide/',
   '/zh-TW/notes/seasonal-night-sky-guide/', '/en/notes/spacetime-and-gravitational-waves/',
   '/ja/notes/ultrasonic-call-study-notes/',
-  '/lab/', '/lab/pearl-cannon/', '/lab/astro-compare/', '/lab/snake/', '/lab/github-galaxy/'
+  '/lab/', '/lab/pearl-cannon/', '/lab/astro-compare/', '/lab/snake/', '/lab/github-galaxy/', '/lab/structmark/'
 ];
 
 test('all public locale and note routes load from the exported site', async ({page}) => {
@@ -94,4 +96,119 @@ test('the memorial easter egg keeps its standalone layout and click tribute', as
   await expect(page.locator('.fireflies')).toHaveCount(0);
   await page.mouse.click(120, 180);
   await expect(page.locator('.rip-flower')).toHaveCount(1);
+});
+
+
+test('StructMark editor parses an actual document and exports an AST', async ({page}) => {
+  await page.goto('/lab/structmark/');
+  await page.getByRole('textbox', {name: 'StructMark 來源文字'}).fill('#1 Hello\n\n*[test]');
+  await expect(page.locator('.sm-preview h1')).toHaveText('Hello');
+  await expect(page.locator('.sm-preview strong')).toHaveText('test');
+  await page.getByRole('tab', {name: 'AST'}).click();
+  await expect(page.locator('.sm-json')).toContainText('heading');
+});
+
+test('every localized exported HTML has the correct language', async ({page}) => {
+  for (const locale of ['zh-TW', 'en', 'ja']) {
+    await page.goto(`/${locale}/notes/about-me/`);
+    await expect(page.locator('html')).toHaveAttribute('lang', locale);
+  }
+});
+
+test('article contents links resolve to the section shown on the page', async ({page}) => {
+  await page.goto('/zh-TW/notes/discord-bot-usage-guide/');
+  const contents = page.locator('.note-toc a');
+  const first = contents.first();
+  const anchor = await first.getAttribute('href');
+  expect(anchor).toMatch(/^#.+/);
+  const id = decodeURIComponent(anchor!.slice(1));
+  await expect(page.locator('.note-article section').first()).toHaveAttribute('id', id);
+});
+
+test('StructMark editor supports keyboard tab navigation', async ({page}) => {
+  await page.goto('/lab/structmark/');
+  const preview = page.getByRole('tab', {name: '預覽'});
+  await preview.focus();
+  await page.keyboard.press('ArrowRight');
+  await expect(page.getByRole('tab', {name: 'AST'})).toHaveAttribute('aria-selected', 'true');
+  await expect(page.locator('.sm-json')).toContainText('document');
+});
+
+test('the snake controls do not capture keyboard events from the rest of the page', async ({page}) => {
+  await page.goto('/lab/snake/');
+  const preventedOnWindow = await page.evaluate(() => {
+    const event = new KeyboardEvent('keydown', {key: 'ArrowDown', bubbles: true, cancelable: true});
+    window.dispatchEvent(event);
+    return event.defaultPrevented;
+  });
+  expect(preventedOnWindow).toBe(false);
+  await page.locator('.snake-game').focus();
+  await page.keyboard.press('ArrowDown');
+  await expect(page.locator('.snake-status')).toContainText('保持移動');
+});
+
+test('astro compare rejects unsupported image formats', async ({page}) => {
+  await page.goto('/lab/astro-compare/');
+  await page.locator('.astro-file-controls input').first().setInputFiles({
+    name: 'unsupported.svg',
+    mimeType: 'image/svg+xml',
+    buffer: Buffer.from('<svg xmlns="http://www.w3.org/2000/svg"/>')
+  });
+  await expect(page.getByRole('alert')).toContainText('JPEG');
+});
+
+test('StructMark editor imports a local UTF-8 .sm document', async ({page}) => {
+  await page.goto('/lab/structmark/');
+  await page.getByLabel('匯入本機 StructMark 文件').setInputFiles({
+    name: 'local.sm',
+    mimeType: 'text/plain',
+    buffer: Buffer.from('#1 Local\n\n*[strong]', 'utf8')
+  });
+  await expect(page.getByRole('textbox', {name: 'StructMark 來源文字'})).toHaveValue('#1 Local\n\n*[strong]');
+  await expect(page.locator('.sm-preview strong')).toHaveText('strong');
+});
+
+test('StructMark editor rejects unsupported file extensions', async ({page}) => {
+  await page.goto('/lab/structmark/');
+  await page.getByLabel('匯入本機 StructMark 文件').setInputFiles({
+    name: 'notes.md', mimeType: 'text/plain', buffer: Buffer.from('#1 Invalid', 'utf8')
+  });
+  await expect(page.getByRole('alert')).toContainText('.sm');
+});
+
+test('music player shows an error when YouTube API cannot load', async ({page}) => {
+  await page.route('**/iframe_api', route => route.abort());
+  await page.goto('/');
+  await page.getByRole('button', {name: '播放'}).click();
+  await expect(page.locator('.player-error')).toBeVisible({timeout: 20_000});
+});
+
+// ── V6.3.4：Works 新作品、三語詳情與真實站外連結 ──
+test('Works lists all nine projects with readable groups and source links', async ({page}) => {
+  await page.goto('/zh-TW/projects/');
+  await expect(page.locator('.page-project')).toHaveCount(9);
+  await expect(page.getByRole('heading', {name: '網站與語言'})).toBeVisible();
+  await expect(page.getByRole('heading', {name: '工具與開發'})).toBeVisible();
+  await expect(page.getByRole('heading', {name: 'StructMark'})).toBeVisible();
+  await expect(page.getByRole('heading', {name: 'AstroLab'})).toBeVisible();
+  const links = page.locator('.page-project-actions a[target="_blank"]');
+  expect(await links.count()).toBeGreaterThan(5);
+  for (const link of await links.all()) await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+});
+
+test('Works remains within the viewport on narrow phones', async ({page}) => {
+  for (const width of [320,375,390,430]) {
+    await page.setViewportSize({width,height:740});
+    await page.goto('/zh-TW/projects/');
+    await expect(page.locator('.page-project')).toHaveCount(9);
+    const overflowing = await page.locator('html').evaluate((el) => el.scrollWidth > el.clientWidth);
+    expect(overflowing, `width=${width}`).toBe(false);
+  }
+});
+
+test('StructMark note front matter links the related work in both directions', async ({page}) => {
+  await page.goto('/zh-TW/notes/discord-bot-usage-guide/');
+  await expect(page.locator('.note-project-related a')).toHaveAttribute('href', '/zh-TW/projects/discord-bot/');
+  await page.goto('/zh-TW/projects/discord-bot/');
+  await expect(page.getByRole('link',{name:/Discord Bot 使用教學/})).toBeVisible();
 });

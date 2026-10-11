@@ -3,6 +3,7 @@ import {profile} from '@/content/profile';
 import {pinnedProjects, projects} from '@/content/projects';
 import {timeline} from '@/content/timeline';
 import {getProjectDetail} from '@/content/project-details';
+import {getNotesForProject} from '@/content/notes/index';
 import {calculatePearlCannon, createPearlSettings, genericFtlVersions, validatePearlSettings} from '@/lib/pearl-calculator';
 
  describe('site content', () => {
@@ -13,15 +14,13 @@ import {calculatePearlCannon, createPearlSettings, genericFtlVersions, validateP
   });
 
   it('keeps the current core projects', () => {
-    expect(projects.map((project) => project.slug)).toEqual(['discord-bot', 'miki-website', 'cipher-tool']);
-    expect(pinnedProjects.map((project) => project.slug)).toEqual(['discord-bot', 'cipher-tool', 'miki-website']);
+    expect(projects.map((project) => project.slug)).toEqual(['discord-bot', 'miki-website', 'cipher-tool', 'astro-lab', 'stlab', 'cipher-tool-web', 'structmark', 'note-block-tweaks', 'ai-development-governance']);
+    expect(pinnedProjects.map((project) => project.slug)).toEqual(['discord-bot', 'structmark', 'astro-lab']);
   });
 
   it('connects the Discord Bot project with its notes', () => {
-    expect(getProjectDetail('discord-bot')?.relatedNoteSlugs).toEqual([
-      'discord-bot-from-zero',
-      'discord-bot-usage-guide',
-      'discord-bot-mod-guide'
+    expect(getNotesForProject('discord-bot').map((note) => note.slug).sort()).toEqual([
+      'discord-bot-from-zero', 'discord-bot-mod-guide', 'discord-bot-usage-guide'
     ]);
   });
 
@@ -33,7 +32,7 @@ import {calculatePearlCannon, createPearlSettings, genericFtlVersions, validateP
 
   it('gives every project an authentic local cover image', () => {
     for (const project of projects) {
-      expect(project.image).toMatch(/^\/assets\/projects\/.+\.(png|jpg|jpeg|webp)$/);
+      expect(project.image).toMatch(/^\/assets\/projects\/.+\.(png|jpg|jpeg|webp|svg)$/);
       expect(project.imageSource).toMatch(/^https:\/\//);
     }
   });

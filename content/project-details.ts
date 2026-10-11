@@ -10,7 +10,6 @@ export const projectDetails: ProjectDetail[] = [{
     en: 'A Discord Bot that started as something that worked, then slowly became something maintainable.',
     ja: '動けば十分だったところから、少しずつ保守できる形へ整理しているDiscord Botです。'
   },
-  relatedNoteSlugs: ['discord-bot-from-zero', 'discord-bot-usage-guide', 'discord-bot-mod-guide'],
   sections: [
     {heading: {'zh-TW': '為什麼做', en: 'Why', ja: 'なぜ作ったか'}, body: {'zh-TW': '最初只是想把腦中的功能做出來：音樂、管理、自動化，還有一些不太安分的想法。功能越長越多後，真正的問題變成怎麼讓它不要互相拖垮。', en: 'It began with a few ideas: music, moderation, automation, and experiments. As the bot grew, the real problem became keeping each feature from pulling the others apart.', ja: '音楽、管理、自動化、そしていくつかの実験を形にしたかったのが始まりです。機能が増えると、互いに壊し合わずに保つことが課題になりました。'}},
     {heading: {'zh-TW': '架構整理', en: 'Architecture', ja: '構成'}, body: {'zh-TW': '把核心啟動流程、extension 載入、設定、資料庫與各個模組分開。extension.py 負責組裝，模組自己管理功能，核心不需要知道每個功能的細節。', en: 'The startup flow, extension loading, settings, database, and features are separated. The assembly layer wires things together while the core stays unaware of each module’s details.', ja: '起動処理、extensionの読み込み、設定、データベース、各機能を分けています。組み立て役が接続し、Coreは各モジュールの細部を知りません。'}},
@@ -46,6 +45,42 @@ export const projectDetails: ProjectDetail[] = [{
     {heading: {'zh-TW': '介面與功能邊界', en: 'Interface and boundaries', ja: '画面と境界'}, body: {'zh-TW': 'Tkinter 介面會依工具類型顯示需要的模式與參數，提供執行、複製與清除。功能集中在文字輸入與轉換，不把資料上傳到外部服務；但使用者仍不應把密碼、Token 或個資交給這些古典方法保護。', en: 'The Tkinter interface shows the mode and parameters needed by each tool, with execute, copy, and clear actions. The work stays in the text tool, but passwords, tokens, and personal data should never rely on these classical methods for protection.', ja: 'Tkinterの画面はツールごとに必要なモードと引数を表示し、実行、コピー、消去を用意します。処理は文字ツール内で完結しますが、パスワードやToken、個人情報を古典的な方式で守ってはいけません。'}},
     {heading: {'zh-TW': '這個作品留下的練習', en: 'What the project practises', ja: 'この作品で練習したこと'}, body: {'zh-TW': '這個專案的價值不只在功能數量，也在於把每個轉換方法拆成可以單獨理解與測試的步驟。它是一個比大型 Bot 小很多的作品，卻很適合拿來練習輸入驗證、錯誤提示與桌面介面。', en: 'The value is not only the number of tools. Each transform is separated into a step that can be understood and tested on its own. It is much smaller than the Bot, but useful practice for input validation, error messages, and desktop UI.', ja: '価値は機能の数だけではありません。各変換を理解しやすく、個別にテストできる単位へ分けています。Botより小さい作品ですが、入力検証、エラー表示、デスクトップUIの練習になりました。'}}
   ]
-}];
+},
+  {slug: "astro-lab", title: {"zh-TW": "AstroLab", "en": "AstroLab", "ja": "AstroLab"},
+  lead: {"zh-TW": "清楚、輕量的觀星工具", "en": "A quiet companion for stargazing", "ja": "シンプルな観測のおとも"},
+  sections: [
+    {heading: {"zh-TW": "想解決的問題", "en": "The problem", "ja": "何を解決するか"}, body: {"zh-TW": "在瀏覽器裡整理觀測需要查找的天體與資訊，省去在多個分散頁面之間切換。", "en": "Bring practical observing references into one place instead of juggling separate pages.", "ja": "観測に必要な情報を一か所にまとめ、複数サイトの行き来を減らします。"}},
+    {heading: {"zh-TW": "設計方式", "en": "Approach", "ja": "設計"}, body: {"zh-TW": "選擇不依賴帳號與後端的靜態網站，讓基礎功能在一般瀏覽器裡也能使用。", "en": "Use a static bilingual interface without accounts or a dedicated backend.", "ja": "アカウントや専用サーバーに依存しない静的なバイリンガルサイトです。"}}
+  ]},
+  {slug: "stlab", title: {"zh-TW": "STLab", "en": "STLab", "ja": "STLab"},
+  lead: {"zh-TW": "把日常的小麻煩變成可使用的工具", "en": "Small tools for everyday work", "ja": "日常の作業を小さな道具に"},
+  sections: [
+    {heading: {"zh-TW": "為什麼做", "en": "Why it exists", "ja": "目的"}, body: {"zh-TW": "課表、表格與實驗紀錄並不需要龐大的系統。把常用功能做成小工具，使用時能立即開始。", "en": "Schedules, tables, and experiment charts do not always need a large application. Small focused utilities can be faster to use.", "ja": "時間割や表、グラフには大きなアプリより目的を絞った道具が使いやすいことがあります。"}},
+    {heading: {"zh-TW": "重視的原則", "en": "Principles", "ja": "方針"}, body: {"zh-TW": "功能明確、介面乾淨，優先在本機處理資料，避免不必要的登入與伺服器依賴。", "en": "A clear interface, local processing where practical, and no unnecessary sign-in steps.", "ja": "明確な機能と簡潔な画面を重視し、できるだけローカルで処理します。"}}
+  ]},
+  {slug: "cipher-tool-web", title: {"zh-TW": "CipherTool Web", "en": "CipherTool Web", "ja": "CipherTool Web"},
+  lead: {"zh-TW": "把文字轉換帶進瀏覽器", "en": "Text conversions in the browser", "ja": "ブラウザーで学ぶ文字変換"},
+  sections: [
+    {heading: {"zh-TW": "學習用途", "en": "Made for learning", "ja": "学習向け"}, body: {"zh-TW": "將古典密碼、常用編碼與進位轉換整理成即開即用的網頁；它不是保護敏感資料的現代加密工具。", "en": "Explore classical ciphers, encodings and number bases interactively. It is not a replacement for modern encryption.", "ja": "古典暗号、エンコード、進数変換を気軽に試すための道具で、現代の暗号化の代わりではありません。"}},
+    {heading: {"zh-TW": "資料處理", "en": "Handling data", "ja": "データ処理"}, body: {"zh-TW": "著重在瀏覽器本機進行轉換，不需要將輸入內容傳到外部服務。", "en": "Keep conversions local to the browser, without requiring uploads or accounts.", "ja": "アカウントやアップロードを必要とせず、ブラウザー内で変換します。"}}
+  ]},
+  {slug: "structmark", title: {"zh-TW": "StructMark", "en": "StructMark", "ja": "StructMark"},
+  lead: {"zh-TW": "讓自己設計的語言真正用在網站上", "en": "A markup language used in practice", "ja": "自作言語を実際のサイトで使う"},
+  sections: [
+    {heading: {"zh-TW": "語言核心", "en": "Language core", "ja": "言語コア"}, body: {"zh-TW": "為 .sm 文件開發 Lexer、Parser、AST 與安全 HTML 輸出，讓語法有明確結構，而不是只靠正規表示式替換。", "en": "A lexer, parser, AST and safe HTML renderer turn .sm documents into structured content rather than a chain of regex replacements.", "ja": "Lexer、Parser、AST、安全なHTMLレンダラーで .sm 文書を構造化して処理します。"}},
+    {heading: {"zh-TW": "本站實際用途", "en": "Used on this website", "ja": "このサイトでの利用"}, body: {"zh-TW": "Notes 的三語文章由 StructMark 解析並輸出，Lab 也設有即時編輯與預覽，讓語言功能能實際被測試。", "en": "This site renders its multilingual Notes through StructMark and offers an interactive playground in the Lab.", "ja": "サイト内の記事のレンダリングやLabのライブプレビューにも利用しています。"}}
+  ]},
+  {slug: "note-block-tweaks", title: {"zh-TW": "NoteBlock Tweaks", "en": "NoteBlock Tweaks", "ja": "NoteBlock Tweaks"},
+  lead: {"zh-TW": "讓 Minecraft 音階盒調音更方便", "en": "Better Minecraft noteblock tuning", "ja": "音ブロックの調律を快適に"},
+  sections: [
+    {heading: {"zh-TW": "操作目標", "en": "Interaction", "ja": "操作"}, body: {"zh-TW": "使用純客戶端 Fabric 模組，提供音高選擇介面與音高複製、貼上，減少逐次點擊帶來的操作負擔。", "en": "A Fabric client-side interface helps choose noteblock pitches and copy or paste values without repeated cycling.", "ja": "FabricクライアントModで音程の選択やコピー・貼り付けを扱います。"}},
+    {heading: {"zh-TW": "模組邊界", "en": "Scope", "ja": "対象範囲"}, body: {"zh-TW": "專注在音階盒的互動輔助，不把它包裝成需要伺服器安裝的音樂服務。", "en": "Focused on noteblock interactions; it is not a server-side music service.", "ja": "音ブロックの操作支援に集中した、サーバー型の音楽サービスではないModです。"}}
+  ]},
+  {slug: "ai-development-governance", title: {"zh-TW": "AI Development Governance", "en": "AI Development Governance", "ja": "AI Development Governance"},
+  lead: {"zh-TW": "讓開發規範能真正落實", "en": "Make development standards actionable", "ja": "開発ルールを実際の作業へ"},
+  sections: [
+    {heading: {"zh-TW": "核心想法", "en": "Core idea", "ja": "考え方"}, body: {"zh-TW": "把程式碼品質、驗證步驟、變更追蹤與協作責任寫清楚，讓規範能融入開發流程。", "en": "Turn code quality, verification, change tracking and shared responsibility into repeatable development practices.", "ja": "品質、検証、変更追跡、共同作業の基準を日々の開発に組み込みます。"}},
+    {heading: {"zh-TW": "實際使用", "en": "Practical use", "ja": "使い方"}, body: {"zh-TW": "內容面向人類開發者與 AI Coding Agent，目標是降低錯誤與維護成本，而不是堆疊無法執行的指令。", "en": "Guidance for both human contributors and AI coding agents, with an emphasis on checks that can be carried out.", "ja": "人間とAIコーディングエージェント双方が、実行可能なチェックを共有できるようにします。"}}
+  ]}];
 
 export function getProjectDetail(slug: string) { return projectDetails.find((project) => project.slug === slug); }

@@ -1,0 +1,33 @@
+#1 Miki Website V6.3.4 — 規格與設計
+
+#2 目標
+
+保留 V6.2.5 的首頁順序、三語內容、柔和藍綠配色與 Lab 工具，將近期已公開的作品加入 Works，修正文章與作品關聯重複維護的問題，改善作品瀏覽、行動裝置及發布檢查，交付完整原始碼。不得用 AI 生成圖片冒充作品截圖，也不增加必須維護的即時狀態欄。
+
+#2 內容與資料模型
+
+- 每個公開作品只在 content/projects.ts 定義一份資料；slug 為本站作品詳情的正式路由。
+- 新增 AstroLab、STLab、CipherTool-Web、StructMark、NoteBlockTweaks、AI-Development-Governance 六個現有公開倉庫。原有 Discord Bot、網站、CipherTool 保留。
+- 新增作品詳情頁要有完整繁中、英文、日文說明；公開展示連結與 GitHub 原始碼連結分開。
+- 新增作品封面採清楚標示文字的輕量 SVG，明確作為識別圖，不冒充真實截圖。
+- 首頁僅選取三項主打作品，完整 Works 頁呈現全部作品。
+
+#2 StructMark 內容管理
+
+- Notes 原始碼與主要說明文件繼續使用 .sm；README.md 保留，供 GitHub 正常顯示。
+- Notes 可透過三語一致的 YAML front matter project 鍵關聯既有作品，不再在作品詳情頁重複維護文章 slug。
+- 若舊文章尚未設定 front matter，原有 relatedNoteSlugs 仍可用作向下相容備援，且不得重複顯示。
+- 使用正式 StructMark AST 解析 metadata，拒絕不合法專案 slug 或翻譯間不一致的 project。
+
+#2 視覺與體驗
+
+- Works 用更明確的類別、留白、作品標題、輕量封面、操作按鈕區分，無新的多餘動畫。
+- 320px 起能完整閱讀及操作；清楚的 focus-visible、44px 以上重要互動區；支援 reduced motion。
+- 外部連結使用 rel=noopener noreferrer。既有文章、Lab、首頁主段落不得移除。
+
+#2 品質與發布
+
+- 測試新增 Works 列表、詳情、站內關聯、三語與行動版排版。
+- StructMark 核心保留上游檔案來源及校驗機制，變更需明確驗證。
+- CI 保持先驗證再部署；若 npm Registry 不可用，不得聲稱正式 Next.js 建置或 E2E 測試通過。
+- ZIP 不含 .git、node_modules、.next、out、.sm-cache、系統暫存與非必要測試生成檔。

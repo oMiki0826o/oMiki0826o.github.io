@@ -3,3 +3,5 @@
 out/
 coverage/
 node_modules/
+.sm-cache/
+*.tsbuildinfo

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600" role="img" aria-label="NOTE BLOCK TWEAKS minimalist title cover">
+  <rect width="1000" height="600" fill="#e9eddf"/>
+  <g fill="none" stroke="#647451" stroke-width="1.6" opacity=".24"><path d="M76 96H924M76 506H924"/><path d="M76 96V506M924 96V506"/></g>
+  <g fill="#647451" font-family="Arial,'Helvetica Neue',sans-serif">
+    <text x="91" y="155" font-size="25" letter-spacing="5" font-weight="600">MIKI / WORKS</text>
+    <text x="89" y="353" font-size="190" letter-spacing="-11" font-weight="600">NB</text>
+    <text x="92" y="446" font-size="36" font-weight="600" letter-spacing="2">NOTE BLOCK TWEAKS</text>
+    <text x="92" y="477" font-size="18" letter-spacing="5">MINECRAFT / FABRIC</text>
+    <text x="838" y="549" font-size="19" letter-spacing="2">2026</text>
+  </g>
+</svg>

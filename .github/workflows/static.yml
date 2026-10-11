@@ -1,62 +1,70 @@
-name: Build and deploy Next.js site to Pages
+name: Verify and deploy Miki Website
 
 on:
+  pull_request:
+    branches: [main]
   push:
-    branches: ["main"]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  group: website-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  validate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Set up Node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: package-lock.json
-
       - name: Install dependencies
         run: npm ci
-
-      - name: Run tests
-        run: npm test
-
-      - name: Typecheck
-        run: npm run typecheck
-
-      - name: Build static site
-        run: npm run build
-
-      - name: Install Playwright browser
-        run: npx playwright install --with-deps chromium
-
-      - name: Run exported-site checks
+      - name: Validate documentation, unit tests, types and static export
+        run: npm run validate:fast
+      - name: Install browsers
+        run: npx playwright install --with-deps chromium webkit
+      - name: Test exported website in Chromium and WebKit
         run: npm run test:e2e
+      - name: Preserve exported site for deployment
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: miki-site-static-export
+          path: out
+          if-no-files-found: error
+          retention-days: 3
 
-      - name: Setup Pages
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download verified website
+        uses: actions/download-artifact@v4
+        with:
+          name: miki-site-static-export
+          path: out
+      - name: Configure Pages
         uses: actions/configure-pages@v5
-
-      - name: Upload artifact
+      - name: Upload verified static website
         uses: actions/upload-pages-artifact@v3
         with:
           path: out
-
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v5

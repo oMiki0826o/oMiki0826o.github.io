@@ -1,0 +1,39 @@
+#1 網站更新紀錄
+
+#2 V6.3.4 — Works 與內容管理（2026-10-11）
+
+- 依據實際公開 GitHub 儲存庫，新增 AstroLab、STLab、CipherTool Web、StructMark、NoteBlock Tweaks、AI Development Governance 六項作品；Works 現共九項。
+- 新增完整的三語作品詳情、真實 GitHub／線上網站連結及六張明確標示為識別圖的極簡 SVG 封面。
+- Works 依類別分組，改善排版、手機單欄、鍵盤焦點；首頁保留原順序，主打作品調整為 Discord Bot、StructMark、AstroLab。
+- Notes 透過 `.sm` Front Matter project 讓作品與文章雙向關聯，移除已遷移文章的重複清單。
+- GitHub Galaxy 與 Works 使用同一份作品 URL 資料，不再重複維護倉庫網址。
+- 為 vendored StructMark V1.1 加入逐檔 SHA-256、同步腳本與 CI 檢查，並加入 Works 資料驗證與三語 E2E 測試情境。
+- 保留 GitHub README.md，其餘新增開發文件使用 .sm；更新驗證報告並明確區分可執行檢查與仍因 npm 依賴不足而未完成的測試。
+
+#2 V6.1 — 穩定性與簡約介面整理（2026-10-11）
+
+這次維持原本個人網站的色調與內容順序，集中處理文章語言整合、鍵盤操作、樣式維護及文件建置。
+
+- StructMark 文章切割直接採用 AST 標題 ID，讓目錄與 &ref[id] 指向正確章節；新增重複 ID 檢查與迴歸測試。
+- `.sm` 文件檢查改由同一份 Parser 執行，程式碼區塊中的字面 #2 不會被誤認為章節。
+- 新增 `npm run notes:sync`，依據資料夾產生靜態文章註冊表；不必人工寫 import。
+- CSS 依主站、Lab 和 StructMark 拆成三份，重新整理為易讀的選擇器與宣告，同時保留原始樣式的規則順序。
+- 改善手機標題、文內錨點、Lab 操作元件的觸控尺寸及鍵盤焦點。
+- Playground 加入 220 毫秒解析節流、ARIA 分頁方向鍵切換和草稿狀態提示。
+- Snake 只在遊戲區取得鍵盤事件，提供暫停和繼續功能，不攔截整張頁面的方向鍵。
+- Astro compare 限制本機圖檔大小與 MIME 類型，遇到錯誤會顯示提示；仍不產生人為天文影像細節。
+- 擴充文章、Lab 和 E2E 測試案例，並記錄尚未完成的完整建置驗證。
+
+#2 V6 — StructMark 整合
+
+將七篇文章的三語正文遷移為 21 份 `.sm`，保留作品頁面、靜態多語路由。網站以 StructMark V1.1 原始碼解析並渲染文章，新增 StructMark 即時編輯器、真實照片比較、可導向 GitHub 的 Galaxy，以及音樂播放器容錯。
+
+#2 V6.2.5（2026-10-11）
+
+- 將網站版本與 lockfile 同步至 6.2.5，移除未引用的 next-themes。
+- GitHub Actions 分為驗證和部署兩階段，新增 pull request 關卡及 Chromium / WebKit / 行動版 WebKit。
+- StructMark Playground 支援真正的本機 .sm 匯入、UTF-8 驗證與診斷跳行。
+- Astro Compare 移除會改造使用者圖片的預設濾鏡，維持輸入影像原貌。
+- 播放器避免結束時反覆重設，增加操作例外的錯誤提示。
+- 提升手機版文字、按鈕、選單與鍵盤焦點的可操作性。
+- 增加 Node.js 原生測試、實際 HTML 介面測試情境與離線語法檢查紀錄。

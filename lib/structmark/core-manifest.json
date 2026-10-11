@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "languageVersion": "1.1",
+  "origin": "Local StructMark/src: /private/tmp/miki-v634-merged/lib/structmark/core",
+  "note": "Vendor source code is verified against the provided upstream archive; update only through explicit sync and review.",
+  "files": {
+    "attributes.ts": "5bec62ac77fff8c4a2ed141970190ab44c1ab9084f9f5b569e52173ebe3ed279",
+    "citations.ts": "d09b0d74c2608560b584c67a0170c318fecbbe195e19166fbd769ee6c081caea",
+    "formatter.ts": "9b8e147a83415e7cf8e17ef1e2ca464edd45678fbcf823fb7c9b898126847f3e",
+    "html.ts": "3d8f8696f9f1068a987ad3425b7fe68d9f60f21fdda65bc727ed256ec8338cab",
+    "index.ts": "336306ad9d9d4f31af69c6f4609daa9359923ca8251781a33ffde54cb61eda70",
+    "inline.ts": "441935df3b3ccc43aa7f8efe891960b822ec92ca2015a9ba83d19f898f26d25e",
+    "lexer.ts": "4978348d06c765c70000e7e75ab5e871aa6992e9435e3391fd3843d388661732",
+    "markdown.ts": "274ea20a30f1d3800eaabf4ddf2722578d6656b22a37ec3451bb0c72f18146ce",
+    "parser.ts": "6862045cf917acd042c6e88e990d3e6a5e5f6b8a47dfd5b836907db63277cb5b",
+    "registry.ts": "c944085fbaaf1a2ec24c278fd79ef9c059e42554eaa3aaefaf27d376c3fe1fe9",
+    "semantic.ts": "adccd391f37bcad32320a60376cca5a7698e358ecbd8e2d0de497c01b2281f6a",
+    "serialize.ts": "719da1ae142ea10b863ca5eac782ce4d888da732f7503506c5980d8e18748a39",
+    "source.ts": "13f7d83aad800d990b0e50495b0a660993c633de96a2e284a9ab4fb81c502dc3",
+    "structured_table.ts": "cfc170e1d8a335ca84a42c8b09c7688c9347eb1bea37323130a7a6ba7025d234",
+    "types.ts": "2ab93a4fa9a57711fc0f5e91a24ca2be4cf7dae6a6b6d9ddff22b88d1601eba4"
+  }
+}

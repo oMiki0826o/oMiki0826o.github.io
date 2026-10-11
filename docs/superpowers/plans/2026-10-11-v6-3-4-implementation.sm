@@ -1,0 +1,38 @@
+#1 V6.3.4 實作計畫
+
+#2 Task 1 — Baseline / Root cause
+
+- [x] 讀取 V6.2.5 原始碼與原始測試。
+- [x] 在隔離資料夾建立專案副本。
+- [x] 執行原有 native tests，確認基本品質契約。
+- [x] 重現 npm 依賴無法完整安裝導致 typecheck/build 尚不可使用，列為環境阻礙而非程式成功。
+
+#2 Task 2 — Works 實際作品
+
+- [x] 寫出 9 個作品、相應資料與封面的失敗測試。
+- [x] 擴充三語 projects、project-details、demoUrl，加入新專案。
+- [x] 建立六張極簡 SVG 專案識別圖，不冒充專案畫面。
+- [x] Works 分類排列、作品詳情連結、首頁精選與行動版視覺。
+
+#2 Task 3 — StructMark 文章與作品關聯
+
+- [x] 寫出 front matter project 及錯誤條件的失敗測試。
+- [x] 在 AST 載入階段擷取 metadata，檢查翻譯一致性。
+- [x] 作品詳情頁使用文章內容自動關聯，保留舊版備援。
+- [x] 將 Discord Bot 三語相關文章實際設置 project metadata。
+
+#2 Task 4 — Core 版本同步與品質
+
+- [x] 建立 vendored core SHA-256 清單與完整檢查，不直接改動正式 parser。
+- [x] 將檢查納入 scripts 和 CI；新增嚴格的作品資料檢查。
+- [x] 更新 E2E 作品與行動裝置測試。
+
+#2 Task 5 — Release
+
+- [x] 執行目前環境可執行的 native／資料／語法檢查；完整 npm 測試未通過，原因與指令已記錄在 VALIDATION.sm。
+- [x] 更新 README、CHANGELOG、VALIDATION，誠實列出未驗證環節。
+- [x] ZIP 重新封裝、檢查路徑與內容，計算 SHA-256。
+
+#2 開發決策與限制
+
+原先期望正式建置，但 npm 依賴在本環境無法完整安裝。保留原本 CI 的完整關卡，明確列為正式發布前的必要驗收，不以語法解析取代型別或 E2E 測試。

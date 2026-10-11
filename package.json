@@ -1,23 +1,33 @@
 {
   "name": "miki-website",
-  "version": "1.0.0",
+  "version": "6.3.4",
   "private": true,
   "type": "module",
   "scripts": {
+    "core:check": "node scripts/check-structmark-core.mjs",
+    "core:sync": "node scripts/sync-structmark-core.mjs",
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "next build && node scripts/fix-static-lang.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "docs:check": "npm run notes:check && node scripts/check-sm.mjs",
+    "validate": "npm run validate:fast && npm run test:e2e",
+    "preview": "python3 -m http.server 4173 --directory out",
+    "notes:sync": "node scripts/sync-notes.mjs",
+    "notes:check": "node scripts/sync-notes.mjs --check",
+    "test:native": "node --experimental-strip-types --test tests/native/*.test.mjs",
+    "validate:fast": "npm run test:native && npm run core:check && npm run works:check && npm run docs:check && npm test && npm run typecheck && npm run build",
+    "works:check": "node --experimental-strip-types scripts/check-projects.mjs"
   },
   "dependencies": {
     "next": "^16.1.0",
-    "next-themes": "^0.4.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "zod": "^4.1.12"
+    "zod": "^4.1.12",
+    "katex": "^0.16.47",
+    "yaml": "^2.9.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.1",
