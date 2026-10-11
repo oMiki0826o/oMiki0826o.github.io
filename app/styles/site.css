@@ -458,6 +458,10 @@ button,input {
   text-decoration: none;
 }
 .music-buttons button:hover,.music-buttons .music-source:hover { color: var(--blue-text); }
+.music-buttons svg { width: 21px; height: 21px; display: block; }
+.music-buttons .play svg { width: 23px; height: 23px; }
+.player-loading { width: 15px; height: 15px; border: 1.5px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: player-spin .7s linear infinite; }
+@keyframes player-spin { to { transform: rotate(360deg); } }
 .music-buttons .play {
   color: var(--orange);
   font-size: 1.05rem;
@@ -1650,7 +1654,8 @@ button,input {
 .works-group-header p { margin: 6px 0 0; font-size: .88rem; color: var(--muted); line-height: 1.8; }
 .works-group-header > span { flex: none; color: var(--blue-text); font: 700 1rem var(--en); }
 .works-group .page-projects { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 34px 22px; align-items: start; }
-.works-group .page-project { min-width: 0; border: none; padding: 0; }
+.works-group .page-projects { min-width: 0; }
+.works-group .page-project { min-width: 0; max-width: 100%; border: none; padding: 0; overflow: hidden; }
 .works-group .page-project:last-child { border: none; }
 .works-group .page-project-cover { margin: 0 0 14px; aspect-ratio: 5/3; border: 1px solid var(--line); border-radius: 10px; background: var(--white); }
 .works-group .page-project-cover img { filter: none; }

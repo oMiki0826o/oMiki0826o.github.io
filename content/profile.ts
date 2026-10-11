@@ -24,6 +24,7 @@ export const profile = {
   } satisfies LocalizedText,
   avatar: '/assets/miki-avatar.jpeg',
   featuredImage: 'https://pbs.twimg.com/media/GQgH_VIbQAAViAh?format=jpg&name=large',
+  featuredSource: 'https://twitter.com',
   featuredCaption: {
     'zh-TW': '一張喜歡的圖，放在首頁安靜地定下氣氛。',
     en: 'A favorite image, quietly setting the tone for this home.',

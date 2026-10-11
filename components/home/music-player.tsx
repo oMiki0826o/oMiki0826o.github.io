@@ -16,6 +16,13 @@ function formatTime(value: number) {
   return `${String(Math.floor(value / 60)).padStart(2,'0')}:${String(Math.floor(value % 60)).padStart(2,'0')}`;
 }
 
+function PlayerIcon({kind}: {kind: 'restart' | 'play' | 'pause' | 'open'}) {
+  if (kind === 'restart') return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8V4m0 4h4M5.4 8.2A7.5 7.5 0 1 1 4.9 14" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.7" /></svg>;
+  if (kind === 'open') return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16.5 7.5M10 7.5h6.5V14" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.7" /></svg>;
+  if (kind === 'pause') return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6v12M16 6v12" fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="2" /></svg>;
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 9 6-9 6Z" fill="currentColor" /></svg>;
+}
+
 export function MusicPlayer({locale}: {locale: Locale}) {
   const copy = ui[locale].player;
   const track = musicTracks[0]!;
@@ -95,9 +102,9 @@ export function MusicPlayer({locale}: {locale: Locale}) {
     <div className="music-title">{localize(track.title,locale)}</div>
     <div className="music-artist">{localize(track.artist,locale)}</div>
     <div className="music-buttons">
-      <button type="button" onClick={restart} aria-label={locale === 'en' ? 'Restart track' : locale === 'ja' ? '曲の先頭へ' : '重新播放'}>↶</button>
-      <button type="button" id="play" className="play" disabled={loading} onClick={toggle} aria-label={state === 'playing' ? copy.pause : copy.play}>{loading ? '…' : state === 'playing' ? '❚❚' : '▶'}</button>
-      <a className="music-source" href={`https://www.youtube.com/watch?v=${encodeURIComponent(track.youtubeId)}`} target="_blank" rel="noopener noreferrer" aria-label={locale === 'en' ? 'Open on YouTube' : locale === 'ja' ? 'YouTube で開く' : '在 YouTube 開啟'}>↗</a>
+      <button type="button" onClick={restart} aria-label={locale === 'en' ? 'Restart track' : locale === 'ja' ? '曲の先頭へ' : '重新播放'}><PlayerIcon kind="restart" /></button>
+      <button type="button" id="play" className="play" disabled={loading} onClick={toggle} aria-label={state === 'playing' ? copy.pause : copy.play}>{loading ? <span className="player-loading" aria-hidden="true" /> : <PlayerIcon kind={state === 'playing' ? 'pause' : 'play'} />}</button>
+      <a className="music-source" href={`https://www.youtube.com/watch?v=${encodeURIComponent(track.youtubeId)}`} target="_blank" rel="noopener noreferrer" aria-label={locale === 'en' ? 'Open on YouTube' : locale === 'ja' ? 'YouTube で開く' : '在 YouTube 開啟'}><PlayerIcon kind="open" /></a>
     </div>
     <div className="progress-row">
       <time>{formatTime(currentTime)}</time>
