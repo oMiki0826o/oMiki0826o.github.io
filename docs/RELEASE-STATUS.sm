@@ -1,0 +1,25 @@
+---
+title: Release verification status
+lang: en
+---
+#1 Release verification status
+
+This archive includes the governance-reviewed v6.3.5 baseline and an additional repository audit regression fix.
+
+#2 Verified in this environment
+
+- Native Node.js tests: 22 passed.
+- Repository text hygiene: 174 text files checked.
+- StructMark core integrity: 15 files verified.
+- Works registry: 9 projects and 9 detail pages verified.
+- Notes registry: 7 entries verified.
+- Repository audit now rejects .DS_Store files and has isolated regression tests for invalid UTF-8 and CRLF.
+
+#2 Not verified
+
+- Full TypeScript check, Next.js build, Vitest and Playwright browser checks could not run because npm dependencies could not be installed in this environment.
+- Responsive rendering, multilingual navigation, StructMark browser interaction and Minecraft calculator integration require browser verification.
+
+#2 Release gate
+
+Before production deployment, run `npm ci`, `npm run validate:fast`, `npx playwright install chromium webkit`, and `npm run test:e2e` in a network-enabled CI environment. Do not interpret static source checks as visual/browser acceptance.

@@ -1,0 +1,21 @@
+#1 開發與驗證
+
+本站參考 AI Development Governance 的 Rule、Workflow、Gate 與 Template 分工，但只保留符合本專案規模的程序。正式規範請以原始倉庫為準：
+
+https://github.com/oMiki0826o/AI-Development-Governance
+
+#2 修改前
+
+先確認問題是否存在，列出受影響頁面、語系與檔案。除非需求明確，不更換版型、不添加純裝飾性元件、不修改既有文章內容。
+
+#2 實作與除錯
+
+對可重現的錯誤先建立失敗測試，修正後再次執行。共用邏輯優先集中管理，但不要為少量重複程式碼引入複雜抽象。
+
+#2 驗證
+
+本機執行 npm ci、npm run validate:fast、npx playwright install chromium webkit、npm run test:e2e。完整發布由 GitHub Actions 執行相同關卡。缺少依賴時應標示未驗證，不能宣稱通過。
+
+#2 文件與發布
+
+README 說明網站用途與安裝；DEVELOPMENT 說明開發方式；CHANGELOG 記錄可追溯的變更；VALIDATION 記錄測試證據與限制。所有面向讀者的文件使用清楚、自然的繁體中文。

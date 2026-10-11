@@ -677,6 +677,8 @@
 .pearl-result span {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  min-width: 0;
   gap: 10px;
 }
 .pearl-result b {
@@ -689,8 +691,17 @@
   letter-spacing: .12em;
 }
 .pearl-result em {
+  max-width: 155px;
   color: #75857e;
   font: normal .58rem var(--en);
+  text-align: right;
+  line-height: 1.6;
+}
+.pearl-disclaimer {
+  margin: 18px 0 0;
+  color: #9eaca6;
+  font-size: .74rem;
+  line-height: 1.8;
 }
 .pearl-results>p {
   color: #75857e;
@@ -897,6 +908,8 @@
   }
   .pearl-result em {
     grid-column: 2;
+    max-width: none;
+    text-align: left;
   }
   .pearl-result span {
     min-width: 0;
@@ -939,3 +952,4 @@
 
 /* ── V6.3.4 Project detail ── */
 .project-detail-links a:focus-visible {outline: 2px solid var(--blue-text); outline-offset: 4px;}
+

@@ -1,0 +1,33 @@
+---
+title: 瀏覽器驗收狀態
+lang: zh-TW
+---
+
+#1 瀏覽器驗收狀態（2026-10-11）
+
+本文件記錄實際執行結果，不以靜態檢查替代瀏覽器驗收。
+
+#2 已執行
+
+- `npm run test:native`：22／22 通過。
+- `npm run audit:repo`：175 個文字檔通過 UTF-8、LF 與 NUL 檢查。
+
+#2 尚未通過的發布關卡
+
+- `npm ci --offline`：失敗，快取缺少 commander 8.3.0。
+- `npm ci`：失敗，npm 回報 Exit handler never called。
+- 因依賴未安裝完成，無法執行 `npm run build`、`npm run typecheck`、`npm test` 與 `npm run test:e2e`。
+- 尚未在 Chromium/WebKit 實際驗收 320、375、390、430 px 的手機排版。
+- 尚未實際驗收繁體中文、英文、日文的路由切換、重新整理與返回操作。
+- 尚未實際驗收 StructMark 編輯、預覽、錯誤訊息與安全邊界。
+
+#2 在可安裝依賴的環境執行
+
+```sh
+npm ci
+npm run validate:fast
+npx playwright install chromium webkit
+npm run test:e2e
+```
+
+上述命令全部成功、且實際檢查頁面後，才能將本階段標記為完成。

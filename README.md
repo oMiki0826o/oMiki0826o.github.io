@@ -52,10 +52,16 @@ GitHub Actions 會在 pull request 與 main 分支執行驗證，只會在 main 
 | 網站三語介面 | `i18n/ui.ts` |
 | 主題色、版面與響應式規則 | `app/styles/site.css`、`app/styles/lab.css`、`app/styles/structmark.css` |
 | StructMark 語言核心 | `lib/structmark/core/` |
+| Lab 工具清單、路由和介紹 | `content/lab-tools.ts` |
 
 文章採用 StructMark 的 `#2` 作為主要章節標題。三個語言檔案的章節數量須一致，且自訂標題錨點會直接套用到文章。新增一篇文章後，也要執行 `npm run notes:sync` 自動更新 `content/notes/index.ts`，毋須手動管理匯入。
 
 更完整的維護說明放在 `docs/DEVELOPMENT.sm`；更新摘要在 `docs/CHANGELOG.sm`。
+
+## V6.3.5 修正與精簡
+修正珍珠砲通用幾何模型的共線推力與世界座標問題，採雙軸穩定求解，檢查數值範圍並如實呈現預測高度；五個 Lab 工具改共用單一登錄表。清理已停用的舊版網站、JSON 設定、樣式、未引用的翻譯及內容模組，並移除未使用的 zod 依賴，避免誤改不再生效的檔案；原始壓縮包仍保留歷史內容。其他風格與功能維持不變。
+
+**發布驗證：** 詳見 `docs/VALIDATION.sm`。Node.js 原生迴歸測試、內容檢查與原始碼語法檢查，不等同於完整 Vitest、Next.js 靜態建置或 Playwright。必須讓 GitHub Actions 全部通過才能部署。
 
 ## V6.3.4 改進
 
@@ -65,10 +71,13 @@ Works 擴充至九個真實 GitHub 專案，新增 AstroLab、STLab、CipherTool
 
 實作同時補齊 `npm run works:check`、相應的 Node.js 測試、三語作品路由及手機版 E2E 情境。網站原有配色、排版順序、真實圖片與其他 Lab 工具都保留。
 
-**發布驗證限制：** 這份環境無法完成 npm 套件安裝，因此沒有 Vitest、完整 TypeScript 型別檢查、Next.js 靜態建置或 Playwright 的通過紀錄。這些是部署前的必要關卡，詳見 `docs/VALIDATION.sm`。請讓 GitHub Actions 通過後再部署。
 
 ## 注意事項
 
 音樂播放器透過 YouTube IFrame API，影片限制、封鎖或網路問題可能影響播放，但不會阻止主站載入。天文比對工具只使用使用者在本機選取的影像，並不把濾鏡效果冒充成真實天文細節。
 
 這個儲存庫的目標是留下一個能長期整理作品的地方；平常只需要更新內容，不必為了維護網頁而維護另一套儀表板。
+
+## 開發治理
+
+專案採用精簡的開發檢查關卡，參考 [AI Development Governance](https://github.com/oMiki0826o/AI-Development-Governance)。實際協作約定見 `AGENTS.md`，驗證與發布流程見 `docs/GOVERNANCE.sm`。

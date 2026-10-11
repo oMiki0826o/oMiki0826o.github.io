@@ -1,5 +1,14 @@
 #1 網站更新紀錄
 
+#2 V6.3.5 — 模型修正與專案精簡（2026-10-11）
+
+- 修正珍珠砲求解器在某軸分量為零時除以零、通用四角 TNT 來源互相共線，以及砲口位置平移後坐標錯誤的問題。
+- 將重力及空氣阻力實際帶入不同遊戲版本的飛行方程；針對非有限數值、不合理參數與單側 160 當量上限加入回歸測試。
+- 珍珠砲介面顯示預測高度與 XZ 誤差，明確標示模型未模擬碰撞或落地。
+- Lab 五個工具的名稱、路由與介紹集中在 `content/lab-tools.ts`，不再維護多份重複條件式。
+- 移除未被 Next.js 正式網站使用的舊版靜態頁、JSON 設定、過期 CSS、未使用的翻譯與內容模組，以及不再需要的 zod 依賴；修正容易誤導的維護文件。
+- 以測試先行方式補上 Node.js 原生功能迴歸測試，並記錄無法在目前環境執行的完整整合測試。
+
 #2 V6.3.4 — Works 與內容管理（2026-10-11）
 
 - 依據實際公開 GitHub 儲存庫，新增 AstroLab、STLab、CipherTool Web、StructMark、NoteBlock Tweaks、AI Development Governance 六項作品；Works 現共九項。
@@ -37,3 +46,13 @@
 - 播放器避免結束時反覆重設，增加操作例外的錯誤提示。
 - 提升手機版文字、按鈕、選單與鍵盤焦點的可操作性。
 - 增加 Node.js 原生測試、實際 HTML 介面測試情境與離線語法檢查紀錄。
+
+#2 開發治理與檢查更新
+
+新增 AGENTS.md、治理說明與不需額外依賴的文字檔稽核；將 UTF-8、LF 與 NUL 檢查納入快速驗證。
+
+#2 Additional repository audit regression checks
+
+- Fixed detection of `.DS_Store` files, which previously bypassed the extension filter.
+- Added isolated native tests for metadata files, invalid UTF-8, CRLF and valid files.
+- Added `docs/RELEASE-STATUS.sm` to distinguish verified checks from blocked browser/build checks.

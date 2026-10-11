@@ -16,7 +16,7 @@
 設計決策優先順序：
 
 1. 使用者最新明確要求。
-2. V5「柔和日系 5.x」已確認方向。
+2. V5「柔和日系 5.x」已確認方向（現行技術結構以 README 為準）。
 3. 本文件。
 4. 5.x 舊站仍值得保留的內容與視覺語言。
 5. 外部網站只作局部參考，不直接複製。
@@ -696,7 +696,7 @@ iOS Safari 是正式驗證目標。
 
 ---
 
-## 19. 目前專案架構
+## 19. 歷史重構版本的專案架構（現行結構請以 README.md 為準）
 
 ```text
 app/
@@ -707,7 +707,7 @@ app/
 │   ├── timeline/
 │   ├── layout.tsx
 │   └── page.tsx
-├── globals.css
+├── styles/site.css（現行另有 lab.css、structmark.css）
 ├── layout.tsx
 ├── page.tsx
 └── ripmiki/

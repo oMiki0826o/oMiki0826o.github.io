@@ -1,42 +1,25 @@
-#1 Miki Website V6.3.4 驗證紀錄
+#1 Miki Website V6.3.5 驗證紀錄
 
-日期：2026-10-11。以下僅列出實際執行的檢查，不將測試規劃冒充為通過紀錄。
+日期：2026-10-11。此紀錄只列出本次實際執行的命令與檢查，不將缺少套件的情況視為程式通過建置。
 
-#2 版本與內容
+#2 在本環境通過
 
-- 從先前製作的 V6.2.5 完整原始碼 ZIP 獨立解壓，未直接修改 GitHub main。
-- 保留 Next.js 16、React 19、TypeScript、StructMark V1.1 與三語網站。
-- 網站現在有九個 Works 條目與九組三語詳情，其中六項為新增的真實公開 GitHub 儲存庫。
-- 使用者上傳的 StructMark-main.zip 與站內 vendored core 的 15 個 .ts 檔逐一比對，SHA-256 全部相符。
+- `npm run test:native`：17 個 Node.js 原生測試通過，其中五項為珍珠砲數學與設定迴歸，一項為 Lab 工具註冊表。
+- `npm run core:check`：StructMark V1.1 核心 15 個檔案與雜湊清單一致。
+- `npm run works:check`：九項專案、九個詳情頁及三個精選作品通過。
+- `npm run notes:check`：七篇文章的登錄表沒有落後。
+- `python3 scripts/release_smoke.py`：七個專案結構及文章檢查通過。
+- 以本環境全域 TypeScript 5.8 的 Compiler API 檢查 116 份 TS／TSX／JS／MJS 來源：沒有語法解析錯誤。這不是 TypeScript 型別檢查。
+- 使用全域 TypeScript 5.8 執行 `tsc --noEmit --strict --skipLibCheck --target ES2022 --module ESNext lib/pearl-calculator.ts content/lab-tools.ts`：本次改動的兩份獨立 TypeScript 來源通過嚴格型別檢查。此命令不含依賴 Next/React 的檔案。
+- 以 Python tinycss2 檢查 `site.css`、`lab.css`、`structmark.css`：三份樣式表皆沒有頂層 CSS 語法解析錯誤。
 
-#2 在本環境實際通過
+#2 尚未完成
 
-- `node --experimental-strip-types --test tests/native/*.test.mjs`：11/11 通過。
-- `python3 scripts/release_smoke.py`：7/7 通過。
-- `npm run works:check`：9 項 Works、9 組詳情、3 個首頁精選通過。
-- `npm run core:check`：15 個 StructMark 核心檔案 SHA-256 相符。
-- `npm run notes:check`：7 篇文章的註冊表同步正確（21 份 .sm 正文）。
-- 以全域 TypeScript 5.8 Compiler API 解析 115 個 TS、TSX、JS／MJS 原始碼：0 個語法診斷。這不是完整型別檢查。
-- 使用 tinycss2 解析 3 份 CSS：0 個語法錯誤。
-- 使用 Python XML parser 檢查六張新 SVG：全部可解析。
+- `npm ci --ignore-scripts --no-audit --no-fund`：環境無法在可用時間內取得 npm registry 套件。
+- `npm ci --offline --ignore-scripts --no-audit --no-fund`：回報 ENOTCACHED，缺少 `commander@8.3.0` 的本機快取。
+- `npm run docs:check`：`notes:check` 通過，但 `check-sm.mjs` 需要本地 `node_modules/typescript/bin/tsc`，因依賴未完成安裝而失敗。
+- `npm test`、`npm run typecheck`、`npm run build`、`npm run test:e2e`：未完成完整環境驗證。Node 的原生測試與靜態語法解析不能推論上述測試的結果。
 
-#2 無法在此環境完成的正式測試
+#2 正式發布條件
 
-- 嘗試執行 `npm ci --ignore-scripts --no-audit --no-fund`，無法完整取得套件；本地 node_modules 中有不完整的資料夾。
-- `npm run docs:check` 在呼叫本地 TypeScript Compiler 時找不到 `node_modules/typescript/bin/tsc`，未通過。
-- `npm run typecheck` 缺少 `@types/node`、`@types/react` 等完整型別套件，未通過。
-- `npm test` 找不到 Vitest，未通過。
-- 受上述原因影響，不能聲稱 `npm run build`（Next.js 正式建置）或 `npm run test:e2e`（Chromium、WebKit、行動版）已通過。
-- 上述是目前執行環境的依賴安裝阻礙，不代表專案的型別、執行或瀏覽器行為沒有問題。
-
-#2 GitHub Actions 發布關卡
-
-1. 在 Node.js 22 且能存取 npm Registry 的環境執行 `npm ci`。
-2. 執行 `npm run validate:fast`：native、core、Works、文件、Vitest、型別檢查與靜態建置。
-3. 安裝 Playwright Chromium 與 WebKit；執行 `npm run test:e2e`。
-4. 確認新增的九個作品在所有語言下能正常顯示，並在 320px／375px／390px／430px 的手機寬度下無水平溢出。
-5. 確認所有測試通過後，GitHub Actions 只部署主分支的已驗證 out 產物。
-
-#2 ZIP 內容
-
-輸出必須排除 .git、node_modules、.next、out、.sm-cache、暫存與產生的測試快取。將已知限制與驗證步驟留在壓縮包內，方便後續接手。
+在能連上 npm registry 的環境執行 `npm ci`，接著執行 `npm run validate:fast`、`npx playwright install chromium webkit` 和 `npm run test:e2e`。GitHub Actions 的驗證工作全數通過後才會上傳 `out/` 並部署至 GitHub Pages。

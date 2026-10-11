@@ -212,3 +212,13 @@ test('StructMark note front matter links the related work in both directions', a
   await page.goto('/zh-TW/projects/discord-bot/');
   await expect(page.getByRole('link',{name:/Discord Bot 使用教學/})).toBeVisible();
 });
+
+// ── V6.3.5：修正後珍珠砲的結果與誠實的誤差說明 ──
+test('pearl cannon shows actual calculated candidates and validates single-side charges', async ({page}) => {
+  await page.goto('/lab/pearl-cannon/');
+  await expect(page.locator('.pearl-result')).not.toHaveCount(0);
+  await expect(page.locator('.pearl-result em').first()).toContainText('預測 Y');
+  await expect(page.locator('.pearl-disclaimer')).toContainText('尚未模擬地形');
+  await page.getByLabel('單側最大當量（1–160）').fill('161');
+  await expect(page.getByText('請輸入有效數字；單側當量須為 1 到 160 的整數。')).toBeVisible();
+});

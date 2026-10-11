@@ -1,6 +1,6 @@
 /*
  * File: v634-works.test.mjs
- * Modification: 2026-10-11 — Works V6.3.4 發布契約與專案／文章連結回歸。
+ * Modification: 2026-10-11 — Works V6.3.5 發布契約與專案／文章連結回歸。
  */
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -45,9 +45,9 @@ test('Notes relate to Works by StructMark front matter instead of manual duplica
 test('Release version and vendored parser checksum validation are integrated', () => {
   const pkg=JSON.parse(read('package.json'));
   const lock=JSON.parse(read('package-lock.json'));
-  assert.equal(pkg.version, '6.3.4');
-  assert.equal(lock.version, '6.3.4');
-  assert.equal(lock.packages[''].version, '6.3.4');
+  assert.equal(pkg.version, '6.3.5');
+  assert.equal(lock.version, '6.3.5');
+  assert.equal(lock.packages[''].version, '6.3.5');
   assert.match(pkg.scripts['validate:fast'],/core:check/);
   assert.ok(existsSync('lib/structmark/core-manifest.json'));
   assert.ok(existsSync('scripts/check-structmark-core.mjs'));

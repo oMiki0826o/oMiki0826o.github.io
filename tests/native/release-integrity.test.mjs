@@ -11,7 +11,7 @@ const lock = JSON.parse(readFileSync('package-lock.json','utf8'));
 const workflow = readFileSync('.github/workflows/static.yml','utf8');
 
 test('package and lock versions and direct dependencies match', () => {
-  assert.equal(pkg.version, '6.3.4');
+  assert.equal(pkg.version, '6.3.5');
   assert.equal(lock.version,pkg.version);
   assert.equal(lock.packages[''].version,pkg.version);
   assert.deepEqual(lock.packages[''].dependencies,pkg.dependencies);

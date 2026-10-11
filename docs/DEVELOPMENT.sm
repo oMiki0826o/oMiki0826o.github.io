@@ -14,7 +14,7 @@
 
 #2 新增 Lab 工具
 
-每個工具放在 `components/lab/`，再到 `app/lab/[tool]/page.tsx` 加入對應路由，也需要在 `components/lab/lab-index.tsx` 新增入口。工具如果在瀏覽器執行，請用 React Client Component；不得在頁面初次載入時要求非必要外部 API。
+每個工具元件放在 `components/lab/`，接著把名稱、網址代碼與介紹加到 `content/lab-tools.ts`。在 `app/lab/[tool]/page.tsx` 的 `components` 對照表接上新元件後，Lab 首頁會直接從同一份登錄表產生入口，不需要重複編寫。工具如果在瀏覽器執行，請用 React Client Component；不要在頁面初次載入時要求非必要外部 API。
 
 #2 StructMark 更新
 

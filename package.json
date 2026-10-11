@@ -1,6 +1,6 @@
 {
   "name": "miki-website",
-  "version": "6.3.4",
+  "version": "6.3.5",
   "private": true,
   "type": "module",
   "scripts": {
@@ -18,15 +18,15 @@
     "notes:sync": "node scripts/sync-notes.mjs",
     "notes:check": "node scripts/sync-notes.mjs --check",
     "test:native": "node --experimental-strip-types --test tests/native/*.test.mjs",
-    "validate:fast": "npm run test:native && npm run core:check && npm run works:check && npm run docs:check && npm test && npm run typecheck && npm run build",
-    "works:check": "node --experimental-strip-types scripts/check-projects.mjs"
+    "validate:fast": "npm run audit:repo && npm run test:native && npm run core:check && npm run works:check && npm run docs:check && npm test && npm run typecheck && npm run build",
+    "works:check": "node --experimental-strip-types scripts/check-projects.mjs",
+    "audit:repo": "node scripts/audit-repository.mjs"
   },
   "dependencies": {
+    "katex": "^0.16.47",
     "next": "^16.1.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "zod": "^4.1.12",
-    "katex": "^0.16.47",
     "yaml": "^2.9.1"
   },
   "devDependencies": {

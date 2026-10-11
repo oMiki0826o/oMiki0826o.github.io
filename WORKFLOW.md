@@ -1,37 +1,29 @@
-# Miki's Website — 維護工作流
+# Miki Website — 維護與發布
 
-最後更新：2026-10-07
+本網站保留日式極簡、淺藍與薄荷綠的視覺基調；首頁順序維持「介紹 → 音樂 → 圖片 → About → Works → Notes → Timeline」。不另外加入每日維護的狀態板。
 
-## 設計基準
+## 日常更新
 
-目前首頁以 V5「柔和日系 5.x」版本為基準。
+- 首頁個人資料：`content/profile.ts`
+- 作品及細節：`content/projects.ts`、`content/project-details.ts`
+- 文章：`content/notes/<slug>/{zh-TW,en,ja}.sm` 與 `meta.ts`
+- Lab 工具導覽：`content/lab-tools.ts`
+- 三語介面：`i18n/ui.ts`
+- 版面樣式：`app/styles/site.css`、`app/styles/lab.css`、`app/styles/structmark.css`
 
-固定原則：
+新增筆記後，執行 `npm run notes:sync` 更新靜態文章登錄表。StructMark 的來源與校驗方式詳見 README。
 
-- 首頁閱讀順序維持：頭像 → 簡介／銘言 → 音樂 → 鎮樓圖 → About → Works → Notes → Timeline。
-- 內容最大寬度約 720–820px，不做滿版作品集。
-- 5.x 淺藍／薄荷背景是主體。
-- 天空藍是主色；杏桃與螢火綠只作少量點綴。
-- 螢火蟲很淡，不搶內容。
-- 頭像不加裝飾外圈。
-- 音樂播放器置中、無卡片外框。
-- 不加入沒有資訊用途的 blob、圓圈、浮動幾何圖形。
-- 英文使用較圓潤的 Nunito；中文／日文標題使用 Zen Maru Gothic；銘言使用 Klee One。
+## 本機驗證
 
-## 修改流程
+```bash
+npm ci
+npm run validate:fast
+npx playwright install chromium webkit
+npm run test:e2e
+```
 
-1. 日常內容優先修改 `content/`。
-2. 版面修改在 `components/`。
-3. 全站視覺修改在 `app/globals.css`。
-4. 執行 `npm test`。
-5. 執行 `npm run build`。
-6. 確認 `out/` 有 `/`, `/zh-TW/`, `/ja/` 與內容頁。
-7. 推送 `main` 讓 GitHub Actions 部署。
+`validate:fast` 包含 Node 原生測試、內容及文件檢查、Vitest、TypeScript 型別檢查和 Next.js 靜態匯出。若缺少 npm 套件，不可把單純靜態檢查當成完整建置通過。
 
-## 不要重新引入的設計
+## GitHub Pages
 
-- 滿版 dashboard / SaaS landing page。
-- 每個區塊都套玻璃卡片。
-- 大量漸層 blob 或意義不明的裝飾物。
-- 純黑高對比科技風。
-- GitHub README 式工程師作品集版面。
+將修改推送到 `main`，GitHub Actions 會先執行完整驗證，再使用已驗證的 `out/` 部署。Pull request 僅驗證，不部署。靜態輸出使用 `trailingSlash` 與站內多語路由；不要手動提交 `out/`。
