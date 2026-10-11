@@ -16,7 +16,7 @@ test('Works lists nine verified public projects and an individual page for each'
     assert.match(projects, new RegExp(`slug: ['"]${slug}['"]`), `${slug} listing missing`);
     assert.match(details, new RegExp(`slug: ['"]${slug}['"]`), `${slug} detail missing`);
   }
-  assert.match(projects,/pinnedProjectSlugs = \['discord-bot', 'structmark', 'astro-lab'\]/);
+  assert.match(projects,/pinnedProjectSlugs = \['discord-bot', 'structmark', 'astro-lab', 'stlab'\]/);
   assert.match(projects,/demoUrl:/);
   assert.match(read('app/[locale]/projects/[slug]/page.tsx'), /summary\.demoUrl/);
 });

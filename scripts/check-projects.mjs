@@ -44,5 +44,5 @@ for (const project of projects) {
   }
 }
 if (details.size !== projects.length) fail('Project detail entries do not match Works registry');
-if (pinnedProjects.length !== 3 || new Set(pinnedProjects.map((project) => project.slug)).size !== 3) fail('Homepage must contain three distinct pinned works');
+if (pinnedProjects.length !== 4 || new Set(pinnedProjects.map((project) => project.slug)).size !== 4) fail('Homepage must contain four distinct pinned works');
 console.log(`Works registry validated: ${projects.length} projects, ${projectDetails.length} detail pages, ${pinnedProjects.length} featured.`);

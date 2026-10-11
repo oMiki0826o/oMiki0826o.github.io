@@ -119,7 +119,7 @@ export const projects: Project[] = [
   }
 ];
 
-export const pinnedProjectSlugs = ['discord-bot', 'structmark', 'astro-lab'] as const;
+export const pinnedProjectSlugs = ['discord-bot', 'structmark', 'astro-lab', 'stlab'] as const;
 export const pinnedProjects = pinnedProjectSlugs.map((slug) => {
   const project = projects.find((item) => item.slug === slug);
   if (!project) throw new Error(`Pinned project not found: ${slug}`);

@@ -36,7 +36,9 @@ export function HomePage({locale}: {locale: Locale}) {
       </nav>
 
       <ScrollReveal><figure className="featured">
-        <div className="featured-image"><img src={profile.featuredImage} alt={copy.home.featuredImage} loading="lazy" decoding="async" /></div>
+        <a className="featured-image" href={profile.featuredImage} target="_blank" rel="noopener noreferrer" aria-label={`${copy.home.featuredImage} — 開啟原圖`}>
+          <img src={profile.featuredImage} alt={copy.home.featuredImage} loading="lazy" decoding="async" />
+        </a>
         <figcaption className="featured-caption">
           <strong>{copy.home.featuredImage}</strong>
           <span>{localize(profile.featuredCaption, locale)}</span>

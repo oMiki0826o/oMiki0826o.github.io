@@ -83,7 +83,7 @@ test('the home project preview balances the pinned projects on desktop', async (
   await page.setViewportSize({width: 1180, height: 800});
   await page.goto('/');
   const cards = page.locator('.projects .project');
-  await expect(cards).toHaveCount(3);
+  await expect(cards).toHaveCount(4);
   const boxes = await Promise.all([0, 1, 2].map((index) => cards.nth(index).boundingBox()));
   for (const box of boxes) expect(box?.width).toBeGreaterThan(200);
   expect(new Set(boxes.map((box) => `${box?.x}:${box?.y}:${box?.width}:${box?.height}`)).size).toBe(3);

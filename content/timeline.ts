@@ -4,6 +4,36 @@ export const timeline: TimelineItem[] = [
   {
     pinned: true,
     year: '2026',
+    title: {'zh-TW': 'AstroLab 與 STLab', en: 'AstroLab and STLab', ja: 'AstroLabとSTLab'},
+    description: {
+      'zh-TW': '把觀星資料與日常小工具整理成可以直接打開使用的靜態 Web App。',
+      en: 'Turned astronomy notes and small everyday utilities into static Web Apps that open directly in a browser.',
+      ja: '天体資料と日常の小さな道具を、ブラウザーで直接使える静的Web Appに整理。'
+    }
+  },
+  {
+    pinned: true,
+    year: '2026',
+    title: {'zh-TW': 'CipherTool Web', en: 'CipherTool Web', ja: 'CipherTool Web'},
+    description: {
+      'zh-TW': '把原本的桌面文字工具改成不用登入、資料留在瀏覽器裡的版本。',
+      en: 'Reworked a desktop text utility into a browser-first version that needs no account and keeps data local.',
+      ja: 'デスクトップの文字ツールを、登録不要でデータをブラウザー内に保つ形へ作り直しました。'
+    }
+  },
+  {
+    pinned: true,
+    year: '2026',
+    title: {'zh-TW': 'StructMark', en: 'StructMark', ja: 'StructMark'},
+    description: {
+      'zh-TW': '開始整理自己的標記語言、解析器與文件工具，讓文章內容也能由同一套核心處理。',
+      en: 'Started shaping a small markup language, parser, and document tools so the notes can use the same core.',
+      ja: '小さなマークアップ言語とParser、文書ツールを整理し、記事も同じCoreで扱えるようにしました。'
+    }
+  },
+  {
+    pinned: true,
+    year: '2026',
     title: {'zh-TW': "Miki's website", en: "Miki's website", ja: "Miki's website"},
     description: {
       'zh-TW': '個人網站正式上線，之後從傳統靜態頁面逐步遷移到 Next.js。',

@@ -27,7 +27,7 @@ describe('RootLayout', () => {
     expect(screen.getByRole('link', {name: 'Discord: miki._.0826'})).toHaveAttribute('href', 'https://discord.com/users/839381498351190036');
     expect(screen.getByRole('link', {name: 'Email'})).toHaveAttribute('href', 'mailto:chenmiki0925@gmail.com');
     expect(container.querySelector('[class*="fa-"]')).toBeNull();
-    expect(container.querySelectorAll('.project-cover img')).toHaveLength(3);
+    expect(container.querySelectorAll('.project-cover img')).toHaveLength(4);
     expect(screen.queryByText('Minecraft Server Backup')).not.toBeInTheDocument();
   });
 

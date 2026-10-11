@@ -15,7 +15,7 @@ import {calculatePearlCannon, createPearlSettings, genericFtlVersions, validateP
 
   it('keeps the current core projects', () => {
     expect(projects.map((project) => project.slug)).toEqual(['discord-bot', 'miki-website', 'cipher-tool', 'astro-lab', 'stlab', 'cipher-tool-web', 'structmark', 'note-block-tweaks', 'ai-development-governance']);
-    expect(pinnedProjects.map((project) => project.slug)).toEqual(['discord-bot', 'structmark', 'astro-lab']);
+    expect(pinnedProjects.map((project) => project.slug)).toEqual(['discord-bot', 'structmark', 'astro-lab', 'stlab']);
   });
 
   it('connects the Discord Bot project with its notes', () => {
