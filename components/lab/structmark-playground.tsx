@@ -52,11 +52,12 @@ export function StructMarkPlayground() {
   const [importError, setImportError] = useState('');
   const [importNotice, setImportNotice] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const userEditedRef = useRef(false);
 
   useEffect(() => {
     try {
       const draft = window.localStorage.getItem(STORAGE_KEY);
-      if (draft && draft.length <= MAX_SOURCE_LENGTH) {
+      if (!userEditedRef.current && draft && draft.length <= MAX_SOURCE_LENGTH) {
         setSource(draft);
         setParsedSource(draft);
       }
@@ -118,6 +119,7 @@ export function StructMarkPlayground() {
         setImportError(`文件超過 ${MAX_SOURCE_LENGTH.toLocaleString()} 字元上限。`);
         return;
       }
+      userEditedRef.current = true;
       setSource(input);
       setParsedSource(input);
       setImportNotice(`已匯入 ${file.name}（只儲存在本機）。`);
@@ -161,8 +163,12 @@ export function StructMarkPlayground() {
     <div className="sm-actions">
       <label className="sm-import-label">匯入 .sm<input type="file" accept=".sm,text/plain" onChange={(event) => void importFile(event)} aria-label="匯入本機 StructMark 文件" /></label>
       <button type="button" onClick={download}>下載 .sm</button>
-      <button type="button" onClick={() => setSource(EXAMPLE)}>載入示例</button>
       <button type="button" onClick={() => {
+        userEditedRef.current = true;
+        setSource(EXAMPLE);
+      }}>載入示例</button>
+      <button type="button" onClick={() => {
+        userEditedRef.current = true;
         setSource('');
         try { window.localStorage.removeItem(STORAGE_KEY); } catch { /* 瀏覽器限制 */ }
       }}>清空</button>
@@ -172,7 +178,10 @@ export function StructMarkPlayground() {
     <div className="sm-workspace">
       <div className="sm-editor">
         <label htmlFor="sm-input">原始碼 <small>UTF-8 / StructMark</small></label>
-        <textarea id="sm-input" ref={textareaRef} spellCheck={false} value={source} onChange={(event) => setSource(event.target.value)} aria-label="StructMark 來源文字" />
+        <textarea id="sm-input" ref={textareaRef} spellCheck={false} value={source} onChange={(event) => {
+          userEditedRef.current = true;
+          setSource(event.target.value);
+        }} aria-label="StructMark 來源文字" />
         <p className="sm-status" role="status" aria-live="polite">{source.length.toLocaleString()} / {MAX_SOURCE_LENGTH.toLocaleString()} 字元{source !== parsedSource ? ' · 正在解析' : ''}</p>
       </div>
       <div className="sm-output">
