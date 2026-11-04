@@ -1,6 +1,5 @@
 import type {Metadata} from 'next';
 import './styles/site.css';
-import './styles/lab.css';
 import './styles/structmark.css';
 import 'katex/dist/katex.min.css';
 import {SiteJsonLd} from '@/components/seo/json-ld';

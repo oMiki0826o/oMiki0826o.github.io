@@ -20,9 +20,9 @@ export const projects: Project[] = [
     slug: 'miki-website',
     title: {'zh-TW': "Miki's Website", en: "Miki's Website", ja: "Miki's Website"},
     description: {
-      'zh-TW': '目前正在瀏覽的個人網站。保留 5.x 的個人感與暖螢火蟲氣氛，底層改用 Next.js。',
-      en: 'The personal site you are viewing: retaining the 5.x warmth and fireflies on a Next.js foundation.',
-      ja: 'いま見ている個人サイト。5.xの個性と暖かな蛍の空気感を残し、Next.jsで再構築しています。'
+      'zh-TW': '目前正在瀏覽的個人網站。回到文字與作品的個人網站，保留柔和配色與暖螢火蟲氛圍。',
+      en: 'The personal site you are viewing: keeping its gentle colors and fireflies while focusing on writing and works.',
+      ja: 'いま見ている個人サイト。やわらかな色と蛍の雰囲気を残し、記事と作品を中心にした個人サイトです。'
     },
     tags: ['Next.js', 'TypeScript', 'CSS'],
     url: 'https://github.com/oMiki0826o/oMiki0826o.github.io',
