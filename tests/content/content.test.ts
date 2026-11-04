@@ -4,69 +4,34 @@ import {pinnedProjects, projects} from '@/content/projects';
 import {timeline} from '@/content/timeline';
 import {getProjectDetail} from '@/content/project-details';
 import {getNotesForProject} from '@/content/notes/index';
-import {calculatePearlCannon, createPearlSettings, genericFtlVersions, validatePearlSettings} from '@/lib/pearl-calculator';
 
- describe('site content', () => {
-  it('keeps the 5.x homepage identity', () => {
+describe('personal website content', () => {
+  it('keeps the original personal identity', () => {
     expect(profile.name).toBe('Miki');
     expect(profile.signature['zh-TW']).toContain('滾滾長江東逝水');
     expect(profile.aboutDetails['zh-TW'].some((section) => section.heading === '簡介' && section.paragraphs.join('').includes('學習日文學到爆炸'))).toBe(true);
   });
 
-  it('keeps the current core projects', () => {
+  it('keeps authentic public projects and selected works', () => {
     expect(projects.map((project) => project.slug)).toEqual(['discord-bot', 'miki-website', 'cipher-tool', 'astro-lab', 'stlab', 'cipher-tool-web', 'structmark', 'note-block-tweaks', 'ai-development-governance']);
     expect(pinnedProjects.map((project) => project.slug)).toEqual(['discord-bot', 'structmark', 'astro-lab', 'stlab']);
   });
 
-  it('connects the Discord Bot project with its notes', () => {
+  it('links technical writing to related works', () => {
     expect(getNotesForProject('discord-bot').map((note) => note.slug).sort()).toEqual([
       'discord-bot-from-zero', 'discord-bot-mod-guide', 'discord-bot-usage-guide'
     ]);
   });
 
-  it('keeps every project linked to a detail page', () => {
+  it('keeps each project detail and real local cover', () => {
     for (const project of projects) {
       expect(getProjectDetail(project.slug)).toBeDefined();
-    }
-  });
-
-  it('gives every project an authentic local cover image', () => {
-    for (const project of projects) {
       expect(project.image).toMatch(/^\/assets\/projects\/.+\.(png|jpg|jpeg|webp|svg)$/);
       expect(project.imageSource).toMatch(/^https:\/\//);
     }
   });
 
-  it('keeps the 2024 Python milestone', () => {
+  it('keeps historic milestones for the About page', () => {
     expect(timeline.some((item) => item.year === '2024')).toBe(true);
-  });
-
-  it('calculates pearl cannon direction and two-side charge', () => {
-    const results = calculatePearlCannon([0, 170, 0], [10, 10], createPearlSettings({maxDistance: 1e9}));
-    expect(results.length).toBeGreaterThan(0);
-    expect(results[0]!.direction).toBe('E');
-    expect(results[0]!.red).toBeTypeOf('number');
-    expect(results[0]!.blue).toBeTypeOf('number');
-    expect(Number.isFinite(results[0]!.landY)).toBe(true);
-  });
-
-  it('keeps generic FTL presets extensible without changing the UI inputs', () => {
-    expect(genericFtlVersions).toEqual(['1.11–1.21.1', '1.21.2+']);
-    expect(createPearlSettings({maxCharge: 80}).maxCharge).toBe(80);
-  });
-
-  it('rejects invalid FTL settings before simulation', () => {
-    expect(validatePearlSettings(createPearlSettings({maxCharge: 0}))).toContain('最大當量');
-    expect(calculatePearlCannon([0, 170, 0], [1000, 1000], createPearlSettings({maxCharge: 0}))).toEqual([]);
-  });
-
-  it('supports the public calculator Y-motion cancellation mode', () => {
-    const results = calculatePearlCannon([0, 170.3, 0], [1000, 1000], createPearlSettings({pearlYMotionCancellation: true}));
-    expect(results).toBeInstanceOf(Array);
-  });
-
-  it('accepts a custom FTL pair without changing the general input flow', () => {
-    const results = calculatePearlCannon([0, 170.3, 0], [1000, 1000], createPearlSettings({mode: 'custom', customRedTnt: [1, 170, 1], customBlueTnt: [-1, 170, -1]}));
-    expect(results).toBeInstanceOf(Array);
   });
 });

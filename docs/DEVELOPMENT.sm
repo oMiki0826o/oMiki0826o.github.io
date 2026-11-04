@@ -1,6 +1,6 @@
 #1 開發與維護
 
-這個網站的主站是個人作品與筆記的入口，Lab 則用來收納獨立的小工具。前者盡量穩定，後者可以自由實驗，但所有公開按鈕仍應有真正的操作結果。
+這個網站以個人介紹、Blog 文章與作品為核心。首頁優先呈現文字，三語文章使用 StructMark 渲染，互動僅限必要的閱讀與個人化功能。
 
 #2 開始開發
 
@@ -11,10 +11,6 @@
 文章存放於 `content/notes/<slug>/`，包含 `meta.ts`、`zh-TW.sm`、`en.sm` 與 `ja.sm`。新增文章後執行 `npm run notes:sync` 更新註冊表；三份正文都使用 `#2` 作為章節標題；可以使用 `*[粗體]`、`/[斜體]`、`[連結](https://example.com)`、列表、表格及程式碼。
 
 建置流程不是把 .sm 檔案直接塞進 HTML。`content/notes-loader.ts` 會使用語言核心轉為 AST，嚴格處理解析錯誤，並輸出經過跳脫的 HTML。自訂章節 ID 如 `#2 節標題 (#id)` 會直接成為網頁錨點。請勿跳過 Parser，直接信任原始文件字串。
-
-#2 新增 Lab 工具
-
-每個工具元件放在 `components/lab/`，接著把名稱、網址代碼與介紹加到 `content/lab-tools.ts`。在 `app/lab/[tool]/page.tsx` 的 `components` 對照表接上新元件後，Lab 首頁會直接從同一份登錄表產生入口，不需要重複編寫。工具如果在瀏覽器執行，請用 React Client Component；不要在頁面初次載入時要求非必要外部 API。
 
 #2 StructMark 更新
 
@@ -32,7 +28,7 @@
 
 #2 樣式檔案
 
-主站樣式在 `app/styles/site.css`，Lab 在 `app/styles/lab.css`，文章與 Playground 在 `app/styles/structmark.css`。調整視覺時應保持選擇器責任清楚，避免在檔案尾端一再覆寫同一個規則。
+主站樣式在 `app/styles/site.css`，文章排版在 `app/styles/structmark.css`。調整視覺時應保持選擇器責任清楚，避免在檔案尾端一再覆寫同一個規則。
 
 #2 StructMark Playground
 

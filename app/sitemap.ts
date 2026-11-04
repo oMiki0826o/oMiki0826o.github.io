@@ -6,7 +6,7 @@ import {projects} from '@/content/projects';
 
 export const dynamic = 'force-static';
 
-const paths = ['/', '/about', '/projects', '/notes', '/timeline'];
+const paths = ['/', '/about', '/projects', '/notes'];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return locales.flatMap((locale) => [

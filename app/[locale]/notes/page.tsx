@@ -18,7 +18,7 @@ export default async function NotesPage({params}: {params: Promise<{locale: stri
   return (
     <ContentPage
       locale={locale}
-      eyebrow="notes"
+      eyebrow="blog"
       title={ui[locale].sections.notes}
       lead={ui[locale].pages.notesLead}
     >
