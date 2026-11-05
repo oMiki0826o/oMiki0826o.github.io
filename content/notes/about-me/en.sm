@@ -19,3 +19,9 @@ I like tools that eventually save me a little effort. A Discord Bot should remai
 #2 I will keep making odd things
 
 More notes, photographs, and small experiments may appear here. Some will remain unfinished and some may disappear later. If each return makes the things I made a little easier to understand, the site will still have a reason to exist.
+
+#2 Organizing works and notes
+
+The homepage keeps only a handful of representative projects and four articles worth starting with. Works holds the full project collection, while Notes records development decisions, observations, and research. Adding a tool should not require redesigning the homepage.
+
+I want every project page to answer three questions: what problem prompted it, what it actually does today, and what remains untested or unfinished. Clear writing matters, but dressing up estimates as confirmed results would defeat the point of keeping a record.
