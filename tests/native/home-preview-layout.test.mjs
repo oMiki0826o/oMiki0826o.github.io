@@ -22,3 +22,9 @@ test('Works images display without cropping real screenshots and GitHub preview 
   assert.match(css, /\.project-cover img\s*\{[^}]*object-fit:\s*contain\s*;/s);
   assert.match(css, /\.project-detail-cover\s*\{[^}]*object-fit:\s*contain\s*;/s);
 });
+
+test('Works listing images display the complete remote card without cropping', () => {
+  const css = read('app/styles/page-extras.css');
+  assert.match(css, /\\.works-group \\.page-project-cover img\\s*\\{[^}]*object-fit:\\s*contain\\s*;/s);
+  assert.match(css, /\\.works-group \\.page-project-cover\\s*\\{[^}]*aspect-ratio:\\s*2\\s*\\/\\s*1\\s*;/s);
+});

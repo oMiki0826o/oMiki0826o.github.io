@@ -154,3 +154,15 @@ test('StructMark note front matter links the related work in both directions', a
 });
 
 // ── V6.3.5：修正後珍珠砲的結果與誠實的誤差說明 ──
+
+test('Works screenshot images are not cropped on desktop or mobile', async ({page}) => {
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({width, height: 900});
+    await page.goto('/zh-TW/projects/');
+    const covers = page.locator('.works-group .page-project-cover img');
+    await expect(covers).toHaveCount(12);
+    await expect.poll(async () => covers.first().evaluate((img) => getComputedStyle(img).objectFit)).toBe('contain');
+    const noOverflow = await page.locator('html').evaluate((el) => el.scrollWidth <= el.clientWidth);
+    expect(noOverflow).toBe(true);
+  }
+});
