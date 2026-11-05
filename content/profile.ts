@@ -26,9 +26,9 @@ export const profile = {
   featuredImage: 'https://pbs.twimg.com/media/GQgH_VIbQAAViAh?format=jpg&name=large',
   featuredSource: 'https://twitter.com',
   featuredCaption: {
-    'zh-TW': '一張喜歡的圖，放在首頁安靜地定下氣氛。',
-    en: 'A favorite image, quietly setting the tone for this home.',
-    ja: 'お気に入りの一枚を、ホームの空気を決める写真として静かに置いています。'
+    'zh-TW': '認識螢門、理解螢門、加入螢門！流螢佔領全世界！',
+    en: 'Know Firefly, Understand Firefly, Join Firefly! Firefly will conquer the world!',
+    ja: 'ホタルを知り、ホタルを理解し、ホタルの仲間になろう！ホタルが世界を制覇する！'
   } satisfies LocalizedText,
   aboutTitle: {
     'zh-TW': '關於我',

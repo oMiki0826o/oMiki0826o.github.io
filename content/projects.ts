@@ -6,8 +6,8 @@ export const projects: Project[] = [
     title: {'zh-TW': 'Firefly Bot', en: 'Firefly Bot', ja: 'Firefly Bot'},
     description: {
       'zh-TW': '包含音樂、管理、Gemini AI、Agent、Minecraft 聊天橋接與備份的模組化 Discord Bot，持續開發中。',
-      en: 'A Discord Bot for music, moderation, automation, and AI chat, with a continuing focus on modularity and reliability.',
-      ja: '音楽、管理、自動化、AI会話をまとめたDiscord Bot。構成と信頼性を継続的に改善しています。'
+      en: 'An actively developed modular Discord Bot with music, moderation, Gemini AI agents, Minecraft chat bridging, and backup tools.',
+      ja: '音楽、管理、Gemini AI Agent、Minecraftのチャット連携、バックアップに対応するモジュール型Discord Bot。開発中です。'
     },
     tags: ['Python', 'discord.py', 'Gemini'],
     url: 'https://github.com/oMiki0826o/Discord-Bot',
