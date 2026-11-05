@@ -166,3 +166,18 @@ test('Works screenshot images are not cropped on desktop or mobile', async ({pag
     expect(noOverflow).toBe(true);
   }
 });
+
+test('Astro mobile homepage stays visible after browser hydration', async ({page}) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.setViewportSize({width: 390, height: 844});
+  await page.goto('/');
+  await expect(page.locator('main .intro h1')).toHaveText('Miki');
+  await expect(page.locator('main .intro')).toBeVisible();
+  await expect(page.locator('.projects .project')).toHaveCount(4);
+  await expect(page.locator('.notes .note')).toHaveCount(4);
+  const islands = page.locator('astro-island');
+  await expect.poll(async () => islands.evaluateAll((nodes) => nodes.filter((node) => node.hasAttribute('ssr')).length)).toBe(0);
+  await expect(page.locator('main .intro')).toBeVisible();
+  expect(errors, 'No client hydration errors').toEqual([]);
+});
