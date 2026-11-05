@@ -21,11 +21,11 @@ test('Works lists verified public projects and an individual page for each', () 
   assert.match(read('components/pages/project-detail.tsx'), /summary\.demoUrl/);
 });
 
-test('featured projects use repository screenshots or GitHub preview cards, not placeholder illustrations', () => {
+test('featured projects use repository screenshots or GitHub preview cards', () => {
   const projects = read('content/projects.ts');
-  assert.match(projects, /raw\\.githubusercontent\\.com/);
-  assert.match(projects, /opengraph\\.githubassets\\.com/);
-  assert.doesNotMatch(projects, /image: ['"]\\/assets\\/projects\\/structmark\\.svg/);
+  assert.ok(projects.includes('raw.githubusercontent.com'));
+  assert.ok(projects.includes('opengraph.githubassets.com'));
+  assert.ok(!projects.includes("image: '/assets/projects/structmark.svg'"));
 });
 
 test('Notes relate to Works by StructMark front matter instead of manual duplicate mappings', () => {
