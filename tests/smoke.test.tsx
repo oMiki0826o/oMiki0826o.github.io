@@ -43,10 +43,10 @@ describe('RootLayout', () => {
     expect(container.querySelectorAll('.timeline-reveal')).toHaveLength(pinnedTimeline.length);
   });
 
-  it('keeps the homepage notes preview to the three pinned records', () => {
+  it('keeps the homepage notes preview to four pinned records', () => {
     const {container} = render(<HomePage locale="zh-TW" />);
 
-    expect(container.querySelectorAll('.note')).toHaveLength(Math.min(notes.length, 3));
+    expect(container.querySelectorAll('.note')).toHaveLength(Math.min(notes.length, 4));
     expect(within(container).getByText('Discord Bot 使用教學')).toBeInTheDocument();
     expect(within(container).getByText('Discord Bot Mod 撰寫教學')).toBeInTheDocument();
     expect(within(container).getByText('夜空入門：從北極星開始認星')).toBeInTheDocument();
@@ -56,7 +56,7 @@ describe('RootLayout', () => {
   it('keeps English note categories as a consistent visual label in every locale', () => {
     const {container} = render(<HomePage locale="ja" />);
 
-    expect(within(container).getByText('2026-10-07 · Astronomy')).toBeInTheDocument();
+    expect(within(container).getAllByText('2026-10-07 · Astronomy')).toHaveLength(2);
   });
 
   it('groups About content into readable profile sections before its tags', async () => {
