@@ -1,6 +1,6 @@
 import type {Locale} from '@/i18n/config';
 import Link from '@/components/ui/astro-link';
-import {getNote, notes} from '@/content/notes/index';
+import type {Note} from '@/content/types';
 import {projects} from '@/content/projects';
 import {localize, localizedPath} from '@/lib/content';
 import {siteUrl} from '@/lib/metadata';
@@ -11,8 +11,8 @@ import {BackToTop} from '@/components/ui/back-to-top';
 import {ReadingProgress} from '@/components/ui/reading-progress';
 import {estimateReadingMinutes, formatNoteDate} from '@/lib/note-metadata';
 
-export function NoteDetailPage({locale, slug}: {locale: Locale; slug: string}) {
-  const note = getNote(slug);
+export function NoteDetailPage({locale, slug, notes}: {locale: Locale; slug: string; notes: Note[]}) {
+  const note = notes.find((item) => item.slug === slug);
   if (!note) return null;
   const title = localize(note.title, locale);
   const description = localize(note.excerpt, locale);

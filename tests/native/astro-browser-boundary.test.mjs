@@ -15,9 +15,10 @@ test('Astro hydrated components never import the filesystem-backed note registry
     const src = read(path);
     assert.doesNotMatch(src, /from ['"]@\/content\/notes\/index['"]/, `${path} includes server-only node:fs through notes registry`);
   }
+  assert.doesNotMatch(read('content/notes/previews.ts'), /node:fs|notes\/index/);
   const serverNotes = read('content/notes-loader.ts');
   assert.match(serverNotes, /node:fs/);
-  assert.match(read('src/pages/index.astro'), /pinnedNotes/);
+  assert.match(read('components/home/home-page.tsx'), /pinnedNotePreviews/);
 });
 
 test('Astro homepage has server-rendered content and interactive islands can hydrate independently', () => {

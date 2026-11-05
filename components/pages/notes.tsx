@@ -1,10 +1,10 @@
 import type {Locale} from '@/i18n/config';
-import {featuredNote, notes} from '@/content/notes/index';
+import type {Note} from '@/content/types';
 import {ContentPage} from '@/components/layout/content-page';
 import {ui} from '@/i18n/ui';
 import {NotesIndex} from '@/components/notes/notes-index';
 
-export function NotesPage({locale}: {locale: Locale}) {
+export function NotesPage({locale, notes, featuredNote}: {locale: Locale; notes: Note[]; featuredNote?: Note}) {
   return (
     <ContentPage
       locale={locale}

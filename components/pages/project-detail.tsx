@@ -1,17 +1,17 @@
 import type {Locale} from '@/i18n/config';
 import {getProjectDetail} from '@/content/project-details';
 import {projects} from '@/content/projects';
-import {notes, getNotesForProject} from '@/content/notes/index';
+import type {Note} from '@/content/types';
 import {localize, localizedPath} from '@/lib/content';
 import {ContentPage} from '@/components/layout/content-page';
 import {ui} from '@/i18n/ui';
 import Link from '@/components/ui/astro-link';
 
-export function ProjectDetailPage({locale, slug}: {locale: Locale; slug: string}) {
+export function ProjectDetailPage({locale, slug, notes}: {locale: Locale; slug: string; notes: Note[]}) {
   const project = getProjectDetail(slug);
   const summary = projects.find((item) => item.slug === slug);
   if (!project || !summary) return null;
-  const automaticNotes = getNotesForProject(slug);
+  const automaticNotes = notes.filter((note) => note.projectSlug === slug);
   const legacyNotes = (project.relatedNoteSlugs ?? []).map((noteSlug) => notes.find((note) => note.slug === noteSlug)).filter((note): note is typeof notes[number] => Boolean(note));
   const relatedNotes = [...automaticNotes, ...legacyNotes].filter((note, index, all) => all.findIndex((item) => item.slug === note.slug) === index);
   const siteLabel = {'zh-TW': '前往網站', en: 'Live website', ja: 'サイトを見る'}[locale];

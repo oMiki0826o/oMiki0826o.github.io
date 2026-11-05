@@ -11,7 +11,7 @@ import {locales, type Locale} from '@/i18n/config';
 import {localize} from '@/lib/content';
 import {profile} from '@/content/profile';
 import {projects} from '@/content/projects';
-import {notes} from '@/content/notes/index';
+import {notes, featuredNote} from '@/content/notes/index';
 import {ui} from '@/i18n/ui';
 
 type Kind = 'home'|'about'|'projects'|'notes'|'timeline'|'project-detail'|'note-detail';
@@ -48,8 +48,8 @@ const description = kind === 'home' ? localize(profile.intro,locale) :
   {kind === 'home' && <HomePage client:load locale={locale} />}
   {kind === 'about' && <AboutPage client:load locale={locale} />}
   {kind === 'projects' && <ProjectsPage client:load locale={locale} />}
-  {kind === 'notes' && <NotesPage client:load locale={locale} />}
+  {kind === 'notes' && <NotesPage client:load locale={locale} notes={notes} featuredNote={featuredNote} />}
   {kind === 'timeline' && <TimelinePage client:load locale={locale} />}
-  {kind === 'project-detail' && slug && <ProjectDetailPage client:load locale={locale} slug={slug} />}
-  {kind === 'note-detail' && slug && <NoteDetailPage client:load locale={locale} slug={slug} />}
+  {kind === 'project-detail' && slug && <ProjectDetailPage client:load locale={locale} slug={slug} notes={notes} />}
+  {kind === 'note-detail' && slug && <NoteDetailPage client:load locale={locale} slug={slug} notes={notes} />}
 </BaseLayout>
