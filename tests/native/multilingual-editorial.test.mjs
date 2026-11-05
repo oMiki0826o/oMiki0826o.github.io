@@ -18,7 +18,7 @@ test('all seven Notes have a matching substantive editorial section in all three
     for (const [i, locale] of ['zh-TW', 'en', 'ja'].entries()) {
       const body = read(`content/notes/${slug}/${locale}.sm`);
       assert.ok(body.includes('#2 ' + headings[i]), `Missing new section: ${slug}/${locale}`);
-      assert.ok(body.length > 950, `Article is too brief: ${slug}/${locale}`);
+      assert.ok(body.split('#2 ' + headings[i])[1]?.trim().length > 160, `Editorial section lacks substantive content: ${slug}/${locale}`);
     }
   }
 });
