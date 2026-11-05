@@ -1,15 +1,13 @@
 'use client';
 
-import Link from 'next/link';
-import {usePathname} from 'next/navigation';
+import Link from '@/components/ui/astro-link';
 import {useEffect, useState} from 'react';
 import type {Locale} from '@/i18n/config';
 import {localizedPath} from '@/lib/content';
 import {ui} from '@/i18n/ui';
 import {ThemeToggle} from './theme-toggle';
 
-export function SiteHeader({locale}: {locale: Locale}) {
-  const pathname = usePathname() ?? '';
+export function SiteHeader({locale, pathname = '/'}: {locale: Locale; pathname?: string}) {
   const copy = ui[locale];
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const suffix = pathname === '/' ? '' : pathname.replace(/^\/(zh-TW|en|ja)(?=\/|$)/, '');

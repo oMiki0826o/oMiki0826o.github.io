@@ -1,7 +1,7 @@
 'use client';
 
 import {useMemo, useState} from 'react';
-import Link from 'next/link';
+import Link from '@/components/ui/astro-link';
 import {noteCategories, type Note, type NoteCategory} from '@/content/types';
 import type {Locale} from '@/i18n/config';
 import {localizedPath, localize} from '@/lib/content';
