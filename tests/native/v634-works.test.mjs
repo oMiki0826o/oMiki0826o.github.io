@@ -32,7 +32,8 @@ test('Notes relate to Works by StructMark front matter instead of manual duplica
   assert.match(read('content/notes-loader.ts'), /projectSlug/);
   assert.match(read('content/notes-loader.ts'), /parsed\.metadata/);
   assert.match(read('content/notes/index.ts'), /getNotesForProject/);
-  assert.match(read('components/pages/project-detail.tsx'), /getNotesForProject/);
+  assert.match(read('components/pages/project-detail.tsx'), /notes\.filter\(\(note\) => note\.projectSlug === slug\)/);
+  assert.match(read('src/pages/[locale]/[...path].astro'), /<ProjectDetailPage[^>]+notes=\{notes\}/);
   for(const slug of ['discord-bot-from-zero','discord-bot-mod-guide','discord-bot-usage-guide']) {
     for(const locale of ['zh-TW','en','ja']) {
       assert.match(read(`content/notes/${slug}/${locale}.sm`), /^---\nproject: discord-bot\n---/);
