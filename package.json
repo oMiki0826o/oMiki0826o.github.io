@@ -6,15 +6,15 @@
   "scripts": {
     "core:check": "node scripts/check-structmark-core.mjs",
     "core:sync": "node scripts/sync-structmark-core.mjs",
-    "dev": "next dev",
-    "build": "next build && node scripts/fix-static-lang.mjs",
+    "dev": "astro dev --host 0.0.0.0",
+    "build": "astro build",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
     "docs:check": "npm run notes:check && node scripts/check-sm.mjs",
     "validate": "npm run validate:fast && npm run test:e2e",
-    "preview": "python3 -m http.server 4173 --directory out",
+    "preview": "astro preview --host 0.0.0.0 --port 4173",
     "notes:sync": "node scripts/sync-notes.mjs",
     "notes:check": "node scripts/sync-notes.mjs --check",
     "test:native": "node --experimental-strip-types --test tests/native/*.test.mjs",
@@ -27,7 +27,9 @@
     "next": "^16.1.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "yaml": "^2.9.1"
+    "yaml": "^2.9.1",
+    "astro": "^6.0.0",
+    "@astrojs/react": "^5.0.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.1",

@@ -1,0 +1,8 @@
+---
+import BaseLayout from '@/src/layouts/BaseLayout.astro';
+import {HomePage} from '@/components/home/home-page';
+import {profile} from '@/content/profile';
+---
+<BaseLayout locale="zh-TW" title="Miki 的奇幻世界" description={profile.intro['zh-TW']}>
+  <HomePage client:load locale="zh-TW" />
+</BaseLayout>
