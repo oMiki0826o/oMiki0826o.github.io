@@ -68,7 +68,7 @@ export const projectDetails: ProjectDetail[] = [{
   lead: {"zh-TW": "讓自己設計的語言真正用在網站上", "en": "A markup language used in practice", "ja": "自作言語を実際のサイトで使う"},
   sections: [
     {heading: {"zh-TW": "語言核心", "en": "Language core", "ja": "言語コア"}, body: {"zh-TW": "為 .sm 文件開發 Lexer、Parser、AST 與安全 HTML 輸出，讓語法有明確結構，而不是只靠正規表示式替換。", "en": "A lexer, parser, AST and safe HTML renderer turn .sm documents into structured content rather than a chain of regex replacements.", "ja": "Lexer、Parser、AST、安全なHTMLレンダラーで .sm 文書を構造化して処理します。"}},
-    {heading: {"zh-TW": "本站實際用途", "en": "Used on this website", "ja": "このサイトでの利用"}, body: {"zh-TW": "Notes 的三語文章由 StructMark 解析並輸出，Lab 也設有即時編輯與預覽，讓語言功能能實際被測試。", "en": "This site renders its multilingual Notes through StructMark and offers an interactive playground in the Lab.", "ja": "サイト内の記事のレンダリングやLabのライブプレビューにも利用しています。"}}
+    {heading: {"zh-TW": "本站實際用途", "en": "Used on this website", "ja": "このサイトでの利用"}, body: {"zh-TW": "Notes 的三語文章由 StructMark 解析並輸出，實際用於三語文章的解析與輸出。", "en": "This site renders its multilingual Notes through StructMark.", "ja": "サイト内の記事のレンダリングにも利用しています。"}}
   ]},
   {slug: "note-block-tweaks", title: {"zh-TW": "NoteBlock Tweaks", "en": "NoteBlock Tweaks", "ja": "NoteBlock Tweaks"},
   lead: {"zh-TW": "讓 Minecraft 音階盒調音更方便", "en": "Better Minecraft noteblock tuning", "ja": "音ブロックの調律を快適に"},
@@ -81,6 +81,25 @@ export const projectDetails: ProjectDetail[] = [{
   sections: [
     {heading: {"zh-TW": "核心想法", "en": "Core idea", "ja": "考え方"}, body: {"zh-TW": "把程式碼品質、驗證步驟、變更追蹤與協作責任寫清楚，讓規範能融入開發流程。", "en": "Turn code quality, verification, change tracking and shared responsibility into repeatable development practices.", "ja": "品質、検証、変更追跡、共同作業の基準を日々の開発に組み込みます。"}},
     {heading: {"zh-TW": "實際使用", "en": "Practical use", "ja": "使い方"}, body: {"zh-TW": "內容面向人類開發者與 AI Coding Agent，目標是降低錯誤與維護成本，而不是堆疊無法執行的指令。", "en": "Guidance for both human contributors and AI coding agents, with an emphasis on checks that can be carried out.", "ja": "人間とAIコーディングエージェント双方が、実行可能なチェックを共有できるようにします。"}}
-  ]}];
+  ]},
+  {slug: 'codex-workspace-web', title: {'zh-TW': 'Codex Workspace Web', en: 'Codex Workspace Web', ja: 'Codex Workspace Web'},
+   lead: {'zh-TW': "供私人 VPN／區域網路使用的 Codex Web 介面，支援對話、工具事件、權限審批與手機 PWA。", en: "A private-network Codex web interface with conversations, tool events, approvals and a mobile PWA.", ja: "VPN／LAN向けのCodex Web UI。会話、ツールイベント、承認操作、モバイルPWAに対応。"},
+   sections: [
+    {heading: {'zh-TW': '專案定位', en: 'Purpose', ja: '目的'}, body: {'zh-TW': "供私人 VPN／區域網路使用的 Codex Web 介面，支援對話、工具事件、權限審批與手機 PWA。", en: "A private-network Codex web interface with conversations, tool events, approvals and a mobile PWA.", ja: "VPN／LAN向けのCodex Web UI。会話、ツールイベント、承認操作、モバイルPWAに対応。"}}
+   ]
+  },
+  {slug: 'low-y-outpost-finder', title: {'zh-TW': 'LowYOutpostFinder', en: 'LowYOutpostFinder', ja: 'LowYOutpostFinder'},
+   lead: {'zh-TW': "Minecraft Java 1.21.8 的低 Y 前哨站候選搜尋工具；搜尋結果為估算，並非已確認生成的結構。", en: "Minecraft Java 1.21.8 low-Y outpost candidate finder; results are estimates, not confirmed structures.", ja: "Minecraft Java 1.21.8向け低Y前哨基地候補検索ツール。結果は推定値です。"},
+   sections: [
+    {heading: {'zh-TW': '專案定位', en: 'Purpose', ja: '目的'}, body: {'zh-TW': "Minecraft Java 1.21.8 的低 Y 前哨站候選搜尋工具；搜尋結果為估算，並非已確認生成的結構。", en: "Minecraft Java 1.21.8 low-Y outpost candidate finder; results are estimates, not confirmed structures.", ja: "Minecraft Java 1.21.8向け低Y前哨基地候補検索ツール。結果は推定値です。"}}
+   ]
+  },
+  {slug: 'geyser-floating-points', title: {'zh-TW': 'GeyserFloatingPoints', en: 'GeyserFloatingPoints', ja: 'GeyserFloatingPoints'},
+   lead: {'zh-TW': "Minecraft 1.21.8 的 Geyser 浮動原點座標擴充，改善遠距離顯示精度，仍需持續驗證相容性。", en: "A Geyser floating-origin extension for Minecraft 1.21.8, with compatibility still being tested.", ja: "Minecraft 1.21.8用のGeyser浮動原点拡張。互換性は検証中です。"},
+   sections: [
+    {heading: {'zh-TW': '專案定位', en: 'Purpose', ja: '目的'}, body: {'zh-TW': "Minecraft 1.21.8 的 Geyser 浮動原點座標擴充，改善遠距離顯示精度，仍需持續驗證相容性。", en: "A Geyser floating-origin extension for Minecraft 1.21.8, with compatibility still being tested.", ja: "Minecraft 1.21.8用のGeyser浮動原点拡張。互換性は検証中です。"}}
+   ]
+  }
+];
 
 export function getProjectDetail(slug: string) { return projectDetails.find((project) => project.slug === slug); }

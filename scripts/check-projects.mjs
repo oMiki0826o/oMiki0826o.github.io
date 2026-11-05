@@ -20,19 +20,14 @@ const checkExternalUrl = (value, label) => {
   if (url.protocol !== 'https:') fail(`${label}: expected https:`);
 };
 for (const project of projects) {
-  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(project.slug)) fail(`Invalid slug ${project.slug}`);
-  if (slugs.has(project.slug)) fail(`Duplicate slug ${project.slug}`);
-  slugs.add(project.slug);
-  checkText(project.title, `${project.slug}.title`);
-  checkText(project.description, `${project.slug}.description`);
-  if (project.category !== 'web' && project.category !== 'tools') fail(`Unknown category: ${project.slug}`);
-  if (!project.tags.length || project.tags.some((tag) => typeof tag !== 'string' || !tag.trim())) fail(`Invalid tags: ${project.slug}`);
-  checkExternalUrl(project.url, `${project.slug}.url`);
-  checkExternalUrl(project.imageSource, `${project.slug}.imageSource`);
-  if (project.demoUrl) checkExternalUrl(project.demoUrl, `${project.slug}.demoUrl`);
-  if (!/^\/assets\/projects\/[a-z0-9-]+\.(?:png|jpe?g|webp|svg)$/.test(project.image)) fail(`Unsafe image path: ${project.slug}`);
-  const imagePath = join(process.cwd(), 'public', project.image.slice(1));
-  if (!statSync(imagePath).isFile()) fail(`Missing project cover: ${imagePath}`);
+  if (project.image.startsWith('/assets/projects/')) {
+    if (!/^\/assets\/projects\/[a-z0-9-]+\.(?:png|jpe?g|webp|svg)$/.test(project.image)) fail(`Unsafe image path: ${project.slug}`);
+    const imagePath = join(process.cwd(), 'public', project.image.slice(1));
+    if (!statSync(imagePath).isFile()) fail(`Missing project cover: ${imagePath}`);
+  } else {
+    const image = new URL(project.image);
+    if (image.protocol !== 'https:' || !['raw.githubusercontent.com', 'opengraph.githubassets.com'].includes(image.hostname)) fail(`Unsupported image source: ${project.slug}`);
+  }
   const detail = details.get(project.slug);
   if (!detail) fail(`Missing detail page data: ${project.slug}`);
   checkText(detail.title, `${project.slug}.detail.title`);

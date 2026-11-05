@@ -13,8 +13,8 @@ import {getNotesForProject} from '@/content/notes/index';
   });
 
   it('keeps the current core projects', () => {
-    expect(projects.map((project) => project.slug)).toEqual(['discord-bot', 'miki-website', 'cipher-tool', 'astro-lab', 'stlab', 'cipher-tool-web', 'structmark', 'note-block-tweaks', 'ai-development-governance']);
-    expect(pinnedProjects.map((project) => project.slug)).toEqual(['discord-bot', 'structmark', 'astro-lab', 'stlab']);
+    expect(projects.map((project) => project.slug)).toEqual(['discord-bot', 'miki-website', 'cipher-tool', 'astro-lab', 'stlab', 'cipher-tool-web', 'structmark', 'note-block-tweaks', 'ai-development-governance', 'codex-workspace-web', 'low-y-outpost-finder', 'geyser-floating-points']);
+    expect(pinnedProjects.map((project) => project.slug)).toEqual(['discord-bot', 'codex-workspace-web', 'structmark', 'low-y-outpost-finder']);
   });
 
   it('connects the Discord Bot project with its notes', () => {
@@ -31,7 +31,7 @@ import {getNotesForProject} from '@/content/notes/index';
 
   it('gives every project an authentic local cover image', () => {
     for (const project of projects) {
-      expect(project.image).toMatch(/^\/assets\/projects\/.+\.(png|jpg|jpeg|webp|svg)$/);
+      expect(project.image).toMatch(/^(\/assets\/projects\/.+\.(png|jpg|jpeg|webp|svg)|https:\/\/(raw\.githubusercontent\.com|opengraph\.githubassets\.com)\/.+)$/);
       expect(project.imageSource).toMatch(/^https:\/\//);
     }
   });
