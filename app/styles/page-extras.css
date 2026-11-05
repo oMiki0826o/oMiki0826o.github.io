@@ -231,3 +231,12 @@
   object-fit: contain;
   background: var(--white);
 }
+
+/* Works collection: scale complete screenshots within the existing card, never crop them. */
+.works-group .page-project-cover {
+  aspect-ratio: 2 / 1;
+}
+.works-group .page-project-cover img {
+  object-fit: contain;
+  object-position: center;
+}
