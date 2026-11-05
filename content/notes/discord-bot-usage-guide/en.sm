@@ -31,3 +31,9 @@ When a command does not respond, record the time, server, command, and message s
 #2 Know which parts depend on the deployment
 
 Features vary with configuration and the host environment: AI needs Gemini settings, music needs FFmpeg, and Minecraft operations need the bridge and local permissions. The commands in this guide describe the project entry points, not a promise that every server enables every module. Treat `/help` and the deployment settings as the source of truth.
+
+#2 Permissions and bug reports
+
+Chatting with the bot, using AI tools, and operating a Minecraft server are separate permission boundaries. Members may use enabled commands, but configuration changes, file writes, and server controls require explicit authorization. When a command is missing from /help, check the loaded module, channel permissions, and command synchronization first.
+
+Report problems with the command, time, safe error message, and reproducible steps. Do not publish bot tokens, API keys, private messages, or unredacted configuration files. Review logs for sensitive information before sharing them with maintainers.
