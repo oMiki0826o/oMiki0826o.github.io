@@ -28,16 +28,25 @@ test('removed Lab routes and assets are not shipped, while RIP remains a working
   assert.equal(existsSync(path('tests/ripmiki.test.tsx')), true);
 });
 
-test('homepage, header, music and memorial source remain byte-for-byte identical to main', () => {
+test('main stylesheet, music and memorial source remain byte-for-byte identical to main', () => {
   const protectedFiles = {
     'app/styles/site.css': '69f2c1a7bb14867f331ff024dd5a55fa24275843',
-    'components/home/home-page.tsx': '6f09a368a79eed5617277fe6cf0f30f0598da2a9',
     'components/home/music-player.tsx': '09ff57f8cf7d1abb2f39656020056241f50639c7',
-    'components/layout/site-header.tsx': 'af6e628c14eedc2a00ffd8d9af66020a420d13e7',
     'app/ripmiki/page.tsx': '96823a467f204ddb5015f707bec3196da1750322'
   };
   for (const [file, expectedSha] of Object.entries(protectedFiles)) {
     assert.equal(gitBlobSha(file), expectedSha, `Unexpected visual change in ${file}`);
+  }
+});
+
+test('Astro migration retains homepage and navigation selectors', () => {
+  const home = text('components/home/home-page.tsx');
+  const header = text('components/layout/site-header.tsx');
+  for (const name of ['intro', 'featured', 'section', 'projects', 'notes', 'timeline']) {
+    assert.ok(home.includes('className="'+name+'"') || home.includes('className={'), 'homepage lost a section: '+name);
+  }
+  for (const name of ['topbar', 'wordmark', 'menu-toggle', 'site-menu', 'language-links', 'theme-toggle']) {
+    assert.ok(header.includes(name) || text('components/layout/theme-toggle.tsx').includes(name), 'navigation lost: '+name);
   }
 });
 

@@ -124,9 +124,9 @@ test('music player shows an error when YouTube API cannot load', async ({page}) 
 });
 
 // ── V6.3.4：Works 新作品、三語詳情與真實站外連結 ──
-test('Works lists all nine projects with readable groups and source links', async ({page}) => {
+test('Works lists all projects with readable groups and source links', async ({page}) => {
   await page.goto('/zh-TW/projects/');
-  await expect(page.locator('.page-project')).toHaveCount(9);
+  await expect(page.locator('.page-project')).toHaveCount(12);
   await expect(page.getByRole('heading', {name: '網站與語言'})).toBeVisible();
   await expect(page.getByRole('heading', {name: '工具與開發'})).toBeVisible();
   await expect(page.getByRole('heading', {name: 'StructMark'})).toBeVisible();
@@ -140,7 +140,7 @@ test('Works remains within the viewport on narrow phones', async ({page}) => {
   for (const width of [320,375,390,430]) {
     await page.setViewportSize({width,height:740});
     await page.goto('/zh-TW/projects/');
-    await expect(page.locator('.page-project')).toHaveCount(9);
+    await expect(page.locator('.page-project')).toHaveCount(12);
     const overflowing = await page.locator('html').evaluate((el) => el.scrollWidth > el.clientWidth);
     expect(overflowing, `width=${width}`).toBe(false);
   }
