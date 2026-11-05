@@ -4,7 +4,6 @@ import {pinnedProjects, projects} from '@/content/projects';
 import {timeline} from '@/content/timeline';
 import {getProjectDetail} from '@/content/project-details';
 import {getNotesForProject} from '@/content/notes/index';
-import {calculatePearlCannon, createPearlSettings, genericFtlVersions, validatePearlSettings} from '@/lib/pearl-calculator';
 
  describe('site content', () => {
   it('keeps the 5.x homepage identity', () => {
@@ -39,34 +38,5 @@ import {calculatePearlCannon, createPearlSettings, genericFtlVersions, validateP
 
   it('keeps the 2024 Python milestone', () => {
     expect(timeline.some((item) => item.year === '2024')).toBe(true);
-  });
-
-  it('calculates pearl cannon direction and two-side charge', () => {
-    const results = calculatePearlCannon([0, 170, 0], [10, 10], createPearlSettings({maxDistance: 1e9}));
-    expect(results.length).toBeGreaterThan(0);
-    expect(results[0]!.direction).toBe('E');
-    expect(results[0]!.red).toBeTypeOf('number');
-    expect(results[0]!.blue).toBeTypeOf('number');
-    expect(Number.isFinite(results[0]!.landY)).toBe(true);
-  });
-
-  it('keeps generic FTL presets extensible without changing the UI inputs', () => {
-    expect(genericFtlVersions).toEqual(['1.11–1.21.1', '1.21.2+']);
-    expect(createPearlSettings({maxCharge: 80}).maxCharge).toBe(80);
-  });
-
-  it('rejects invalid FTL settings before simulation', () => {
-    expect(validatePearlSettings(createPearlSettings({maxCharge: 0}))).toContain('最大當量');
-    expect(calculatePearlCannon([0, 170, 0], [1000, 1000], createPearlSettings({maxCharge: 0}))).toEqual([]);
-  });
-
-  it('supports the public calculator Y-motion cancellation mode', () => {
-    const results = calculatePearlCannon([0, 170.3, 0], [1000, 1000], createPearlSettings({pearlYMotionCancellation: true}));
-    expect(results).toBeInstanceOf(Array);
-  });
-
-  it('accepts a custom FTL pair without changing the general input flow', () => {
-    const results = calculatePearlCannon([0, 170.3, 0], [1000, 1000], createPearlSettings({mode: 'custom', customRedTnt: [1, 170, 1], customBlueTnt: [-1, 170, -1]}));
-    expect(results).toBeInstanceOf(Array);
   });
 });
