@@ -215,3 +215,19 @@
 }
 
 .project-detail-links a:focus-visible {outline: 2px solid var(--blue-text); outline-offset: 4px;}
+
+/* Preserve the original Works cards while showing full-width repository screenshots. */
+.project-cover {
+  aspect-ratio: 2 / 1;
+}
+.project-cover::before {
+  padding-top: 50%;
+}
+.project-cover img {
+  object-fit: contain;
+  object-position: center;
+}
+.project-detail-cover {
+  object-fit: contain;
+  background: var(--white);
+}

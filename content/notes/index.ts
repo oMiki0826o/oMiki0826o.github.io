@@ -43,7 +43,8 @@ export function getNote(slug: string) {
 export const pinnedNoteSlugs = [
   'discord-bot-usage-guide',
   'discord-bot-mod-guide',
-  'seasonal-night-sky-guide'
+  'seasonal-night-sky-guide',
+  'spacetime-and-gravitational-waves'
 ] as const;
 
 export const pinnedNotes = pinnedNoteSlugs.map((slug) => {
