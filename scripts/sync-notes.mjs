@@ -24,7 +24,7 @@ const identifiers = folders.map((slug, i) => {
 });
 const imports = identifiers.map(({slug,alias}) => `import ${alias} from './${slug}/meta';`).join('\n');
 const entries = identifiers.map(({alias}) => `  loadStructMarkNote(${alias})`).join(',\n');
-const prefix = `/*\n * File: index.ts\n * Modification: 2026-10-11 — 由 npm run notes:sync 根據目錄自動產生文章註冊表。\n */\nimport {loadStructMarkNote} from '../notes-loader';\nimport {projects} from '../projects';\n${imports}\n\nexport const notes = [\n${entries}\n].sort((left, right) => Date.parse(right.date) - Date.parse(left.date));\n\n`;
+const prefix = `/*\n * File: index.ts\n * Modification: 2026-10-11 — 由 npm run notes:sync 根據目錄自動產生文章註冊表。\n */\nimport {loadStructMarkNote} from '../notes-loader';\nimport {projects} from '../projects';\nimport {pinnedNoteSlugs} from './previews';\nexport {pinnedNoteSlugs} from './previews';\n${imports}\n\nexport const notes = [\n${entries}\n].sort((left, right) => Date.parse(right.date) - Date.parse(left.date));\n\n`;
 const projectBridge = `// ── 由 .sm Front Matter 自動對應 Works；不再複製文章 slug 清單 ──
 const knownProjects = new Set(projects.map((project) => project.slug));
 for (const note of notes) {
