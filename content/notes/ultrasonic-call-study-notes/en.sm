@@ -47,3 +47,9 @@ The useful conclusion is a reusable method: fix the conditions, preserve raw dat
 #2 A record that can be continued
 
 The next observer should be able to tell which parts are measurements, which parts are interpretations, and which questions remain open. That clarity is part of the result.
+
+#2 Presenting results responsibly
+
+Each figure should state its sample size, odor conditions, analysis method, and measured variable. Call counts, frequency, and call-type proportions address different questions. A statistically significant difference in one outcome does not prove that an entire communication system has changed.
+
+Some analyses include only four pups, so these observations are preliminary leads rather than general rules. The next steps are larger samples, repeated measurements, and preservation of original recordings, spectrogram annotations, and exclusion rules. A transparent analysis path makes later verification possible.

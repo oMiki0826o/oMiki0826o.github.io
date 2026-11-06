@@ -1,0 +1,55 @@
+---
+import BaseLayout from '@/src/layouts/BaseLayout.astro';
+import {HomePage} from '@/components/home/home-page';
+import {AboutPage} from '@/components/pages/about';
+import {ProjectsPage} from '@/components/pages/projects';
+import {NotesPage} from '@/components/pages/notes';
+import {TimelinePage} from '@/components/pages/timeline';
+import {ProjectDetailPage} from '@/components/pages/project-detail';
+import {NoteDetailPage} from '@/components/pages/note-detail';
+import {locales, type Locale} from '@/i18n/config';
+import {localize} from '@/lib/content';
+import {profile} from '@/content/profile';
+import {projects} from '@/content/projects';
+import {notes, featuredNote} from '@/content/notes/index';
+import {ui} from '@/i18n/ui';
+
+type Kind = 'home'|'about'|'projects'|'notes'|'timeline'|'project-detail'|'note-detail';
+type Props = {locale: Locale; kind: Kind; slug?: string};
+
+export function getStaticPaths() {
+  return locales.flatMap((locale) => [
+    {params: {locale, path: undefined}, props: {locale, kind: 'home'}},
+    ...(['about','projects','notes','timeline'] as const).map((kind) => ({params: {locale, path: kind}, props: {locale,kind}})),
+    ...projects.map((project) => ({params: {locale,path: 'projects/'+project.slug},props:{locale,kind:'project-detail',slug:project.slug}})),
+    ...notes.map((note) => ({params: {locale,path: 'notes/'+note.slug},props:{locale,kind:'note-detail',slug:note.slug}}))
+  ]);
+}
+const {locale, kind, slug} = Astro.props as Props;
+const copy = ui[locale];
+const project = projects.find((record)=>record.slug===slug);
+const note = notes.find((record)=>record.slug===slug);
+const title = kind === 'home' ? copy.siteTitle :
+  kind === 'about' ? localize(profile.aboutTitle,locale) :
+  kind === 'projects' ? copy.pages.projectsTitle :
+  kind === 'notes' ? copy.sections.notes :
+  kind === 'timeline' ? copy.pages.timelineTitle :
+  kind === 'project-detail' && project ? localize(project.title,locale) :
+  kind === 'note-detail' && note ? localize(note.title,locale) : copy.siteTitle;
+const description = kind === 'home' ? localize(profile.intro,locale) :
+  kind === 'projects' ? copy.pages.projectsLead :
+  kind === 'notes' ? copy.pages.notesLead :
+  kind === 'timeline' ? copy.pages.timelineLead :
+  kind === 'about' ? copy.pages.aboutLead :
+  kind === 'project-detail' && project ? localize(project.description,locale) :
+  kind === 'note-detail' && note ? localize(note.excerpt,locale) : localize(profile.intro,locale);
+---
+<BaseLayout locale={locale} title={title} description={description}>
+  {kind === 'home' && <HomePage client:load locale={locale} />}
+  {kind === 'about' && <AboutPage client:load locale={locale} />}
+  {kind === 'projects' && <ProjectsPage client:load locale={locale} />}
+  {kind === 'notes' && <NotesPage client:load locale={locale} notes={notes} featuredNote={featuredNote} />}
+  {kind === 'timeline' && <TimelinePage client:load locale={locale} />}
+  {kind === 'project-detail' && slug && <ProjectDetailPage client:load locale={locale} slug={slug} notes={notes} />}
+  {kind === 'note-detail' && slug && <NoteDetailPage client:load locale={locale} slug={slug} notes={notes} />}
+</BaseLayout>

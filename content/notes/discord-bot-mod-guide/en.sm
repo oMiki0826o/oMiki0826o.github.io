@@ -35,3 +35,9 @@ When a command calls an external service, keep timeouts and error translation in
 #2 A small release checklist
 
 Before committing, do a clean startup, confirm `/help` lists the command, verify that disabling a Module does not leave its Cog registered, and run the tests related to the feature. If the Module owns a migration or settings schema, also test a first launch with an empty environment. These checks prevent more maintenance pain than another abstraction inside `extension.py`.
+
+#2 Checking a module before release
+
+Before submitting a new module, verify that the loader discovers its entry point, dependencies resolve, commands register, disabling releases resources, and a clean installation initializes settings and data correctly. A long-running development installation is not a substitute for a fresh-start test.
+
+For permissions, messages, or remote tools, test as an ordinary member and an administrator. A denied request must not expose private information. Document the activation steps, required configuration, and known limitations, then use both CI and a real test server for acceptance.

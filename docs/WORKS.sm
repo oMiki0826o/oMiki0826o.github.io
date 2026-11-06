@@ -13,14 +13,17 @@
 - StructMark — 自訂 .sm 結構化標記語言。
 - NoteBlock Tweaks — Fabric 音階盒調音輔助模組。
 - AI Development Governance — AI 開發規範及驗證流程。
+- Codex Workspace Web — 私人 VPN／區域網路內的 Codex Web 介面。
+- LowYOutpostFinder — Minecraft Java 1.21.8 的低 Y 前哨站候選搜尋。
+- GeyserFloatingPoints — Geyser 浮動原點座標擴充，仍在相容性測試中。
 
 #2 加入或更新作品
 
 先在 `content/projects.ts` 新增項目，填入與 GitHub 對應的唯一 slug、三語標題／簡介、技術標籤、URL、封面、類別。公開網站地址可填 `demoUrl`，純原始碼專案可以省略。再到 `content/project-details.ts` 新增三語說明段落；路由、目錄與 sitemap 都會根據兩份資料自動輸出，不必建立新的 page.tsx。
 
-專案圖片應使用實際截圖，或清楚標示用途的文字封面。新加的六張封面是本站本地的 SVG 文字識別圖，不能視為原作品畫面或程式執行結果。
+專案圖片使用實際截圖或 GitHub Open Graph 預覽卡片，明確區分展示畫面與倉庫資訊。遠端圖片不保證能顯示所有 UI 細節，因此卡片必須使用 `object-fit: contain`，保留整張截圖，不裁切左右文字。需保證圖片來源與 GitHub 倉庫對應；圖片網址失效時應更換真實來源，不使用 AI 生成的假 UI。
 
-首頁僅由 `pinnedProjectSlugs` 選三個主打作品。Works 全部作品另外依「網站與語言」「工具與開發」呈現。
+首頁由 `pinnedProjectSlugs` 選四個主打作品。Works 全部作品另外依「網站與語言」「工具與開發」呈現。
 
 #2 關聯文章
 
@@ -28,4 +31,4 @@
 
 #2 驗證與發布
 
-修改後先跑 `npm run works:check`、`npm run test:native` 與 `npm run core:check`，再在完成 `npm ci` 的環境執行 `npm run validate`。其中 `validate` 才會涵蓋 Next.js 真正的靜態匯出與 Chromium／WebKit 瀏覽器測試。
+修改後先跑 `npm run works:check`、`npm run test:native` 與 `npm run core:check`，再在完成 `npm ci` 的環境執行 `npm run validate`。其中 `validate` 才會涵蓋 Astro 真正的 `dist/` 靜態建置與 Chromium／WebKit 瀏覽器測試。

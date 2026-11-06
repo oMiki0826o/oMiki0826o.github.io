@@ -26,7 +26,7 @@ jobs:
           node-version: 22
           cache: npm
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --no-audit --no-fund
       - name: Validate documentation, unit tests, types and static export
         run: npm run validate:fast
       - name: Install browsers
@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: miki-site-static-export
-          path: out
+          path: dist
           if-no-files-found: error
           retention-days: 3
 
@@ -58,13 +58,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: miki-site-static-export
-          path: out
+          path: dist
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload verified static website
         uses: actions/upload-pages-artifact@v3
         with:
-          path: out
+          path: dist
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v5

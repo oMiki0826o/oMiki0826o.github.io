@@ -27,3 +27,9 @@ AI needs providers, storage, permission-aware channel reading, memory, and tools
 #2 What is still unfinished
 
 Modularity is not finished when files become smaller. Settings migrations, database schemas, external timeouts, and test environments still need work. I now care whether a feature can be disabled, reloaded, tested, and explained, not only whether it runs on my machine. That is the practical difference between making a Bot and maintaining a system.
+
+#2 Verifying modular behavior
+
+Splitting features into modules is only a start. Each module must be able to start, stop, and reload independently. Music players can leave voice connections behind, AI tools may hold pending requests, and the Minecraft bridge has its own connection lifecycle. Shutdown should clean these up deliberately rather than relying on process exit.
+
+I establish a baseline with simple commands before adding permissions, databases, and upstream APIs. Recording successful and failed conditions makes it possible to tell Discord interaction failures apart from module bugs and external outages. That is what makes an experimental bot maintainable.

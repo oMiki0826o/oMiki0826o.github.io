@@ -15,7 +15,7 @@ describe('SiteHeader', () => {
     fireEvent.click(screen.getByRole('button', {name: '開啟選單'}));
 
     expect(container.querySelector('.menu-toggle')).toHaveAttribute('aria-expanded', 'true');
-    expect(screen.getByRole('link', {name: '關於'})).toHaveAttribute('href', '/zh-TW/about');
+    expect(screen.getByRole('link', {name: '關於'})).toHaveAttribute('href', '/zh-TW/about/');
     expect(container.querySelector('.site-menu')).toBeInTheDocument();
   });
 

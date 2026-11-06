@@ -7,34 +7,33 @@ import assert from 'node:assert/strict';
 import {readFileSync, existsSync} from 'node:fs';
 
 const read = (path) => readFileSync(path, 'utf8');
-const expected = ['discord-bot','miki-website','cipher-tool','astro-lab','stlab','cipher-tool-web','structmark','note-block-tweaks','ai-development-governance'];
+const expected = ['discord-bot','miki-website','cipher-tool','astro-lab','stlab','cipher-tool-web','structmark','note-block-tweaks','ai-development-governance','codex-workspace-web','low-y-outpost-finder','geyser-floating-points'];
 
-test('Works lists nine verified public projects and an individual page for each', () => {
+test('Works lists verified public projects and an individual page for each', () => {
   const projects = read('content/projects.ts');
   const details = read('content/project-details.ts');
   for(const slug of expected) {
     assert.match(projects, new RegExp(`slug: ['"]${slug}['"]`), `${slug} listing missing`);
     assert.match(details, new RegExp(`slug: ['"]${slug}['"]`), `${slug} detail missing`);
   }
-  assert.match(projects,/pinnedProjectSlugs = \['discord-bot', 'structmark', 'astro-lab', 'stlab'\]/);
+  assert.ok(projects.includes("pinnedProjectSlugs = ['discord-bot', 'codex-workspace-web', 'structmark', 'low-y-outpost-finder']"));
   assert.match(projects,/demoUrl:/);
-  assert.match(read('app/[locale]/projects/[slug]/page.tsx'), /summary\.demoUrl/);
+  assert.match(read('components/pages/project-detail.tsx'), /summary\.demoUrl/);
 });
 
-test('all six new projects have local original minimalist SVG covers, not fake screenshots', () => {
-  for(const slug of expected.slice(3)) {
-    assert.ok(existsSync(`public/assets/projects/${slug}.svg`), `${slug} cover missing`);
-    const cover = read(`public/assets/projects/${slug}.svg`);
-    assert.match(cover, /<svg/);
-    assert.match(cover, /<text/);
-  }
+test('featured projects use repository screenshots or GitHub preview cards', () => {
+  const projects = read('content/projects.ts');
+  assert.ok(projects.includes('raw.githubusercontent.com'));
+  assert.ok(projects.includes('opengraph.githubassets.com'));
+  assert.ok(!projects.includes("image: '/assets/projects/structmark.svg'"));
 });
 
 test('Notes relate to Works by StructMark front matter instead of manual duplicate mappings', () => {
   assert.match(read('content/notes-loader.ts'), /projectSlug/);
   assert.match(read('content/notes-loader.ts'), /parsed\.metadata/);
   assert.match(read('content/notes/index.ts'), /getNotesForProject/);
-  assert.match(read('app/[locale]/projects/[slug]/page.tsx'), /getNotesForProject/);
+  assert.match(read('components/pages/project-detail.tsx'), /notes\.filter\(\(note\) => note\.projectSlug === slug\)/);
+  assert.match(read('src/pages/[locale]/[...path].astro'), /<ProjectDetailPage[^>]+notes=\{notes\}/);
   for(const slug of ['discord-bot-from-zero','discord-bot-mod-guide','discord-bot-usage-guide']) {
     for(const locale of ['zh-TW','en','ja']) {
       assert.match(read(`content/notes/${slug}/${locale}.sm`), /^---\nproject: discord-bot\n---/);

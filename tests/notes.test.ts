@@ -46,28 +46,28 @@ describe('note content', () => {
     const guide = getNote('discord-bot-usage-guide');
 
     expect(guide?.title['zh-TW']).toBe('Discord Bot 使用教學');
-    expect(guide?.sections).toHaveLength(7);
+    expect(guide?.sections).toHaveLength(8);
   });
 
   it('publishes a human-readable Module authoring guide', () => {
     const guide = getNote('discord-bot-mod-guide');
 
     expect(guide?.title['zh-TW']).toBe('Discord Bot Mod 撰寫教學');
-    expect(guide?.sections).toHaveLength(6);
+    expect(guide?.sections).toHaveLength(7);
   });
 
   it('publishes a practical guide to the seasonal night sky', () => {
     const guide = getNote('seasonal-night-sky-guide');
 
     expect(guide?.title['zh-TW']).toBe('夜空入門：從北極星開始認星');
-    expect(guide?.sections).toHaveLength(9);
+    expect(guide?.sections).toHaveLength(10);
   });
 
   it('publishes an anonymized introduction to spacetime and gravitational waves', () => {
     const guide = getNote('spacetime-and-gravitational-waves');
 
     expect(guide?.title['zh-TW']).toBe('從幾何到重力波：時空的入門筆記');
-    expect(guide?.sections).toHaveLength(7);
+    expect(guide?.sections).toHaveLength(8);
     expect(JSON.stringify(guide)).not.toContain('政大附中');
   });
 
@@ -97,7 +97,7 @@ describe('note content', () => {
 
     expect(guide?.title['zh-TW']).toBe('幼鼠超音波叫聲研究紀錄與發表');
     expect(guide?.excerpt['zh-TW']).not.toContain('已隱去');
-    expect(guide?.sections).toHaveLength(9);
+    expect(guide?.sections).toHaveLength(10);
   });
 
   it('exports a page for every locale and note', async () => {

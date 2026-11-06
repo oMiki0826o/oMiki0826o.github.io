@@ -1,8 +1,8 @@
-import Link from 'next/link';
+import Link from '@/components/ui/astro-link';
 import type {Locale} from '@/i18n/config';
 import {profile} from '@/content/profile';
 import {pinnedProjects} from '@/content/projects';
-import {pinnedNotes} from '@/content/notes/index';
+import {pinnedNotePreviews} from '@/content/notes/previews';
 import {pinnedTimeline} from '@/content/timeline';
 import {localize, localizedPath} from '@/lib/content';
 import {MusicPlayer} from './music-player';
@@ -15,7 +15,7 @@ import {TypewriterText} from '@/components/ui/typewriter-text';
 export function HomePage({locale}: {locale: Locale}) {
   const aboutParagraphs = profile.about[locale];
   const copy = ui[locale];
-  const latestNotes = pinnedNotes;
+  const latestNotes = pinnedNotePreviews;
 
   return (
     <main>
@@ -41,7 +41,7 @@ export function HomePage({locale}: {locale: Locale}) {
         </a>
         <figcaption className="featured-caption">
           <strong>{copy.home.featuredImage}</strong>
-          <span>{localize(profile.featuredCaption, locale)} <a href={profile.featuredSource} target="_blank" rel="noopener noreferrer">圖源 ↗</a></span>
+          <span>{localize(profile.featuredCaption, locale)} <a href={profile.featuredSource} target="_blank" rel="noopener noreferrer">圖源 →</a></span>
         </figcaption>
       </figure></ScrollReveal>
 

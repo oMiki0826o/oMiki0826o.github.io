@@ -6,5 +6,6 @@ export function localize(value: LocalizedText, locale: Locale): string {
 }
 
 export function localizedPath(locale: Locale, path = ''): string {
-  return `/${locale}${path}`;
+  const suffix = path ? (path.startsWith('/') ? path : `/${path}`) : '/';
+  return `/${locale}${suffix}`.replace(/\/+$/, '') + '/';
 }

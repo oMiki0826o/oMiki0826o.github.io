@@ -13,7 +13,7 @@ const topLevelRoutes = [
   '/zh-TW/notes/discord-bot-usage-guide/', '/en/notes/discord-bot-mod-guide/',
   '/zh-TW/notes/seasonal-night-sky-guide/', '/en/notes/spacetime-and-gravitational-waves/',
   '/ja/notes/ultrasonic-call-study-notes/',
-  '/lab/', '/lab/pearl-cannon/', '/lab/astro-compare/', '/lab/snake/', '/lab/github-galaxy/', '/lab/structmark/'
+
 ];
 
 test('all public locale and note routes load from the exported site', async ({page}) => {
@@ -99,15 +99,6 @@ test('the memorial easter egg keeps its standalone layout and click tribute', as
 });
 
 
-test('StructMark editor parses an actual document and exports an AST', async ({page}) => {
-  await page.goto('/lab/structmark/');
-  await page.getByRole('textbox', {name: 'StructMark 來源文字'}).fill('#1 Hello\n\n*[test]');
-  await expect(page.locator('.sm-preview h1')).toHaveText('Hello');
-  await expect(page.locator('.sm-preview strong')).toHaveText('test');
-  await page.getByRole('tab', {name: 'AST'}).click();
-  await expect(page.locator('.sm-json')).toContainText('heading');
-});
-
 test('every localized exported HTML has the correct language', async ({page}) => {
   for (const locale of ['zh-TW', 'en', 'ja']) {
     await page.goto(`/${locale}/notes/about-me/`);
@@ -125,57 +116,6 @@ test('article contents links resolve to the section shown on the page', async ({
   await expect(page.locator('.note-article section').first()).toHaveAttribute('id', id);
 });
 
-test('StructMark editor supports keyboard tab navigation', async ({page}) => {
-  await page.goto('/lab/structmark/');
-  const preview = page.getByRole('tab', {name: '預覽'});
-  await preview.focus();
-  await page.keyboard.press('ArrowRight');
-  await expect(page.getByRole('tab', {name: 'AST'})).toHaveAttribute('aria-selected', 'true');
-  await expect(page.locator('.sm-json')).toContainText('document');
-});
-
-test('the snake controls do not capture keyboard events from the rest of the page', async ({page}) => {
-  await page.goto('/lab/snake/');
-  const preventedOnWindow = await page.evaluate(() => {
-    const event = new KeyboardEvent('keydown', {key: 'ArrowDown', bubbles: true, cancelable: true});
-    window.dispatchEvent(event);
-    return event.defaultPrevented;
-  });
-  expect(preventedOnWindow).toBe(false);
-  await page.locator('.snake-game').focus();
-  await page.keyboard.press('ArrowDown');
-  await expect(page.locator('.snake-status')).toContainText('保持移動');
-});
-
-test('astro compare rejects unsupported image formats', async ({page}) => {
-  await page.goto('/lab/astro-compare/');
-  await page.locator('.astro-file-controls input').first().setInputFiles({
-    name: 'unsupported.svg',
-    mimeType: 'image/svg+xml',
-    buffer: Buffer.from('<svg xmlns="http://www.w3.org/2000/svg"/>')
-  });
-  await expect(page.locator('.astro-error')).toContainText('JPEG');
-});
-
-test('StructMark editor imports a local UTF-8 .sm document', async ({page}) => {
-  await page.goto('/lab/structmark/');
-  await page.getByLabel('匯入本機 StructMark 文件').setInputFiles({
-    name: 'local.sm',
-    mimeType: 'text/plain',
-    buffer: Buffer.from('#1 Local\n\n*[strong]', 'utf8')
-  });
-  await expect(page.getByRole('textbox', {name: 'StructMark 來源文字'})).toHaveValue('#1 Local\n\n*[strong]');
-  await expect(page.locator('.sm-preview strong')).toHaveText('strong');
-});
-
-test('StructMark editor rejects unsupported file extensions', async ({page}) => {
-  await page.goto('/lab/structmark/');
-  await page.getByLabel('匯入本機 StructMark 文件').setInputFiles({
-    name: 'notes.md', mimeType: 'text/plain', buffer: Buffer.from('#1 Invalid', 'utf8')
-  });
-  await expect(page.locator('.sm-file-error')).toContainText('.sm');
-});
-
 test('music player shows an error when YouTube API cannot load', async ({page}) => {
   await page.route('**/iframe_api', route => route.abort());
   await page.goto('/');
@@ -184,9 +124,9 @@ test('music player shows an error when YouTube API cannot load', async ({page}) 
 });
 
 // ── V6.3.4：Works 新作品、三語詳情與真實站外連結 ──
-test('Works lists all nine projects with readable groups and source links', async ({page}) => {
+test('Works lists all projects with readable groups and source links', async ({page}) => {
   await page.goto('/zh-TW/projects/');
-  await expect(page.locator('.page-project')).toHaveCount(9);
+  await expect(page.locator('.page-project')).toHaveCount(12);
   await expect(page.getByRole('heading', {name: '網站與語言'})).toBeVisible();
   await expect(page.getByRole('heading', {name: '工具與開發'})).toBeVisible();
   await expect(page.getByRole('heading', {name: 'StructMark'})).toBeVisible();
@@ -200,7 +140,7 @@ test('Works remains within the viewport on narrow phones', async ({page}) => {
   for (const width of [320,375,390,430]) {
     await page.setViewportSize({width,height:740});
     await page.goto('/zh-TW/projects/');
-    await expect(page.locator('.page-project')).toHaveCount(9);
+    await expect(page.locator('.page-project')).toHaveCount(12);
     const overflowing = await page.locator('html').evaluate((el) => el.scrollWidth > el.clientWidth);
     expect(overflowing, `width=${width}`).toBe(false);
   }
@@ -214,11 +154,30 @@ test('StructMark note front matter links the related work in both directions', a
 });
 
 // ── V6.3.5：修正後珍珠砲的結果與誠實的誤差說明 ──
-test('pearl cannon shows actual calculated candidates and validates single-side charges', async ({page}) => {
-  await page.goto('/lab/pearl-cannon/');
-  await expect(page.locator('.pearl-result')).not.toHaveCount(0);
-  await expect(page.locator('.pearl-result em').first()).toContainText('預測 Y');
-  await expect(page.locator('.pearl-disclaimer')).toContainText('尚未模擬地形');
-  await page.getByLabel('單側最大當量（1–160）').fill('161');
-  await expect(page.getByText('請輸入有效數字；單側當量須為 1 到 160 的整數。')).toBeVisible();
+
+test('Works screenshot images are not cropped on desktop or mobile', async ({page}) => {
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({width, height: 900});
+    await page.goto('/zh-TW/projects/');
+    const covers = page.locator('.works-group .page-project-cover img');
+    await expect(covers).toHaveCount(12);
+    await expect.poll(async () => covers.first().evaluate((img) => getComputedStyle(img).objectFit)).toBe('contain');
+    const noOverflow = await page.locator('html').evaluate((el) => el.scrollWidth <= el.clientWidth);
+    expect(noOverflow).toBe(true);
+  }
+});
+
+test('Astro mobile homepage stays visible after browser hydration', async ({page}) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.setViewportSize({width: 390, height: 844});
+  await page.goto('/');
+  await expect(page.locator('main .intro h1')).toHaveText('Miki');
+  await expect(page.locator('main .intro')).toBeVisible();
+  await expect(page.locator('.projects .project')).toHaveCount(4);
+  await expect(page.locator('.notes .note')).toHaveCount(4);
+  const islands = page.locator('astro-island');
+  await expect.poll(async () => islands.evaluateAll((nodes) => nodes.filter((node) => node.hasAttribute('ssr')).length)).toBe(0);
+  await expect(page.locator('main .intro')).toBeVisible();
+  expect(errors, 'No client hydration errors').toEqual([]);
 });

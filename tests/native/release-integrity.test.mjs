@@ -25,6 +25,7 @@ test('CI validates pull requests and deploys main only after checks', () => {
   assert.match(workflow,/needs:\s*validate/);
   assert.match(workflow,/github\.event_name\s*!=\s*'pull_request'/);
   assert.match(workflow,/npm run validate:fast/);
+  assert.match(workflow,/run:\s*npm ci\b/);
   assert.match(workflow,/npm run test:e2e/);
   assert.match(workflow,/webkit/);
 });

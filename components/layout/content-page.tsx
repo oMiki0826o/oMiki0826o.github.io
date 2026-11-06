@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/components/ui/astro-link';
 import type {Locale} from '@/i18n/config';
 import {localizedPath} from '@/lib/content';
 import {ui} from '@/i18n/ui';

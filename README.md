@@ -16,16 +16,15 @@ Miki 的個人網站，收錄作品、文章、研究筆記與一路整理留下
 ### 功能
 
 - 首頁、About、Works、Notes、Timeline
-- 九個作品的獨立介紹頁，以及 GitHub／Demo 連結
+- 12 個作品的獨立介紹頁，以及 GitHub／Demo 連結
 - StructMark `.sm` 文章、目錄、閱讀進度、相關文章與 RSS
 - 深淺主題、響應式版面與低干擾的螢火蟲互動
-- `/lab/`：與主站視覺和內容定位分開的實驗工具區
 - `/ripmiki/`：獨立的紀念彩蛋頁
 
 ### 技術
 
-- Next.js 16、React 19、TypeScript
-- App Router、Static Export、GitHub Pages
+- Astro 6、React 19（互動元件）、TypeScript
+- Astro 檔案路由、靜態輸出、GitHub Pages／Vercel
 - Vitest、Node.js native tests、Playwright
 - StructMark V1.1：文章解析、AST 驗證與 HTML 渲染
 
@@ -38,7 +37,7 @@ npm ci
 npm run dev
 ```
 
-開發伺服器預設位於 `http://localhost:3000`。
+開發伺服器預設位於 `http://localhost:4321`。
 
 ### 使用與驗證
 
@@ -61,13 +60,13 @@ npm run test:e2e
 npm run validate
 ```
 
-建置結果輸出到 `out/`。預覽靜態輸出：
+建置結果輸出到 `dist/`。預覽靜態輸出：
 
 ```bash
 npm run preview
 ```
 
-GitHub Actions 會在 Pull Request 與 `main` push 執行驗證；只有 `main` 的完整關卡通過後，才會部署 `out/` 到 GitHub Pages。
+GitHub Actions 會在 Pull Request 與 `main` push 執行驗證；只有 `main` 的完整關卡通過後，才會部署 `dist/` 到 GitHub Pages。
 
 ### 內容維護
 
@@ -79,8 +78,7 @@ GitHub Actions 會在 Pull Request 與 `main` push 執行驗證；只有 `main` 
 | 文章內容 | `content/notes/<slug>/{zh-TW,en,ja}.sm` |
 | 文章索引資料 | `content/notes/<slug>/meta.ts` |
 | 語系介面文字 | `i18n/ui.ts`、`i18n/config.ts` |
-| Lab 工具登錄 | `content/lab-tools.ts` |
-| 主站與 Lab 樣式 | `app/styles/site.css`、`app/styles/lab.css` |
+| 主要樣式與頁面補充樣式 | `app/styles/site.css`、`app/styles/page-extras.css`、`app/styles/structmark.css` |
 | StructMark 語言核心 | `lib/structmark/core/` |
 
 新增文章後執行 `npm run notes:sync`。文章採用 StructMark 的受限文件格式；完整規則與維護流程見 `docs/DEVELOPMENT.sm`。
@@ -112,16 +110,15 @@ Live site: [omiki0826o.github.io](https://omiki0826o.github.io/)
 ### Features
 
 - Home, About, Works, Notes and Timeline sections
-- Nine projects with dedicated detail pages and GitHub or demo links
+- 12 projects with dedicated detail pages and GitHub or demo links
 - StructMark `.sm` articles with tables of contents, reading progress, related notes and RSS
 - Light and dark themes, responsive layouts and a restrained firefly interaction
-- `/lab/`, an experimental area intentionally separated from the main site's visual and content system
 - `/ripmiki/`, an independent memorial easter-egg page
 
 ### Technology
 
-- Next.js 16, React 19 and TypeScript
-- App Router, static export and GitHub Pages
+- Astro 6, React 19 (interactive islands) and TypeScript
+- Astro file-based routing, static export, GitHub Pages and Vercel
 - Vitest, native Node.js tests and Playwright
 - StructMark V1.1 for article parsing, AST validation and HTML rendering
 
@@ -157,13 +154,13 @@ Or run both stages with:
 npm run validate
 ```
 
-The static export is written to `out/`. Preview it with:
+The static export is written to `dist/`. Preview it with:
 
 ```bash
 npm run preview
 ```
 
-GitHub Actions runs the validation on pull requests and pushes to `main`; `out/` is deployed to GitHub Pages only after the complete `main` workflow passes.
+GitHub Actions runs the validation on pull requests and pushes to `main`; `dist/` is deployed to GitHub Pages only after the complete `main` workflow passes.
 
 ### Content maintenance
 
@@ -175,8 +172,7 @@ GitHub Actions runs the validation on pull requests and pushes to `main`; `out/`
 | Articles | `content/notes/<slug>/{zh-TW,en,ja}.sm` |
 | Article metadata | `content/notes/<slug>/meta.ts` |
 | Localized UI text | `i18n/ui.ts`, `i18n/config.ts` |
-| Lab registry | `content/lab-tools.ts` |
-| Main and Lab styles | `app/styles/site.css`, `app/styles/lab.css` |
+| Main and shared page styles | `app/styles/site.css`, `app/styles/page-extras.css`, `app/styles/structmark.css` |
 | StructMark language core | `lib/structmark/core/` |
 
 Run `npm run notes:sync` after adding an article. Articles use the supported subset of StructMark; see `docs/DEVELOPMENT.sm` for the maintenance rules.

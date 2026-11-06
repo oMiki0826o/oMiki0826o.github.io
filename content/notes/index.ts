@@ -4,6 +4,8 @@
  */
 import {loadStructMarkNote} from '../notes-loader';
 import {projects} from '../projects';
+import {pinnedNoteSlugs} from './previews';
+export {pinnedNoteSlugs} from './previews';
 import meta_0 from './about-me/meta';
 import meta_1 from './discord-bot-from-zero/meta';
 import meta_2 from './discord-bot-mod-guide/meta';
@@ -39,12 +41,6 @@ export const featuredNote = notes.find((note) => note.slug === 'ultrasonic-call-
 export function getNote(slug: string) {
   return notes.find((note) => note.slug === slug);
 }
-
-export const pinnedNoteSlugs = [
-  'discord-bot-usage-guide',
-  'discord-bot-mod-guide',
-  'seasonal-night-sky-guide'
-] as const;
 
 export const pinnedNotes = pinnedNoteSlugs.map((slug) => {
   const note = getNote(slug);

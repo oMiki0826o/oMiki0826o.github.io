@@ -1,0 +1,242 @@
+/* Styles previously shared with Lab; preserved from main without restyling. */
+.lost-page {
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 32px;
+  text-align: center;
+  background: linear-gradient(145deg,var(--bg-a),var(--bg-b) 55%,var(--bg-c));
+  color: var(--text);
+}
+
+.lost-page>*:not(.lost-stars) {
+  position: relative;
+  z-index: 1;
+}
+
+.lost-code {
+  margin: 0;
+  color: var(--blue);
+  font: 800 clamp(6rem,24vw,12rem)/.8 var(--en);
+  letter-spacing: -.1em;
+}
+
+.lost-page h1 {
+  margin: 16px 0 0;
+  color: var(--blue-text);
+  font: 700 1.35rem var(--jp);
+}
+
+.lost-page p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .82rem;
+}
+
+.lost-page a {
+  margin-top: 16px;
+  color: var(--blue-text);
+  font: 700 .72rem var(--en);
+  text-decoration: none;
+}
+
+.lost-page a:hover {
+  text-decoration: underline;
+  text-underline-offset: .25em;
+}
+
+.lost-page small {
+  margin-top: 34px;
+  color: var(--faint);
+  font: 600 .6rem var(--en);
+  letter-spacing: .08em;
+}
+
+.lost-stars {
+  position: absolute;
+  inset: 0;
+}
+
+.lost-stars i {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 14px 3px rgba(182,222,124,.35);
+  animation: lost-drift 2.8s ease-in-out infinite alternate;
+}
+
+.lost-stars i:nth-child(1) {
+  left: 18%;
+  top: 30%;
+}
+
+.lost-stars i:nth-child(2) {
+  right: 22%;
+  top: 22%;
+  animation-delay: -1.1s;
+}
+
+.lost-stars i:nth-child(3) {
+  right: 15%;
+  bottom: 23%;
+  animation-delay: -1.8s;
+}
+
+@keyframes lost-drift {
+  to {
+    transform: translateY(-14px);
+    opacity: .28;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+.lost-stars i {
+    animation: none;
+  }
+}
+
+.lost-page {
+  background: linear-gradient(145deg,var(--bg-a),var(--bg-b) 55%,var(--bg-c));
+}
+
+.project-detail {
+  max-width: 620px;
+}
+
+.project-detail-cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 5/3;
+  object-fit: cover;
+  border-radius: 12px;
+  filter: saturate(.82) brightness(1.03);
+  margin: 0 0 18px;
+}
+
+.project-detail-tags {
+  color: var(--orange-text);
+  font: 700 .6rem var(--en);
+  letter-spacing: .05em;
+}
+
+.project-detail section {
+  margin-top: 34px;
+}
+
+.project-detail h2 {
+  margin: 0 0 8px;
+  color: var(--blue-text);
+  font: 700 1rem var(--jp);
+}
+
+.project-detail p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .84rem;
+  line-height: 1.9;
+}
+
+.project-detail-link {
+  display: inline-block;
+  margin-top: 34px;
+  color: var(--blue-text);
+  font: 700 .72rem var(--en);
+  text-decoration: none;
+}
+
+.project-detail-link:hover {
+  text-decoration: underline;
+  text-underline-offset: .24em;
+}
+
+.note-toc {
+  display: grid;
+  gap: 6px;
+  margin: 0 0 34px;
+  padding: 14px 16px;
+  border-left: 2px solid var(--green);
+  background: rgba(177,212,241,.08);
+}
+
+.note-toc span {
+  margin-bottom: 3px;
+  color: var(--orange-text);
+  font: 700 .6rem var(--en);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.note-toc a {
+  color: var(--muted);
+  font: 600 .72rem var(--jp);
+  text-decoration: none;
+}
+
+.note-toc a:hover {
+  color: var(--blue-text);
+}
+
+@supports (animation-timeline:view()) {
+.timeline-reveal {
+    opacity: 0;
+    animation: timeline-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 8% exit 96%;
+  }
+
+@keyframes timeline-reveal {
+    0% {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    18%,76% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: .28;
+      transform: translateY(-10px);
+    }
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+.timeline-reveal {
+    opacity: 1 !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+.project-detail-links a:focus-visible {outline: 2px solid var(--blue-text); outline-offset: 4px;}
+
+/* Preserve the original Works cards while showing full-width repository screenshots. */
+.project-cover {
+  aspect-ratio: 2 / 1;
+}
+.project-cover::before {
+  padding-top: 50%;
+}
+.project-cover img {
+  object-fit: contain;
+  object-position: center;
+}
+.project-detail-cover {
+  object-fit: contain;
+  background: var(--white);
+}
+
+/* Works collection: scale complete screenshots within the existing card, never crop them. */
+.works-group .page-project-cover {
+  aspect-ratio: 2 / 1;
+}
+.works-group .page-project-cover img {
+  object-fit: contain;
+  object-position: center;
+}

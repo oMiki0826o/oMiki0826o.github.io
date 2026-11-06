@@ -1,7 +1,8 @@
-import type {Metadata} from 'next';
 import {locales, type Locale} from '@/i18n/config';
 
 export const siteUrl = 'https://omiki0826o.github.io';
+
+export type Metadata = {title: string; description: string; alternates: {canonical: string; languages: Record<string, string>}};
 
 type MetadataInput = {
   locale: Locale;
