@@ -3,5 +3,5 @@
   "framework": "astro",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "installCommand": "npm install --no-audit --no-fund"
+  "installCommand": "npm ci --no-audit --no-fund"
 }

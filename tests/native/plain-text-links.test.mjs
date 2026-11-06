@@ -31,3 +31,11 @@ test('public README reflects Astro stack, actual output and current Works count'
   assert.match(readme, /dist\//);
   assert.doesNotMatch(readme, /Next\.js 16|Next\.js 16|out\//);
 });
+
+test('Vercel builds Astro from the same locked dependencies as GitHub Actions', () => {
+  const config = JSON.parse(read('vercel.json'));
+  assert.equal(config.framework, 'astro');
+  assert.equal(config.outputDirectory, 'dist');
+  assert.equal(config.buildCommand, 'npm run build');
+  assert.match(config.installCommand, /^npm ci\b/);
+});
