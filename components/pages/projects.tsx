@@ -33,8 +33,8 @@ export function ProjectsPage({locale}: {locale: Locale}) {
                   <p>{localize(project.description, locale)}</p>
                   <div className="page-project-actions">
                     <Link className="project-action-primary" href={localizedPath(locale, `/projects/${project.slug}`)}>{links.detail} →</Link>
-                    {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">{links.demo} ↗</a>}
-                    <a href={project.url} target="_blank" rel="noopener noreferrer">{links.source} ↗</a>
+                    {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">{links.demo} →</a>}
+                    <a href={project.url} target="_blank" rel="noopener noreferrer">{links.source} →</a>
                   </div>
                 </div>
               </article>

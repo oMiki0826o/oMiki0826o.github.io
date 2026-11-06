@@ -16,15 +16,15 @@ Miki 的個人網站，收錄作品、文章、研究筆記與一路整理留下
 ### 功能
 
 - 首頁、About、Works、Notes、Timeline
-- 九個作品的獨立介紹頁，以及 GitHub／Demo 連結
+- 12 個作品的獨立介紹頁，以及 GitHub／Demo 連結
 - StructMark `.sm` 文章、目錄、閱讀進度、相關文章與 RSS
 - 深淺主題、響應式版面與低干擾的螢火蟲互動
 - `/ripmiki/`：獨立的紀念彩蛋頁
 
 ### 技術
 
-- Next.js 16、React 19、TypeScript
-- App Router、Static Export、GitHub Pages
+- Astro 6、React 19（互動元件）、TypeScript
+- Astro 檔案路由、靜態輸出、GitHub Pages／Vercel
 - Vitest、Node.js native tests、Playwright
 - StructMark V1.1：文章解析、AST 驗證與 HTML 渲染
 
@@ -37,7 +37,7 @@ npm ci
 npm run dev
 ```
 
-開發伺服器預設位於 `http://localhost:3000`。
+開發伺服器預設位於 `http://localhost:4321`。
 
 ### 使用與驗證
 
@@ -60,13 +60,13 @@ npm run test:e2e
 npm run validate
 ```
 
-建置結果輸出到 `out/`。預覽靜態輸出：
+建置結果輸出到 `dist/`。預覽靜態輸出：
 
 ```bash
 npm run preview
 ```
 
-GitHub Actions 會在 Pull Request 與 `main` push 執行驗證；只有 `main` 的完整關卡通過後，才會部署 `out/` 到 GitHub Pages。
+GitHub Actions 會在 Pull Request 與 `main` push 執行驗證；只有 `main` 的完整關卡通過後，才會部署 `dist/` 到 GitHub Pages。
 
 ### 內容維護
 
@@ -110,15 +110,15 @@ Live site: [omiki0826o.github.io](https://omiki0826o.github.io/)
 ### Features
 
 - Home, About, Works, Notes and Timeline sections
-- Nine projects with dedicated detail pages and GitHub or demo links
+- 12 projects with dedicated detail pages and GitHub or demo links
 - StructMark `.sm` articles with tables of contents, reading progress, related notes and RSS
 - Light and dark themes, responsive layouts and a restrained firefly interaction
 - `/ripmiki/`, an independent memorial easter-egg page
 
 ### Technology
 
-- Next.js 16, React 19 and TypeScript
-- App Router, static export and GitHub Pages
+- Astro 6, React 19 (interactive islands) and TypeScript
+- Astro file-based routing, static export, GitHub Pages and Vercel
 - Vitest, native Node.js tests and Playwright
 - StructMark V1.1 for article parsing, AST validation and HTML rendering
 
@@ -154,13 +154,13 @@ Or run both stages with:
 npm run validate
 ```
 
-The static export is written to `out/`. Preview it with:
+The static export is written to `dist/`. Preview it with:
 
 ```bash
 npm run preview
 ```
 
-GitHub Actions runs the validation on pull requests and pushes to `main`; `out/` is deployed to GitHub Pages only after the complete `main` workflow passes.
+GitHub Actions runs the validation on pull requests and pushes to `main`; `dist/` is deployed to GitHub Pages only after the complete `main` workflow passes.
 
 ### Content maintenance
 
